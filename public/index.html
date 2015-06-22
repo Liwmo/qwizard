@@ -14,6 +14,20 @@
     @import url(http://fonts.googleapis.com/css?family=Signika:300,600);
     @import url(http://fonts.googleapis.com/css?family=Dosis:200,300,500);
 
+    /*Convenience Classes */
+    .shadow {
+      box-shadow: 0px 0px 5px 1px #333;
+    }
+
+    .flex {
+      flex-grow: 1;
+    }
+
+    .logo {
+      height:1em;
+      color:#FFF;
+    }
+
     * {
       box-sizing: border-box;
     } 
@@ -39,24 +53,31 @@
       color: #fff;
       background: #17A587;
       height: 2em;
-      box-shadow: 0px 0px 5px 1px #333;
       overflow: hidden;
-    }
-
-    .flex {
-      flex-grow: 1;
     }
 
     #navbar .button {
       padding:.25em;
       background:#333;
     }
+
+    /*Area for content Note: this will only scroll up+down, never left+right */
+    #content {
+      display:block;
+      position:absolute;
+      top:4em;  /*This has to match the navbar height i.e. 2x navbar em height value*/
+      left:0;
+      right:0;
+      bottom:0;
+      overflow-x:hidden;
+      overflow-y:auto;
+    }
   </style>
 </head>
 <body>
-  <div id="navbar">
+  <div class="shadow" id="navbar">
     <!-- Qwizard Logo | space | menu button -->
-    <span>qwizard Logo</span>
+    <img class="logo" src="logo-horizontal.svg" />
     <span class="flex"></span>
     <span class="button">M</span>
   </div>  
@@ -65,7 +86,9 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-  <div ></div>
+  <div id="content">
+    <!-- Angular views go here!! -->
+  </div>
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
