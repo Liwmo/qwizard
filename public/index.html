@@ -67,17 +67,19 @@
     </style>
 </head>
 <body>
-<div id="center">
-    <img src="logo-square-12.svg" width="180">
-    <div style="display: none" id="error">
-        ERROR: Username and/or Password is incorrect. <br><a href="/toobad">Forgot password?</a>
+    <div id="center">
+        <img src="logo-square-12.svg" width="180">
+        <div style="display: none" id="error">
+            ERROR: Username and/or Password is incorrect. <br><a href="/toobad">Forgot password?</a>
+        </div>
+        <form name="login" action="/taker" method="post">
+            <input type="text" placeholder="username" name="username">
+            <input type="password" placeholder="password" name="password">
+            <button id="submit" type="submit">Login</button>
+        </form>
     </div>
-    <input type="text" placeholder="username">
-    <input type="password" placeholder="password">
-    <button id="submit">Login</button>
-</div>
-<!--<a href="/taker">Taker</a>-->
-<!--<a href="/maker">Maker</a>-->
-<!--<a href="/admin">Admin</a>-->
+    <!--<a href="/taker">Taker</a>-->
+    <!--<a href="/maker">Maker</a>-->
+    <!--<a href="/admin">Admin</a>-->
 </body>
 </html>
