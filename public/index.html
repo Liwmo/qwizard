@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Qwizard</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="normalize.css">
+  <style>
+    @import url(http://fonts.googleapis.com/css?family=Signika:300,600);
+    @import url(http://fonts.googleapis.com/css?family=Dosis:200,300,500);
+
+    * {
+      box-sizing: border-box;
+    } 
+
+    body {
+      position:absolute;
+      top:0;
+      left:0;
+      margin: 0;
+      padding:0;
+      height:100%;
+      width:100%;
+    }
+
+    #navbar {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      padding:.75em;
+      font-family:"Signika";
+      font-weight:600;
+      font-size: 2em;
+      color: #fff;
+      background: #17A587;
+      height: 2em;
+      box-shadow: 0px 0px 5px 1px #333;
+      overflow: hidden;
+    }
+
+    .flex {
+      flex-grow: 1;
+    }
+
+    #navbar .button {
+      padding:.25em;
+      background:#333;
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar">
+    <!-- Qwizard Logo | space | menu button -->
+    <span>qwizard Logo</span>
+    <span class="flex"></span>
+    <span class="button">M</span>
+  </div>  
+
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+  <div ></div>
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+  <script src="angular.min.js"></script>
+</body>
+</html>
