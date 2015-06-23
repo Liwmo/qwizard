@@ -4,11 +4,11 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
     $routeProvider
         .when("/", {
             controller: "dashboard",
-            templateUrl: "taker/views/dashboard.html"
+            templateUrl: "views/dashboard.html"
         })
         .when("/quiz/", {
             controller: "quiz",
-            templateUrl: "taker/views/quiz.html"
+            templateUrl: "views/quiz.html"
         })
         .otherwise("/");
 }]);

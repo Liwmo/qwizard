@@ -1,0 +1,25 @@
+{
+  "name": "taker",
+  "version": "1.0.0",
+  "description": "The NPM file for unit testing dependencies",
+  "main": "index.html",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "karma start"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bower": "^1.4.1",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.12.36",
+    "karma-chrome-launcher": "^0.1.12",
+    "karma-cli": "0.0.4",
+    "karma-jasmine": "^0.3.5"
+  },
+  "devDependencies": {
+    "karma-firefox-launcher": "^0.1.6"
+  }
+}
