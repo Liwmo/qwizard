@@ -1,0 +1,15 @@
+<style>
+    button{
+        border: none;
+        background: teal;
+        color: white;
+    }
+    .selected{
+        background: #333;
+    }
+</style>
+
+<div>{{text}}</div>
+<div ng-controller="quiz" ng-repeat="answer in questions.answers">
+    <button ng-click="mc(answer)" ng-class="{selected: selected===true}">{{answer}}</button>
+</div>
