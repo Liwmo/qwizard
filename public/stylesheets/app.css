@@ -63,7 +63,8 @@ body {
 }
 
 #navbar .button {
-    padding:.25em;
+    padding: .15em;
+    height: 1em;
 }
 
 .notification {
