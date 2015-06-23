@@ -3,12 +3,6 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Qwizard</title>
-    <script src="../angular/angular.min.js"></script>
-    <script src="../angular/angular-route.min.js"></script>
-    <script src="/taker/app.js"></script>
-    <script src="/taker/controllers/dashboard.js"></script>
-    <script src="/taker/controllers/quiz.js"></script>
-    <script src="/taker/directives/question.js"></script>
 <!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
@@ -18,8 +12,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="../normalize.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/app.css">
+  <script src="../angular/angular.min.js"></script>
+  <script src="../angular/angular-route.min.js"></script>
+  <script src="/taker/app.js"></script>
+  <script src="/taker/controllers/dashboard.js"></script>
+  <script src="/taker/controllers/quiz.js"></script>
+  <script src="/taker/directives/question.js"></script>
 </head>
-<body>
+<body ng-app="app">
   <div class="shadow teal-dark" id="navbar">
     <img class="logo" src="../images/logo-horizontal.svg"/>
     <span class="flex"></span>
@@ -33,7 +33,6 @@
   <div id="content">
     <ng-view></ng-view>
   </div>
-
-  <script src="../javascripts/angular.js"></script>
+  
 </body>
 </html>
