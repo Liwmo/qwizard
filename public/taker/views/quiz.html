@@ -3,15 +3,20 @@
         <div>{{name}}</div>
         <div class="subtext">{{currentQuestion + 1}} of {{questions.length}}</div>
     </div>
-    <div ng-repeat="question in questions">
-        <question ng-show="$index == currentQuestion" 
+    <div class="center">
+        <div ng-repeat="question in questions" class="answer">
+            <question ng-show="$index == currentQuestion" 
                   text="question.text"
+                  title="question.name"
                   answers="question.answers"
                   type="question.type"
                   selected="question.selected"></question>
+        </div>
+        <div class="answer">
+            <button ng-click="prev()" ng-class="{hidden: !currentQuestion}" class="plum-dark nav-btn left shadow">Previous</button>
+            <button ng-click="next()" ng-class="{hidden: currentQuestion == questions.length - 1}" class="plum-dark nav-btn right shadow">Next</button>
+        </div>
     </div>
-    <button ng-click="prev()" ng-show="currentQuestion">Previous</button>
-    <button ng-click="next()" ng-show="currentQuestion < questions.length - 1">Next</button>
 </div>
 <style>
     @import url(http://fonts.googleapis.com/css?family=Signika:300,600);
