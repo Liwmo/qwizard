@@ -61,7 +61,8 @@ body {
 }
 
 #navbar .button {
-    padding:.25em;
+    padding: .15em;
+    height: 1em;
 }
 
 /*Area for content Note: this will only scroll up+down, never left+right */
