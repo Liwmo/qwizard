@@ -40,4 +40,13 @@ describe('Question Directive', function() {
         el.triggerHandler('click');
         expect($scope.selected).toBe(true);
     }));
+
+    it('scope.type is templated correctly when mc', inject(function($controller) {
+        $scope.type = "mc";
+        $scope.$digest();
+        expect(element.children()[3].children.length).toBe(3);
+        expect(element.children()[3].children[0].innerHTML.innerHTML).toBe("pizza");
+        expect(element.children()[3].children[1].innerHTML.innerHTML).toBe("sushi");
+        expect(element.children()[3].children[2].innerHTML.innerHTML).toBe("taco");
+    }));
 });
