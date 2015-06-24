@@ -96,6 +96,7 @@ body {
 }
 
 #navbar {
+    position:relative;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
@@ -106,12 +107,27 @@ body {
     color: #fffff5;
     height: 2em;
     overflow: hidden;
+    z-index:2;
 }
 
 #navbar .button {
     padding: .15em;
     height: 1em;
 }
+
+.notification {
+    display:flex;
+    height:3em;
+    padding:.55em;
+    font-family: "Dosis";
+    font-weight:300;
+}
+.notification .close {
+    font-size:1.25em;
+    cursor:pointer;
+    font-weight:600;
+}
+
 
 /*Area for content Note: this will only scroll up+down, never left+right */
 #content {

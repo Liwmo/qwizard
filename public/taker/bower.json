@@ -1,0 +1,21 @@
+{
+  "name": "taker",
+  "version": "0.0.0",
+  "authors": [
+    "intern <intern@asynchrony.com>"
+  ],
+  "description": "Bower file for unit testing",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.1",
+    "angular-route": "~1.4.1",
+    "angular-mocks": "~1.4.1"
+  }
+}

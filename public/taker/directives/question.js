@@ -10,9 +10,12 @@ app.directive("question", function(){
 		},
 		templateUrl: '/taker/directives/templates/question.html',
 		link: function(scope, elem, attrs){
-			scope.tf = function(c){
-				scope.selected = c;
+			scope.tf = function(answer){
+				scope.selected = answer;
 			};
+
+			scope.mc = scope.tf;
+
 			scope.getType = function(){
 				return '/taker/directives/templates/' + scope.type + '.html';
 			}
