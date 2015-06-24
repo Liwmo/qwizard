@@ -2,8 +2,29 @@
 @import url(http://fonts.googleapis.com/css?family=Dosis:200,300,500);
 
 /*Convenience Classes */
-.shadow {
-    box-shadow: 0px 0px 5px 1px #333;
+.left{
+    float: left;
+}
+
+.right{
+    float: right;
+}
+
+.tl{
+    text-align: left;
+}
+
+.tr{
+    text-align: right;
+}
+
+.flex-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.shadow{
+    box-shadow: 1px 1px 2px rgba(73,73,73,.4);
 }
 
 .flex {
@@ -13,6 +34,23 @@
 .logo {
     height:1em;
     color:#FFFFF5;
+}
+
+.hidden{
+    opacity:0;
+    pointer-events:none;
+}
+
+.center{
+    text-align: center;
+    width: 100%;
+}
+
+.button {
+    font-family: "Dosis";
+    text-align: center;
+    padding:.5em 0;
+    color: white;
 }
 
 /* Primary Teal */
@@ -91,4 +129,64 @@ body {
     bottom:0;
     overflow-x:hidden;
     overflow-y:auto;
+    font-family: "Dosis";
+}
+
+button{
+    border: none;
+    outline: none;
+    color: white;
+    padding: 0.5em;
+    margin: 0.2em auto;
+}
+
+.answer{
+    position: relative;
+    left: .5em;
+    right: .5em;
+    margin: 0.2em auto;
+    max-width: 720px;
+    min-width: 18em;
+}
+
+hr{
+    margin: 0;
+    border: none;
+    height: .15em;
+}
+
+.question{
+    position: relative;
+    border-top: .4em solid #ac7ea6;
+    padding: 1em .5em;
+    margin:0 auto;
+    max-width:45em;
+    min-width:20em;
+}
+
+.quiz-navigation {
+    margin:0 auto;
+    margin-top:.5em;
+    max-width: 45em;
+    min-width:20em;
+}
+.quiz-navigation .button:nth-child(odd) {
+    margin-right: .25em;
+}
+.quiz-navigation .button:nth-child(even) {
+    margin-left: .25em;
+}
+
+
+.question .button {
+    font-family: "Dosis";
+    text-align: center;
+    padding:.5em 0;
+    color: white;
+    min-width: 12.5em;
+    margin:.25em;
+}
+
+.quiz_cont {
+    padding:.5em;
 }

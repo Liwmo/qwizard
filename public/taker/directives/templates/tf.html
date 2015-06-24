@@ -1,14 +1,3 @@
-<style>
-button{
-	border: none;
-	background: teal;
-	color: white;
-}
-.selected{
-	background: #333;
-}
-</style>
+<span class="teal-medium shadow flex button" ng-click="tf(true)" ng-class="{'purple-medium': selected}">True</span>
+<span class="teal-medium shadow flex button" ng-click="tf(false)" ng-class="{'purple-medium': selected===false}">False</span>
 
-<div>{{text}}</div>
-<button ng-click="tf(true)" ng-class="{selected: selected===true}">True</button>
-<button ng-click="tf(false)" ng-class="{selected: selected===false}">False</button>

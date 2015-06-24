@@ -6,8 +6,9 @@ app.directive("question", function(){
 			answers: '=',
 			selected: '=',
 			type: '=',
+			name: '='
 		},
-		template: '<div ng-include="getType()"></div>',
+		templateUrl: '/taker/directives/templates/question.html',
 		link: function(scope, elem, attrs){
 			scope.tf = function(answer){
 				scope.selected = answer;
