@@ -5,40 +5,34 @@
 <!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
-
-
 <head lang="en-us">
+  <meta charset="UTF-8">
   <title>Qwizard</title>
   <script src="../angular/angular.min.js"></script>
   <script src="../angular/angular-route.min.js"></script>
   <script src="/taker/app.js"></script>
-  <script src="../taker/directives/quizNotification.js"></script>
   <script src="/taker/controllers/dashboard.js"></script>
   <script src="/taker/controllers/quiz.js"></script>
   <script src="/taker/directives/question.js"></script>
-  <meta charset="utf-8">
+  <script src="../taker/directives/quizNotification.js"></script>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="../normalize.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/app.css">
-
 </head>
 <body ng-app="app">
-  <div class="shadow teal-dark" id="navbar">
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
+  <div class="shadow teal-dark" id="navbar">
     <img class="logo" src="../images/logo-horizontal.svg"/>
     <span class="flex"></span>
     <img class="button" src="../images/icon-menu.svg"/>
   </div>
 
   <div id="content">
-    <quiz-notification></quiz-notification>
-    <ng-view>
-    </ng-view>
+    <ng-view></ng-view>
   </div>
-  
 </body>
 </html>
