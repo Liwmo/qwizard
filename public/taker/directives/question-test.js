@@ -33,4 +33,11 @@ describe('Question Directive', function() {
         expect(element.children()[3].children[0].innerHTML).toBe("True");
         expect(element.children()[3].children[1].innerHTML).toBe("False");
     }));
+
+    it('scope.selected should update when true is clicked', inject(function($controller){
+        expect($scope.selected).toBe(null);
+        var el = angular.element(element.children()[3].children[0]);
+        el.triggerHandler('click');
+        expect($scope.selected).toBe(true);
+    }));
 });
