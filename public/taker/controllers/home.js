@@ -1,13 +1,18 @@
 app.controller('home', function($scope) {
     $scope.greeting = "Hello World";
-});
 
-app.directive("specialInput", function(){
-    return {
-        restrict: 'E',
-        scope: {
-            default: '='
+    $scope.availableQuizzes = [
+        {
+            quizName: "Quiz 1",
+            quizID: 1
         },
-        template: "<input type='text' ng-model='default'>"
-    };
+        {
+            quizName: "Quiz 2",
+            quizID: 2
+        },
+        {
+            quizName: "Quiz 3",
+            quizID: 3
+        }
+    ];
 });

@@ -1,0 +1,30 @@
+<div ng-controller="quiz">
+    <div id="quiz_header">
+        <div>{{name}}</div>
+        <div class="subtext">{{currentQuestion + 1}} of {{questions.length}}</div>
+    </div>
+    <div ng-repeat="question in questions">
+        <question ng-show="$index == currentQuestion" 
+                  text="question.text"
+                  answers="question.answers"
+                  type="question.type"
+                  selected="question.selected"></question>
+    </div>
+    <button ng-click="prev()" ng-show="currentQuestion">Previous</button>
+    <button ng-click="next()" ng-show="currentQuestion < questions.length - 1">Next</button>
+</div>
+<style>
+    #quiz_header {
+        font-family:"Signika";
+        width: 100%;
+        background-color: #5dc0ab;
+        height: 3em;
+        color:white;
+        padding:.5em;
+        font-weight:600;
+    }
+    .subtext {
+        font-size:.8em;
+        font-weight:300;
+    }
+</style>
