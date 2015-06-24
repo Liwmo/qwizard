@@ -3,10 +3,10 @@ var app = angular.module("app", ["ngRoute"]);
 app.config(["$routeProvider", "$locationProvider", function($routeProvider, $locationProvider){
     $routeProvider
         .when("/", {
-            controller: "home",
-            templateUrl: "views/home.html"
+            controller: "dashboard",
+            templateUrl: "views/dashboard.html"
         })
-        .when("/quiz/:quiz", {
+        .when("/quiz/", {
             controller: "quiz",
             templateUrl: "views/quiz.html"
         })

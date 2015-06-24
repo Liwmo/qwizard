@@ -1,1 +1,3 @@
-<quiz-notification quiz-name="quiz.quizName" quiz-id="quiz.quizID" ng-repeat="quiz in availableQuizzes"></quiz-notification>
+<div ng-repeat="quiz in availableQuizzes">
+    <quiz-notification is-even="$even" quiz-name="quiz.quizName" quiz-id="quiz.quizID"></quiz-notification>
+</div>

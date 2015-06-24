@@ -3,11 +3,13 @@ app.directive("quizNotification", function() {
        restrict: 'E',
        scope: {
            quizName: '=',
-           quizID: '='
+           quizID: '=',
+           isEven: '='
        },
        link: function(scope, elem, attr){
            scope.isClosed = false;
-           scope.hide = function() {
+           scope.hide = function($event) {
+               $event.preventDefault();
                this.isClosed = true;
            }
        },

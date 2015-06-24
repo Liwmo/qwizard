@@ -1,4 +1,4 @@
-app.controller('home', function($scope) {
+app.controller('dashboard', function($scope) {
     $scope.greeting = "Hello World";
 
     $scope.availableQuizzes = [
