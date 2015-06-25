@@ -1,4 +1,4 @@
-app.controller('quiz', function($scope) {
+app.controller('quiz', ["$scope", "quizFetcher", function($scope, quizFetcher) {
     $scope.name = "WWT Quiz";
     
     $scope.questions = [
@@ -16,4 +16,13 @@ app.controller('quiz', function($scope) {
     $scope.prev = function(){
     	$scope.currentQuestion--;
     };
-});
+
+    quizFetcher.getQuiz(null, function(data){
+        console.log(data);
+        $scope.name = data.title;
+        $scope.questions = data.questions;
+        for(var i = 0; i < $scope.questions.length; i++){
+            $scope.questions[i].selected = null;
+        }
+    });
+}]);

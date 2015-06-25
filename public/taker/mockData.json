@@ -37,7 +37,6 @@
 			"text": "Annual profit sharing is based on:",
 			"answers": ["Annual Net Income","Entire Base Payroll","Individual Salary","All of these"]
 		},
-		//BREAK
 		{
 			"name": "Policies",
 			"type": "tf",
@@ -51,13 +50,13 @@
 			"answers": [
 				"Requests for sexual acts or favors",
 				"Verbal or physical conduct of sexual nature",
-				"Telling your signifcant other that you love them on company premises"
+				"Telling your significant other that you love them on company premises"
 			]
 		},
 		{
 			"name": "Policies",
 			"type": "tf",
-			"text": "WWT considers flip flops to be appropriate office attire?",
+			"text": "WWT considers flip flops to be appropriate office attire.",
 			"answers": []
 		},
 		{
@@ -72,7 +71,6 @@
 			"text": "Having any form of weapon on company property (including parking lots) is grounds for termination",
 			"answers": []
 		},
-		//BREAK
 		{
 			"name": "Naming Executives",
 			"type": "mc",
@@ -91,7 +89,6 @@
 			"text": "Who shouldn’t you go to in order to get Advertising expenses pre-approved?",
 			"answers": ["Bob Owling","Joe Koenig","Dave Elfanbaum"]
 		},
-		//BREAK
 		{
 			"name": "WWT Principles",
 			"type": "mc",
@@ -116,7 +113,6 @@
 			"text": "Which of the following is not a quality objective?",
 			"answers": ["September", "October", "November", "December"]
 		},
-		//BREAK
 		{
 			"name": "Time Out",
 			"type": "mc",
@@ -144,14 +140,14 @@
 		{
 			"name": "Time Out",
 			"type": "mc",
-			"text": "How many days off are granted for Thanskgiving?",
+			"text": "How many days off are granted for Thanksgiving?",
 			"answers": ["1", "2", "3", "none"]
 		},
 		{
 			"name": "Time Out",
 			"type": "mc",
 			"text": "Which of the following is not a paid holiday?",
-			"answers": ["Memorial Day", "Indipendence Day", "Labor Day", "St. Patrick's Day"]
+			"answers": ["Memorial Day", "Independence Day", "Labor Day", "St. Patrick's Day"]
 		},
 		{
 			"name": "Time Out",
@@ -166,12 +162,10 @@
 				"answers": [
 					"Sick Leave = 6 weeks",
 					"Jury Duty = 15 days",
-					"Maternity Leave = 6 weeks",
 					"Paternity Leave = 5 days",
 					"Adoption Leave = 3 weeks"
 				]
 		},
-		//BREAK
 		{
 			"name": "Miscellaneous",
 			"type": "mc",
