@@ -68,6 +68,10 @@
     pointer-events:none;
 }
 
+.remove {
+    display: none;
+}
+
 .center{
     text-align: center;
     width: 100%;
