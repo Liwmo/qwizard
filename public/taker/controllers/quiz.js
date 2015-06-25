@@ -1,4 +1,4 @@
-app.controller('quiz', function($scope) {
+app.controller('quiz', function($scope, $location) {
     $scope.name = "WWT Quiz";
     
     $scope.questions = [
@@ -17,4 +17,8 @@ app.controller('quiz', function($scope) {
     $scope.prev = function(){
     	$scope.currentQuestion--;
     };
+
+    $scope.submit = function() {
+        $location.path('dashboard');
+    }
 });
