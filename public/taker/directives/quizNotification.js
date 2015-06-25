@@ -2,9 +2,9 @@ app.directive("quizNotification", function() {
    return {
        restrict: 'E',
        scope: {
-           quizName: '=',
-           quizID: '=',
-           isEven: '='
+           isEven: '=',
+           notificationDest: '=',
+           notificationText: '='
        },
        link: function(scope, elem, attr){
            scope.isClosed = false;
@@ -16,3 +16,4 @@ app.directive("quizNotification", function() {
        templateUrl: '/taker/directives/templates/quizNotification.html'
    };
 });
+ 

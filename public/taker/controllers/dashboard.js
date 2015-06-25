@@ -1,18 +1,15 @@
 app.controller('dashboard', function($scope) {
     $scope.greeting = "Hello World";
 
-    $scope.availableQuizzes = [
+    $scope.notifications = [
         {
-            quizName: "Quiz 1",
-            quizID: 1
+            text: "Quiz 235 is ready to take.",
+            dest: "#/quiz"
         },
         {
-            quizName: "Quiz 2",
-            quizID: 2
-        },
-        {
-            quizName: "Quiz 3",
-            quizID: 3
+            text: "Results for Quiz 234 have been released. View now >>",
+            dest: "#/results"
         }
     ];
+    
 });
