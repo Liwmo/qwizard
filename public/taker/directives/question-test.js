@@ -21,6 +21,7 @@ describe('Question Directive', function() {
     }));
 
     it('scope.name is passed in properly', inject(function($controller) {
+        console.log(element.children());
         expect(element.children()[0].innerHTML).toBe($scope.name);
     }));
 
