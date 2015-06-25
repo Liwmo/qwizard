@@ -33,7 +33,13 @@
 }
 
 .flex-container{
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
+
+    -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
 }
 
@@ -42,7 +48,11 @@
 }
 
 .flex {
-    flex-grow: 1;
+    -webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
+    -moz-box-flex: 1;         /* OLD - Firefox 19- */
+    -webkit-flex: 1;          /* Chrome */
+    -ms-flex: 1;              /* IE 10 */
+    flex: 1;
 }
 
 .logo {
@@ -102,10 +112,10 @@ body {
 
 #navbar {
     position:relative;
-    display: flex;
     flex-wrap: nowrap;
+    -webkit-align-items: center;
     align-items: center;
-    padding:.75em;
+    padding:0 .75em;
     font-family:"Signika";
     font-weight:600;
     font-size: 2em;
@@ -121,7 +131,6 @@ body {
 }
 
 .notification {
-    display:flex;
     height:3em;
     padding:.55em;
     font-family: "Dosis";
@@ -146,6 +155,9 @@ body {
     overflow-y:auto;
     font-family: "Dosis";
 }
+.quiz_cont {
+    padding:.5em;
+}
 
 #quiz_header {
     font-family:"Signika";
@@ -158,17 +170,8 @@ body {
     font-size: 1.3em;
 }
 
-.answer{
-    position: relative;
-    left: .5em;
-    right: .5em;
-    margin: 0.2em auto;
-    max-width: 720px;
-    min-width: 18em;
-}
-
 hr{
-    margin: 0;
+    margin: .25em 0;
     border: none;
     height: .15em;
 }
@@ -202,9 +205,5 @@ hr{
     padding:.5em 0;
     color: white;
     min-width: 12.5em;
-    margin:.25em;
-}
-
-.quiz_cont {
-    padding:.5em;
+    margin:.25em 0;
 }
