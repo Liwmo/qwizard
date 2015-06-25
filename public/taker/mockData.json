@@ -93,25 +93,35 @@
 			"name": "WWT Principles",
 			"type": "mc",
 			"text": "What is the company’s core values acronym?",
-			"answers": ["September", "October", "November", "December"]
+			"answers": ["The Oath", "The Path", "The Way", "The Truth"]
 		},
 		{
 			"name": "WWT Principles",
 			"type": "mc",
 			"text": "Which of the following is not part of THE PATH?",
-			"answers": ["September", "October", "November", "December"]
-		},
-		{
-			"name": "WWT Principles",
-			"type": "mc",
-			"text": "Which of the following is not a qualify objective?",
-			"answers": ["September", "October", "November", "December"]
+			"answers": ["Team Player", "Trust", "Passion", "Health"]
 		},
 		{
 			"name": "WWT Principles",
 			"type": "mc",
 			"text": "Which of the following is not a quality objective?",
-			"answers": ["September", "October", "November", "December"]
+			"answers": [
+				"Increase customer satisfaction",
+				"Reduce cycle times",
+				"Increase on-time delivery of products and services", 
+				"Create the perfect program"
+			]
+		},
+		{
+			"name": "WWT Principles",
+			"type": "mc",
+			"text": "Which of the following is not a quality objective?",
+			"answers": [
+				"Increase customer satisfaction",
+				"Reduce cycle times",
+				"Reduce nonconformance customer issues and reworks", 
+				"Increase employee satisfaction"
+			]
 		},
 		{
 			"name": "Time Out",

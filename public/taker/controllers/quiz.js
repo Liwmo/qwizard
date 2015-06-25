@@ -21,9 +21,11 @@ app.controller('quiz', ["$scope", "quizFetcher", function($scope, quizFetcher) {
     quizFetcher.getQuiz(null, function(data){
         console.log(data);
         $scope.name = data.title;
-        $scope.questions = data.questions;
-        for(var i = 0; i < $scope.questions.length; i++){
-            $scope.questions[i].selected = null;
+        for(var i = 0; i < data.questions.length; i++){
+            data.questions[i].selected = null;
         }
+        $scope.questions = data.questions;//whole quiz
+        //NOTE: this limits the quiz to 3 questions, one of each type
+        $scope.questions = $scope.questions.slice(5, 8);//3 questions, mc, tf, ms
     });
 }]);
