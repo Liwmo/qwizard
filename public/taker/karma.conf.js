@@ -23,6 +23,7 @@ module.exports = function(config) {
       'views/*.html',
       'directives/templates/*.html',
       'directives/*.js',
+      'factories/*.js',
       '*/*-test.js'
     ],
 
