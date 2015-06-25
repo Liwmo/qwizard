@@ -10,7 +10,7 @@ app.directive("quizNotification", function() {
            scope.isClosed = false;
            scope.hide = function($event) {
                $event.preventDefault();
-               this.isClosed = true;
+               scope.isClosed = true;
            }
        },
        templateUrl: '/taker/directives/templates/quizNotification.html'

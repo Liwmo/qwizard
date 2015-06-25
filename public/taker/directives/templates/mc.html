@@ -1,3 +1,6 @@
-<div ng-controller="quiz" ng-repeat="answer in answers track by $index">
-    <div class="teal-medium shadow flex button noselect" ng-click="mc($index)" ng-class="{'purple-medium': selected===$index}">{{answer}}</div>
-</div>
+<span style="width:100%"
+      class="teal-medium shadow button noselect"
+      ng-click="mc($index)"
+      ng-class="{'purple-medium': selected===$index}"
+      ng-repeat="answer in answers track by $index">{{answer}}</span>
+
