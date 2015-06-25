@@ -16,6 +16,19 @@ app.directive("question", function(){
 
 			scope.mc = scope.tf;
 
+			scope.ms = function(answer){
+				if(!scope.selected){
+					scope.selected = [answer];
+				}else{
+					var index = scope.selected.indexOf(answer);
+					if(index !== -1){
+						scope.selected.splice(index, 1);
+					}else{
+						scope.selected.push(answer);
+					}
+				}
+			};
+
 			scope.getType = function(){
 				return '/taker/directives/templates/' + scope.type + '.html';
 			}
