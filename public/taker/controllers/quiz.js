@@ -1,4 +1,5 @@
-app.controller('quiz', ["$scope", "quizFetcher", function($scope, quizFetcher) {
+app.controller('quiz', ["$scope", "quizFetcher", "$location", function($scope, quizFetcher, $location) {
+
     $scope.name = "WWT Quiz";
     
     $scope.questions = [
@@ -13,10 +14,12 @@ app.controller('quiz', ["$scope", "quizFetcher", function($scope, quizFetcher) {
     $scope.next = function(){
     	$scope.currentQuestion++;
     };
-
     $scope.prev = function(){
     	$scope.currentQuestion--;
     };
+    $scope.submit = function() {
+        $location.path('dashboard');
+    }
 
     quizFetcher.getQuiz(null, function(data){
         console.log(data);
@@ -29,3 +32,4 @@ app.controller('quiz', ["$scope", "quizFetcher", function($scope, quizFetcher) {
         $scope.questions = $scope.questions.slice(3, 10);//3 questions, mc, tf, ms
     });
 }]);
+
