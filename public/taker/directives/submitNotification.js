@@ -7,7 +7,7 @@ app.directive("submitNotification", function() {
            isEven: '='
        },
        link: function(scope, elem, attr){
-           scope.isClosed = false;
+           scope.isClosed = true;
            scope.hide = function($event) {
                $event.preventDefault();
                this.isClosed = true;
