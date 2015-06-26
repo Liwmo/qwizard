@@ -18,11 +18,13 @@ app.controller('quiz', ["$scope", "quizFetcher", "$location", function($scope, q
     	$scope.currentQuestion--;
     };
     $scope.submit = function() {
-        $location.path('dashboard');
+        //TODO: replace empty object with actual answers
+        quizFetcher.postQuiz("dummy_id", {}, function(data){
+            $location.path('/');
+        });
     }
 
-    quizFetcher.getQuiz(null, function(data){
-        console.log(data);
+    quizFetcher.getQuiz("dummy_id", function(data){
         $scope.name = data.title;
         for(var i = 0; i < data.questions.length; i++){
             data.questions[i].selected = null;
