@@ -1,30 +1,32 @@
 describe('Quiz Notifications', function() {
-	var $scope;
+	var notification;
 
-  beforeEach(inject(function($rootScope, $controller) {
-        $scope = $rootScope.$new();
-        $controller('dashboard', {$scope: $scope});
-    }));
-  beforeEach(function(){
-  	$scope.notifications = [
-        {
-            text: "Quiz 235 is ready to take.",
-            dest: "#/quiz"
-        },
-        {
-            text: "Results for Quiz 234 have been released. View now >>",
-            dest: "#/results"
-        }
-    ];
-  });
+  beforeEach(function() {
+  	browser.get('http://localhost:3000/taker');
+  	notification = element(by.tagName('quiz-notification'));
+  })
 
   it('Should display notifications that can redirect the user to a new view', function() {
-    browser.get('http://localhost:3000/taker');
-    element(by.tagName('quiz-notification')).getAttribute("href");
+    expect(notification.getAttribute("href")).toBeDefined();
   });
 
-  it('Should display notifications that can redirect the user to a new view', function() {
-    browser.get('http://localhost:3000/taker');
-    element(by.tagName('quiz-notification')).getAttribute("href");
+  it('Notifications have a close button', function() {
+    expect(notification.element(by.css('close'))).toBeDefined();
   });
+
+  it('Notification close button will apply "ng-hide" class', function() {
+  	notification.element(by.css('.close')).click();
+  	notification.element(by.tagName('a')).getAttribute('class').then(function(str){
+  		expect(str.indexOf("ng-hide") > -1).toBe(true);
+  	});
+  });
+
+  //Note: this assumes a valid notification that will redirect to an existing route
+  it('Notification should redirect the page', function() {
+  	var dashURL = browser.getLocationAbsUrl();
+  	notification.click();
+  	expect(browser.getLocationAbsUrl()).toNotBe(dashURL);
+  });
+
+
 });
