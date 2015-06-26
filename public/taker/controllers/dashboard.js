@@ -1,15 +1,5 @@
-app.controller('dashboard', function($scope) {
+app.controller('dashboard', ['$scope', 'notificationFactory', function($scope, notificationFactory) {
     $scope.greeting = "Hello World";
 
-    $scope.notifications = [
-        {
-            text: "Quiz 235 is ready to take.",
-            dest: "#/quiz"
-        },
-        {
-            text: "Results for Quiz 234 have been released. View now >>",
-            dest: "#/results"
-        }
-    ];
-    
-});
+    $scope.notifications = notificationFactory.getNotifications();
+}]);

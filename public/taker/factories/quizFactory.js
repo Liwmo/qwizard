@@ -1,4 +1,4 @@
-app.factory("quizFetcher", ["$http", function($http){
+app.factory("quizFactory", ["$http", function($http){
 	var self = this;
 
 	self.getQuiz = function(id, callback){
