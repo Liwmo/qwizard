@@ -10,5 +10,9 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
             controller: "quiz",
             templateUrl: "views/quiz.html"
         })
+        .when("/results", {
+            controller: "results",
+            templateUrl: "views/results.html"
+        })
         .otherwise("/");
 }]);
