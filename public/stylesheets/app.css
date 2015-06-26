@@ -220,10 +220,62 @@ hr{
 .leaderboard {
     font-family: "Signika";
     font-weight: 300;
-    font-size: 1.1em;
+    font-size: 1.2em;
+    width: 100%;
+
 }
 
 .leaderboard .rank {
-    text-align: center;
     background: #ddd;
+    text-align: center;
+}
+
+.leaderboard td {
+    padding: .5em;
+}
+
+/*Leaderboard flexbox should be full width*/
+#leaderboard {
+    width:100%;
+}
+
+/*Leaderboard's First Column*/
+#leaderboard > span:first-child {
+    width:3em;
+}
+
+/*Leaderboard's last column*/
+#leaderboard > span:last-child {
+    max-width:5em;
+}
+
+/*Columns children*/
+#leaderboard .row {
+    padding: 1em 0;
+    width: 5em;
+    text-align:center;
+    border-bottom:1px solid #F0EAEF;
+}
+
+/*Children in first column*/
+#leaderboard > span:first-child .row {
+    background-color:#F0EAEF;
+    border-bottom:.1em solid white;
+    width:3em;
+}
+
+/*Last Child in the first column*/
+#leaderboard > span:first-child .row:last-child {
+    border:none;
+}
+
+/*Children in middle column*/
+#leaderboard > span:nth-child(2) .row {
+    width:100%;
+    text-align:left;
+    padding-left:1em;
+}
+/*Last child, middle column*/
+#leaderboard > span:nth-child(2) .row:last-child {
+    border:none;
 }
