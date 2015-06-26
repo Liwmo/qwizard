@@ -1,18 +1,19 @@
-app.directive("quizNotification", function() {
+app.directive("quizNotification", ["notificationFactory", function(notificationFactory) {
    return {
        restrict: 'E',
        scope: {
-           quizName: '=',
-           quizID: '=',
-           isEven: '='
+           isEven: '=',
+           notification: '='
        },
+       
        link: function(scope, elem, attr){
            scope.isClosed = false;
            scope.hide = function($event) {
                $event.preventDefault();
-               scope.isClosed = true;
+               notificationFactory.removeNotification(scope.notification);
            }
        },
        templateUrl: '/taker/directives/templates/quizNotification.html'
    };
-});
+}]);
+ 

@@ -1,4 +1,4 @@
-app.controller('quiz', ["$scope", "quizFetcher", "$location", function($scope, quizFetcher, $location) {
+app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$location", function($scope, quizFactory, notificationFactory, $location) {
 
     $scope.name = "WWT Quiz";
     
@@ -19,12 +19,13 @@ app.controller('quiz', ["$scope", "quizFetcher", "$location", function($scope, q
     };
     $scope.submit = function() {
         //TODO: replace empty object with actual answers
-        quizFetcher.postQuiz("dummy_id", {}, function(data){
+        quizFactory.postQuiz("dummy_id", {}, function(data){
+            notificationFactory.addNotification("Thanks for taking the WWT Employee Handbook quiz! Your results will be ready soon!", "");
             $location.path('/');
         });
-    }
+    };
 
-    quizFetcher.getQuiz("dummy_id", function(data){
+    quizFactory.getQuiz("dummy_id", function(data){
         $scope.name = data.title;
         for(var i = 0; i < data.questions.length; i++){
             data.questions[i].selected = null;
@@ -33,5 +34,7 @@ app.controller('quiz', ["$scope", "quizFetcher", "$location", function($scope, q
         //NOTE: this limits the quiz to 3 questions, one of each type
         $scope.questions = $scope.questions.slice(3, 10);//3 questions, mc, tf, ms
     });
+
+
 }]);
 

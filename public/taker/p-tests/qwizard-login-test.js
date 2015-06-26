@@ -6,7 +6,6 @@ describe('Qwizard Homepage', function() {
 
   	
     browser.get('http://localhost:3000/');
-    console.log(element(by.css('[type="submit"]')));
     element(by.css('[type="submit"]')).click();
   });
 });
