@@ -216,3 +216,14 @@ hr{
     min-width: 12.5em;
     margin:.25em 0;
 }
+
+.leaderboard {
+    font-family: "Signika";
+    font-weight: 300;
+    font-size: 1.1em;
+}
+
+.leaderboard .rank {
+    text-align: center;
+    background: #ddd;
+}

@@ -1,0 +1,8 @@
+<span>{{currentUser.rank}}</span>
+<span>{{currentUser.name}}</span>
+<span>{{currentUser.score}}</span>
+<div ng-repeat="leader in leaders" class="leaderboard">
+	<span class="rank">{{$index+1}}</span>
+	<span>{{leader.name}}</span>
+	<span>{{leader.score}}</span>
+</div>
