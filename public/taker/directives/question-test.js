@@ -13,7 +13,7 @@ describe('Question Directive', function() {
         $scope.text = "What is yo name?";
         $scope.name = "Get to know you";
         $scope.type = "tf";
-        $scope.selected = null;
+        $scope.selected = [];
         element = $compile(element)($scope);
 
         $scope.$digest();
@@ -35,28 +35,28 @@ describe('Question Directive', function() {
     }));
 
     it('scope.selected should update when true is clicked', inject(function($controller){
-        expect($scope.selected).toBe(null);
+        expect($scope.selected).toEqual([]);
         var el = angular.element(element.children()[3].children[0]);
         el.triggerHandler('click');
-        expect($scope.selected).toBe(true);
+        expect($scope.selected[0]).toBe(0);
     }));
 
     it('scope.selected should update when multiple schoice is clicked', function(){
         $scope.type = "mc";
-        $scope.selected = null;
+        $scope.selected = [];
         $scope.answers = ["1","2","3","4"];
         $scope.$digest();
         angular.element(element.find("span")[0]).triggerHandler("click");
-        expect($scope.selected).toEqual(0);
+        expect($scope.selected[0]).toEqual(0);
         angular.element(element.find("span")[1]).triggerHandler("click");
-        expect($scope.selected).toEqual(1);
+        expect($scope.selected[0]).toEqual(1);
         angular.element(element.find("span")[0]).triggerHandler("click");
-        expect($scope.selected).toEqual(0);
+        expect($scope.selected[0]).toEqual(0);
     });
 
     it('scope.selected should update when multiple select is clicked', function(){
         $scope.type = "ms";
-        $scope.selected = null;
+        $scope.selected = [];
         $scope.answers = ["1","2","3","4"];
         $scope.$digest();
         angular.element(element.find("span")[0]).triggerHandler("click");
