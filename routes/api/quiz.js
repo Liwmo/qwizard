@@ -12,7 +12,28 @@ router.route('/:id')
 		res.sendFile(path.join(__dirname, "../../mockData/mockData.json"));
 	})
 	.post(function(req, res){
-		res.send(req.body);
+		var answers = require(path.join(__dirname, "../../mockData/mockCorrectAnswers.json"));
+		var selected = req.body;
+		var score = 0;
+
+		var pointValue = {
+			mc: 2,
+			tf: 2,
+			ms: 5
+		};
+
+		for(var i = 0; i < answers.length; i++){
+			var matches = true;
+			for(var j = 0; j < answers[i].length; j++){
+				if(selected[i].answer[j] != answers[i][j]){
+					matches = false;
+				}
+			}
+			if(matches){
+				score += pointValue[selected[i].type];
+			}
+		}
+		res.send({score: score});
 	});
 
 module.exports = router;

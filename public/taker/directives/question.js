@@ -11,21 +11,17 @@ app.directive("question", function(){
 		templateUrl: '/taker/directives/templates/question.html',
 		link: function(scope, elem, attrs){
 			scope.tf = function(answer){
-				scope.selected = answer;
+				scope.selected[0] = answer;
 			};
 
 			scope.mc = scope.tf;
 
 			scope.ms = function(answer){
-				if(!scope.selected){
-					scope.selected = [answer];
+				var index = scope.selected.indexOf(answer);
+				if(index !== -1){
+					scope.selected.splice(index, 1);
 				}else{
-					var index = scope.selected.indexOf(answer);
-					if(index !== -1){
-						scope.selected.splice(index, 1);
-					}else{
-						scope.selected.push(answer);
-					}
+					scope.selected.push(answer);
 				}
 			};
 
