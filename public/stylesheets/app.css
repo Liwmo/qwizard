@@ -127,6 +127,8 @@ body {
     height:100%;
     width:100%;
     overflow: hidden;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
 }
 
 #main-content {
@@ -135,19 +137,24 @@ body {
 #drawer {
     position:absolute;
     top:0;
-    left:-100%;
+    left:0;
+    width:100%;
     font-family:"Signika";
     font-weight:600;
     color: #111111;
     height: 100%;
     overflow: hidden;
     z-index: 10;
-    transition:.35s;
+    -webkit-transform: scale(.00001) translateY(-50em) ;
+    transform: scale(.00001) translateY(-50em) ;
+    -webkit-transition:.35s;
+    transition:.25s;
 }
 
 #drawer.visible {
-    left:0;
-    width:100%;
+    -webkit-transform: scale(1) translateY(0em);
+    transform:scale(1) translateY(0em);
+    transition:.5s;
 }
 
 .toolbar {
@@ -176,10 +183,30 @@ body {
     font-family: "Dosis";
     font-weight:300;
 }
+
 .notification .close {
     font-size:1.25em;
     cursor:pointer;
     font-weight:600;
+}
+
+.menu {
+    align-items:center;
+    align-content:center;
+    justify-content:center;
+}
+
+.menu .item {
+    width: 100%;
+}
+
+.menu .item:hover {
+    background-color:#70666f;
+}
+
+.menu .item span{
+    margin: auto;
+
 }
 
 
