@@ -4,15 +4,12 @@ var router = express.Router();
 
 router.route('/')
 	.get(function(req, res) {
-		res.send('Hello James');
+		res.sendFile(path.join(__dirname, "../../mockData/mockScores.json"));
 	});
 
-router.route('/:id')
+router.route('/:userid')
 	.get(function(req, res){
-		res.sendFile(path.join(__dirname, "../../mockData/mockQuiz.json"));
-	})
-	.post(function(req, res){
-		res.send(req.body);
+		res.sendFile(path.join(__dirname, "../../mockData/mockScores.json"));
 	});
 
 module.exports = router;

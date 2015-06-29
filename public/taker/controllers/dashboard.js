@@ -1,52 +1,14 @@
-app.controller('dashboard', ['$scope', 'notificationFactory', function($scope, notificationFactory) {
+app.controller('dashboard', ['$scope', 'notificationFactory', 'leaderboardFactory', function($scope, notificationFactory, leaderboardFactory) {
     $scope.greeting = "Hello World";
 
     $scope.notifications = notificationFactory.getNotifications();
 
-    $scope.leaders = [
-       {
-          name: 'mike.mike',
-          score: 9000
-       },
-       {
-       	  name: 'josh.josh',
-       	  score: 802
-       },
-       {
-       	  name: 'bill.bill',
-       	  score: 801
-       },
-       {
-          name: 'mike.mike',
-          score: 9000
-       },
-       {
-       	  name: 'josh.josh',
-       	  score: 802
-       },
-       {
-       	  name: 'bill.bill',
-       	  score: 801
-       },
-       {
-          name: 'mike.mike',
-          score: 9000
-       },
-       {
-       	  name: 'josh.josh',
-       	  score: 802
-       },
-       {
-       	  name: 'bill.bill',
-       	  score: 801
-       },
-       {
-          name: 'mike.mike',
-          score: 9000
-       }
-    ];
+    leaderboardFactory.getLeaders(function(data) {
+      $scope.leaders = data.users;
+    });
 
     $scope.currentUser = {
+      userid: 507,
     	name: 'me.me',
     	score: 600,
     	rank: 85
