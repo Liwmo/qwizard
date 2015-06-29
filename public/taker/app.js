@@ -6,7 +6,7 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
             controller: "dashboard",
             templateUrl: "views/dashboard.html"
         })
-        .when("/quiz/", {
+        .when("/quiz", {
             controller: "quiz",
             templateUrl: "views/quiz.html"
         })
