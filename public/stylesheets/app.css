@@ -245,14 +245,12 @@ hr{
     padding: 1em .5em;
     margin:0 auto;
     max-width:45em;
-    min-width:12em;
 }
 
 .quiz-navigation {
     margin:0 auto;
     margin-top:.5em;
     max-width: 45em;
-    min-width:20em;
 }
 
 .quiz-navigation .button:nth-child(odd) {
@@ -269,7 +267,7 @@ hr{
     text-align: center;
     padding:.5em 0;
     color: white;
-    min-width: 12.5em;
+    min-width: 12em;
     margin:.25em 0;
 }
 

@@ -1,21 +1,19 @@
-<div>
-    <div id="quiz_header">
-        <div>{{name}}</div>
-        <div class="subtext">{{currentQuestion + 1}} of {{questions.length}}</div>
+<div id="quiz_header">
+    <div>{{name}}</div>
+    <div class="subtext">{{currentQuestion + 1}} of {{questions.length}}</div>
+</div>
+<div class="quiz_cont">
+    <div ng-repeat="question in questions" class="question shadow" ng-show="$index == currentQuestion">
+        <question 
+              text="question.text"
+              name="question.name"
+              answers="question.answers"
+              type="question.type"
+              selected="question.selected"></question>
     </div>
-    <div class="quiz_cont">
-        <div ng-repeat="question in questions" class="question shadow" ng-show="$index == currentQuestion">
-            <question 
-                  text="question.text"
-                  name="question.name"
-                  answers="question.answers"
-                  type="question.type"
-                  selected="question.selected"></question>
-        </div>
-        <div class="flex-container quiz-navigation">
-            <span ng-click="prev()" ng-class="{hidden: !currentQuestion}" class="plum-dark nav-btn flex shadow button noselect" style="width:.1px">Previous</span>
-            <span ng-click="next()" ng-class="{remove: currentQuestion == questions.length - 1}" class="plum-dark flex shadow button noselect" style="width:.1px">Next</span>
-            <span ng-click="submit()" ng-class="{remove: !(currentQuestion == questions.length - 1)}" class="plum-dark flex shadow button noselect" style="width:.1px">Submit</span>
-        </div>
+    <div class="flex-container quiz-navigation">
+        <span ng-click="prev()" ng-class="{hidden: !currentQuestion}" class="plum-dark nav-btn flex shadow button noselect" style="width:.1px">Previous</span>
+        <span ng-click="next()" ng-class="{remove: currentQuestion == questions.length - 1}" class="plum-dark flex shadow button noselect" style="width:.1px">Next</span>
+        <span ng-click="submit()" ng-class="{remove: !(currentQuestion == questions.length - 1)}" class="plum-dark flex shadow button noselect" style="width:.1px">Submit</span>
     </div>
 </div>
