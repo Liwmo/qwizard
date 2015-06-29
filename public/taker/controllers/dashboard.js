@@ -51,4 +51,9 @@ app.controller('dashboard', ['$scope', 'notificationFactory', function($scope, n
     	score: 600,
     	rank: 85
     };
+
+    $scope.toggleMenu = function() {
+      console.log('toggleMenu called');
+      document.querySelector('#drawer').classList.toggle('visible');
+    }
 }]);

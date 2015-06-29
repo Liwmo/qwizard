@@ -132,7 +132,25 @@ body {
 #main-content {
 }
 
-#navbar {
+#drawer {
+    position:absolute;
+    top:0;
+    left:-100%;
+    font-family:"Signika";
+    font-weight:600;
+    color: #111111;
+    height: 100%;
+    overflow: hidden;
+    z-index: 10;
+    transition:.35s;
+}
+
+#drawer.visible {
+    left:0;
+    width:100%;
+}
+
+.toolbar {
     position:relative;
     flex-wrap: nowrap;
     -webkit-align-items: center;
@@ -147,7 +165,7 @@ body {
     z-index:2;
 }
 
-#navbar .button {
+.toolbar .button {
     padding: .15em;
     height: 1em;
 }
