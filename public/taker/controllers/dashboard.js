@@ -29,4 +29,8 @@ app.controller('dashboard', ['$scope', 'notificationFactory', 'leaderboardFactor
       $scope.start = min + 1;
     });
 
+    $scope.toggleMenu = function() {
+      console.log('toggleMenu called');
+      document.querySelector('#drawer').classList.toggle('visible');
+    }
 }]);

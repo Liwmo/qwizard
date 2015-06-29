@@ -127,12 +127,37 @@ body {
     height:100%;
     width:100%;
     overflow: hidden;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
 }
 
 #main-content {
 }
 
-#navbar {
+#drawer {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    font-family:"Signika";
+    font-weight:600;
+    color: #111111;
+    height: 100%;
+    overflow: hidden;
+    z-index: 10;
+    -webkit-transform: scale(.00001) translateY(-50em) ;
+    transform: scale(.00001) translateY(-50em) ;
+    -webkit-transition:.35s;
+    transition:.25s;
+}
+
+#drawer.visible {
+    -webkit-transform: scale(1) translateY(0em);
+    transform:scale(1) translateY(0em);
+    transition:.5s;
+}
+
+.toolbar {
     position:relative;
     flex-wrap: nowrap;
     -webkit-align-items: center;
@@ -147,21 +172,44 @@ body {
     z-index:2;
 }
 
-#navbar .button {
+.toolbar .button {
     padding: .15em;
     height: 1em;
 }
 
 .notification {
-    height:3em;
     padding:.55em;
     font-family: "Dosis";
     font-weight:300;
+    -webkit-flex-wrap:nowrap;
+    flex-wrap:nowrap;
+    -webkit-align-items:center;
+    align-items:center;
 }
+
 .notification .close {
     font-size:1.25em;
     cursor:pointer;
     font-weight:600;
+}
+
+.menu {
+    align-items:center;
+    align-content:center;
+    justify-content:center;
+}
+
+.menu .item {
+    width: 100%;
+}
+
+.menu .item:hover {
+    background-color:#70666f;
+}
+
+.menu .item span{
+    margin: auto;
+
 }
 
 
@@ -169,9 +217,16 @@ body {
 #content {
     overflow:hidden;
     font-family: "Dosis";
+    position:relative;
 }
 .quiz_cont {
     padding:.5em;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 4em;
+    bottom: 0;
+    overflow: auto;
 }
 
 #quiz_header {
@@ -197,14 +252,12 @@ hr{
     padding: 1em .5em;
     margin:0 auto;
     max-width:45em;
-    min-width:20em;
 }
 
 .quiz-navigation {
     margin:0 auto;
     margin-top:.5em;
     max-width: 45em;
-    min-width:20em;
 }
 
 .quiz-navigation .button:nth-child(odd) {
@@ -221,7 +274,7 @@ hr{
     text-align: center;
     padding:.5em 0;
     color: white;
-    min-width: 12.5em;
+    min-width: 12em;
     margin:.25em 0;
 }
 
