@@ -1,9 +1,3 @@
-<!-- <div class="stats">
-	<span class="rank">{{currentUser.rank}}</span>
-<span>{{currentUser.name}}</span>
-<span>{{currentUser.score}}</span>
-</div>
- -->
 <div class="flex-container" id="leader-list">
 
 	<span>
@@ -15,15 +9,4 @@
 	<span>
 		<div class="row" ng-class="{'highlight': $index===4}" ng-repeat="leader in leaders">{{leader.score}}</div>
 	</span>
-
-
-
-
-
-
-	<!-- <div ng-repeat="leader in leaders" class="leaderboard">
-		<div class="rank">{{$index+1}}</div>
-		<div>{{leader.name}}</div>
-		<div>{{leader.score}}</div>
-	</div> -->
 </div>
