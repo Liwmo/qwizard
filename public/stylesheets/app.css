@@ -217,9 +217,16 @@ body {
 #content {
     overflow:hidden;
     font-family: "Dosis";
+    position:relative;
 }
 .quiz_cont {
     padding:.5em;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 4em;
+    bottom: 0;
+    overflow: auto;
 }
 
 #quiz_header {
