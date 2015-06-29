@@ -20,7 +20,7 @@ app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$locati
     $scope.submit = function() {
         //TODO: replace empty object with actual answers
         quizFactory.postQuiz("dummy_id", {}, function(data){
-            notificationFactory.addNotification("Thanks for taking the WWT Employee Handbook quiz! Your results will be ready soon!", "");
+            notificationFactory.addNotification("Thanks for taking the WWT Employee Handbook quiz! Your results will be ready soon!", "#/");
             $location.path('/');
         });
     };
