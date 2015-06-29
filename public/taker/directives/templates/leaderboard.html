@@ -1,19 +1,19 @@
-<div class="leaderboard">
+<!-- <div class="stats">
 	<span class="rank">{{currentUser.rank}}</span>
 <span>{{currentUser.name}}</span>
 <span>{{currentUser.score}}</span>
 </div>
-
-<div id="leaderboard" class="flex-container">
+ -->
+<div class="flex-container" id="leader-list">
 
 	<span>
-		<div class="row" ng-repeat="leader in leaders">{{$index+1}}</div>
+		<div class="row" ng-class="{'highlight': $index===4}" ng-repeat="leader in leaders">{{$index+1}}</div>
 	</span>
 	<span class="flex">
-		<div class="row" ng-repeat="leader in leaders">{{leader.name}}</div>
+		<div class="row" ng-class="{'highlight': $index===4}" ng-repeat="leader in leaders">{{leader.name}}</div>
 	</span>
 	<span>
-		<div class="row" ng-repeat="leader in leaders">{{leader.score}}</div>
+		<div class="row" ng-class="{'highlight': $index===4}" ng-repeat="leader in leaders">{{leader.score}}</div>
 	</span>
 
 

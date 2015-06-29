@@ -43,26 +43,6 @@ app.controller('dashboard', ['$scope', 'notificationFactory', function($scope, n
        {
           name: 'mike.mike',
           score: 9000
-       },
-       {
-       	  name: 'josh.josh',
-       	  score: 802
-       },
-       {
-       	  name: 'bill.bill',
-       	  score: 801
-       },
-       {
-          name: 'mike.mike',
-          score: 9000
-       },
-       {
-       	  name: 'josh.josh',
-       	  score: 802
-       },
-       {
-       	  name: 'bill.bill',
-       	  score: 801
        }
     ];
 

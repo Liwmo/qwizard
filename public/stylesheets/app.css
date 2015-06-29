@@ -46,18 +46,29 @@
     flex-wrap: wrap;
 }
 
+
+
+.flex {
+    -ms-flex: 1 1 0.000000001px;
+    -webkit-flex: 1;
+    flex: 1;
+    -webkit-flex-basis: 0.000000001px;
+    flex-basis: 0.000000001px;
+}
+.horizontal {
+    -ms-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+.vertical {
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
 .shadow{
     box-shadow: 1px 1px 2px rgba(73,73,73,.4);
 }
-
-.flex {
-    -webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
-    -moz-box-flex: 1;         /* OLD - Firefox 19- */
-    -webkit-flex: 1;          /* Chrome */
-    -ms-flex: 1;              /* IE 10 */
-    flex: 1;
-}
-
 .logo {
     height:1em;
     color:#FFFFF5;
@@ -115,6 +126,10 @@ body {
     padding:0;
     height:100%;
     width:100%;
+    overflow: hidden;
+}
+
+#main-content {
 }
 
 #navbar {
@@ -152,14 +167,7 @@ body {
 
 /*Area for content Note: this will only scroll up+down, never left+right */
 #content {
-    display:block;
-    position:absolute;
-    top:4em;  /*This has to match the navbar height i.e. 2x navbar em height value*/
-    left:0;
-    right:0;
-    bottom:0;
-    overflow-x:hidden;
-    overflow-y:auto;
+    overflow:hidden;
     font-family: "Dosis";
 }
 .quiz_cont {
@@ -217,7 +225,7 @@ hr{
     margin:.25em 0;
 }
 
-.leaderboard {
+.stats {
     font-family: "Signika";
     font-weight: 300;
     font-size: 1.2em;
@@ -225,57 +233,78 @@ hr{
 
 }
 
-.leaderboard .rank {
+.stats .rank {
     background: #ddd;
     text-align: center;
 }
 
-.leaderboard td {
+.stats td {
     padding: .5em;
 }
 
 /*Leaderboard flexbox should be full width*/
 #leaderboard {
+    position:relative;
     width:100%;
+    overflow-y:auto;
+}
+
+#leader-list {
+    position:relative;
+    flex-direction:row;
+    height:auto;
+    font-size:1.25em;
 }
 
 /*Leaderboard's First Column*/
-#leaderboard > span:first-child {
+#leader-list > span:first-child {
     width:3em;
 }
 
 /*Leaderboard's last column*/
-#leaderboard > span:last-child {
+#leader-list > span:last-child {
     max-width:5em;
 }
 
 /*Columns children*/
-#leaderboard .row {
-    padding: 1em 0;
+#leader-list .row {
+    padding: .5em 0;
     width: 5em;
     text-align:center;
-    border-bottom:1px solid #F0EAEF;
+    border-bottom:.1em solid #F0EAEF;
 }
+#leader-list .row.highlight {
+    position:relative !important;
+    color:#fffff5 !important;
+    background-color: #17a587 !important;
+    border:none !important;
+    box-shadow: 1px 1px 2px rgba(73,73,73,.4) !important;
+    z-index:2 !important;
 
+}
 /*Children in first column*/
-#leaderboard > span:first-child .row {
+#leader-list > span:first-child .row {
     background-color:#F0EAEF;
     border-bottom:.1em solid white;
     width:3em;
 }
 
 /*Last Child in the first column*/
-#leaderboard > span:first-child .row:last-child {
+#leader-list > span:first-child .row:last-child {
     border:none;
 }
 
 /*Children in middle column*/
-#leaderboard > span:nth-child(2) .row {
+#leader-list > span:nth-child(2) .row {
     width:100%;
     text-align:left;
     padding-left:1em;
 }
 /*Last child, middle column*/
-#leaderboard > span:nth-child(2) .row:last-child {
+#leader-list > span:nth-child(2) .row:last-child {
+    border:none;
+}
+/*Last child, last column*/
+#leader-list > span:nth-child(3) .row:last-child {
     border:none;
 }
