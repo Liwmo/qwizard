@@ -11,6 +11,7 @@ app.directive("quizNotification", ["notificationFactory", function(notificationF
            scope.hide = function($event) {
                $event.preventDefault();
                notificationFactory.removeNotification(scope.notification);
+               scope.isClosed = true;
            }
        },
        templateUrl: '/taker/directives/templates/quizNotification.html'

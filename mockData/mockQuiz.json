@@ -157,7 +157,7 @@
 			"name": "Time Out",
 			"type": "mc",
 			"text": "Which of the following is not a paid holiday?",
-			"answers": ["Memorial Day", "Independence Day", "Labor Day", "St. Patrick's Day"]
+			"answers": ["Memorial Day", "Independence Day", "Labor Day", "St. Patrick\'s Day"]
 		},
 		{
 			"name": "Time Out",
@@ -209,7 +209,7 @@
 			"type": "ms",
 			"text": "What could disqualify someone’s consideration for telecommuting?",
 			"answers": [
-				"The home workplace isn't free of distraction",
+				"The home workplace isn\'t free of distraction",
 				"The employee has been disciplined in the past",
 				"The employee has a known problem with maintaining attendance",
 				"The employee has worked for WWTHC only 90 days"
