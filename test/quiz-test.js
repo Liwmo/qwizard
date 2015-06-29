@@ -16,7 +16,6 @@ describe("Quiz", function(){
 
     it("gets quiz correctly", function(done){
         request(url).get('').send().end(function(err, res){
-            console.log(err);
             if(!err){
                 var quiz = JSON.parse(res.text);
                 quiz.should.have.property('title','WWT Employee Handbook');

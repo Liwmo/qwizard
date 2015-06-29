@@ -10,6 +10,7 @@ app.controller('dashboard', ['$scope', 'notificationFactory', 'leaderboardFactor
     	rank: 85
     };
 
+    //Hope to be refactored into backend one day... I Would be SOOO happy :D
     leaderboardFactory.getLeaders(function(data) {
       var userIndex = -1;
       for(var i = 0; i < data.users.length; i++) {
