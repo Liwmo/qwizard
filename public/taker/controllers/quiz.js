@@ -18,7 +18,7 @@ app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$locati
     $scope.prev = function(){
     	$scope.currentQuestion--;
     };
-
+    
     $scope.submit = function(){
         var selected = [];
         for(var i = 0; i < $scope.questions.length; i++){
@@ -29,6 +29,7 @@ app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$locati
         }
         quizFactory.postQuiz("dummy_id", selected, function(data){
             notificationFactory.addNotification("Thanks for taking the WWT Employee Handbook quiz! Your scored " + data.score + " points!", "");
+
             $location.path('/');
         });
     };

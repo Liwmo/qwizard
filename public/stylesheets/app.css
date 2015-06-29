@@ -46,18 +46,29 @@
     flex-wrap: wrap;
 }
 
+
+
+.flex {
+    -ms-flex: 1 1 0.000000001px;
+    -webkit-flex: 1;
+    flex: 1;
+    -webkit-flex-basis: 0.000000001px;
+    flex-basis: 0.000000001px;
+}
+.horizontal {
+    -ms-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+.vertical {
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
 .shadow{
     box-shadow: 1px 1px 2px rgba(73,73,73,.4);
 }
-
-.flex {
-    -webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
-    -moz-box-flex: 1;         /* OLD - Firefox 19- */
-    -webkit-flex: 1;          /* Chrome */
-    -ms-flex: 1;              /* IE 10 */
-    flex: 1;
-}
-
 .logo {
     height:1em;
     color:#FFFFF5;
@@ -115,9 +126,38 @@ body {
     padding:0;
     height:100%;
     width:100%;
+    overflow: hidden;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
 }
 
-#navbar {
+#main-content {
+}
+
+#drawer {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    font-family:"Signika";
+    font-weight:600;
+    color: #111111;
+    height: 100%;
+    overflow: hidden;
+    z-index: 10;
+    -webkit-transform: scale(.00001) translateY(-50em) ;
+    transform: scale(.00001) translateY(-50em) ;
+    -webkit-transition:.35s;
+    transition:.25s;
+}
+
+#drawer.visible {
+    -webkit-transform: scale(1) translateY(0em);
+    transform:scale(1) translateY(0em);
+    transition:.5s;
+}
+
+.toolbar {
     position:relative;
     flex-wrap: nowrap;
     -webkit-align-items: center;
@@ -132,38 +172,61 @@ body {
     z-index:2;
 }
 
-#navbar .button {
+.toolbar .button {
     padding: .15em;
     height: 1em;
 }
 
 .notification {
-    height:3em;
     padding:.55em;
     font-family: "Dosis";
     font-weight:300;
+    -webkit-flex-wrap:nowrap;
+    flex-wrap:nowrap;
+    -webkit-align-items:center;
+    align-items:center;
 }
+
 .notification .close {
     font-size:1.25em;
     cursor:pointer;
     font-weight:600;
 }
 
+.menu {
+    align-items:center;
+    align-content:center;
+    justify-content:center;
+}
+
+.menu .item {
+    width: 100%;
+}
+
+.menu .item:hover {
+    background-color:#70666f;
+}
+
+.menu .item span{
+    margin: auto;
+
+}
+
 
 /*Area for content Note: this will only scroll up+down, never left+right */
 #content {
-    display:block;
-    position:absolute;
-    top:4em;  /*This has to match the navbar height i.e. 2x navbar em height value*/
-    left:0;
-    right:0;
-    bottom:0;
-    overflow-x:hidden;
-    overflow-y:auto;
+    overflow:hidden;
     font-family: "Dosis";
+    position:relative;
 }
 .quiz_cont {
     padding:.5em;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 4em;
+    bottom: 0;
+    overflow: auto;
 }
 
 #quiz_header {
@@ -189,14 +252,12 @@ hr{
     padding: 1em .5em;
     margin:0 auto;
     max-width:45em;
-    min-width:20em;
 }
 
 .quiz-navigation {
     margin:0 auto;
     margin-top:.5em;
     max-width: 45em;
-    min-width:20em;
 }
 
 .quiz-navigation .button:nth-child(odd) {
@@ -213,6 +274,90 @@ hr{
     text-align: center;
     padding:.5em 0;
     color: white;
-    min-width: 12.5em;
+    min-width: 12em;
     margin:.25em 0;
+}
+
+.stats {
+    font-family: "Signika";
+    font-weight: 300;
+    font-size: 1.2em;
+    width: 100%;
+
+}
+
+.stats .rank {
+    background: #ddd;
+    text-align: center;
+}
+
+.stats td {
+    padding: .5em;
+}
+
+/*Leaderboard flexbox should be full width*/
+#leaderboard {
+    position:relative;
+    width:100%;
+    overflow-y:auto;
+}
+
+#leader-list {
+    position:relative;
+    flex-direction:row;
+    height:auto;
+    font-size:1.25em;
+}
+
+/*Leaderboard's First Column*/
+#leader-list > span:first-child {
+    width:3em;
+}
+
+/*Leaderboard's last column*/
+#leader-list > span:last-child {
+    max-width:5em;
+}
+
+/*Columns children*/
+#leader-list .row {
+    padding: .5em 0;
+    width: 5em;
+    text-align:center;
+    border-bottom:.1em solid #F0EAEF;
+}
+#leader-list .row.highlight {
+    position:relative !important;
+    color:#fffff5 !important;
+    background-color: #17a587 !important;
+    border:none !important;
+    box-shadow: 1px 1px 2px rgba(73,73,73,.4) !important;
+    z-index:2 !important;
+
+}
+/*Children in first column*/
+#leader-list > span:first-child .row {
+    background-color:#F0EAEF;
+    border-bottom:.1em solid white;
+    width:3em;
+}
+
+/*Last Child in the first column*/
+#leader-list > span:first-child .row:last-child {
+    border:none;
+}
+
+/*Children in middle column*/
+#leader-list > span:nth-child(2) .row {
+    width:100%;
+    text-align:left;
+    padding-left:1em;
+}
+/*Last child, middle column*/
+#leader-list > span:nth-child(2) .row:last-child {
+    border:none;
+}
+/*Last child, last column*/
+#leader-list > span:nth-child(3) .row:last-child {
+    border:none;
 }

@@ -6,6 +6,8 @@
 <!--[if gt IE 8]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
 <head lang="en-us">
   <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <title>Qwizard</title>
   <script src="../angular/angular.min.js"></script>
   <script src="../angular/angular-route.min.js"></script>
@@ -16,6 +18,7 @@
   <script src="/taker/directives/question.js"></script>
   <script src="/taker/directives/quizNotification.js"></script>
   <script src="/taker/directives/submitNotification.js"></script>
+  <script src="/taker/directives/leaderboard.js"></script>
   <script src="/taker/factories/quizFactory.js"></script>
   <script src="/taker/factories/notificationFactory.js"></script>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,18 +27,34 @@
   <link rel="stylesheet" type="text/css" href="../stylesheets/normalize.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/app.css">
 </head>
-<body ng-app="app">
+<body ng-controller="dashboard" class="flex-container horizontal" ng-app="app">
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
-  <div class="shadow teal-dark flex-container" id="navbar">
+<div id="drawer" class=" flex-container vertical plum-dark">
+  <div class="flex-container toolbar horizontal">
+    <img class="logo" src="../images/logo-horizontal.svg"/>
+    <span class="flex"></span>
+    <img ng-click="toggleMenu()" class="button noselect" src="../images/icon-menu.svg"/>
+  </div>
+  <div class="flex-container vertical flex menu light-text">
+    <div></div>
+    <div class="flex flex-container item"><span>BLAH A</span></div>
+    <div class="flex flex-container item"><span>BLAH B</span></div>
+    <div class="flex flex-container item"><span>BLAH C</span></div>
+    <div class="flex flex-container item"><span>BLAH D</span></div>
+    <div class="flex flex-container item"><span>BLAH E</span></div>
+  </div>
+</div>
+
+<div class="flex flex-container vertical" id="main-content">
+  <div class="shadow teal-dark flex-container toolbar">
     <img class="logo" src="../images/logo-horizontal.svg"/>
     <span class="flex toasties"></span>
-    <img class="button noselect" src="../images/icon-menu.svg"/>
+    <img ng-click="toggleMenu()" class="button noselect" src="../images/icon-menu.svg"/>
   </div>
 
-  <div id="content">
-    <ng-view></ng-view>
-  </div>
+  <ng-view class="flex flex-container vertical" id="content"></ng-view>
+</div>
 </body>
 </html>
