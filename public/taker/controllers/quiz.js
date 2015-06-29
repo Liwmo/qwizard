@@ -20,14 +20,7 @@ app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$locati
     };
 
     $scope.submit = function(){
-        var selected = [];
-        for(var i = 0; i < $scope.questions.length; i++){
-            selected.push({
-                answer: $scope.questions[i].selected,
-                type: $scope.questions[i].type
-            });
-        }
-        quizFactory.postQuiz("dummy_id", selected, function(data){
+        quizFactory.postQuiz("dummy_id", function(data){
             notificationFactory.addNotification("Thanks for taking the WWT Employee Handbook quiz! Your scored " + data.score + " points!", "");
             $location.path('/');
         });
@@ -35,12 +28,7 @@ app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$locati
 
     quizFactory.getQuiz("dummy_id", function(data){
         $scope.name = data.title;
-        for(var i = 0; i < data.questions.length; i++){
-            data.questions[i].selected = [];
-        }
-        $scope.questions = data.questions;//whole quiz
-        //NOTE: this limits the quiz to 3 questions, one of each type
-        $scope.questions = $scope.questions.slice(3, 10);//3 questions, mc, tf, ms
+        $scope.questions = data.questions;
     });
 }]);
 
