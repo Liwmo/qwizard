@@ -28,7 +28,7 @@ app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$locati
             });
         }
         quizFactory.postQuiz("dummy_id", selected, function(data){
-            notificationFactory.addNotification("Thanks for taking the WWT Employee Handbook quiz! Your scored " + data.score + " points!", "");
+            notificationFactory.addNotification("Thanks for taking the WWT Employee Handbook quiz! Your results will be available soon!", "#/");
             $location.path('/');
         });
     };
