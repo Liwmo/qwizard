@@ -178,10 +178,13 @@ body {
 }
 
 .notification {
-    height:3em;
     padding:.55em;
     font-family: "Dosis";
     font-weight:300;
+    -webkit-flex-wrap:nowrap;
+    flex-wrap:nowrap;
+    -webkit-align-items:center;
+    align-items:center;
 }
 
 .notification .close {
@@ -242,7 +245,7 @@ hr{
     padding: 1em .5em;
     margin:0 auto;
     max-width:45em;
-    min-width:20em;
+    min-width:12em;
 }
 
 .quiz-navigation {
