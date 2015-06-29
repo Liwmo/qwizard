@@ -34,9 +34,6 @@ router.route('/:id')
 				connection.release();
 				if(!err && message.length) {
 					var answers = JSON.parse(message[0].answers);
-					if(id == 1){
-						answers = answers.slice(3, 10);
-					}
 
 					var selected = req.body;
 					if(selected.length !== answers.length){
@@ -48,7 +45,8 @@ router.route('/:id')
 					var pointValue = {
 						mc: 2,
 						tf: 2,
-						ms: 5
+						ms: 5,
+						ma: 5
 					};
 
 					for(var i = 0; i < answers.length; i++){
