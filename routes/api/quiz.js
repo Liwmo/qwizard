@@ -37,6 +37,7 @@ router.route('/:id')
 					}
 
 					var selected = req.body;
+					console.log(typeof selected, selected);
 					var score = 0;
 
 					var pointValue = {
