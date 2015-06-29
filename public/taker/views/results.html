@@ -1,12 +1,13 @@
-<div class="quiz_container" style="margin-top:1em; padding:.5em">
+<div id="results-prompt" class="quiz_container" style="margin-top:1em; padding:.5em">
 	<div class="question shadow">
 		<div class="answer" style="font-size: 1.3em; font-weight: 600; font-family:'Signika'; color: #332532;">{{title}}</div>
 		<hr class="purple-light">
 		<div class="answer" style="color: #5c515b; margin-bottom: .5em">{{message}}</div>
 	</div>
+	<div class="button plum-dark quiz-navigation" ng-click="showAnswers()">View Answers</div>
 </div>
 
-<div class="remove">
+<div id="results-answers" class="remove">
 	<div id="quiz_header">
 	    <div>{{name}}</div>
 	    <div class="subtext">{{currentQuestion + 1}} of {{questions.length}}</div>

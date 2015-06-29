@@ -3,6 +3,11 @@ app.controller('results', ["$scope", "quizFactory", function($scope, quizFactory
     $scope.currentQuestion = 0;
     $scope.points = 10;
     $scope.max_points = 30;
+
+    $scope.showAnswers = function() {
+    	document.getElementById("results-prompt").classList.toggle("remove");
+    	document.getElementById("results-answers").classList.toggle("remove");
+    }
     
 
     quizFactory.getQuiz("dummy_id", function(data){
