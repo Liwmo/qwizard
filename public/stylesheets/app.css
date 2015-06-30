@@ -209,8 +209,18 @@ body {
 
 .menu .item span{
     margin: auto;
+    text-align: center;
+    font-family: Dosis;
+    text-weight: 200;
+}
+
+.menu .item  svg{
+    fill: #fffff5;
+    height: 3em;
+    display: block;
 
 }
+
 
 
 /*Area for content Note: this will only scroll up+down, never left+right */
