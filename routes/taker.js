@@ -41,8 +41,10 @@ var db = require('../database/db');
 //     res.redirect('/taker');
 // });
 
+tlsOptions = { 'rejectUnauthorized': false }
 var client = ldap.createClient({
-	url: 'ldap://dc0.authdev.lan:389'
+	url: 'ldaps://dc3-stl.schafer.lan:636',
+	tlsOptions: tlsOptions
 });
 
 
@@ -61,17 +63,17 @@ router.post('/', function(req, res, next) {
     var password = req.body.password;
     //console.log("This is " + username + " of " + password);
 
-    client.bind('cn=administrator,cn=Users,dc=authdev,dc=lan', 'P@$$W0rd', function(err, ldapRes) {
+    client.bind('CN=' + username + ',OU=Employees,OU=UsersAccounts,OU=StLouis,DC=schafer,DC=lan', password, function(err, ldapRes) {
     	if (err) {
     		console.log(err.message);
     		res.redirect('/');
     	}
-    	else
-    	{
+    	else {
     		console.log("hey you logged in successfully!");
     		var cookie = guid();
     		db.getConnection(function(err, connection){
     			console.log("INSERT INTO tokens values('" + cookie + "','" + username + "')");
+    			console.log("Adding your token to the DB");
     			var query = connection.query("INSERT INTO tokens values('" + cookie + "','" + username + "')", function(err, message){
     				if (err) {
     					console.log(err.message);
@@ -84,12 +86,9 @@ router.post('/', function(req, res, next) {
 
     			});
     		});
-    		
-    		
+    		client.unbind(function(err) {if (err) console.log("You cannot leave the LDAP!!!!"); else console.log("Unbinding from the LDAP!")});
     	}
-    	
     });
-
 });
 
 
