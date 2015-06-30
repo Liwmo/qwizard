@@ -29,5 +29,9 @@ app.factory("quizFactory", ["$http", function($http){
 		$http.post("/api/quiz/" + id, selected).success(callback);
 	};
 
+	self.getQuizResults = function(id, userId, callback) {
+		$http.get("/api/quiz/" + id + "/" + userId).success(callback);
+	}
+
 	return self;
 }]);
