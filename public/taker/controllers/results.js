@@ -1,4 +1,13 @@
-app.controller('results', ["$scope", function($scope) {
+app.controller('results', ["$scope", "quizFactory", function($scope, quizFactory) {
+    $scope.name = "";
+    $scope.currentQuestion = 0;
 
-    $scope.results = "This is the Results page... Congrats on getting here... ya!";
+
+
+    quizFactory.getQuiz("dummy_id", function(data){
+        $scope.name = data.title;
+        $scope.questions = data.questions;
+    });
+
+
 }]);
