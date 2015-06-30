@@ -41,11 +41,7 @@ var db = require('../database/db');
 //     res.redirect('/taker');
 // });
 
-tlsOptions = { 'rejectUnauthorized': false }
-var client = ldap.createClient({
-	url: 'ldaps://dc3-stl.schafer.lan:636',
-	tlsOptions: tlsOptions
-});
+
 
 
 function guid() {
@@ -61,7 +57,16 @@ function guid() {
 router.post('/', function(req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
+    if(!username || !password){
+    	res.redirect('/');
+    	return;
+    }
     //console.log("This is " + username + " of " + password);
+    tlsOptions = { 'rejectUnauthorized': false }
+	var client = ldap.createClient({
+		url: 'ldaps://dc3-stl.schafer.lan:636',
+		tlsOptions: tlsOptions
+	});
 
     client.bind('CN=' + username + ',OU=Employees,OU=UsersAccounts,OU=StLouis,DC=schafer,DC=lan', password, function(err, ldapRes) {
     	if (err) {
@@ -83,8 +88,8 @@ router.post('/', function(req, res, next) {
     					res.cookie('login', cookie, {maxAge: 900000});
     					res.redirect('/taker');
     				}
-
     			});
+    			connection.release();
     		});
     		client.unbind(function(err) {if (err) console.log("You cannot leave the LDAP!!!!"); else console.log("Unbinding from the LDAP!")});
     	}
