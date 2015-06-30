@@ -78,6 +78,9 @@
     opacity:0;
     pointer-events:none;
 }
+.no-interact {
+    pointer-events:none;
+}
 
 .remove {
     display: none;
@@ -368,4 +371,12 @@ hr{
 /*Last child, last column*/
 #leader-list > span:nth-child(3) .row:last-child {
     border:none;
+}
+
+/*For the results page!!!*/
+.question.no-interact .button {
+    opacity:.4;
+}
+.question.no-interact .button.correct,  .question.no-interact .button.selected{
+    opacity:1;
 }
