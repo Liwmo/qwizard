@@ -10,19 +10,21 @@ router.route('/')
 
 router.route('/:id')
 	.get(function(req, res){
-		var id = (req.params.id == "dummy_id") ? 1 : parseInt(req.params.id);
-		db.getConnection(function(err, connection) {
-			var query = connection.query('Select quiz from quizzes where id=' + id, function(err, message){
-				connection.release();
-				if(!err) {
-					res.send(message[0].quiz);
-				}
-				else {
-					console.log('Error with Query');
-					res.send("error");
-				}
-			})
-		});
+		if (req.cookies.login) {
+			var id = (req.params.id == "dummy_id") ? 1 : parseInt(req.params.id);
+			db.getConnection(function(err, connection) {
+				var query = connection.query('Select quiz from quizzes where id=' + id, function(err, message){
+					connection.release();
+					if(!err) {
+						res.send(message[0].quiz);
+					}
+					else {
+						console.log('Error with Query');
+						res.send("error");
+					}
+				})
+			});
+		}
 		//res.sendFile(path.join(__dirname, "../../mockData/mockData.json"));
 	})
 	.post(function(req, res){
