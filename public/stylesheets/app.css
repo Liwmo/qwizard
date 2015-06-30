@@ -306,16 +306,21 @@ hr{
     position:relative;
     flex-direction:row;
     height:auto;
+    font-family: Dosis;
+    font-weight: 300;
     font-size:1.25em;
+    line-height: 26px;
 }
 
 /*Leaderboard's First Column*/
 #leader-list > span:first-child {
+    font-family: Signika;
     width:3em;
 }
 
 /*Leaderboard's last column*/
 #leader-list > span:last-child {
+    font-family: Signika;
     max-width:5em;
 }
 
