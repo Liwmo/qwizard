@@ -60,8 +60,11 @@ router.route('/:id')
 							score += pointValue[selected[i].type];
 						}
 					}
+
+					var query = 'Insert into results (quizid, userid, points, answers) values (' + id + ',  9001, ' + score + ', \''+ JSON.stringify(selected) +'\')';
+					console.log(query);
 					
-					var pointsQuery = connection.query('Insert into results (quizid, userid, points) values (' + id + ',  9001, ' + score + ')', function(insertError, message) {
+					var pointsQuery = connection.query(query, function(insertError, message) {
 						if(insertError) {
 							console.log("ERROR WITH INSERT: " + insertError);
 							res.send(insertError);

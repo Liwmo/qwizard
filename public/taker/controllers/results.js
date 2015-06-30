@@ -20,4 +20,16 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", function($sco
         $scope.ratio = $scope.points / $scope.max_points;
     });
 
+    $scope.next = function(){
+        $scope.currentQuestion++;
+    };
+
+    $scope.prev = function(){
+        $scope.currentQuestion--;
+    };
+
+    $scope.finish = function(){
+        $location.path('/'); 
+    };
+
 }]);

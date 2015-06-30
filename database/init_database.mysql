@@ -12,6 +12,7 @@ CREATE TABLE results (
 	quizid INT NOT NULL,
 	userid INT NOT NULL,
     points INT NOT NULL,
+    answers LONGTEXT NOT NULL,
     FOREIGN KEY (quizid) REFERENCES quizzes(id),
     CONSTRAINT pk_resultsid PRIMARY KEY (quizid, userid)
 );
