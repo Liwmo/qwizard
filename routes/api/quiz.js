@@ -31,7 +31,7 @@ router.route('/:id')
 		db.getConnection(function(err, connection) {
 			console.log('Select answers from quizzes where id=' + id);
 			var query = connection.query('Select answers from quizzes where id=' + id, function(err, message){
-				connection.release();
+				//connection.release();
 				if(!err && message.length) {
 					var answers = JSON.parse(message[0].answers);
 
@@ -60,11 +60,24 @@ router.route('/:id')
 							score += pointValue[selected[i].type];
 						}
 					}
-					res.send({score: score});
+					
+					var pointsQuery = connection.query('Insert into results (quizid, userid, points) values (' + id + ',  9001, ' + score + ')', function(insertError, message) {
+						if(insertError) {
+							console.log("ERROR WITH INSERT: " + insertError);
+							res.send(insertError);
+						}
+
+						else {
+							res.send({score: score});
+						}
+
+					});
+					connection.release();
 				}
 				else {
 					console.log('Error with Query');
 					res.send("error");
+					connection.release();
 				}
 			})
 		});
