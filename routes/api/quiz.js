@@ -28,24 +28,26 @@ router.route('/:id')
 		//res.sendFile(path.join(__dirname, "../../mockData/mockData.json"));
 	})
 	.post(function(req, res){
-		var id = (req.params.id == "dummy_id") ? 1 : parseInt(req.params.id);
+		var id = (req.params.id == "dummy_id") ? 1 : req.params.id;
 		db.getConnection(function(err, connection) {
+			console.log('Select answers from quizzes where id=' + id);
 			var query = connection.query('Select answers from quizzes where id=' + id, function(err, message){
-				connection.release();
-				if(!err) {
+				//connection.release();
+				if(!err && message.length) {
 					var answers = JSON.parse(message[0].answers);
-					if(req.params.id == "dummy_id"){
-						answers = answers.slice(3, 10);
-					}
 
 					var selected = req.body;
-					console.log(typeof selected, selected);
+					if(selected.length !== answers.length){
+						res.send("error: answer length mismatch");
+						return;
+					}
 					var score = 0;
 
 					var pointValue = {
 						mc: 2,
 						tf: 2,
-						ms: 5
+						ms: 5,
+						ma: 5
 					};
 
 					for(var i = 0; i < answers.length; i++){
@@ -59,11 +61,24 @@ router.route('/:id')
 							score += pointValue[selected[i].type];
 						}
 					}
-					res.send({score: score});
+					
+					var pointsQuery = connection.query('Insert into results (quizid, userid, points) values (' + id + ',  9001, ' + score + ')', function(insertError, message) {
+						if(insertError) {
+							console.log("ERROR WITH INSERT: " + insertError);
+							res.send(insertError);
+						}
+
+						else {
+							res.send({score: score});
+						}
+
+					});
+					connection.release();
 				}
 				else {
 					console.log('Error with Query');
 					res.send("error");
+					connection.release();
 				}
 			})
 		});

@@ -209,8 +209,18 @@ body {
 
 .menu .item span{
     margin: auto;
+    text-align: center;
+    font-family: Dosis;
+    text-weight: 200;
+}
+
+.menu .item  svg{
+    fill: #fffff5;
+    height: 3em;
+    display: block;
 
 }
+
 
 
 /*Area for content Note: this will only scroll up+down, never left+right */
@@ -306,16 +316,21 @@ hr{
     position:relative;
     flex-direction:row;
     height:auto;
+    font-family: Dosis;
+    font-weight: 300;
     font-size:1.25em;
+    line-height: 26px;
 }
 
 /*Leaderboard's First Column*/
 #leader-list > span:first-child {
+    font-family: Signika;
     width:3em;
 }
 
 /*Leaderboard's last column*/
 #leader-list > span:last-child {
+    font-family: Signika;
     max-width:5em;
 }
 

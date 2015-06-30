@@ -3,7 +3,8 @@ app.directive("leaderboard", function() {
        restrict: 'E',
        scope: {
           leaders: '=',
-          currentUser: '='
+          currentUser: '=',
+          start: '='
        },
        
        link: function(scope, elem, attr){

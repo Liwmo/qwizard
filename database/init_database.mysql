@@ -8,6 +8,14 @@ CREATE TABLE quizzes (
 	PRIMARY KEY (id)
 );
 
+CREATE TABLE results (
+	quizid INT NOT NULL,
+	userid INT NOT NULL,
+    points INT NOT NULL,
+    FOREIGN KEY (quizid) REFERENCES quizzes(id),
+    CONSTRAINT pk_resultsid PRIMARY KEY (quizid, userid)
+);
+
 INSERT INTO quizzes (quiz, answers) VALUES ('
 {
 	"title": "WWT Employee Handbook",
