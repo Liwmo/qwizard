@@ -11,16 +11,15 @@ router.route('/')
 router.route('/:id')
 	.get(function(req, res){
 		if (req.cookies.login) {
-			var id = (req.params.id == "dummy_id") ? 1 : parseInt(req.params.id);
 			db.getConnection(function(err, connection) {
-				var query = connection.query('Select quiz from quizzes where id=' + id, function(err, message){
+				var query = connection.query('Select quiz from quizzes where id=?', req.params.id, function(err, message){
 					connection.release();
-					if(!err) {
+					console.log()
+					if(!err && message.length) {
 						res.send(message[0].quiz);
 					}
 					else {
-						console.log('Error with Query');
-						res.send("error");
+						res.send({error: 'Error lookup up quiz by id in database'});
 					}
 				})
 			});

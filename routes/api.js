@@ -15,12 +15,12 @@ router.all('/*', function(req, res, next){
 				if(!err && message.length){
 					next();
 				}else{
-					res.send('error: improper credentials');
+					res.send({error: 'improper credentials'});
 				}
 				connection.release();
 			});
 		}else{
-			res.send('error: no db connection');
+			res.send({error: 'no db connection'});
 		}
 	});
 });

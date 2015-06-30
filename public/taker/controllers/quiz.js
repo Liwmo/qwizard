@@ -28,6 +28,14 @@ app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$locati
     };
 
     quizFactory.getQuiz("dummy_id", function(data){
+        if(data.error) {
+            localStorage.error = data.error;
+            localStorage.savedRoute = window.location.hash;
+            window.location = '/';
+
+            return;
+        }
+        
         $scope.name = data.title;
         $scope.questions = data.questions;
     });

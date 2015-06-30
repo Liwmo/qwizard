@@ -7,12 +7,19 @@ app.factory("quizFactory", ["$http", function($http){
 			callback(quizzes[id.toString()]);
 		}else{
 			$http.get("/api/quiz/" + id).success(function(data){
-				if(typeof data !== 'string'){
+				if(!data.error){
 					for(var i = 0; i < data.questions.length; i++){
             			data.questions[i].selected = data.questions[i].selected || [];
         			}
 					quizzes[id.toString()] = data;
 					callback(data);
+				}else{
+					callback(data);
+
+
+					// localStorage.error = data.error;
+					// localStorage.savedRoute = window.location.hash;
+					// window.location = '/';
 				}
 			});
 		}
