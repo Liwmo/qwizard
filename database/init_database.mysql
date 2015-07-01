@@ -1,4 +1,6 @@
-CREATE DATABASE IF NOT EXISTS qwizard_dev;
+DROP DATABASE IF EXISTS qwizard_dev;
+
+CREATE DATABASE qwizard_dev;
 use qwizard_dev;
 
 CREATE TABLE users (
