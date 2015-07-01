@@ -38,7 +38,8 @@ router.post('/', function(req, res, next) {
     client.bind('CN=' + username + ',OU=Employees,OU=UsersAccounts,OU=StLouis,DC=schafer,DC=lan', password, function(err, ldapRes) {
     	if(err){
     		console.log(err.message);
-    		res.redirect('/');
+			var badCredentials = encodeURIComponent('true');
+    		res.redirect('/?badCredentials=' + badCredentials);
     	}else{
     		var cookie = guid();
 			convert.nameToId(username, function(result){
