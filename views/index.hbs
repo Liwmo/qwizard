@@ -1,2 +1,27 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="stylesheets/index.css">
+    <title>Qwizard</title>
+</head>
+<body>
+    <div id="center">
+        <img src="logo-square-12.svg" width="180">
+        {{#if showBadCredentialsError}}
+            <div id="error">
+                ERROR: Username and/or Password is incorrect. <br><a href="/toobad">Forgot password?</a>
+            </div>
+        {{/if}}
+        <form name="login" action="/taker" method="post">
+            <input type="text" placeholder="username" name="username">
+            <input type="password" placeholder="password" name="password">
+            <button id="submit" type="submit">Login</button>
+        </form>
+    </div>
+    <!--<a href="/taker">Taker</a>-->
+    <!--<a href="/maker">Maker</a>-->
+    <!--<a href="/admin">Admin</a>-->
+</body>
+</html>

@@ -20,7 +20,13 @@ router.get('/', function(req, res, next) {
     if(req.cookies.login){
         res.redirect('/taker');
     }else{
-        next();
+        var bad = decodeURIComponent(req.query.badCredentials);
+        var showBadCredentialsError = false;
+        if(bad=='true') {
+            showBadCredentialsError = true;
+        }
+
+        res.render('index', { showBadCredentialsError: showBadCredentialsError });
     }
 });
 
