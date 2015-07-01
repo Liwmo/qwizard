@@ -137,8 +137,14 @@ body {
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
 }
-
-#main-content {
+a {
+    text-decoration:none;
+    color:#fffff5;
+}
+svg {
+    /*filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
+    -webkit-filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
+    filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));*/
 }
 
 #drawer {
@@ -187,7 +193,6 @@ body {
 .notification {
     padding:.65em;
     font-family: "Dosis";
-    font-size:;
     font-weight:300;
     -webkit-flex-wrap:nowrap;
     flex-wrap:nowrap;
@@ -197,14 +202,17 @@ body {
 }
 
 .notification .close {
-    font-size:1.25em;
     cursor:pointer;
-    font-weight:600;
-    height:2em;
     width:2em;
-    fill: #fffff5;
-    padding:.5em;
+    height:2em;
+    padding: .5em;
     margin: 0 .2em;
+    overflow:hidden;
+}
+.notification .close svg {
+    height:100%;
+    width:100%;
+    fill: #fffff5;
 }
 
 .menu {

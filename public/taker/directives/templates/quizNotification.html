@@ -5,5 +5,7 @@
    class="purple-dark notification light-text shadow flex-container">
     <span style="font-size: 1.5em">{{notification.text}}</span>
     <span class="flex"></span>
-    <svg ng-click="hide($event)" class="close"><use xlink:href="../../../images/icon-x.svg#X"></use></svg>
+    <span ng-click="hide($event)" class="close">
+    	<svg><use xlink:href="../../../images/icon-x.svg#X"></use></svg>
+	</span>
 </a>
