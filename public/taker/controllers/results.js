@@ -11,6 +11,9 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", function($sco
     
 
     quizFactory.getQuiz("dummy_id", function(data){
+
+        console.log('getQuiz inside results controller');
+
         $scope.name = data.title;
         $scope.questions = data.questions;
     });
