@@ -1,1 +1,5 @@
-CN=adbind,OU=ServiceAccounts,OU=UsersAccounts,OU=StLouis,DC=authdev,DC=lan
+Testing LDAP: CN=adbind,OU=ServiceAccounts,OU=UsersAccounts,OU=StLouis,DC=authdev,DC=lan
+  -  Username: administrator
+  -  Password: SuperSecret
+
+Prod LDAP: CN=' + username + ',OU=Employees,OU=UsersAccounts,OU=StLouis,DC=schafer,DC=lan
