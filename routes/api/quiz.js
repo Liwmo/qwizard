@@ -10,20 +10,20 @@ router.route('/')
 
 router.route('/:id')
 	.get(function(req, res){
-		var id = (req.params.id == "dummy_id") ? 1 : req.params.id;
-		db.getConnection(function(err, connection) {
-			console.log('Select quiz from quizzes where id=' + id);
-			var query = connection.query('Select quiz from quizzes where id=' + id, function(err, message){
-				connection.release();
-				if(!err && message.length) {
-					res.send(message[0].quiz);
-				}
-				else {
-					console.log('Error with Query');
-					res.send("error");
-				}
-			})
-		});
+		if (req.cookies.login) {
+			db.getConnection(function(err, connection) {
+				var query = connection.query('Select quiz from quizzes where id=?', req.params.id, function(err, message){
+					connection.release();
+					console.log()
+					if(!err && message.length) {
+						res.send(message[0].quiz);
+					}
+					else {
+						res.send({error: 'Error lookup up quiz by id in database'});
+					}
+				})
+			});
+		}
 		//res.sendFile(path.join(__dirname, "../../mockData/mockData.json"));
 	})
 	.post(function(req, res){

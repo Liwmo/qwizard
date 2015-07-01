@@ -9,7 +9,6 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", function($sco
     	document.getElementById("results-answers").classList.toggle("remove");
     }
     
-
     quizFactory.getQuiz(1, function(quizData){
         $scope.name = quizData.title;
         $scope.questions = quizData.questions;
