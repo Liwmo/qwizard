@@ -239,8 +239,6 @@ body {
     opacity:1;
 }
 
-
-
 /*Area for content Note: this will only scroll up+down, never left+right */
 #content {
     overflow:hidden;
