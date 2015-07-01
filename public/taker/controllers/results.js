@@ -1,4 +1,4 @@
-app.controller('results', ["$scope", "quizFactory", "userFactory", function($scope, quizFactory, userFactory) {
+app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", function($scope, quizFactory, userFactory, $location) {
     $scope.name = "";
     $scope.currentQuestion = 0;
     $scope.points = 0;
