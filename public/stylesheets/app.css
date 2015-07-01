@@ -412,6 +412,15 @@ hr{
     background:url(../images/icon-check.svg);
     background-size: 1em 1em;
 }
-.question.no-interact .button.selected.incorrect {
-    background: #fa9467;
+.question.no-interact .button.selected.incorrect::before {
+    
+    position:absolute;
+    left:.75em;
+    top:.75em;
+    display:block;
+    height:1em;
+    width:1em;
+    content:"";
+    background:url(../images/icon-x.svg);
+    background-size: 1em 1em;
 }
