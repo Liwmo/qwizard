@@ -72,7 +72,6 @@
 .logo {
     height:1em;
     color:#FFFFF5;
-    margin-left: -0.5em
 }
 
 .hidden{
@@ -239,8 +238,6 @@ body {
     opacity:1;
 }
 
-
-
 /*Area for content Note: this will only scroll up+down, never left+right */
 #content {
     overflow:hidden;
@@ -297,7 +294,7 @@ hr{
 }
 
 .quiz-navigation .button:hover {
-    background-color: #332532;
+    background-color: #332532 !important;
 }
 
 .question .button {
