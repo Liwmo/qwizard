@@ -12,7 +12,7 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", function($sco
     quizFactory.getQuiz(1, function(quizData){
         $scope.name = quizData.title;
         $scope.questions = quizData.questions;
-        quizFactory.getQuizResults(1, 9001, function(resultsData) {
+        quizFactory.getQuizResults(1, function(resultsData) {
             var answers = JSON.parse(resultsData.answers);
             var selected = JSON.parse(resultsData.selected);
             for (var i = 0; i < $scope.questions.length; i++) {

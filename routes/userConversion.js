@@ -28,4 +28,17 @@ convert.nameToId = function(name, callback){
     });
 };
 
+convert.cookieToId = function(cookie, callback){
+        db.getConnection(function(err, connection){
+        var query = connection.query("SELECT userid FROM tokens WHERE cookie=?", cookie, function(err, message){
+            if(err || message.length == 0){
+                callback(false);
+            }else{
+                callback(message[0].userid);
+            }
+        });
+        connection.release();
+    });
+};
+
 module.exports = convert;
