@@ -16,11 +16,9 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", function($sco
         quizFactory.getQuizResults(1, 9001, function(resultsData) {
             var answers = JSON.parse(resultsData.answers);
             var selected = JSON.parse(resultsData.selected);
-
             for (var i = 0; i < $scope.questions.length; i++) {
-               for (var j = 0; j < $scope.questions[i].selected.length; j++) {
+                  console.log("question " + (i+1) + ' has ' + selected[i].answer.length + ' selected answers');
                   $scope.questions[i].selected = selected[i].answer;
-               } 
             }
         });
     });
