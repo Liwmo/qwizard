@@ -12,9 +12,9 @@
               selected="question.selected"></question>
     </div>
     <div class="flex-container quiz-navigation">
-        <span ng-click="prev()" ng-class="{hidden: !currentQuestion}" class="plum-medium nav-btn flex shadow button noselect" style="width:.1px">Previous</span>
-        <span ng-click="next()" ng-class="{remove: currentQuestion == questions.length - 1}" class="plum-medium flex shadow button noselect" style="width:.1px">Next</span>
+        <span ng-click="prev()" ng-class="{hidden: !currentQuestion}" class="plum-medium nav-btn flex shadow button noselect light-text" style="width:.1px">previous</span>
+        <span ng-click="next()" ng-class="{remove: currentQuestion == questions.length - 1}" class="plum-medium flex shadow button noselect light-text" style="width:.1px">next</span>
         <span class="remove" id="DONT_DELETE_ME"></span>
-        <span ng-click="submit()" ng-class="{remove: !(currentQuestion == questions.length - 1)}" class="plum-medium flex shadow button noselect" style="width:.1px">Submit</span>
+        <span ng-click="submit()" ng-class="{remove: !(currentQuestion == questions.length - 1)}" class="plum-medium flex shadow button noselect light-text" style="width:.1px">submit</span>
     </div>
 </div>

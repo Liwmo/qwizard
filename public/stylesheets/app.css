@@ -79,6 +79,9 @@
     opacity:0;
     pointer-events:none;
 }
+.no-interact {
+    pointer-events:none;
+}
 
 .remove {
     display: none;
@@ -90,6 +93,7 @@
 }
 
 .button {
+    position:relative;
     font-family: "Dosis";
     text-align: center;
     padding:.5em 0;
@@ -111,6 +115,9 @@
 .plum-dark {background-color: #332532;}
 .plum-medium {background-color: #5c515b;}
 .plum-light {background-color:#70666f;}
+
+/* Orange */
+.orange-medium {background-color: #fa9467;}
 
 /*Text*/
 .light-text {color:#fffff5;}
@@ -163,7 +170,7 @@ body {
     flex-wrap: nowrap;
     -webkit-align-items: center;
     align-items: center;
-    padding:0 .75em;
+    padding:0 .20em;
     font-family:"Signika";
     font-weight:600;
     font-size: 2em;
@@ -179,19 +186,26 @@ body {
 }
 
 .notification {
-    padding:.55em;
+    padding:.65em;
     font-family: "Dosis";
+    font-size:;
     font-weight:300;
     -webkit-flex-wrap:nowrap;
     flex-wrap:nowrap;
     -webkit-align-items:center;
     align-items:center;
+    font-size:.75em;
 }
 
 .notification .close {
     font-size:1.25em;
     cursor:pointer;
     font-weight:600;
+    height:2em;
+    width:2em;
+    fill: #fffff5;
+    padding:.5em;
+    margin: 0 .2em;
 }
 
 .menu {
@@ -219,7 +233,10 @@ body {
     fill: #fffff5;
     height: 3em;
     display: block;
-
+    opacity:.4;
+}
+.menu .item:hover svg, .menu .item:active svg,.menu .item:focus svg {
+    opacity:1;
 }
 
 
@@ -383,4 +400,35 @@ hr{
 /*Last child, last column*/
 #leader-list > span:nth-child(3) .row:last-child {
     border:none;
+}
+
+/*For the results page!!!*/
+.question.no-interact .button {
+    opacity:.4;
+}
+.question.no-interact .button.correct,  .question.no-interact .button.selected{
+    opacity:1;
+}
+.question.no-interact .button.correct::before {
+    position:absolute;
+    left:.75em;
+    top:.75em;
+    display:block;
+    height:1em;
+    width:1em;
+    content:"";
+    background:url(../images/icon-check.svg);
+    background-size: 1em 1em;
+}
+.question.no-interact .button.selected.incorrect::before {
+    
+    position:absolute;
+    left:.75em;
+    top:.75em;
+    display:block;
+    height:1em;
+    width:1em;
+    content:"";
+    background:url(../images/icon-x.svg);
+    background-size: 1em 1em;
 }

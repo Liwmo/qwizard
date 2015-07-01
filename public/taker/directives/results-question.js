@@ -1,4 +1,4 @@
-app.directive("question", function(){
+app.directive("resultsQuestion", function(){
 	return {
 		restrict: 'E',
 		scope: {
@@ -6,10 +6,9 @@ app.directive("question", function(){
 			answers: '=',
 			selected: '=',
 			type: '=',
-			name: '=',
-			correct: '='
+			name: '='
 		},
-		templateUrl: '/taker/directives/templates/question.html',
+		templateUrl: '/taker/directives/templates/results-question.html',
 		link: function(scope, elem, attrs){
 			scope.tf = function(answer){
 				scope.selected[0] = answer;
@@ -25,6 +24,7 @@ app.directive("question", function(){
 					scope.selected.push(answer);
 				}
 			};
+
 
 			scope.getType = function(){
 				return '/taker/directives/templates/' + scope.type + '.html';
