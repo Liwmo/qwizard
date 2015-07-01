@@ -3,6 +3,7 @@ var router = express.Router();
 var path = require('path');
 var ldap = require('ldapjs');
 var db = require('../database/db');
+var convert = require('./userConversion');
 
 function guid() {
   function s4() {
@@ -21,6 +22,12 @@ router.post('/', function(req, res, next) {
     	res.redirect('/');
     	return;
     }
+
+	if(req.cookies.login){
+		res.redirect('/taker');
+		return;
+	}
+
     //console.log("This is " + username + " of " + password);
     tlsOptions = { 'rejectUnauthorized': false }
 	var client = ldap.createClient({
@@ -34,17 +41,37 @@ router.post('/', function(req, res, next) {
     		res.redirect('/');
     	}else{
     		var cookie = guid();
-    		db.getConnection(function(err, connection){
-    			var query = connection.query("INSERT INTO tokens SET ?", {cookie: cookie, user: username}, function(err, message){
-    				if(err){
-    					res.redirect('/');
-    				}else{
-    					res.cookie('login', cookie, {maxAge: 365 * 24 * 60 * 60 * 1000});
-    					res.redirect('/taker');
-    				}
-    			});
-    			connection.release();
-    		});
+			convert.nameToId(username, function(result){
+				if(!result){
+					db.getConnection(function(err, connection){
+						var insert = connection.query("INSERT INTO users (name) VALUES(?)", username, function(err, message){
+						});
+						convert.nameToId(username, function(result){
+							var query = connection.query("INSERT INTO tokens SET ?", {cookie: cookie, userid: result}, function(err, message){
+								if(err){
+									res.redirect('/');
+								}else{
+									res.cookie('login', cookie, {maxAge: 365 * 24 * 60 * 60 * 1000});
+									res.redirect('/taker');
+								}
+							});
+							connection.release();
+						});
+					});
+				}else{
+					db.getConnection(function(err, connection){
+						var query = connection.query("INSERT INTO tokens SET ?", {cookie: cookie, userid: result}, function(err, message){
+							if(err){
+								res.redirect('/');
+							}else{
+								res.cookie('login', cookie, {maxAge: 365 * 24 * 60 * 60 * 1000});
+								res.redirect('/taker');
+							}
+						});
+						connection.release();
+					});
+				}
+			});
     		client.unbind(function(err) {if (err) console.log("You cannot leave the LDAP!!!!"); else console.log("Unbinding from the LDAP!")});
     	}
     });
