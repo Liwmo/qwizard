@@ -15,7 +15,6 @@ router.route('/:id')
 			db.getConnection(function(err, connection) {
 				var query = connection.query('Select quiz from quizzes where id=?', req.params.id, function(err, message){
 					connection.release();
-					console.log()
 					if(!err && message.length) {
 						res.send(message[0].quiz);
 					}
@@ -25,14 +24,12 @@ router.route('/:id')
 				})
 			});
 		}
-		//res.sendFile(path.join(__dirname, "../../mockData/mockData.json"));
 	})
 	.post(function(req, res){
 		var id = (req.params.id == "dummy_id") ? 1 : req.params.id;
 		db.getConnection(function(err, connection) {
 			console.log('Select answers from quizzes where id=' + id);
 			var query = connection.query('Select answers from quizzes where id=' + id, function(err, message){
-				//connection.release();
 				if(!err && message.length) {
 					var answers = JSON.parse(message[0].answers);
 
@@ -79,7 +76,7 @@ router.route('/:id')
 					});
 				}
 				else {
-					console.log('Error with Query');
+					console.log("ERROR: Couldn't get correct answers for quiz " + id );
 					res.send("error");
 					connection.release();
 				}
