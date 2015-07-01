@@ -20,7 +20,7 @@ app.controller('dashboard', ['$scope', 'notificationFactory', 'leaderboardFactor
 
             console.log('redirecting from dashboard controller')
 
-            window.location = '/';
+            window.location = '/logout';
 
             return;
       }
