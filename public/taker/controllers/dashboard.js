@@ -12,6 +12,19 @@ app.controller('dashboard', ['$scope', 'notificationFactory', 'leaderboardFactor
 
     //Hope to be refactored into backend one day... I Would be SOOO happy :D
     leaderboardFactory.getLeaders(function(data) {
+
+      // Redirects to login if error in accessing API
+      if(data.error) {
+            localStorage.error = data.error;
+            localStorage.savedRoute = window.location.hash;
+
+            console.log('redirecting from dashboard controller')
+
+            window.location = '/';
+
+            return;
+      }
+
       var userIndex = -1;
       for(var i = 0; i < data.users.length; i++) {
         if($scope.currentUser.userid === data.users[i].userid) {
