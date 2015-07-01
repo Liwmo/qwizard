@@ -19,6 +19,7 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", function($sco
             for (var i = 0; i < $scope.questions.length; i++) {
                   console.log("question " + (i+1) + ' has ' + selected[i].answer.length + ' selected answers');
                   $scope.questions[i].selected = selected[i].answer;
+                  $scope.questions[i].correct = answers[i];
             }
         });
     });

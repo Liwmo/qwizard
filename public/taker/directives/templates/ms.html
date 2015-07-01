@@ -1,5 +1,5 @@
 <span style="width:100%"
       class="teal-medium shadow button noselect"
       ng-click="ms($index)"
-      ng-class="{'purple-medium selected': selected.indexOf($index) > -1}"
+      ng-class="{'purple-medium selected': selected.indexOf($index) > -1, 'correct': correct.indexOf($index) > -1, 'incorrect': correct.indexOf($index) <= -1}"
       ng-repeat="answer in answers track by $index">{{answer}}</span>

@@ -6,7 +6,8 @@ app.directive("question", function(){
 			answers: '=',
 			selected: '=',
 			type: '=',
-			name: '='
+			name: '=',
+			correct: '='
 		},
 		templateUrl: '/taker/directives/templates/question.html',
 		link: function(scope, elem, attrs){
