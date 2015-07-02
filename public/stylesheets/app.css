@@ -252,14 +252,17 @@ svg {
     font-family: "Dosis";
     position:relative;
 }
+
+#quizView, #resultsView {
+    overflow-y: auto;
+}
+
 .quiz_cont {
     padding:.5em;
-    position: absolute;
     left: 0;
     right: 0;
     top: 4em;
-    bottom: 0;
-    overflow: auto;
+    overflow: hidden;
 }
 
 #quiz_header {
