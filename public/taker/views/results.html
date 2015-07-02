@@ -1,35 +1,37 @@
-<div id="results-prompt" class="quiz_container" style="margin-top:1em; padding:.5em">
-	<div class="question shadow">
-		<div class="answer" style="font-size: 1.3em; font-weight: 600; font-family:'Signika'; color: #332532;">{{ratio > .5 ? "Congrats!" : "Uh oh!"}}</div>
-		<hr class="purple-light">
-		<div class="answer" style="color: #5c515b; margin-bottom: .5em">
-			{{points + " points earned on " + name + (ratio > .5 ? "!" : ". Better study more next time!")}}
+<div id="resultsView">
+	<div id="results-prompt" class="quiz_container" style="margin-top:1em; padding:.5em">
+		<div class="question shadow">
+			<div class="answer" style="font-size: 1.3em; font-weight: 600; font-family:'Signika'; color: #332532;">{{ratio > .5 ? "Congrats!" : "Uh oh!"}}</div>
+			<hr class="purple-light">
+			<div class="answer" style="color: #5c515b; margin-bottom: .5em">
+				{{points + " points earned on " + name + (ratio > .5 ? "!" : ". Better study more next time!")}}
+			</div>
 		</div>
-	</div>
-	<div class="button plum-dark quiz-navigation" ng-click="showAnswers()">View Answers</div>
-</div>
-
-<div id="results-answers" class="remove">
-	<div id="quiz_header">
-	    <div>{{name}}</div>
-	    <div class="subtext">{{currentQuestion + 1}} of {{questions.length}}</div>
+		<div class="button plum-dark quiz-navigation" ng-click="showAnswers()">View Answers</div>
 	</div>
 
-	<div class="quiz_cont">
-	    <div ng-repeat="question in questions" class="question shadow no-interact" ng-show="$index == currentQuestion">
-	        <question 
-	              text="question.text"
-	              name="question.name"
-	              answers="question.answers"
-	              type="question.type"
-	              selected="question.selected"
-	              correct="question.correct"></question>
-	    </div>
-	    <div class="flex-container quiz-navigation">
-	        <span ng-click="prev()" ng-class="{hidden: !currentQuestion}" class="plum-dark nav-btn flex shadow button noselect light-text" style="width:.1px">previous</span>
-	        <span ng-click="next()" ng-class="{remove: currentQuestion == questions.length - 1}" class="plum-dark flex shadow button noselect light-text" style="width:.1px">next</span>
-	        <span class="remove" id="DONT_DELETE_ME"></span>
-	        <span ng-click="finish()" ng-class="{remove: !(currentQuestion == questions.length - 1)}" class="plum-dark flex shadow button noselect light-text" style="width:.1px">finish</span>
-	    </div>
+	<div id="results-answers" class="remove">
+		<div id="quiz_header">
+		    <div>{{name}}</div>
+		    <div class="subtext">{{currentQuestion + 1}} of {{questions.length}}</div>
+		</div>
+
+		<div class="quiz_cont">
+		    <div ng-repeat="question in questions" class="question shadow no-interact" ng-show="$index == currentQuestion">
+		        <question 
+		              text="question.text"
+		              name="question.name"
+		              answers="question.answers"
+		              type="question.type"
+		              selected="question.selected"
+		              correct="question.correct"></question>
+		    </div>
+		    <div class="flex-container quiz-navigation">
+		        <span ng-click="prev()" ng-class="{hidden: !currentQuestion}" class="plum-dark nav-btn flex shadow button noselect light-text" style="width:.1px">previous</span>
+		        <span ng-click="next()" ng-class="{remove: currentQuestion == questions.length - 1}" class="plum-dark flex shadow button noselect light-text" style="width:.1px">next</span>
+		        <span class="remove" id="DONT_DELETE_ME"></span>
+		        <span ng-click="finish()" ng-class="{remove: !(currentQuestion == questions.length - 1)}" class="plum-dark flex shadow button noselect light-text" style="width:.1px">finish</span>
+		    </div>
+		</div>
 	</div>
 </div>

@@ -21,8 +21,12 @@ app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$locati
 
     $scope.submit = function(){
 
-        // TODO: first param needs to be quiz ID from url params
-        quizFactory.postQuiz(1, function(data){
+    document.getElementById("quizView").addEventListener("keyPress", function(e){
+        console.log(e.keyCode);
+    });
+
+    // TODO: first param needs to be quiz ID from url params
+    quizFactory.postQuiz(1, function(data){
             notificationFactory.addNotification("Thanks for taking the WWT Employee Handbook quiz! Your results will be available soon!", "#/");
             $location.path('/');
         });
