@@ -23,7 +23,7 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
         });
     });
 
-    userFactory.getScoreOnQuiz("dummy_id", function(data) {
+    userFactory.getScoreOnQuiz(1, function(data) {
         $scope.points = data.points;
         $scope.ratio = $scope.points / $scope.max_points;
     });

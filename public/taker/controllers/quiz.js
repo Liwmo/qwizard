@@ -21,7 +21,7 @@ app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$locati
 
     $scope.submit = function(){
 
-    document.getElementById("quizView").addEventListener("keypress", function(e){
+    document.getElementById("quizView").addEventListener("keyPress", function(e){
         console.log(e.keyCode);
     });
 
