@@ -141,10 +141,10 @@ a {
     text-decoration:none;
     color:#fffff5;
 }
-svg {
+svg, img {
     /*filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
-    -webkit-filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
-    filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));*/
+    -webkit-filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.5));
+    filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.5));*/
 }
 
 #drawer {
@@ -159,7 +159,8 @@ svg {
     overflow: hidden;
     z-index: 10;
     -webkit-transform: scale(.00001) translateY(-50em) ;
-    transform: scale(.00001) translateY(-50em) ;
+    transform: scale(.00001) translateY(-50em);
+    transform-origin:bottom center;
     -webkit-transition:.35s;
     transition:.25s;
 }
@@ -227,15 +228,18 @@ svg {
     font-family: Dosis;
     font-weight: 200;
 }
+.menu .item span > * {
+    margin:0 auto;
+}
 
-.menu .item  svg{
+.menu .item svg{
     fill: #fffff5;
     height: 100%;
     width:100%;
 }
 .menu .item > span :first-child {
-    width:4em;
-    height:4em;
+    width:2em;
+    height:2em;
 }
 
 .menu .item {
