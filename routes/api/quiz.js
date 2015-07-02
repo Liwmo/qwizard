@@ -13,7 +13,8 @@ router.route('/:id')
 	.get(function(req, res){
 		if (req.cookies.login) {
 			db.getConnection(function(err, connection) {
-				var query = connection.query('Select quiz from quizzes where id=?', req.params.id, function(err, message){
+				var id = parseInt(req.params.id) || -1;
+				var query = connection.query('Select quiz from quizzes where id=?', id, function(err, message){
 					connection.release();
 					if(!err && message.length) {
 						res.send(message[0].quiz);
@@ -26,10 +27,9 @@ router.route('/:id')
 		}
 	})
 	.post(function(req, res){
-		var id = (req.params.id == "dummy_id") ? 1 : req.params.id;
 		db.getConnection(function(err, connection) {
-			console.log('Select answers from quizzes where id=' + id);
-			var query = connection.query('Select answers from quizzes where id=' + id, function(err, message){
+			var quizId = parseInt(req.params.id) || -1;
+			var query = connection.query('Select answers from quizzes where id=?', quizId, function(err, message){
 				if(!err && message.length) {
 					var answers = JSON.parse(message[0].answers);
 
@@ -38,7 +38,7 @@ router.route('/:id')
 						res.send("error: answer length mismatch");
 						return;
 					}
-					var score = 0;
+					var points = 0;
 
 					var pointValue = {
 						mc: 2,
@@ -55,20 +55,23 @@ router.route('/:id')
 							}
 						}
 						if(matches){
-							score += pointValue[selected[i].type];
+							points += pointValue[selected[i].type];
 						}
 					}
 					convert.cookieToId(req.cookies.login, function(userId){
-						var query = 'Insert into results (quizid, userid, points, answers) values (' + id + ', '+ userId +', ' + score + ', \''+ JSON.stringify(selected) +'\')';
-						console.log("ALERT: Submitting user's("+userId+") results ("+score+" points)");
-						var pointsQuery = connection.query(query, function(insertError, message) {
+						var pointsQuery = connection.query('Insert into results SET ?', {
+							quizid: quizId,
+							userid: userId,
+							points: points,
+							answers: JSON.stringify(selected)
+						},function(insertError, message) {
 							if(insertError) {
 								console.log("ERROR: " + insertError);
 								res.send(insertError);
 							}
 
 							else {
-								res.send({score: score});
+								res.send({score: points});
 							}
 
 						});
@@ -76,7 +79,7 @@ router.route('/:id')
 					});
 				}
 				else {
-					console.log("ERROR: Couldn't get correct answers for quiz " + id );
+					console.log("ERROR: Couldn't get correct answers for quiz " + quizId );
 					res.send("error");
 					connection.release();
 				}
@@ -87,17 +90,15 @@ router.route('/:id')
 router.route('/:id/results')
 	.get(function(req, res){
 		var id =  req.params.id;
-		var userId = req.cookies.login;
 		var quizResults = {};
 		convert.cookieToId(req.cookies.login, function(userId){
 			db.getConnection(function(err, connection){
-					var getQuizQuery = 'Select answers from quizzes where id=' + id;;
+					var getQuizQuery = 'Select answers from quizzes where id=' + id;
 					var queryAnswers = connection.query(getQuizQuery, function(err, message) {
 						if (err) {console.log(err)}
 						else {
 							quizResults.answers = message[0].answers;
-							getAnswersQuery = 'Select answers from results where quizid='  + id + " and userid=\'" + userId + "\'";
-							var querySelected = connection.query(getAnswersQuery, function(err, message) {
+							var querySelected = connection.query('Select answers from results where quizid=? and userid=?', [id, userId],function(err, message) {
 								if (err) {console.log(err)}
 								else {
 									quizResults.selected = message[0].answers;
