@@ -221,40 +221,30 @@ svg {
     justify-content:center;
 }
 
-.menu .item {
-    width: 100%;
-}
-
-.menu .item:hover {
-    background-color:#70666f;
-}
-
 .menu .item span{
     margin: auto;
     text-align: center;
     font-family: Dosis;
-    text-weight: 200;
+    font-weight: 200;
 }
 
 .menu .item  svg{
     fill: #fffff5;
-    height: 3em;
-    display: block;
+    height: 100%;
+    width:100%;
+}
+.menu .item > span :first-child {
+    width:4em;
+    height:4em;
 }
 
- /* can remove when all menu items are linked */
-.menu div {
+.menu .item {
+    width: 100%;
     opacity:.4;
 }
-.menu div:hover, .menu div:active,.menu div:focus {
+.menu .item:hover, .menu .item:active {
     opacity:1;
-}
-
-.menu a {
-    opacity:.4;
-}
-.menu a:hover, .menu a:active,.menu a:focus {
-    opacity:1;
+    background-color:#70666f;
 }
 
 /*Area for content Note: this will only scroll up+down, never left+right */
