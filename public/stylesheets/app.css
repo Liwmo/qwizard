@@ -240,9 +240,20 @@ svg {
     fill: #fffff5;
     height: 3em;
     display: block;
+}
+
+ /* can remove when all menu items are linked */
+.menu div {
     opacity:.4;
 }
-.menu .item:hover svg, .menu .item:active svg,.menu .item:focus svg {
+.menu div:hover, .menu div:active,.menu div:focus {
+    opacity:1;
+}
+
+.menu a {
+    opacity:.4;
+}
+.menu a:hover, .menu a:active,.menu a:focus {
     opacity:1;
 }
 
