@@ -75,13 +75,11 @@
     </a>
   </div>
 </div>
-  <div class="flex">
+  <div class="flex flex-container vertical">
     <div class="shadow teal-dark flex-container toolbar" id="maker-nav">
       <img class="logo" src="../images/logo-horizontal.svg"/>
     </div>
-    <div id="content">
-      <ng-view></ng-view>
-    </div>
+    <ng-view class="flex flex-container vertical" id="content"></ng-view>
   </div>
 </div>
 
