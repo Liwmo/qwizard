@@ -6,7 +6,7 @@
         "passed": true
       }
     ],
-    "duration": 1368
+    "duration": 1062
   },
   {
     "description": "Should redirect to login when attempting to browse without logging in",
@@ -15,7 +15,7 @@
         "passed": true
       }
     ],
-    "duration": 774
+    "duration": 465
   },
   {
     "description": "Should not allow invalid credentials",
@@ -24,7 +24,7 @@
         "passed": true
       }
     ],
-    "duration": 2341
+    "duration": 1218
   },
   {
     "description": "Should show error message when credentials are bad",
@@ -33,7 +33,7 @@
         "passed": true
       }
     ],
-    "duration": 72
+    "duration": 54
   },
   {
     "description": "Should not accept blank password and/or username",
@@ -57,7 +57,7 @@
         "passed": true
       }
     ],
-    "duration": 4715
+    "duration": 2946
   },
   {
     "description": "Should allow valid credentials to login",
@@ -66,7 +66,7 @@
         "passed": true
       }
     ],
-    "duration": 2084
+    "duration": 1204
   },
   {
     "description": "Should redirect to login after logging out",
@@ -75,7 +75,7 @@
         "passed": true
       }
     ],
-    "duration": 615
+    "duration": 579
   },
   {
     "description": "Should not be able to go to any urls after logging out",
@@ -84,6 +84,6 @@
         "passed": true
       }
     ],
-    "duration": 885
+    "duration": 489
   }
 ]
