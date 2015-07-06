@@ -21,18 +21,10 @@ app.controller('leaderboard', ['$scope', 'leaderboardFactory', function($scope, 
         $scope.start = 1;
     });
 
-    $scope.thisMonth = function() {
-        if(!document.querySelector('#thisMonth').classList.contains('selectedBoard')) {
-            document.querySelector('#thisMonth').classList.toggle('selectedBoard');
-            document.querySelector('#allTime').classList.toggle('selectedBoard');
-        }
-    };
+    $scope.selectedBoard = 1;
 
-    $scope.allTime = function() {
-        if(!document.querySelector('#allTime').classList.contains('selectedBoard')) {
-            document.querySelector('#thisMonth').classList.toggle('selectedBoard');
-            document.querySelector('#allTime').classList.toggle('selectedBoard');
-        }
+    $scope.toggleBoard = function(tab) {
+        $scope.selectedBoard = tab;
     };
 
 }]);
