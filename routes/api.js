@@ -33,5 +33,4 @@ router.use('/leaderboard', leaderboard);
 router.use('/userscore', userScore);
 router.use('/role', role);
 
-
 module.exports = router;
