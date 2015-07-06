@@ -3,11 +3,11 @@ app.factory("notificationFactory", ["$http", function($http){
     var notifications = [
         {
             text: "WWT Employee Handbook quiz is ready to take.",
-            link: "#/quiz"
+            link: "#/quiz/1"
         },
         {
-            text: "Results for Quiz 234 have been released. View now >>",
-            link: "#/results"
+            text: "Results for Quiz 1 have been released. View now >>",
+            link: "#/results/1"
         }
     ];
 
