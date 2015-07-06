@@ -90,6 +90,7 @@ router.route('/:id/results')
 				getQuizQuery += 'from quizzes as q, results as r ';
 				getQuizQuery += ' where q.id=? and r.quizid=? and r.userid=?';
 				var queryAnswers = connection.query(getQuizQuery, [id, id, userId], function(err, message) {
+					connection.release();
 					if (err) {console.log(err)}
 					else {
 						if(message.length){
