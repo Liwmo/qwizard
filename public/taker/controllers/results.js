@@ -1,15 +1,17 @@
-app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", function($scope, quizFactory, userFactory, $location) {
+app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", "$routeParams",
+    function($scope, quizFactory, userFactory, $location, $routeParams) {
     $scope.name = "";
     $scope.currentQuestion = 0;
     $scope.points = 0;
     $scope.max_points = 71;//hard coded
+    $scope.quizId = $routeParams.id;
 
     $scope.showAnswers = function() {
     	document.getElementById("results-prompt").classList.toggle("remove");
     	document.getElementById("results-answers").classList.toggle("remove");
     }
     
-    quizFactory.getQuiz(1, function(quizData){
+    quizFactory.getQuiz($scope.quizId, function(quizData){
         $scope.name = quizData.title;
         $scope.questions = quizData.questions;
         quizFactory.getQuizResults(1, function(resultsData) {
@@ -23,7 +25,7 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
         });
     });
 
-    userFactory.getScoreOnQuiz(1, function(data) {
+    userFactory.getScoreOnQuiz($scope.quizId, function(data) {
         $scope.points = data.points;
         $scope.ratio = $scope.points / $scope.max_points;
     });
