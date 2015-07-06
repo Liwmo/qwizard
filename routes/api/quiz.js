@@ -4,11 +4,6 @@ var router = express.Router();
 var db = require('../../database/db');
 var convert = require('../userConversion');
 
-router.route('/')
-	.get(function(req, res) {
-		res.send('Hello James');
-	});
-
 router.route('/:id')
 	.get(function(req, res){
 		if (req.cookies.login) {
@@ -30,6 +25,7 @@ router.route('/:id')
 		db.getConnection(function(err, connection) {
 			var quizId = parseInt(req.params.id) || -1;
 			var query = connection.query('Select answers from quizzes where id=?', quizId, function(err, message){
+				connection.release();
 				if(!err && message.length) {
 					var answers = JSON.parse(message[0].answers);
 
@@ -71,17 +67,15 @@ router.route('/:id')
 							}
 
 							else {
-								res.send({score: points});
+								res.send("success");
 							}
 
 						});
-						connection.release();
 					});
 				}
 				else {
 					console.log("ERROR: Couldn't get correct answers for quiz " + quizId );
 					res.send("error");
-					connection.release();
 				}
 			})
 		});
@@ -90,29 +84,27 @@ router.route('/:id')
 router.route('/:id/results')
 	.get(function(req, res){
 		var id =  req.params.id;
-		var quizResults = {};
 		convert.cookieToId(req.cookies.login, function(userId){
 			db.getConnection(function(err, connection){
-					var getQuizQuery = 'Select answers from quizzes where id=' + id;
-					var queryAnswers = connection.query(getQuizQuery, function(err, message) {
-						if (err) {console.log(err)}
-						else {
-							quizResults.answers = message[0].answers;
-							var querySelected = connection.query('Select answers from results where quizid=? and userid=?', [id, userId],function(err, message) {
-								if (err) {console.log(err)}
-								else {
-									quizResults.selected = message[0].answers;
-									res.send(JSON.stringify(quizResults));
-								}
-								connection.release();
-							});
+				var getQuizQuery = 'select q.answers, r.answers as selected ';
+				getQuizQuery += 'from quizzes as q, results as r ';
+				getQuizQuery += ' where q.id=? and r.quizid=? and r.userid=?';
+				var queryAnswers = connection.query(getQuizQuery, [id, id, userId], function(err, message) {
+					connection.release();
+					if (err) {console.log(err)}
+					else {
+						if(message.length){
+							res.send(message[0]);
+						}else{
+							res.send({error: 'no results for user-quiz pair'});
 						}
+					}
 
-					});
 				});
-
 			});
+
 		});
+	});
 		
 
 module.exports = router;

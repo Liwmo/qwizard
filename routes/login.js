@@ -7,6 +7,7 @@ router.get('/logout', function(req, res) {
     if(req.cookies.login){
         db.getConnection(function(err, connection){
             var query = connection.query('DELETE FROM tokens WHERE cookie=?', req.cookies.login, function(err, message){
+                connection.release();
                 res.clearCookie('login');
                 res.redirect('/');
             });
