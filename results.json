@@ -1,0 +1,29 @@
+[
+  {
+    "description": "Should not allow browsing directly to any taker webpage",
+    "assertions": [
+      {
+        "passed": true
+      }
+    ],
+    "duration": 1326
+  },
+  {
+    "description": "Should redirect to login when attempting to browse without logging in",
+    "assertions": [
+      {
+        "passed": true
+      }
+    ],
+    "duration": 917
+  },
+  {
+    "description": "Should not allow invalid credentials",
+    "assertions": [
+      {
+        "passed": true
+      }
+    ],
+    "duration": 2302
+  }
+]

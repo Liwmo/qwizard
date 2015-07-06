@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "uat-taker": "webdriver-manager start & protractor public/taker/p-tests/conf.js -stackTrace=false -verbose=false"
+    "uat-taker": "webdriver-manager start & protractor public/taker/p-tests/conf.js --resultJsonOutputFile=results.json && vim results.json"
   },
   "dependencies": {
     "body-parser": "~1.12.4",
