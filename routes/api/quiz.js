@@ -64,12 +64,9 @@ router.route('/:id')
 							if(insertError) {
 								console.log("ERROR: " + insertError);
 								res.send(insertError);
-							}
-
-							else {
+							} else {
 								res.send("success");
 							}
-
 						});
 					});
 				}

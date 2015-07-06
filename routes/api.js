@@ -2,13 +2,16 @@
 
 var express = require('express');
 var router = express.Router();
+var db = require('../database/db.js');
+
 var quiz = require('./api/quiz');
 var leaderboard = require('./api/leaderboard');
 var userScore = require('./api/userScore');
-var db = require('../database/db.js');
+var role = require('./api/role');
+
 
 router.all('/*', function(req, res, next){
-	console.log('route caught, verifying');
+	console.log('NOTE: route caught, verifying');
 	db.getConnection(function(err, connection){
 		if(!err){
 			var query = connection.query("select * from tokens where cookie=?", req.cookies.login, function(err, message){
@@ -28,6 +31,6 @@ router.all('/*', function(req, res, next){
 router.use('/quiz', quiz);
 router.use('/leaderboard', leaderboard);
 router.use('/userscore', userScore);
-
+router.use('/role', role);
 
 module.exports = router;

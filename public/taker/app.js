@@ -6,13 +6,17 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
             controller: "dashboard",
             templateUrl: "views/dashboard.html"
         })
-        .when("/quiz", {
+        .when("/quiz/:id", {
             controller: "quiz",
             templateUrl: "views/quiz.html"
         })
-        .when("/results", {
+        .when("/results/:id", {
             controller: "results",
             templateUrl: "views/results.html"
+        })
+        .when("/leaderboard", {
+            controller: "leaderboard",
+            templateUrl: "views/leaderboard.html"
         })
         .otherwise("/");
 }]);

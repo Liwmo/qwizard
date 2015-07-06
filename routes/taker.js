@@ -19,7 +19,8 @@ router.post('/', function(req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
     if(!username || !password){
-    	res.redirect('/');
+    	var badCredentials = encodeURIComponent('true');
+    	res.redirect('/?badCredentials=' + badCredentials);
     	return;
     }
 
@@ -35,7 +36,15 @@ router.post('/', function(req, res, next) {
 		tlsOptions: tlsOptions
 	});
 
-    client.bind('CN=' + username + ',OU=Employees,OU=UsersAccounts,OU=StLouis,DC=schafer,DC=lan', password, function(err, ldapRes) {
+	if (username == 'proj-1189-bind') {
+		console.log("ALERT: Logging in with the Resource Account");
+		var bindPath = 'CN='+ username +',OU=ServiceAccounts,OU=UsersAccounts,OU=StLouis,DC=schafer,DC=lan';
+	}
+	else {
+		var bindPath = 'CN=' + username + ',OU=Employees,OU=UsersAccounts,OU=StLouis,DC=schafer,DC=lan';
+	}
+
+    client.bind(bindPath, password, function(err, ldapRes) {
     	if(err){
     		console.log(err.message);
 			var badCredentials = encodeURIComponent('true');

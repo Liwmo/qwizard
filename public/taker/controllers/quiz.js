@@ -1,6 +1,8 @@
-app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$location", function($scope, quizFactory, notificationFactory, $location) {
+app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$location", "$routeParams",
+    function($scope, quizFactory, notificationFactory, $location, $routeParams) {
 
     $scope.name = "WWT Quiz";
+    $scope.quizId= $routeParams.id;
     
     $scope.questions = [
     	{name: "Apple Pie", text: "Question 1 is this one?!", answers: ["pizza", "sushi", "taco"], type: "mc", selected: null},
@@ -25,15 +27,13 @@ app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$locati
         console.log(e.keyCode);
     });
 
-    // TODO: first param needs to be quiz ID from url params
-    quizFactory.postQuiz(1, function(data){
+    quizFactory.postQuiz($scope.quizId, function(data){
             notificationFactory.addNotification("Thanks for taking the WWT Employee Handbook quiz! Your results will be available soon!", "#/");
             $location.path('/');
         });
     };
 
-    // TODO: first param needs to be quiz ID from url params
-    quizFactory.getQuiz(1, function(data){
+    quizFactory.getQuiz($scope.quizId, function(data){
         console.log('data: ', data);
         $scope.name = data.title;
         $scope.questions = data.questions;
