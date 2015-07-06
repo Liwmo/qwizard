@@ -179,15 +179,6 @@ svg, img {
     transition:.5s;
 }
 
-#sidebar {
-    font-family:"Signika";
-    font-weight:600;
-    color: #111111;
-    overflow: hidden;
-    z-index: 10;
-    width: 15em;
-}
-
 .toolbar {
     position:relative;
     flex-wrap: nowrap;
