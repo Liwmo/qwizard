@@ -11,7 +11,7 @@ var role = require('./api/role');
 
 
 router.all('/*', function(req, res, next){
-	console.log('route caught, verifying');
+	console.log('NOTE: route caught, verifying');
 	db.getConnection(function(err, connection){
 		if(!err){
 			var query = connection.query("select * from tokens where cookie=?", req.cookies.login, function(err, message){

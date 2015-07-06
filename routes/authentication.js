@@ -2,39 +2,40 @@ var db = require('../database/db.js');
 var convert = require('./userConversion');
 
 module.exports.authenticateCookie = function(req, res, next) {
-    console.log('route caught, running authenticateCookie');
-    db.getConnection(function(err, connection){
-        if(!err){
-            var query = connection.query("select * from tokens where cookie=?", req.cookies.login, function(err, message){
-                connection.release();
-                if(!err && message.length){
-                    console.log("cookie authenticated");
-                    next();
-                }else{
-                    res.send({error: 'improper credentials'});
-                }
-            });
-        }else{
-            res.send({error: 'no db connection'});
+    console.log('NOTE: route caught, running authenticateCookie');
+    db.getConnection(function(err, connection) {
+        if(err) {
+            res.send({error: 'unable to connect to database'})
         }
+
+        var query = connection.query('SELECT * FROM tokens WHERE cookie=?', req.cookies.login, function(erro, results) {
+            connection.release();
+            if(err || !results.length) {
+                res.send({eror: 'cookie not authenticated'});
+            } else {
+                console.log('NOTE: cookie authenticated');
+                next();
+            }
+        });
+        console.log('SQL: ', query.sql);
     });
 };
 
 module.exports.authenticateMaker = function(req, res, next) {
-    console.log('route caught, running authenticateRole');
+    console.log('NOTE: route caught, running authenticateRole');
     db.getConnection(function(err, connection) {
         if(err) {
-            res.send({error: 'no db connection'});
+            res.send({error: 'unable to connect to database'});
             return;
         }
 
         convert.cookieToId(req.cookies.login, function(userId) {
-            var query = connection.query('SELECT role FROM users WHERE id=?', userId, function(err, result) {
+            var query = connection.query('SELECT role FROM users WHERE id=?', userId, function(err, results) {
                 connection.release();
-                if(err || !result.length) {
+                if(err || !results.length) {
                     res.send({error: 'unable to authenticate'});
                 }
-                else if(result[0].role < 1) {
+                else if(results[0].role < 1) {
                     res.send({error: 'not authorized as a quiz maker'});
                 }
                 else {
@@ -42,7 +43,7 @@ module.exports.authenticateMaker = function(req, res, next) {
                     next();
                 }
             });
-            console.log(query.sql);
+            console.log('SQL:', query.sql);
         });
     });
 };
