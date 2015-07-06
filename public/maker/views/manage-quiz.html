@@ -1,5 +1,5 @@
-<div class="flex-container horizontal shadow">
-    <span class="flex leaderMenu button noselect" ng-click="selectCategory(1)" ng-class="{'selectedCategory':selectedCategory==1}">Finished</span>
-    <span class="flex leaderMenu button noselect" ng-click="selectCategory(2)" ng-class="{'selectedCategory':selectedCategory==2}">Scheduled</span>
-    <span class="flex leaderMenu button noselect" ng-click="selectCategory(3)" ng-class="{'selectedCategory':selectedCategory==3}">Drafts</span>
+<div id="categoryBar" class="flex-container horizontal shadow">
+    <span class="noselect" ng-click="selectCategory(1)" ng-class="{'selectedCategory':selectedCategory==1}">Finished</span>
+    <span class="noselect" ng-click="selectCategory(2)" ng-class="{'selectedCategory':selectedCategory==2}">Scheduled</span>
+    <span class="noselect" ng-click="selectCategory(3)" ng-class="{'selectedCategory':selectedCategory==3}">Drafts</span>
 </div>

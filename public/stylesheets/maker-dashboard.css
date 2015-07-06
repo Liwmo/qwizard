@@ -6,8 +6,19 @@
     width: 15em;
 }
 
+#categoryBar {
+	font-family: Signika;
+    font-weight: 600;
+    color: #5c515b;
+    justify-content:space-around;
+}
+#categoryBar > span {
+	font-size:1.5em;
+	padding:.3em 2em;
+	cursor:pointer;
+}
+
 .selectedCategory {
      color: #17a587;
-     border-bottom: 0.1em solid #17a587;
-     transition:.5s;
+     border-bottom: 0.2em solid #17a587;
 }
