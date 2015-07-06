@@ -4,7 +4,7 @@ exports.config = {
   capabilities: {
   	'browserName': 'chrome',
   	'chromeOptions': {
-  		'args': [/*'show-fps-counter=true',*/ 'incognito']
+  		'args': ['show-fps-counter=true', 'incognito']
   	}
   }
 };

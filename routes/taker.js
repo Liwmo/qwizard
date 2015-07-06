@@ -19,7 +19,8 @@ router.post('/', function(req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
     if(!username || !password){
-    	res.redirect('/');
+    	var badCredentials = encodeURIComponent('true');
+    	res.redirect('/?badCredentials=' + badCredentials);
     	return;
     }
 

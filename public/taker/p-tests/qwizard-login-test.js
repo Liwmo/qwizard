@@ -26,7 +26,7 @@ describe('Qwizard Homepage', function() {
 		expect(element(by.css("#error")).isPresent()).toBe(true);
 	});
 
-	it ("Should not blank password and/or username", function() {
+	it ("Should not accept blank password and/or username", function() {
 		browser.get('http://localhost:3000');
 		//No username
 		element(by.css('[type="password"]')).sendKeys('blah_not_a_real_password');
@@ -36,7 +36,7 @@ describe('Qwizard Homepage', function() {
 		expect(element(by.css("#error")).isPresent()).toBe(true);
 
 		//No Password
-		expect(browser.getCurrentUrl()).toNotBe('http://localhost:3000/taker/#/');
+		browser.get('http://localhost:3000');
 		element(by.css('[type="text"]')).sendKeys('blah_not_a_real_user');
 		element(by.css('[type="submit"]')).click();
 		browser.sleep(500);
@@ -44,7 +44,7 @@ describe('Qwizard Homepage', function() {
 		expect(element(by.css("#error")).isPresent()).toBe(true);
 
 		//No Username/Password
-		expect(browser.getCurrentUrl()).toNotBe('http://localhost:3000/taker/#/');
+		browser.get('http://localhost:3000');
 		element(by.css('[type="submit"]')).click();
 		browser.sleep(500);
 		expect(browser.getCurrentUrl()).toNotBe('http://localhost:3000/taker/#/');
@@ -72,13 +72,4 @@ describe('Qwizard Homepage', function() {
 		browser.sleep(200);
 		expect(browser.getCurrentUrl()).toNotBe('http://localhost:3000/taker/#/');
 	});
-  // it('should have a submit button', function() {
-  	
-  // 	//Use this for any pages that don't have angular
-  // 	browser.ignoreSynchronization = true;
-
-  	
-  //   browser.get('http://localhost:3000/');
-  //   element(by.css('[type="submit"]')).click();
-  // });
 });
