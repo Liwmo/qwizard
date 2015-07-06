@@ -6,7 +6,7 @@
         "passed": true
       }
     ],
-    "duration": 1398
+    "duration": 1328
   },
   {
     "description": "Should redirect to login when attempting to browse without logging in",
@@ -15,7 +15,7 @@
         "passed": true
       }
     ],
-    "duration": 911
+    "duration": 628
   },
   {
     "description": "Should not allow invalid credentials",
@@ -24,7 +24,16 @@
         "passed": true
       }
     ],
-    "duration": 2464
+    "duration": 1589
+  },
+  {
+    "description": "Should show error message when credentials are bad",
+    "assertions": [
+      {
+        "passed": true
+      }
+    ],
+    "duration": 68
   },
   {
     "description": "Should not blank password and/or username",
@@ -33,7 +42,9 @@
         "passed": true
       },
       {
-        "passed": true
+        "passed": false,
+        "errorMsg": "Expected false to be true.",
+        "stackTrace": "Error: Failed expectation\n    at [object Object].<anonymous> (/home/dev1/qwizard/public/taker/p-tests/qwizard-login-test.js:36:49)\n    at /home/dev1/.nvm/versions/node/v0.12.4/lib/node_modules/protractor/node_modules/jasminewd/index.js:94:14\n    at [object Object].promise.ControlFlow.runInFrame_ (/home/dev1/.nvm/versions/node/v0.12.4/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/webdriver/promise.js:1877:20)\n    at [object Object].promise.ControlFlow.runEventLoop_ (/home/dev1/.nvm/versions/node/v0.12.4/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/webdriver/promise.js:1755:8)\n    at [object Object].<anonymous> (/home/dev1/.nvm/versions/node/v0.12.4/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/webdriver/promise.js:2056:12)\n    at goog.async.run.processWorkQueue (/home/dev1/.nvm/versions/node/v0.12.4/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/goog/async/run.js:125:21)\n    at runMicrotasksCallback (node.js:337:7)\n    at process._tickCallback (node.js:355:11)"
       },
       {
         "passed": true
@@ -42,10 +53,23 @@
         "passed": true
       },
       {
+        "passed": false,
+        "errorMsg": "Expected false to be true.",
+        "stackTrace": "Error: Failed expectation\n    at [object Object].<anonymous> (/home/dev1/qwizard/public/taker/p-tests/qwizard-login-test.js:44:49)\n    at /home/dev1/.nvm/versions/node/v0.12.4/lib/node_modules/protractor/node_modules/jasminewd/index.js:94:14\n    at [object Object].promise.ControlFlow.runInFrame_ (/home/dev1/.nvm/versions/node/v0.12.4/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/webdriver/promise.js:1877:20)\n    at [object Object].promise.ControlFlow.runEventLoop_ (/home/dev1/.nvm/versions/node/v0.12.4/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/webdriver/promise.js:1755:8)\n    at [object Object].<anonymous> (/home/dev1/.nvm/versions/node/v0.12.4/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/webdriver/promise.js:2056:12)\n    at goog.async.run.processWorkQueue (/home/dev1/.nvm/versions/node/v0.12.4/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/goog/async/run.js:125:21)\n    at runMicrotasksCallback (node.js:337:7)\n    at process._tickCallback (node.js:355:11)"
+      },
+      {
         "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": false,
+        "errorMsg": "Expected false to be true.",
+        "stackTrace": "Error: Failed expectation\n    at [object Object].<anonymous> (/home/dev1/qwizard/public/taker/p-tests/qwizard-login-test.js:51:49)\n    at /home/dev1/.nvm/versions/node/v0.12.4/lib/node_modules/protractor/node_modules/jasminewd/index.js:94:14\n    at [object Object].promise.ControlFlow.runInFrame_ (/home/dev1/.nvm/versions/node/v0.12.4/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/webdriver/promise.js:1877:20)\n    at [object Object].promise.ControlFlow.runEventLoop_ (/home/dev1/.nvm/versions/node/v0.12.4/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/webdriver/promise.js:1755:8)\n    at [object Object].<anonymous> (/home/dev1/.nvm/versions/node/v0.12.4/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/webdriver/promise.js:2056:12)\n    at goog.async.run.processWorkQueue (/home/dev1/.nvm/versions/node/v0.12.4/lib/node_modules/protractor/node_modules/selenium-webdriver/lib/goog/async/run.js:125:21)\n    at runMicrotasksCallback (node.js:337:7)\n    at process._tickCallback (node.js:355:11)"
       }
     ],
-    "duration": 3599
+    "duration": 3204
   },
   {
     "description": "Should allow valid credentials to login",
@@ -54,6 +78,24 @@
         "passed": true
       }
     ],
-    "duration": 1586
+    "duration": 1578
+  },
+  {
+    "description": "Should redirect to login after logging out",
+    "assertions": [
+      {
+        "passed": true
+      }
+    ],
+    "duration": 600
+  },
+  {
+    "description": "Should not be able to go to any urls after logging out",
+    "assertions": [
+      {
+        "passed": true
+      }
+    ],
+    "duration": 661
   }
 ]

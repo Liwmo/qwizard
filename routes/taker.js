@@ -35,11 +35,12 @@ router.post('/', function(req, res, next) {
 		tlsOptions: tlsOptions
 	});
 
-	if (username = 'proj-1189-bind') {
-		var bindPath = 'CN=' + username + ',OU=ServiceAccounts,OU=UsersAccounts,OU=StLouis,DC=schafer,DC=lan';
+	if (username == 'proj-1189-bind') {
+		console.log("ALERT: Logging in with the Resource Account");
+		var bindPath = 'CN='+ username +',OU=ServiceAccounts,OU=UsersAccounts,OU=StLouis,DC=schafer,DC=lan';
 	}
 	else {
-		'CN=' + username + ',OU=Employees,OU=UsersAccounts,OU=StLouis,DC=schafer,DC=lan'
+		var bindPath = 'CN=' + username + ',OU=Employees,OU=UsersAccounts,OU=StLouis,DC=schafer,DC=lan';
 	}
 
     client.bind(bindPath, password, function(err, ldapRes) {
