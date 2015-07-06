@@ -6,3 +6,8 @@
     width: 15em;
 }
 
+.selectedCategory {
+     color: #17a587;
+     border-bottom: 0.1em solid #17a587;
+     transition:.5s;
+}
