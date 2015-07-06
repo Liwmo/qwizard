@@ -216,6 +216,23 @@ svg, img {
     fill: #fffff5;
 }
 
+.leaderMenu {
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+    font-family: Signika;
+    font-weight: 600;
+    color: #5c515b;
+    text-align: center;
+    font-size: 2em;
+    height: 2.1em;
+    border-bottom: 0.1em solid #fffff5;
+}
+
+.selectedBoard {
+     color: #17a587;
+     border-bottom: 0.1em solid #17a587;
+}
+
 .menu {
     align-items:center;
     align-content:center;

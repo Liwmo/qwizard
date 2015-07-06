@@ -1,5 +1,7 @@
-<div>
-    <span>All Time</span>
-    <span>Monthly</span>
+<script src="/taker/controllers/leaderboard.js"></script>
+
+<div class="flex-container horizontal shadow">
+    <span id="allTime" class="flex leaderMenu button noselect selectedBoard" ng-click="allTime()">All Time</span>
+    <span id="thisMonth" class="flex leaderMenu button noselect" ng-click="thisMonth()">This Month</span>
 </div>
 <leaderboard id="leaderboard" class="flex-container flex vertical" leaders="leaders" start="start"></leaderboard>
