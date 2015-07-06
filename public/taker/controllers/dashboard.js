@@ -1,5 +1,6 @@
-app.controller('dashboard', ['$scope', 'notificationFactory', 'leaderboardFactory', function($scope, notificationFactory, leaderboardFactory) {
+app.controller('dashboard', ['$scope', 'notificationFactory', 'leaderboardFactory', 'userFactory', function($scope, notificationFactory, leaderboardFactory, userFactory) {
     $scope.greeting = "Hello World";
+    $scope.isMaker = false;
 
     $scope.notifications = notificationFactory.getNotifications();
 
@@ -42,8 +43,18 @@ app.controller('dashboard', ['$scope', 'notificationFactory', 'leaderboardFactor
       $scope.start = min + 1;
     });
 
+    userFactory.getUserRole(function(data) {
+        if(data.role > 0) {
+            $scope.isMaker = true;
+        }
+
+        console.log('users role: ', data.role, $scope.isMaker);
+    });
+
     $scope.toggleMenu = function() {
       console.log('toggleMenu called');
       document.querySelector('#drawer').classList.toggle('visible');
     }
+
+
 }]);

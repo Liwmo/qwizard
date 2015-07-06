@@ -1,32 +1,61 @@
 <!DOCTYPE html>
+<html>
 <!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
+<head lang="en-us">
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>Qwizard Maker</title>
+  <script src="../angular/angular.min.js"></script>
+  <script src="../angular/angular-route.min.js"></script>
+
+  <!--Modules-->
+  <script src="/maker/app.js"></script>
+
+  <!--Controllers-->
+  <script src="/maker/controllers/dashboard.js"></script>
+
+  <!--Factotries-->
+  <script src="/taker/factories/userFactory.js"></script>
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Qwizard</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="../stylesheets/normalize.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/app.css">
+
 </head>
-<body>
-  <div class="shadow teal-dark flex-container" id="navbar">
+<body ng-controller="dashboard" class="flex-container horizontal" ng-app="app">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+<div id="drawer" class=" flex-container vertical plum-dark">
+  <div class="flex-container toolbar horizontal">
     <img class="logo" src="../images/logo-horizontal.svg"/>
     <span class="flex"></span>
-    <img class="button" src="../images/icon-menu.svg"/>
-  </div>  
+    <img ng-click="toggleMenu()" class="button noselect" src="../images/icon-x.svg"/>
+  </div>
+  <div class="flex-container vertical flex menu light-text">
+    <div class="flex flex-container item"><span><svg><use xlink:href="../images/icon-stats.svg#Stats"></use></svg><span>stats</span></span></div>
+    <div class="flex flex-container item"><span><svg><use xlink:href="../images/icon-quizzes.svg#Quizzes"></use></svg><span>quizzes</span></span></div>
+    <div class="flex flex-container item"><span><svg><use xlink:href="../images/icon-leaderboard.svg#Leaderboard"></use></svg><span>leaderboard</span></span></div>
+    <div class="flex flex-container item"><span><svg><use xlink:href="../images/icon-info.svg#Info"></use></svg><span>info</span></span></div>
+    <div class="flex flex-container item"><span><svg><use xlink:href="../images/icon-manage-quizzes.svg#Manage"></use></svg><span>manage quizzes</span></span></div>
+    <a href="/logout" class="flex flex-container item"><span><svg><use xlink:href="../images/icon-logout.svg#Logout"></use></svg><span>logout</span></span></a>
+  </div>
+</div>
 
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
-
-  <div id="content">
-    <ng-view></ng-view>
+<div class="flex flex-container vertical" id="main-content">
+  <div class="shadow teal-dark flex-container toolbar">
+    <img class="logo" src="../images/logo-horizontal.svg"/>
+    <span class="flex toasties"></span>
+    <img ng-click="toggleMenu()" class="button noselect" src="../images/icon-menu.svg"/>
   </div>
 
-  <script src="../javascripts/angular.min.js"></script>
+  <ng-view class="flex flex-container vertical" id="content"></ng-view>
+</div>
 </body>
 </html>
