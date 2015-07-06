@@ -9,10 +9,10 @@ module.exports.authenticateCookie = function(req, res, next) {
             res.send({error: 'unable to connect to database'})
         }
 
-        var query = connection.query('SELECT * FROM tokens WHERE cookie=?', req.cookies.login, function(erro, results) {
+        var query = connection.query('SELECT * FROM tokens WHERE cookie=?', req.cookies.login || '', function(erro, results) {
             connection.release();
             if(err || !results.length) {
-                res.send({eror: 'cookie not authenticated'});
+                res.send({error: 'cookie not authenticated'});
             } else {
                 console.log('NOTE: cookie authenticated');
                 next();
@@ -34,6 +34,7 @@ module.exports.authenticateMaker = function(req, res, next) {
         convert.cookieToId(req.cookies.login, function(userId) {
             var query = connection.query('SELECT role FROM users WHERE id=?', userId, function(err, results) {
                 connection.release();
+                console.log(err);
                 if(err || !results.length) {
                     res.send({error: 'unable to authenticate'});
                 }
