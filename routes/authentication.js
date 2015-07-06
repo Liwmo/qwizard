@@ -5,6 +5,7 @@ module.exports.authenticateCookie = function(req, res, next) {
     console.log('NOTE: route caught, running authenticateCookie');
     db.getConnection(function(err, connection) {
         if(err) {
+            connection.release();
             res.send({error: 'unable to connect to database'})
         }
 
@@ -26,6 +27,7 @@ module.exports.authenticateMaker = function(req, res, next) {
     db.getConnection(function(err, connection) {
         if(err) {
             res.send({error: 'unable to connect to database'});
+            connection.release();
             return;
         }
 
