@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "uat-taker": "webdriver-manager start & protractor public/taker/p-tests/conf.js -stackTrace=false -verbose=false"
   },
   "dependencies": {
     "body-parser": "~1.12.4",
@@ -16,6 +17,7 @@
     "morgan": "~1.5.3",
     "mysql": "^2.7.0",
     "node-mysql": "^0.4.2",
+    "protractor": "^2.1.0",
     "serve-favicon": "~2.2.1"
   },
   "devDependencies": {
