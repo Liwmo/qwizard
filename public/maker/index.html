@@ -13,19 +13,68 @@
   <link rel="stylesheet" type="text/css" href="../stylesheets/app.css">
 </head>
 <body>
-  <div class="shadow teal-dark flex-container" id="navbar">
-    <img class="logo" src="../images/logo-horizontal.svg"/>
-    <span class="flex"></span>
-    <img class="button" src="../images/icon-menu.svg"/>
-  </div>  
+<div id="body" class="flex-container">
+  <div id="sidebar" class=" flex-container vertical plum-dark">
+  <div class="flex-container vertical flex menu light-text">
+    <div style="height: 4em"></div>
+    <a href="#/" class="flex flex-container item">
+      <span>
+        <div><svg><use xlink:href="../images/icon-stats.svg#Stats"></use></svg></div>
+        <span>stats</span>
+      </span>
+    </a>
+    <a href="#/" class="flex flex-container item">
+      <span>
+        <div><svg><use xlink:href="../images/icon-quizzes.svg#Quizzes"></use></svg></div>
+        <span>quizzes</span>
+      </span>
+    </a>
+    <a href="#/" class="flex flex-container item">
+      <span>
+        <div><svg><use xlink:href="../images/icon-manage-quizzes.svg#Manage"></use></svg></div>
+        <span>manage quizzes</span>
+      </span>
+    </a>
+    <a href="#/" class="flex flex-container item">
+      <span>
+        <div><svg><use xlink:href="../images/icon-.svg#Stats"></use></svg></div>
+        <span>create quiz</span>
+      </span>
+    </a>
+    <a href="#/" class="flex flex-container item">
+      <span>
+        <div><svg><use xlink:href="../images/icon-leaderboard.svg#Leaderboard"></use></svg></div>
+        <span>leaderboard</span>
+      </span>
+    </a>
+    <a href="#/" class="flex flex-container item">
+      <span>
+        <div><svg><use xlink:href="../images/icon-info.svg#Info"></use></svg></div>
+        <span>info</span>
+      </span>
+    </a>
+    <a href="/logout" class="flex flex-container item">
+      <span>
+        <div><svg><use xlink:href="../images/icon-logout.svg#Logout"></use></svg></div>
+        <span>logout</span>
+      </span>
+    </a>
+  </div>
+</div>
+  <div class="flex">
+    <div class="shadow teal-dark flex-container toolbar" id="maker-nav">
+      <img class="logo" src="../images/logo-horizontal.svg"/>
+    </div>
+    <div id="content"><!------------------------------------------------THIS IS WHERE THE CONTENT WILL GO-->
+      <ng-view></ng-view>
+    </div>
+  </div>
+</div>
 
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-  <div id="content">
-    <ng-view></ng-view>
-  </div>
 
   <script src="../javascripts/angular.min.js"></script>
 </body>
