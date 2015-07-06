@@ -35,7 +35,14 @@ router.post('/', function(req, res, next) {
 		tlsOptions: tlsOptions
 	});
 
-    client.bind('CN=' + username + ',OU=Employees,OU=UsersAccounts,OU=StLouis,DC=schafer,DC=lan', password, function(err, ldapRes) {
+	if (username = 'proj-1189-bind') {
+		var bindPath = 'CN=' + username + ',OU=ServiceAccounts,OU=UsersAccounts,OU=StLouis,DC=schafer,DC=lan';
+	}
+	else {
+		'CN=' + username + ',OU=Employees,OU=UsersAccounts,OU=StLouis,DC=schafer,DC=lan'
+	}
+
+    client.bind(bindPath, password, function(err, ldapRes) {
     	if(err){
     		console.log(err.message);
 			var badCredentials = encodeURIComponent('true');

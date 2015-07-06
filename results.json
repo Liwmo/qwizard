@@ -6,7 +6,7 @@
         "passed": true
       }
     ],
-    "duration": 1326
+    "duration": 1398
   },
   {
     "description": "Should redirect to login when attempting to browse without logging in",
@@ -15,7 +15,7 @@
         "passed": true
       }
     ],
-    "duration": 917
+    "duration": 911
   },
   {
     "description": "Should not allow invalid credentials",
@@ -24,6 +24,36 @@
         "passed": true
       }
     ],
-    "duration": 2302
+    "duration": 2464
+  },
+  {
+    "description": "Should not blank password and/or username",
+    "assertions": [
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      }
+    ],
+    "duration": 3599
+  },
+  {
+    "description": "Should allow valid credentials to login",
+    "assertions": [
+      {
+        "passed": true
+      }
+    ],
+    "duration": 1586
   }
 ]
