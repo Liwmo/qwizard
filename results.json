@@ -1,89 +1,11 @@
 [
   {
-    "description": "Should not allow browsing directly to any taker webpage",
+    "description": "Should redirect to the taker page",
     "assertions": [
       {
         "passed": true
       }
     ],
-    "duration": 1062
-  },
-  {
-    "description": "Should redirect to login when attempting to browse without logging in",
-    "assertions": [
-      {
-        "passed": true
-      }
-    ],
-    "duration": 465
-  },
-  {
-    "description": "Should not allow invalid credentials",
-    "assertions": [
-      {
-        "passed": true
-      }
-    ],
-    "duration": 1218
-  },
-  {
-    "description": "Should show error message when credentials are bad",
-    "assertions": [
-      {
-        "passed": true
-      }
-    ],
-    "duration": 54
-  },
-  {
-    "description": "Should not accept blank password and/or username",
-    "assertions": [
-      {
-        "passed": true
-      },
-      {
-        "passed": true
-      },
-      {
-        "passed": true
-      },
-      {
-        "passed": true
-      },
-      {
-        "passed": true
-      },
-      {
-        "passed": true
-      }
-    ],
-    "duration": 2946
-  },
-  {
-    "description": "Should allow valid credentials to login",
-    "assertions": [
-      {
-        "passed": true
-      }
-    ],
-    "duration": 1204
-  },
-  {
-    "description": "Should redirect to login after logging out",
-    "assertions": [
-      {
-        "passed": true
-      }
-    ],
-    "duration": 579
-  },
-  {
-    "description": "Should not be able to go to any urls after logging out",
-    "assertions": [
-      {
-        "passed": true
-      }
-    ],
-    "duration": 489
+    "duration": 1175
   }
 ]
