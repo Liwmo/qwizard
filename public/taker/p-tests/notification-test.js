@@ -3,10 +3,10 @@ describe('Quiz Notifications', function() {
 
   beforeEach(function() {
   	browser.get('http://localhost:3000/taker');
-  	notification = element(by.css('.purple-dark'));
+  	notification = element.all(by.css('.notification')).first();
   });
 
-  it('Should login before running any tests', function() {
+  it('Should login before running any tests bruh', function() {
     browser.get('http://localhost:3000');
     element(by.css('[type="text"]')).sendKeys('proj-1189-bind');
     element(by.css('[type="password"]')).sendKeys('OEHss$4r$mHb^j');

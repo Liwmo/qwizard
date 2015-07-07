@@ -1,8 +1,95 @@
 [
   {
+    "description": "Should not allow browsing directly to any taker webpage",
+    "assertions": [
+      {
+        "passed": true
+      }
+    ],
+    "duration": 1359
+  },
+  {
+    "description": "Should redirect to login when attempting to browse without logging in",
+    "assertions": [
+      {
+        "passed": true
+      }
+    ],
+    "duration": 794
+  },
+  {
+    "description": "Should not allow invalid credentials",
+    "assertions": [
+      {
+        "passed": true
+      }
+    ],
+    "duration": 2838
+  },
+  {
+    "description": "Should show error message when credentials are bad",
+    "assertions": [
+      {
+        "passed": true
+      }
+    ],
+    "duration": 79
+  },
+  {
+    "description": "Should not accept blank password and/or username",
+    "assertions": [
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      }
+    ],
+    "duration": 5158
+  },
+  {
+    "description": "Should allow valid credentials to login",
+    "assertions": [
+      {
+        "passed": true
+      }
+    ],
+    "duration": 2190
+  },
+  {
+    "description": "Should redirect to login after logging out",
+    "assertions": [
+      {
+        "passed": true
+      }
+    ],
+    "duration": 583
+  },
+  {
+    "description": "Should not be able to go to any urls after logging out",
+    "assertions": [
+      {
+        "passed": true
+      }
+    ],
+    "duration": 1025
+  },
+  {
     "description": "Should login before running any tests",
     "assertions": [],
-    "duration": 3097
+    "duration": 2411
   },
   {
     "description": "Should display notifications that can redirect the user to a new view",
@@ -11,7 +98,7 @@
         "passed": true
       }
     ],
-    "duration": 739
+    "duration": 903
   },
   {
     "description": "Notifications have a close button",
@@ -20,16 +107,16 @@
         "passed": true
       }
     ],
-    "duration": 601
+    "duration": 381
   },
   {
-    "description": "Notification close button will apply \"ng-hide\" class",
+    "description": "Notification close button will remove notification from controller/view bruh",
     "assertions": [
       {
         "passed": true
       }
     ],
-    "duration": 1007
+    "duration": 1159
   },
   {
     "description": "Notification should redirect the page",
@@ -38,6 +125,6 @@
         "passed": true
       }
     ],
-    "duration": 1237
+    "duration": 1245
   }
 ]
