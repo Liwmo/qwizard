@@ -1,3 +1,4 @@
 .idea/
 *.log
-./results.json
+./TakerResults.json
+./MakerResults.json
