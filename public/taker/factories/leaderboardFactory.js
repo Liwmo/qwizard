@@ -3,7 +3,10 @@ app.factory("leaderboardFactory", ["$http", function($http){
 
 	self.getLeaders = function(callback){
 		$http.get("/api/leaderboard/").success(function(data){
-			data.users.sort(function(a,b){return b.score - a.score});
+			if (!data.error && data.users) {
+				data.users.sort(function(a,b){return b.score - a.score});
+			}
+
 			callback(data);
 		});
 	};

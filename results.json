@@ -1,13 +1,12 @@
 [
   {
-    "description": "Should redirect to the taker page",
+    "description": "Should not allow browsing directly to any taker webpage",
     "assertions": [
       {
         "passed": true
       }
     ],
-<<<<<<< HEAD
-    "duration": 1359
+    "duration": 1071
   },
   {
     "description": "Should redirect to login when attempting to browse without logging in",
@@ -16,7 +15,7 @@
         "passed": true
       }
     ],
-    "duration": 794
+    "duration": 406
   },
   {
     "description": "Should not allow invalid credentials",
@@ -25,7 +24,7 @@
         "passed": true
       }
     ],
-    "duration": 2838
+    "duration": 1090
   },
   {
     "description": "Should show error message when credentials are bad",
@@ -34,7 +33,7 @@
         "passed": true
       }
     ],
-    "duration": 79
+    "duration": 41
   },
   {
     "description": "Should not accept blank password and/or username",
@@ -58,7 +57,7 @@
         "passed": true
       }
     ],
-    "duration": 5158
+    "duration": 2930
   },
   {
     "description": "Should allow valid credentials to login",
@@ -67,7 +66,7 @@
         "passed": true
       }
     ],
-    "duration": 2190
+    "duration": 1176
   },
   {
     "description": "Should redirect to login after logging out",
@@ -76,7 +75,7 @@
         "passed": true
       }
     ],
-    "duration": 583
+    "duration": 508
   },
   {
     "description": "Should not be able to go to any urls after logging out",
@@ -85,12 +84,21 @@
         "passed": true
       }
     ],
-    "duration": 1025
+    "duration": 479
   },
   {
-    "description": "Should login before running any tests",
+    "description": "Should redirect to the taker page",
+    "assertions": [
+      {
+        "passed": true
+      }
+    ],
+    "duration": 678
+  },
+  {
+    "description": "Should login before running any tests bruh",
     "assertions": [],
-    "duration": 2411
+    "duration": 1162
   },
   {
     "description": "Should display notifications that can redirect the user to a new view",
@@ -99,7 +107,7 @@
         "passed": true
       }
     ],
-    "duration": 903
+    "duration": 429
   },
   {
     "description": "Notifications have a close button",
@@ -108,7 +116,7 @@
         "passed": true
       }
     ],
-    "duration": 381
+    "duration": 276
   },
   {
     "description": "Notification close button will remove notification from controller/view bruh",
@@ -117,7 +125,7 @@
         "passed": true
       }
     ],
-    "duration": 1159
+    "duration": 565
   },
   {
     "description": "Notification should redirect the page",
@@ -126,9 +134,6 @@
         "passed": true
       }
     ],
-    "duration": 1245
-=======
-    "duration": 1175
->>>>>>> 3dcf2dd2acb46306e380f2622d91247d25cd87fc
+    "duration": 766
   }
 ]
