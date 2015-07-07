@@ -96,7 +96,7 @@
     font-family: "Dosis";
     text-align: center;
     padding:.5em 0;
-    color: white;
+    color: #fffff5;
     cursor: pointer;
 }
 
@@ -342,7 +342,7 @@ hr{
     font-family: "Dosis";
     text-align: center;
     padding:.5em 1em;
-    color: white;
+    color: #fffff5;
     min-width: 12em;
     margin:.25em 0;
 }

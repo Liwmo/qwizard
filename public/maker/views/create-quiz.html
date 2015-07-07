@@ -1,3 +1,21 @@
 <div id="create_header">
-    <input id="quiz_name" type="text" class="teal-medium" pattern="^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$" ng-pattern-restrict placeholder="Quiz Name">
+    <input ng-model="quizName" ng-change="verifyName()" ng-blur="sendName()" id="quiz_name" type="text" class="teal-medium" placeholder="Quiz Name">
 </div>
+
+<div>
+    <span id="submit" class="nope button teal-dark shadow">submit</span>
+    <span id="draft" class="nope button teal-dark shadow">save draft</span>
+    <span id="cancel" class="nope button teal-dark shadow" ng-click="popupCancel()">cancel</span>
+</div>
+
+<div class="popup light-text flex-container">
+    <div class="card">
+        <div class="noselect">Are you sure you want to cancel? Unsaved changes will be thrown on the floor.</div>
+        <hr/>
+        <div class="flex-container horizontal">
+          <span class="button flex teal-dark shadow noselect" ng-click="popupCancel()">Yes, please cancel go go</span>
+          <span class="button flex teal-dark shadow noselect" ng-click="popupCancel()">No, keep working</span>
+        </div>
+    </div>
+</div>
+
