@@ -1,8 +1,8 @@
 
 <div id="categoryBar" class="flex-container horizontal shadow header">
-    <span class="noselect" ng-click="selectCategory('finished')" ng-class="{'selectedCategory':selectedCategory==='finished'}">Finished</span>
-    <span class="noselect" ng-click="selectCategory('scheduled')" ng-class="{'selectedCategory':selectedCategory==='scheduled'}">Scheduled</span>
-    <span class="noselect" ng-click="selectCategory('drafts')" ng-class="{'selectedCategory':selectedCategory==='drafts'}">Drafts</span>
+    <span id="finishedTab" class="noselect" ng-click="selectCategory('finished')" ng-class="{'selectedCategory':selectedCategory==='finished'}">Finished</span>
+    <span id="scheduledTab" class="noselect" ng-click="selectCategory('scheduled')" ng-class="{'selectedCategory':selectedCategory==='scheduled'}">Scheduled</span>
+    <span id="draftsTab" class="noselect" ng-click="selectCategory('drafts')" ng-class="{'selectedCategory':selectedCategory==='drafts'}">Drafts</span>
 </div>
 <!-- TODO: Make these toggle based on the $scope.selectedCategory -->
 <div id="categoryContainer" class="flex">
