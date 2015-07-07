@@ -4,17 +4,17 @@
 
 <div>
     <span id="submit" class="nope button teal-dark shadow">submit</span>
-    <span id="draft" class="nope button teal-dark shadow">save draft</span>
-    <span id="cancel" class="nope button teal-dark shadow" ng-click="popupCancel()">cancel</span>
+    <span id="draft" ng-click="saveDraft()" class="nope button teal-dark shadow">save draft</span>
+    <span id="cancel" class="nope button teal-dark shadow" ng-click="cancelConfirm()">cancel</span>
 </div>
 
 <div class="popup light-text flex-container">
     <div class="card">
-        <div class="noselect">Are you sure you want to cancel? Unsaved changes will be thrown on the floor.</div>
+        <div class="noselect">{{popupText}}</div>
         <hr/>
         <div class="flex-container horizontal">
-          <span class="button flex teal-dark shadow noselect" ng-click="popupCancel()">Yes, please cancel go go</span>
-          <span class="button flex teal-dark shadow noselect" ng-click="popupCancel()">No, keep working</span>
+          <span class="button flex teal-dark shadow noselect" ng-click="toDashboard()">{{leftButton}}</span>
+          <span class="button flex teal-dark shadow noselect" ng-click="popupToggle()">{{rightButton}}</span>
         </div>
     </div>
 </div>
