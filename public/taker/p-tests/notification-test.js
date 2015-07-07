@@ -7,6 +7,7 @@ describe('Quiz Notifications', function() {
   });
 
   it('Should login before running any tests bruh', function() {
+    browser.get('http://localhost:3000/logout');
     browser.get('http://localhost:3000');
     element(by.css('[type="text"]')).sendKeys('proj-1189-bind');
     element(by.css('[type="password"]')).sendKeys('OEHss$4r$mHb^j');
