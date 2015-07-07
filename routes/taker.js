@@ -53,11 +53,9 @@ router.post('/', function(req, res, next) {
     		var cookie = guid();
 			convert.nameToId(username, function(result){
 				if(!result){
-					db.getConnection(function(err, connection){
-						var insert = connection.query("INSERT INTO users (name) VALUES(?)", username, function(err, message){
-						});
+					db.query("INSERT INTO users (name) VALUES(?)", username, function(err, message){
 						convert.nameToId(username, function(result){
-							var query = connection.query("INSERT INTO tokens SET ?", {cookie: cookie, userid: result}, function(err, message){
+							db.query("INSERT INTO tokens SET ?", {cookie: cookie, userid: result}, function(err, message){
 								if(err){
 									res.redirect('/');
 								}else{
@@ -65,20 +63,16 @@ router.post('/', function(req, res, next) {
 									res.redirect('/taker');
 								}
 							});
-							connection.release();
 						});
 					});
 				}else{
-					db.getConnection(function(err, connection){
-						var query = connection.query("INSERT INTO tokens SET ?", {cookie: cookie, userid: result}, function(err, message){
-							if(err){
-								res.redirect('/');
-							}else{
-								res.cookie('login', cookie, {maxAge: 365 * 24 * 60 * 60 * 1000});
-								res.redirect('/taker');
-							}
-						});
-						connection.release();
+					db.query("INSERT INTO tokens SET ?", {cookie: cookie, userid: result}, function(err, message){
+						if(err){
+							res.redirect('/');
+						}else{
+							res.cookie('login', cookie, {maxAge: 365 * 24 * 60 * 60 * 1000});
+							res.redirect('/taker');
+						}
 					});
 				}
 			});

@@ -5,12 +5,9 @@ var db = require('../database/db');
 router.get('/logout', function(req, res) {
     console.log('logging out');
     if(req.cookies.login){
-        db.getConnection(function(err, connection){
-            var query = connection.query('DELETE FROM tokens WHERE cookie=?', req.cookies.login, function(err, message){
-                connection.release();
-                res.clearCookie('login');
-                res.redirect('/');
-            });
+        db.query('DELETE FROM tokens WHERE cookie=?', req.cookies.login, function(err, message){
+            res.clearCookie('login');
+            res.redirect('/');
         });
     }else{
         res.redirect('/');

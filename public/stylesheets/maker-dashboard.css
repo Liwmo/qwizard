@@ -1,0 +1,30 @@
+.header {
+	font-family: Signika;
+    font-weight: 600;
+}
+
+#sidebar {
+    font-family:"Signika";
+    font-weight:600;
+    color: #111111;
+    overflow: hidden;
+    width: 15em;
+}
+
+#categoryBar {
+    color: #5c515b;
+    justify-content:space-around;
+}
+#categoryBar > span {
+	font-size:1.5em;
+	padding:.3em 2em;
+	cursor:pointer;
+}
+
+.selectedCategory {
+     color: #17a587;
+     border-bottom: 0.2em solid #17a587;
+}
+.categoryView {
+	overflow-y:auto;
+}

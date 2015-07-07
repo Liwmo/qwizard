@@ -1,11 +1,12 @@
 [
   {
-    "description": "Should not allow browsing directly to any taker webpage",
+    "description": "Should redirect to the taker page",
     "assertions": [
       {
         "passed": true
       }
     ],
+<<<<<<< HEAD
     "duration": 1359
   },
   {
@@ -126,5 +127,8 @@
       }
     ],
     "duration": 1245
+=======
+    "duration": 1175
+>>>>>>> 3dcf2dd2acb46306e380f2622d91247d25cd87fc
   }
 ]
