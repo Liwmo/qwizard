@@ -10,7 +10,7 @@ router.route('/')
 			query += 	'where userid=id ';
 			query += 	'group by userid';
 		db.query(query, function(err, message) {
-			if(err || !message.length) {
+			if(err) {
 				res.send({error: 'cannot access leaderboard data'});
 			}else{
 				res.send({users: message});
