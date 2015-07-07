@@ -1,89 +1,43 @@
 [
   {
-    "description": "Should not allow browsing directly to any taker webpage",
-    "assertions": [
-      {
-        "passed": true
-      }
-    ],
-    "duration": 1368
+    "description": "Should login before running any tests",
+    "assertions": [],
+    "duration": 3097
   },
   {
-    "description": "Should redirect to login when attempting to browse without logging in",
+    "description": "Should display notifications that can redirect the user to a new view",
     "assertions": [
       {
         "passed": true
       }
     ],
-    "duration": 774
+    "duration": 739
   },
   {
-    "description": "Should not allow invalid credentials",
+    "description": "Notifications have a close button",
     "assertions": [
       {
         "passed": true
       }
     ],
-    "duration": 2341
+    "duration": 601
   },
   {
-    "description": "Should show error message when credentials are bad",
+    "description": "Notification close button will apply \"ng-hide\" class",
     "assertions": [
       {
         "passed": true
       }
     ],
-    "duration": 72
+    "duration": 1007
   },
   {
-    "description": "Should not accept blank password and/or username",
-    "assertions": [
-      {
-        "passed": true
-      },
-      {
-        "passed": true
-      },
-      {
-        "passed": true
-      },
-      {
-        "passed": true
-      },
-      {
-        "passed": true
-      },
-      {
-        "passed": true
-      }
-    ],
-    "duration": 4715
-  },
-  {
-    "description": "Should allow valid credentials to login",
+    "description": "Notification should redirect the page",
     "assertions": [
       {
         "passed": true
       }
     ],
-    "duration": 2084
-  },
-  {
-    "description": "Should redirect to login after logging out",
-    "assertions": [
-      {
-        "passed": true
-      }
-    ],
-    "duration": 615
-  },
-  {
-    "description": "Should not be able to go to any urls after logging out",
-    "assertions": [
-      {
-        "passed": true
-      }
-    ],
-    "duration": 885
+    "duration": 1237
   }
 ]
