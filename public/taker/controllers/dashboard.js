@@ -4,13 +4,11 @@ app.controller('dashboard', ['$scope', 'notificationFactory', 'leaderboardFactor
 
     $scope.notifications = notificationFactory.getNotifications();
 
-    $scope.currentUser = {
-      userid: 507,
-    	name: 'me.me',
-    	score: 600,
-    	rank: 85
-    };
+    $scope.currentUser = -1;
 
+    userFactory.getUserId(function(id){
+      $scope.currentUser = id;
+    });
     //Hope to be refactored into backend one day... I Would be SOOO happy :D
     leaderboardFactory.getLeaders(function(data) {
 
@@ -33,8 +31,8 @@ app.controller('dashboard', ['$scope', 'notificationFactory', 'leaderboardFactor
         }
       }
       var min = Math.max(userIndex - 5, 0);
-      var max = Math.min(min+10, data.users.length - 1);
-      min = max - 10;
+      var max = Math.min(min+10, data.users.length);
+      min = Math.max(max - 10, 0);
       var users = [];
       for(var i = min; i < max; i++) {
           users.push(data.users[i]);

@@ -31,11 +31,6 @@ describe('quizNotification directive', function() {
         expect(element.find("a").hasClass("purple-medium")).toBe(false);
     }));
 
-    it('should hide when X button is clicked', inject(function($controller) {
-        element.find("span").triggerHandler("click");
-        expect(element.find("a").hasClass("ng-hide")).toBe(true);
-    }));
-
     it('should properly display quizName', inject(function($controller) {
         expect(element.find("span")[0].innerHTML).toBe($scope.notification.text);
     }));

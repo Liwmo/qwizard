@@ -61,5 +61,19 @@ app.use(function(err, req, res, next) {
   });
 });
 
+//Handlers for error events
+app.listen(3000, 'localhost', function() {
+    console.log("3000 ~ ~");
+}).on('error', function(err){
+    console.log('on error handler');
+    console.log(err);
+});
+
+
+process.on('uncaughtException', function(err) {
+    console.log('process.on handler');
+    console.log(err);
+});
+
 
 module.exports = app;
