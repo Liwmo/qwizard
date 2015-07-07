@@ -3,7 +3,7 @@ var router = express.Router();
 var db = require('../../database/db');
 var convert = require('../userConversion');
 
-router.route('/')
+router.route('/role')
     .get(function(req, res) {
         convert.cookieToId(req.cookies.login, function(userId) {
             db.query('SELECT role FROM users WHERE id=?', userId, function(err, result) {
@@ -15,6 +15,17 @@ router.route('/')
                          res.send(result[0]);
                  }
               });
+        });
+    });
+
+router.route('/id')
+    .get(function(req, res) {
+        convert.cookieToId(req.cookies.login, function(userId) {
+            if(userId){
+                res.send({id: userId});
+            }else{
+                res.send({error: 'no associated userId'});
+            }
         });
     });
 
