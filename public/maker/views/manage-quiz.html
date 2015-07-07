@@ -1,17 +1,19 @@
 
 <div id="categoryBar" class="flex-container horizontal shadow header">
-    <span class="noselect" ng-click="selectCategory(1)" ng-class="{'selectedCategory':selectedCategory==1}">Finished</span>
-    <span class="noselect" ng-click="selectCategory(2)" ng-class="{'selectedCategory':selectedCategory==2}">Scheduled</span>
-    <span class="noselect" ng-click="selectCategory(3)" ng-class="{'selectedCategory':selectedCategory==3}">Drafts</span>
+    <span class="noselect" ng-click="selectCategory('finished')" ng-class="{'selectedCategory':selectedCategory==='finished'}">Finished</span>
+    <span class="noselect" ng-click="selectCategory('scheduled')" ng-class="{'selectedCategory':selectedCategory==='scheduled'}">Scheduled</span>
+    <span class="noselect" ng-click="selectCategory('drafts')" ng-class="{'selectedCategory':selectedCategory==='drafts'}">Drafts</span>
 </div>
 <!-- TODO: Make these toggle based on the $scope.selectedCategory -->
-<div class="categoryView flex">
-	<div id="someBScontent" style="height:3000px; background:#333;"></div>
-</div>
-<div class="categoryView flex">
-	<div id="someBScontent" style="height:3000px; background:cyan;"></div>
-</div>
-<div class="categoryView flex">
-	<div id="someBScontent" style="height:3000px; background:tomato;"></div>
+<div id="categoryContainer" class="flex">
+	<div id="finished" ng-show="selectedCategory==='finished'" class="categoryView">
+		<h3 style="text-align:center">Finished Content</h3>
+	</div>
+	<div id="scheduled" ng-show="selectedCategory==='scheduled'" class="categoryView">
+		<h3 style="text-align:center">Scheduled Content</h3>
+	</div>
+	<div id="drafts" ng-show="selectedCategory==='drafts'" class="categoryView">
+		<h3 style="text-align:center">Drafts Content</h3>
+	</div>
 </div>
 
