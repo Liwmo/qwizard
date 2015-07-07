@@ -13,12 +13,16 @@ app.factory("userFactory", ["$http", function($http){
 	};
 
 	self.getUserRole = function(callback) {
-		$http.get("/api/role").success(function(role){
+		$http.get("/api/user/role").success(function(role){
 			callback(role);
 		});
 	};
 
-
+	self.getUserId = function(callback){
+		$http.get("/api/user/id").success(function(data){
+			callback(data.id);
+		});
+	};
 
 	return self;
 }]);

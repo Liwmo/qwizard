@@ -14,7 +14,12 @@ describe('Maker authentication', function() {
 
         it('Should redirect to the taker page', function() {
             expect(browser.getCurrentUrl()).toBe('http://localhost:3000/taker/#/');
-        })
+        });
+
+        // Test invalid until we handle invalid /maker requests
+        // it('Should reject requests for maker', function(){
+        //     browser.get('http://localhost:3000/maker');
+        // });
 
     });
 

@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "uat-taker": "webdriver-manager start & protractor public/taker/p-tests/conf.js --no-verbose --no-stackTrace --resultJsonOutputFile=results.json",
-    "uat-maker": "webdriver-manager start & protractor public/maker/p-tests/conf.js --no-verbose --no-stackTrace --resultJsonOutputFile=makerResults.json"
+    "uat-taker": "webdriver-manager start & protractor public/taker/p-tests/conf.js --no-verbose --no-stackTrace",
+    "uat-maker": "webdriver-manager start & protractor public/maker/p-tests/conf.js --no-verbose --no-stackTrace"
   },
   "dependencies": {
     "body-parser": "~1.12.4",

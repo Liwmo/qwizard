@@ -1,12 +1,12 @@
 <div class="flex-container" id="leader-list">
 
 	<span>
-		<div class="row" ng-class="{'highlight': leader.userid===currentUser.userid}" ng-repeat="leader in leaders">{{$index + start}}</div>
+		<div class="row" ng-class="{'highlight': leader.userid===currentUser}" ng-repeat="leader in leaders">{{$index + start}}</div>
 	</span>
 	<span class="flex">
-		<div class="row" ng-class="{'highlight': leader.userid===currentUser.userid}" ng-repeat="leader in leaders">{{leader.name}}</div>
+		<div class="row" ng-class="{'highlight': leader.userid===currentUser}" ng-repeat="leader in leaders">{{leader.name}}</div>
 	</span>
 	<span>
-		<div class="row" ng-class="{'highlight': leader.userid===currentUser.userid}" ng-repeat="leader in leaders">{{leader.score}}</div>
+		<div class="row" ng-class="{'highlight': leader.userid===currentUser}" ng-repeat="leader in leaders">{{leader.score}}</div>
 	</span>
 </div>
