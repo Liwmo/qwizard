@@ -1,4 +1,5 @@
 <div class="answer" style="font-size: 1.3em; font-weight: 600; font-family:'Signika'; color: #332532;">{{name}}</div>
 <hr class="purple-light">
 <div class="answer" style="color: #5c515b; margin-bottom: .5em">{{text}}</div>
+<div style="color: #5c515b" ng-show="{{type == 'ms'}}">Please select all that apply: </div>
 <div class="flex-container" style="flex-direction:column" ng-include="getType()"></div>
