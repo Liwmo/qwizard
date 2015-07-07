@@ -3,8 +3,15 @@ describe('Quiz Notifications', function() {
 
   beforeEach(function() {
   	browser.get('http://localhost:3000/taker');
-  	notification = element(by.tagName('quiz-notification'));
-  })
+  	notification = element.all(by.css('.notification')).first();
+  });
+
+  it('Should login before running any tests bruh', function() {
+    browser.get('http://localhost:3000');
+    element(by.css('[type="text"]')).sendKeys('proj-1189-bind');
+    element(by.css('[type="password"]')).sendKeys('OEHss$4r$mHb^j');
+    element(by.css('[type="submit"]')).click();
+  });
 
   it('Should display notifications that can redirect the user to a new view', function() {
     expect(notification.getAttribute("href")).toBeDefined();
@@ -14,11 +21,17 @@ describe('Quiz Notifications', function() {
     expect(notification.element(by.css('close'))).toBeDefined();
   });
 
-  it('Notification close button will apply "ng-hide" class', function() {
-  	notification.element(by.css('.close')).click();
-  	notification.element(by.tagName('a')).getAttribute('class').then(function(str){
-  		expect(str.indexOf("ng-hide") > -1).toBe(true);
-  	});
+  it('Notification close button will remove notification from controller/view bruh', function() {
+    var numNotifications;
+    element.all(by.repeater('notification in notifications')).then(function (notes) {
+      numNotifications = notes.length;
+    });
+
+    notification.element(by.css('.close')).click();
+    element.all(by.repeater('notification in notifications')).then(function (notes) {
+      expect(notes.length).toBe(numNotifications-1);
+    });
+
   });
 
   //Note: this assumes a valid notification that will redirect to an existing route
@@ -27,6 +40,4 @@ describe('Quiz Notifications', function() {
   	notification.click();
   	expect(browser.getLocationAbsUrl()).toNotBe(dashURL);
   });
-
-
 });
