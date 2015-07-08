@@ -226,13 +226,12 @@ svg, img {
 
 .leaderMenu {
     padding-top: 0.4em;
-    padding-bottom: 0.4em;
     font-family: Signika;
     font-weight: 600;
     color: #5c515b;
     text-align: center;
-    font-size: 2em;
-    height: 2.1em;
+    font-size: 1.5em;
+    height: 2em;
     border-bottom: 0.1em solid #fffff5;
 }
 
