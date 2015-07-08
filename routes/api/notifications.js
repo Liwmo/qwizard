@@ -11,7 +11,7 @@ router.route('/results')
 		convert.cookieToId(req.cookies.login, function(userId) {
 			var today = (new Date()).toISOString().substr(0,10);
 			console.log('today: %s', today);
-			var query = 	'SELECT q.id ';
+			var query = 	'SELECT q.id, q.title ';
 				query += 	'FROM quizzes q, results r ';
 				query += 	'WHERE q.id=r.quizid and r.userid=? and q.results<=? and r.viewed=0';
 
