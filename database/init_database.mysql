@@ -34,7 +34,7 @@ CREATE TABLE results (
     PRIMARY KEY (quizid, userid)
 );
 
-INSERT INTO users (name, role) VALUES('proj-1189-bind', 2);
+INSERT INTO users (name) VALUES('proj-1189-bind');
 
 INSERT INTO quizzes (quiz, answers) VALUES ('
 {

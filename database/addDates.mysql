@@ -1,0 +1,5 @@
+ALTER TABLE qwizard_dev.quizzes ADD results date;
+ALTER TABLE qwizard_dev.quizzes ADD publish date;
+
+UPDATE qwizard_dev.quizzes SET results="2015-7-7" where id=1;
+UPDATE qwizard_dev.quizzes SET publish="2015-7-7" where id=1;

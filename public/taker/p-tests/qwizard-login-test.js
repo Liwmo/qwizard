@@ -8,7 +8,7 @@ describe('Qwizard Homepage', function() {
 	});
 
 	it ("Should redirect to login when attempting to browse without logging in", function() {
-		browser.get("http://localhost:3000/taker/#/quiz");
+		browser.get("http://localhost:3000/maker");
 		browser.sleep(200);
 		expect(browser.getCurrentUrl()).toBe("http://localhost:3000/");
 	});
