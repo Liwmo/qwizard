@@ -1,0 +1,22 @@
+<div id="create_header">
+    <input ng-model="quizName" ng-change="verifyName()" id="quiz_name" type="text" class="teal-medium" placeholder="Quiz Name">
+    <span ng-hide="verifyName()">Quiz name is required! No special characters!</span>
+</div>
+
+<div>
+    <span ng-click="publishQuiz()" class="nope button teal-dark shadow">publish</span>
+    <span ng-click="saveDraft()" class="nope button teal-dark shadow">save draft</span>
+    <span ng-click="cancelConfirm()" class="nope button teal-dark shadow">cancel</span>
+</div>
+
+<div class="popup light-text flex-container">
+    <div class="card">
+        <div class="noselect">{{popupText}}</div>
+        <hr/>
+        <div class="flex-container horizontal">
+          <span class="button flex teal-dark shadow noselect" ng-click="toDashboard()">{{leftButton}}</span>
+          <span class="button flex teal-dark shadow noselect" ng-click="popupToggle()">{{rightButton}}</span>
+        </div>
+    </div>
+</div>
+
