@@ -15,6 +15,12 @@ app.factory("notificationFactory", ["$http", function($http){
         return notifications;
     };
 
+    self.getResultsNotifications = function(callback) {
+        $http.get('/api/notifications/results').success(function(data) {
+            callback(data);
+        });
+    };
+
     self.addNotification = function(text, link){
         notifications.push({
             text: text,
