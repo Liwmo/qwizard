@@ -14,6 +14,7 @@ app.factory("notificationFactory", ["$http", function($http){
                 notifications.push({
                     text: "Results for " + data[i].title + " quiz have been released. View now >>",
                     link: "#/results/" + data[i].id,
+                    id: data[i].id,
                     type: 'result'
                 });
             }
@@ -24,6 +25,7 @@ app.factory("notificationFactory", ["$http", function($http){
                 notifications.push({
                     text: data[i].title + " quiz is ready to take.",
                     link: "#/quiz/" + data[i].id,
+                    id: data[i].id,
                     type: 'avail'
                 });
             }
@@ -39,6 +41,7 @@ app.factory("notificationFactory", ["$http", function($http){
     };
 
     self.removeNotification = function(notification){
+        $http.get('/api/notifications/remove/' + notification.id);
         notifications.splice(notifications.indexOf(notification), 1);
     };
 
