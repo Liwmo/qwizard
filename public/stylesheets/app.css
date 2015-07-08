@@ -391,6 +391,10 @@ hr{
     width:3em;
 }
 
+#leader-list > span:nth-child(2) {
+    overflow:hidden;
+}
+
 /*Leaderboard's last column*/
 #leader-list > span:last-child {
     font-family: Signika;
