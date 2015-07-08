@@ -71,7 +71,7 @@
 }
 .logo {
     height:1em;
-    color:#FFFFF5;
+    width:4em;
 }
 
 .hidden{
@@ -195,8 +195,9 @@ svg, img {
 }
 
 .toolbar .button {
-    padding: .15em;
     height: 1em;
+    width: 1em;
+    padding: .15em !important;
 }
 
 .notification {
@@ -214,7 +215,8 @@ svg, img {
 
 .notification .close {
     cursor:pointer;
-    width:2em;
+    min-width:2em;
+    max-width:2em;
     height:2em;
     padding: .5em;
     margin: 0 .2em;
@@ -405,6 +407,10 @@ and (min-device-width : 1025px) {
 #leader-list > span:first-child {
     font-family: Signika;
     width:3em;
+}
+
+#leader-list > span:nth-child(2) {
+    overflow:hidden;
 }
 
 /*Leaderboard's last column*/
