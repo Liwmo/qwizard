@@ -6,27 +6,23 @@ app.factory("notificationFactory", ["$http", function($http){
         return notifications;
     };
 
+    var getText = function(data){
+        if(data.typeId == 1){
+            return data.title + " quiz is ready to take.";
+        }else{
+            return "Results from " + data.title + " quiz are available. View now >>";
+        }
+    };
+
     self.refreshNotifications = function(callback) {
         notifications = [];
-        var done = false;
-        $http.get('/api/notifications/results').success(function(data){
+        $http.get('/api/notifications/').success(function(data){
             for(var i = 0; i < data.length; i++){
                 notifications.push({
-                    text: "Results for " + data[i].title + " quiz have been released. View now >>",
-                    link: "#/results/" + data[i].id,
-                    id: data[i].id,
-                    type: 'result'
-                });
-            }
-            callback(notifications);
-        });
-        $http.get('/api/notifications/available').success(function(data){
-            for(var i = 0; i < data.length; i++){
-                notifications.push({
-                    text: data[i].title + " quiz is ready to take.",
+                    text: getText(data[i]),
                     link: "#/quiz/" + data[i].id,
                     id: data[i].id,
-                    type: 'avail'
+                    type: data[i].typeId
                 });
             }
             callback(notifications);
