@@ -1,0 +1,20 @@
+<span class="flex">
+	<input class="text-input large" type="text" placeholder="Question Name"/>
+	<select class="text-input">
+		<option value="choose">Select a question type</option>
+		<option value="tf">True/False</option>
+	</select>
+	<textarea class="text-input" type="text">Question Text</textarea>
+	Points: {{points}}
+	<input type="range" ng-model="points" value="points" min="1" max="5"></slider>
+</span>
+<span class="flex">
+	<fieldset>
+		<label for="true">
+    		<input type="radio" value="true" name="quality" id="true"> <span>True</span>
+  		</label>
+	  	<label for="false">
+	    	<input type="radio" value="false" name="quality" id="false"> <span>False</span>
+	  	</label>
+	</fieldset>
+</span>

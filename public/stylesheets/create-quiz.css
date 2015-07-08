@@ -6,22 +6,79 @@ textarea:focus, input:focus{
     font-family:"Signika";
     width: 100%;
     background-color: #5dc0ab;
-    height: 3em;
     color: #fffff5;
-    padding:.5em;
     font-weight:600;
-    font-size: 1.3em;
-    padding-bottom: 3em;
+    padding: 1em 3em;
     margin-bottom: 0.4em;
 }
 
-#quiz_name {
+.text-input {
     border: none;
     border-color: transparent;
-    border-bottom:solid 1px #fffff5;
-    margin-top: .4em;
-    margin-left: 3em;
-    padding-left: 0.5em;
+    border-bottom:solid .1em #fffff5;
+    display: block;
+}
+
+maker-question span{
+    font-family:"Signika";
+    padding: 0em 3em;
+}
+
+/*maker-question span {
+    padding 1.5em;
+}*/
+
+maker-question .flex:first-child > * {
+    margin-bottom:.5em;
+}
+
+maker-question .text-input {
+    border-bottom: solid .15em #A19AA0;
+    width: 100%;
+
+}
+
+maker-question select {
+    border: none;
+    background: transparent;
+    border-color: transparent;
+    border-bottom:solid .1em #A19AA0;
+    display: block;
+}
+
+maker-question input[type=range]{
+    -webkit-appearance: none;
+    display: block;
+    width:100%;
+    padding: .5em 0em;
+}
+
+maker-question input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: .4em;
+    background: #BF9BBA;
+    border: none;
+    border-radius: 5em;
+}
+
+maker-question input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 1em;
+    width: 1em;
+    border-radius: 50%;
+    background: #A3709C;
+
+    margin-top: -.3em;
+}
+
+[placeholder]:focus::-webkit-input-placeholder {
+  transition: opacity 0.2s 0.2s ease; 
+  opacity: 0;
+}
+
+.text-input.large {
+    font-size: 1.3em;
 }
 
 #quiz_name::-webkit-input-placeholder  {
@@ -82,4 +139,61 @@ textarea:focus, input:focus{
     -webkit-transform: scale(1) translateY(0em);
     transform:scale(1) translateY(0em);
     transition:.5s;
+}
+
+
+/*------------------------------------------------------------------------------------------------*/
+
+/* HTML5 Boilerplate accessible hidden styles */
+[type="radio"] {
+  border: 0; 
+  clip: rect(0 0 0 0); 
+  height: 1px; margin: -1px; 
+  overflow: hidden; 
+  padding: 0; 
+  position: absolute; 
+  width: 1px;
+}
+
+fieldset {
+    border: none;
+}
+
+/* One radio button per line */
+label {
+  display: block;
+  cursor: pointer;
+  line-height: 2.5;
+  font-size: 1em;
+}
+
+[type="radio"] + span {
+  display: block;
+}
+
+/* the basic, unchecked style */
+[type="radio"] + span:before {
+  content: '';
+  display: inline-block;
+  width: 0.5em;
+  height: 0.5em;
+  vertical-align: 0em;
+  border-radius: 1em;
+  border: 0.125em solid #fff;
+  box-shadow: 0 0 0 0.15em #999298;
+  margin-right: 0.75em;
+  transition: 0.3s ease all;
+}
+
+/* the checked style using the :checked pseudo class */
+[type="radio"]:checked + span:before {
+  background: #17a587;
+  box-shadow: 0 0 0 0.25em #17a587;
+}
+
+/* never forget focus styling */
+[type="radio"]:focus + span:after {
+  font-size: 1.5em;
+  line-height: 1;
+  vertical-align: -0.125em;
 }
