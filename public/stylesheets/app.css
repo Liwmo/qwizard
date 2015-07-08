@@ -396,11 +396,10 @@ and (min-device-width : 1025px) {
 #leader-list {
     position:relative;
     flex-direction:row;
-    height:auto;
     font-family: Dosis;
     font-weight: 300;
     font-size:1.25em;
-    line-height: 26px;
+    line-height: 1em;
 }
 
 /*Leaderboard's First Column*/
@@ -410,13 +409,14 @@ and (min-device-width : 1025px) {
 }
 
 #leader-list > span:nth-child(2) {
-    overflow:hidden;
 }
 
 /*Leaderboard's last column*/
 #leader-list > span:last-child {
     font-family: Signika;
     max-width:5em;
+    background:white;
+    z-index:1;
 }
 
 /*Columns children*/
@@ -432,7 +432,6 @@ and (min-device-width : 1025px) {
     background-color: #17a587 !important;
     border:none !important;
     box-shadow: 1px 1px 2px rgba(73,73,73,.4) !important;
-    z-index:2 !important;
 
 }
 /*Children in first column*/
