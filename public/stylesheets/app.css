@@ -441,9 +441,9 @@ hr{
 
 /*For the results page!!!*/
 .question.no-interact .button {
-    opacity:.4;
+    opacity:.5;
 }
-.question.no-interact .button.correct,  .question.no-interact .button.selected{
+.question.no-interact .button.correct {
     opacity:1;
 }
 .question.no-interact .button.correct::before {
@@ -454,18 +454,9 @@ hr{
     height:1em;
     width:1em;
     content:"";
-    background:url(../images/icon-check.svg);
+    background:url(../images/icon-star.svg);
     background-size: 1em 1em;
 }
 .question.no-interact .button.selected.incorrect::before {
-    
-    position:absolute;
-    left:.75em;
-    top:.75em;
-    display:block;
-    height:1em;
-    width:1em;
-    content:"";
-    background:url(../images/icon-x.svg);
-    background-size: 1em 1em;
+    opacity:.5;
 }
