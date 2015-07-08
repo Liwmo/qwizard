@@ -340,7 +340,7 @@ hr{
 .question .button {
     font-family: "Dosis";
     text-align: center;
-    padding:.5em 1em;
+    padding:.5em 2em;
     color: white;
     min-width: 12em;
     margin:.25em 0;
@@ -449,7 +449,7 @@ hr{
 .question.no-interact .button.correct::before {
     position:absolute;
     left:.75em;
-    top:.75em;
+    top: calc(50% - .5em);
     display:block;
     height:1em;
     width:1em;
