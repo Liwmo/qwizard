@@ -250,7 +250,7 @@ svg, img {
     margin: auto;
     text-align: center;
     font-family: Dosis;
-    font-weight: 200;
+    font-weight: 500;
 }
 .menu .item span > * {
     margin:0 auto;
@@ -460,3 +460,5 @@ hr{
 .question.no-interact .button.selected.incorrect::before {
     opacity:.5;
 }
+
+

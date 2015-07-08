@@ -1,20 +1,20 @@
 @import url(http://fonts.googleapis.com/css?family=Dosis:200,300,500);
 
+* {
+    box-sizing:border-box;
+    line-height:1em;
+}
+
 #center{
-    position: absolute;
-    left: 0;
-    right: 0;
     margin: 10px auto;
-    top: 0;
-    bottom: 0;
-    max-width: 300px;
-    max-height: 300px;
+    width: 20em;
     background: transparent;
     text-align: center;
     color: white;
 }
 body{
     position: absolute;
+    padding:0;
     left: 0;
     right: 0;
     bottom: 0;
@@ -24,36 +24,44 @@ body{
 input{
     font-family: Dosis;
     font-weight: 300;
+    font-size: 1.5em;
     border: none;
     background: #666;
-    width: 240px;
-    height: 30px;
+    width: 100%;
     margin: 5px auto;
+    padding:.5em;
     text-align: center;
     color: white;
+    -webkit-appearance: none;
+    -webkit-border-radius:0px;
+    border-radius: 0;
 }
 #submit{
     font-family: Dosis;
     font-weight: 300;
+    font-size: 1.5em;
+    padding:.5em;
     background-color: #5dc0ab;
     border: none;
     color: white;
-    width: 240px;
-    height: 30px;
+    width: 100%;
     margin: 5px auto;
 }
-#error{
+#submit:hover, #submit:active, #submit:focus {
+    background-color: #17a587;
+}
+#error {
     text-align: left;
-    height: 80px;
-    width: 240px;
+    width: 100%;
     margin: 5px auto;
     color: white;
     font-family: Dosis;
-    padding: 10px;
-    box-sizing: border-box;
+    padding: .5em;
+    font-size:1em;
+    line-height:1.5em;
     font-weight: 300;
     background-color: #ac7ea6;
 }
-#error a{
+#error a {
     color: white;
 }
