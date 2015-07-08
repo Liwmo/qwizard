@@ -1,4 +1,4 @@
 .idea/
 *.log
-./TakerResults.json
-./MakerResults.json
+TakerResults.json
+MakerResults.json
