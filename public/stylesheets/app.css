@@ -71,7 +71,7 @@
 }
 .logo {
     height:1em;
-    color:#FFFFF5;
+    width:4em;
 }
 
 .hidden{
@@ -195,8 +195,9 @@ svg, img {
 }
 
 .toolbar .button {
-    padding: .15em;
     height: 1em;
+    width: 1em;
+    padding: .15em !important;
 }
 
 .notification {

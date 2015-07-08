@@ -36,6 +36,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="../stylesheets/normalize.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/app.css">
+  <link rel="stylesheet" type="text/css" href="../stylesheets/iconPack.css">
 
 </head>
 <body ng-controller="dashboard" class="flex-container horizontal" ng-app="app">
@@ -44,44 +45,45 @@
 <![endif]-->
 <div id="drawer" class=" flex-container vertical plum-dark">
   <div class="flex-container toolbar horizontal">
-    <img class="logo" src="../images/logo-horizontal.svg"/>
+    <div class="logo"><div class="icon logo-horizontal"></div></div>
     <span class="flex"></span>
-    <img ng-click="toggleMenu()" class="button noselect" src="../images/icon-x.svg"/>
+    <div ng-click="toggleMenu()" class="button noselect"><div class="icon x"></div></div>
   </div>
   <div class="flex-container vertical flex menu light-text">
     <a href="#/" ng-click="toggleMenu()" class="flex flex-container item">
       <span>
-        <div><svg><use xlink:href="../images/icon-stats.svg#Stats"></use></svg></div>
+        <!-- <div><svg><use xlink:href="../images/icon-stats.svg#Stats"></use></svg></div> -->
+        <div class="icon stats"></div>
         <span>stats</span>
       </span>
     </a>
     <a href="#/" ng-click="toggleMenu()" class="flex flex-container item">
       <span>
-        <div><svg><use xlink:href="../images/icon-quizzes.svg#Quizzes"></use></svg></div>
+        <div class="icon quizzes-white"></div>
         <span>quizzes</span>
       </span>
     </a>
     <a href="#/leaderboard" ng-click="toggleMenu()" class="flex flex-container item">
       <span>
-        <div><svg><use xlink:href="../images/icon-leaderboard.svg#Leaderboard"></use></svg></div>
+        <div class="icon leaderboard-white"></div>
         <span>leaderboard</span>
       </span>
     </a>
     <a href="#/" ng-click="toggleMenu()" class="flex flex-container item">
       <span>
-        <div><svg><use xlink:href="../images/icon-info.svg#Info"></use></svg></div>
+        <div class="icon info"></div>
         <span>info</span>
       </span>
     </a>
     <a href="/maker" ng-show="isMaker" class="flex flex-container item">
       <span>
-        <div><svg><use xlink:href="../images/icon-manage-quizzes.svg#Manage"></use></svg></div>
+        <div class="icon manage-quizzes-white"></div>
         <span>manage quizzes</span>
       </span>
     </a>
     <a href="/logout" class="flex flex-container item">
       <span>
-        <div><svg><use xlink:href="../images/icon-logout.svg#Logout"></use></svg></div>
+        <div class="icon logout-white"></div>
         <span>logout</span>
       </span>
     </a>
@@ -90,9 +92,9 @@
 
 <div class="flex flex-container vertical" id="main-content">
   <div class="shadow teal-dark flex-container toolbar">
-    <img class="logo" src="../images/logo-horizontal.svg"/>
+    <div class="logo"><div class="icon logo-horizontal"></div></div>
     <span class="flex toasties"></span>
-    <img ng-click="toggleMenu()" class="button noselect" src="../images/icon-menu.svg"/>
+    <div ng-click="toggleMenu()" class="button noselect"><div class="icon menu"></div></div>
   </div>
 
   <ng-view class="flex flex-container vertical" id="content"></ng-view>
