@@ -19,7 +19,7 @@ textarea:focus, input:focus{
     display: block;
 }
 
-maker-question span{
+maker-question > span{
     font-family:"Signika";
     padding: 0em 3em;
 }
@@ -33,9 +33,8 @@ maker-question .flex:first-child > * {
 }
 
 maker-question .text-input {
-    border-bottom: solid .15em #A19AA0;
+    border-bottom: solid 0.15rem #A19AA0;
     width: 100%;
-
 }
 
 maker-question select {
@@ -68,7 +67,6 @@ maker-question input[type=range]::-webkit-slider-thumb {
     width: 1em;
     border-radius: 50%;
     background: #A3709C;
-
     margin-top: -.3em;
 }
 

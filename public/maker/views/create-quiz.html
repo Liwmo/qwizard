@@ -1,14 +1,14 @@
 <div id="create_header">
-    <input ng-model="quizName" id="quiz_name" type="text" class="teal-medium text-input large" placeholder="Quiz Name">
-    <span style="font-family:Dosis" ng-hide="verifyName()">Quiz name is required! No special characters!</span>
+    <input ng-model="quizName" ng-change="verifyName()" id="quiz_name" type="text" class="teal-medium text-input large" placeholder="Quiz Name">
+    <span style="font-family:Dosis" ng-hide="validName">Quiz name is required! No special characters!</span>
 </div>
 
 <maker-question class="flex-container horizontal"></maker-question>
 
-<div>
-    <span ng-click="publishQuiz()" class="nope button teal-dark shadow">publish</span>
-    <span ng-click="saveDraft()" class="nope button teal-dark shadow">save draft</span>
-    <span ng-click="cancelConfirm()" class="nope button teal-dark shadow">cancel</span>
+<div class="noselect">
+    <span ng-click="publishQuiz()" class="nope button teal-dark shadow noselect">publish</span>
+    <span ng-click="saveDraft()" class="nope button teal-dark shadow noselect">save draft</span>
+    <span ng-click="cancelConfirm()" class="nope button teal-dark shadow noselect">cancel</span>
 </div>
 
 

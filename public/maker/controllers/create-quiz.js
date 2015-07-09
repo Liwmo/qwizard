@@ -1,5 +1,6 @@
 app.controller('create-quiz', ['$scope', '$location', function($scope, $location) {
 
+    $scope.validName = false;
 
     $scope.popupToggle = function() {
         document.querySelector('.popup').classList.toggle('visible');
@@ -12,6 +13,7 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
     $scope.verifyName = function() {
     	var pattern = new RegExp("^[A-Za-z0-9_]*[A-Za-z0-9][A-Za-z0-9 _'-]*$");
     	console.log(pattern.test($scope.quizName));
+        $scope.validName = pattern.test($scope.quizName);
     	return pattern.test($scope.quizName);
     };
 
