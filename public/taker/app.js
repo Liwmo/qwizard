@@ -18,5 +18,9 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
             controller: "leaderboard",
             templateUrl: "views/leaderboard.html"
         })
+        .when("/info", {
+            controller: "info",
+            templateUrl: "views/info.html"
+        })
         .otherwise("/");
 }]);
