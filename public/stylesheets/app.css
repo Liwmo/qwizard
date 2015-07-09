@@ -71,7 +71,7 @@
 }
 .logo {
     height:1em;
-    color:#FFFFF5;
+    width:4em;
 }
 
 .hidden{
@@ -191,15 +191,17 @@ svg, img {
     color: #fffff5;
     height: 2em;
     overflow: hidden;
-    z-index:2;
+    z-index:5;
 }
 
 .toolbar .button {
-    padding: .15em;
     height: 1em;
+    width: 1em;
+    padding: .15em !important;
 }
 
 .notification {
+    position:relative;
     padding:.65em;
     font-family: "Dosis";
     font-weight:300;
@@ -208,11 +210,13 @@ svg, img {
     -webkit-align-items:center;
     align-items:center;
     font-size:.75em;
+    z-index:2;
 }
 
 .notification .close {
     cursor:pointer;
-    width:2em;
+    min-width:2em;
+    max-width:2em;
     height:2em;
     padding: .5em;
     margin: 0 .2em;
@@ -250,7 +254,7 @@ svg, img {
     margin: auto;
     text-align: center;
     font-family: Dosis;
-    font-weight: 200;
+    font-weight: 500;
 }
 .menu .item span > * {
     margin:0 auto;
@@ -333,14 +337,29 @@ hr{
     margin-left: .25em;
 }
 
-.quiz-navigation .button:hover {
-    background-color: #332532 !important;
+/*Quick styles just for mobile*/
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 1024px) {
+    .quiz-navigation .button:active {
+        background-color: #332532 !important;
+    }
 }
+/*Styles for everyone else*/
+@media only screen 
+and (min-device-width : 1025px) {
+    .quiz-navigation .button:hover {
+        background-color: #332532 !important;
+    }
+}
+/*.quiz-navigation .button:hover {
+    background-color: #332532 !important;
+}*/
 
 .question .button {
     font-family: "Dosis";
     text-align: center;
-    padding:.5em 1em;
+    padding:.5em 2em;
     color: white;
     min-width: 12em;
     margin:.25em 0;
@@ -377,11 +396,10 @@ hr{
 #leader-list {
     position:relative;
     flex-direction:row;
-    height:auto;
     font-family: Dosis;
     font-weight: 300;
     font-size:1.25em;
-    line-height: 26px;
+    line-height: 1em;
 }
 
 /*Leaderboard's First Column*/
@@ -390,10 +408,15 @@ hr{
     width:3em;
 }
 
+#leader-list > span:nth-child(2) {
+}
+
 /*Leaderboard's last column*/
 #leader-list > span:last-child {
     font-family: Signika;
     max-width:5em;
+    background:white;
+    z-index:1;
 }
 
 /*Columns children*/
@@ -409,7 +432,6 @@ hr{
     background-color: #17a587 !important;
     border:none !important;
     box-shadow: 1px 1px 2px rgba(73,73,73,.4) !important;
-    z-index:2 !important;
 
 }
 /*Children in first column*/
@@ -441,31 +463,24 @@ hr{
 
 /*For the results page!!!*/
 .question.no-interact .button {
-    opacity:.4;
+    opacity:.5;
 }
-.question.no-interact .button.correct,  .question.no-interact .button.selected{
+.question.no-interact .button.correct {
     opacity:1;
 }
 .question.no-interact .button.correct::before {
     position:absolute;
     left:.75em;
-    top:.75em;
+    top: calc(50% - .5em);
     display:block;
     height:1em;
     width:1em;
     content:"";
-    background:url(../images/icon-check.svg);
+    background:url(../images/icon-star.svg);
     background-size: 1em 1em;
 }
 .question.no-interact .button.selected.incorrect::before {
-    
-    position:absolute;
-    left:.75em;
-    top:.75em;
-    display:block;
-    height:1em;
-    width:1em;
-    content:"";
-    background:url(../images/icon-x.svg);
-    background-size: 1em 1em;
+    opacity:.5;
 }
+
+
