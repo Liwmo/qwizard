@@ -18,6 +18,11 @@ textarea:focus, input:focus{
     border-bottom:solid .1em #fffff5;
     display: block;
 }
+maker-question {
+    padding-bottom:2em;
+    padding-top:1em;
+    border-bottom:.15em solid #f1eaf0;
+}
 
 maker-question > span{
     font-family:"Signika";

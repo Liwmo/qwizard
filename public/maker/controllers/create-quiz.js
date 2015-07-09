@@ -2,7 +2,17 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
 
     $scope.validName = false;
 
-    $scope.questions = [{points: 1, name: "", type: "", text: "", answers: []}, {points: 1, name: "", type: "", text: "", answers: []}];
+    var question = {points: 1, name: "", type: "", text: "", answers: []};
+    $scope.questions = [];
+    for (var i = 0; i < 10; i++) {
+        $scope.questions.push(question);
+        //Break the reference
+        question = {};
+        question = {points: 1, name: "", type: "", text: "", answers: []};
+    }
+    
+
+    //$scope.questions = [{points: 1, name: "", type: "", text: "", answers: []}, {points: 1, name: "", type: "", text: "", answers: []}];
 
     $scope.popupToggle = function() {
         document.querySelector('.popup').classList.toggle('visible');
@@ -50,7 +60,7 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
     };
 
     setInterval(function() {
-        console.log(JSON.stringify($scope.questions[0]));
+        console.log(JSON.stringify($scope.questions));
     }, 1000);
 
 }]);
