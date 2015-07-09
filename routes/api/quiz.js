@@ -8,7 +8,7 @@ router.route('/:id')
 	.get(function(req, res){
 		var today = (new Date()).toISOString().substr(0,10);
 		var id = parseInt(req.params.id) || -1;
-		db.query('Select title, questions from quizzes where id=? and publish>=?', [id, today], function(err, message){
+		db.query('Select title, questions from quizzes where id=? and publish<=?', [id, today], function(err, message){
 			if(!err && message.length) {
 				var quiz = {
 					title: message[0].title,
