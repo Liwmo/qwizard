@@ -5,6 +5,7 @@ app.directive("makerQuestion", function(){
 			points: '=',
 			questionName: '=',
 			questionType: '=',
+			questionText: '=',
 			possibleAnswers: '=',
 			correctAnswer: '='
 		},

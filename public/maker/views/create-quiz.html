@@ -3,7 +3,12 @@
     <span style="font-family:Dosis" ng-hide="validName">Quiz name is required! No special characters!</span>
 </div>
 
-<maker-question class="flex-container horizontal"></maker-question>
+<maker-question ng-repeat="question in questions"
+                points="question.points" 
+                question-name="question.name" 
+                question-type="question.type"
+                question-text="question.text"
+                class="flex-container horizontal"></maker-question>
 
 <div class="noselect">
     <span ng-click="publishQuiz()" class="nope button teal-dark shadow noselect">publish</span>

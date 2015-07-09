@@ -2,6 +2,8 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
 
     $scope.validName = false;
 
+    $scope.questions = [{points: 1, name: "", type: "", text: "", answers: []}, {points: 1, name: "", type: "", text: "", answers: []}];
+
     $scope.popupToggle = function() {
         document.querySelector('.popup').classList.toggle('visible');
     };
@@ -46,5 +48,9 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
     	console.log("Confirm that cancellation");
     	$scope.popupToggle();
     };
+
+    setInterval(function() {
+        console.log(JSON.stringify($scope.questions[0]));
+    }, 1000);
 
 }]);
