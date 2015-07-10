@@ -3,6 +3,7 @@ var path = require('path');
 var router = express.Router();
 var db = require('../../database/db');
 var convert = require('../userConversion');
+var utils = require('../../utilities/utilities')
 
 router.route('/:id')
 	.get(function(req, res){
@@ -30,26 +31,22 @@ router.route('/:id')
 					res.send("error: answer length mismatch");
 					return;
 				}
-				var points = 0;
 
-				// var pointValue = {
-				// 	mc: 2,
-				// 	tf: 2,
-				// 	ms: 5,
-				// 	ma: 5
-				// };
+				// var points = 0;
+				// for(var i = 0; i < answers.length; i++){
+				// 	var matches = true;
+				// 	for(var j = 0; j < answers[i].length; j++){
+				// 		if(selected[i].answer[j] != answers[i][j]){
+				// 			matches = false;
+				// 		}
+				// 	}
+				// 	if(matches){
+				// 		points += pointValues[i];
+				// 	}
+				// }
 
-				for(var i = 0; i < answers.length; i++){
-					var matches = true;
-					for(var j = 0; j < answers[i].length; j++){
-						if(selected[i].answer[j] != answers[i][j]){
-							matches = false;
-						}
-					}
-					if(matches){
-						points += pointValues[i];
-					}
-				}
+				var points = utils.calculateQuizScore(selected, answers, pointValues);
+
 				convert.cookieToId(req.cookies.login, function(userId){
 					db.query('Insert into results SET ?', {
 						quizid: quizId,
