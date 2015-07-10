@@ -20,9 +20,10 @@ router.route('/:id')
 	})
 	.post(function(req, res){
 		var quizId = parseInt(req.params.id) || -1;
-		db.query('Select answers from quizzes where id=?', quizId, function(err, message){
+		db.query('Select answers, pointvalues from quizzes where id=?', quizId, function(err, message){
 			if(!err && message.length) {
 				var answers = JSON.parse(message[0].answers);
+				var pointValues = JSON.parse(message[0].pointvalues);
 
 				var selected = req.body;
 				if(selected.length !== answers.length){
@@ -31,12 +32,12 @@ router.route('/:id')
 				}
 				var points = 0;
 
-				var pointValue = {
-					mc: 2,
-					tf: 2,
-					ms: 5,
-					ma: 5
-				};
+				// var pointValue = {
+				// 	mc: 2,
+				// 	tf: 2,
+				// 	ms: 5,
+				// 	ma: 5
+				// };
 
 				for(var i = 0; i < answers.length; i++){
 					var matches = true;
@@ -46,7 +47,7 @@ router.route('/:id')
 						}
 					}
 					if(matches){
-						points += pointValue[selected[i].type];
+						points += pointValues[i];
 					}
 				}
 				convert.cookieToId(req.cookies.login, function(userId){
