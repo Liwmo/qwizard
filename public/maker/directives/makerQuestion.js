@@ -8,7 +8,7 @@ app.directive("makerQuestion", function(){
 			questionText: '=',
 			possibleAnswers: '=',
 			correctAnswer: '=',
-			index: '='
+			index: '=',
 		},
 		templateUrl: '/maker/directives/templates/makerQuestion.html',
 		link: function(scope, elem, attrs){
