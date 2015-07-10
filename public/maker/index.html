@@ -12,7 +12,9 @@
   <link rel="stylesheet" type="text/css" href="../stylesheets/normalize.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/app.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/maker-dashboard.css">
+  <link rel="stylesheet" type="text/css" href="../stylesheets/create-quiz.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/iconPack.css">
+
   <title>Qwizard Maker</title>
 
   <script src="../angular/angular.min.js"></script>
@@ -23,8 +25,11 @@
 
   <!--Controllers-->
   <script src="/maker/controllers/manager.js"></script>
+  <script src="/maker/controllers/create-quiz.js"></script>
 
-  <!--Factotries-->
+  <!--Directives-->
+  <script src="/maker/directives/makerQuestion.js"></script>
+  <!--Factories-->
 
 </head>
 <body ng-app="app">
@@ -50,7 +55,7 @@
         <span>manage quizzes</span>
       </span>
     </a>
-    <a href="#/" class="flex flex-container item">
+    <a href="#/create" class="flex flex-container item">
       <span>
         <div class="icon create-quiz"></div>
         <span>create quiz</span>
