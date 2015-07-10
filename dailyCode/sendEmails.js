@@ -23,17 +23,21 @@ var tasks = new (function(){
 		next();
 	};
 })();
+
 //used by generateTokens
 var createToken = function(next, user){
 	var token = "";
 	for(var i = 0; i < 50; i++){
 		token += String.fromCharCode(Math.floor(Math.random() * 26 + 65));
 	}
-	console.log("creating token for " + user.name);
-	var query = 'insert into emailTokens SET ?'
-	db.query(query, {token: token, userId: user.id}, function(err, message){
+	console.log("INFO: creating token for " + user.name);
+	//var query = 'insert into emailTokens SET ?'
+	db.query('insert into emailTokens VALUES(?, ?, ?)', [user.id, user.name, token], function(err, message){
 		if(!err){
 			next(token, user);
+		}
+		else {
+			console.log(err);
 		}
 	});
 };
@@ -42,7 +46,7 @@ var generateTokens = function(next, users){
 	console.log("generating email tokens...");
 	var tokens = [];
 	var len = users.length;
-	var check = function(token, user){
+	var check = function(token, users){
 		tokens.push({
 			token: token,
 			name: user.name
@@ -123,7 +127,7 @@ var emails = new (function(){
 		quizzes = data;
 	};
 
-	this.send = function(next, users){
+	this.send = function(users, next){
 		var count = 0;
 
 		var check = function(){
@@ -186,5 +190,6 @@ module.exports = {
 	getQuizzes: getQuizzes,
 	getUsers: getUsers,
 	emails: emails,
-	sendQuiz: sendQuiz
+	sendQuiz: sendQuiz,
+	nodemailerTransport: email
 };
