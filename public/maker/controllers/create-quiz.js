@@ -3,7 +3,8 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
     $scope.validName = false;
 
     $scope.questions = [];
-    for (var i = 0; i < 2; i++) {
+
+    $scope.addQuestion = function(){
         $scope.questions.push({
             points: 1,
             name: "",
@@ -12,9 +13,7 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
             answers: [],
             correctAnswer: [0]
         });
-    }
-    
-
+    };
     //$scope.questions = [{points: 1, name: "", type: "", text: "", answers: []}, {points: 1, name: "", type: "", text: "", answers: []}];
 
     $scope.popupToggle = function() {
@@ -62,6 +61,7 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
     	$scope.popupToggle();
     };
 
+    $scope.addQuestion();
     // setInterval(function() {
     //     console.log(JSON.stringify($scope.questions));
     // }, 1000);
