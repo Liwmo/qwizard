@@ -505,7 +505,7 @@ and (min-device-width : 1025px) {
 #info-header {
     text-align: center;
     padding: 3.5rem;
-    padding-bottom:2rem;
+    padding-bottom:1.5rem;
 }
 
 #info-header div {

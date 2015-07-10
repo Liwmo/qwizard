@@ -49,8 +49,4 @@ describe('info page', function() {
       expect(browser.getCurrentUrl()).toBe('http://localhost:3000/taker/#/feature');
     });    
   });
-
-
-
-
 });
