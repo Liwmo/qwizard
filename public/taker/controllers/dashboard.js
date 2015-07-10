@@ -2,7 +2,9 @@ app.controller('dashboard', ['$scope', 'notificationFactory', 'leaderboardFactor
     $scope.greeting = "Hello World";
     $scope.isMaker = false;
 
-    $scope.notifications = notificationFactory.getNotifications();
+    notificationFactory.refreshNotifications(function(data){
+        $scope.notifications = data;
+    });
 
     $scope.currentUser = -1;
 
