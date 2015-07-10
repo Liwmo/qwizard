@@ -10,7 +10,7 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
             name: "",
             type: "",
             text: "",
-            answers: [],
+            answers: ["answer 1", "answer 2", "answer 3", "answer 4"],
             correctAnswer: [0]
         });
     };
