@@ -86,6 +86,12 @@
         <span>manage quizzes</span>
       </span>
     </a>
+    <a href="/maker/#/create" ng-show="isMaker" class="flex flex-container item">
+      <span>
+        <div class="icon create-quiz"></div>
+        <span>create quiz</span>
+      </span>
+    </a>
     <a href="/logout" class="flex flex-container item">
       <span>
         <div class="icon logout-white"></div>
@@ -97,7 +103,7 @@
 
 <div class="flex flex-container vertical" id="main-content">
   <div class="shadow teal-dark flex-container toolbar">
-    <div class="logo"><div class="icon logo-horizontal"></div></div>
+    <a href="#/" class="logo"><div class="icon logo-horizontal"></div></a>
     <span class="flex toasties"></span>
     <div ng-click="toggleMenu()" class="button noselect"><div class="icon menu"></div></div>
   </div>
