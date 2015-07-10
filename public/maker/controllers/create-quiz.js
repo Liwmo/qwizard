@@ -34,9 +34,9 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
     		console.log("I can't save this name");
     	}
     	else {
-    		$scope.popupText = "Your draft is saved would you like to continue?"
+    		$scope.popupText = "Your draft is saved. Would you like to continue?";
 	    	$scope.leftButton = "No, return to dashboard";
-	    	$scope.rightButton = "Yes, I'm still workin'"
+	    	$scope.rightButton = "Yes, I'm still workin'";
 	    	console.log("Saving current draft");
 	    	$scope.popupToggle();
     	}
@@ -52,15 +52,15 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
     };
 
     $scope.cancelConfirm = function() {
-    	$scope.popupText = "Unsaved changes will be thrown on the ground. Really cancel?"    	
+    	$scope.popupText = "Unsaved changes will be thrown on the ground. Really cancel?";   	
     	$scope.leftButton = "Yes, just drop it";
     	$scope.rightButton = "No, I'm still workin'";
     	console.log("Confirm that cancellation");
     	$scope.popupToggle();
     };
 
-    setInterval(function() {
-        console.log(JSON.stringify($scope.questions));
-    }, 1000);
+    // setInterval(function() {
+    //     console.log(JSON.stringify($scope.questions));
+    // }, 1000);
 
 }]);

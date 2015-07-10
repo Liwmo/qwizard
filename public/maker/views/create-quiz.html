@@ -3,12 +3,14 @@
     <span style="font-family:Dosis" ng-hide="validName">Quiz name is required! No special characters!</span>
 </div>
 <div class="flex" style="overflow-y:auto; padding:2em 0;">
-    <maker-question ng-repeat="question in questions"
+    <maker-question ng-repeat="question in questions" track by $index
                     points="question.points" 
                     question-name="question.name" 
                     question-type="question.type"
                     question-text="question.text"
                     possible-answers="question.answers"
+                    correct-answer="question.correctAnswer"
+                    index="$index"
                     class="flex-container horizontal"></maker-question>
 
     <div class="noselect">
