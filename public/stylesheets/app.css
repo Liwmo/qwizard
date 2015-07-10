@@ -129,6 +129,10 @@ html {
     box-sizing: border-box;
 }
 
+html {
+    font-size: 100%;
+}
+
 body {
     position:absolute;
     top:0;
@@ -341,21 +345,6 @@ hr{
     margin-left: .25em;
 }
 
-/*Quick styles just for mobile*/
-@media only screen 
-and (min-device-width : 320px) 
-and (max-device-width : 1024px) {
-    .quiz-navigation .button:active {
-        background-color: #332532 !important;
-    }
-}
-/*Styles for everyone else*/
-@media only screen 
-and (min-device-width : 1025px) {
-    .quiz-navigation .button:hover {
-        background-color: #332532 !important;
-    }
-}
 /*.quiz-navigation .button:hover {
     background-color: #332532 !important;
 }*/
@@ -487,4 +476,81 @@ and (min-device-width : 1025px) {
     opacity:.5;
 }
 
+#info-view {
+    overflow-y:auto;
+}
+#info-view .button {
+    display:inline-block;
+    padding:.75rem 0;
+    width: 12rem;
+    text-align:center;
+    font-size:1.5em;
+    margin:0 .5rem;
+}
 
+#info-view .button:hover {
+    background:#17a587;
+}
+#info-header {
+    text-align: center;
+    padding: 3.5rem;
+    padding-bottom:1.5rem;
+}
+
+#info-header div {
+    font-family: "Signika";
+    font-size: 2em;
+    font-weight: 600;
+}
+
+#info-header p {
+    margin: 0.5em;
+    font-size: 1.25em;
+    font-weight: 300;
+    color: #857C84;
+}
+
+#info-buttons {
+    text-align: center;
+    margin-bottom: 4em;
+}
+
+#info-content {
+    justify-content:space-around;
+}
+
+#info-content h2 {
+    font-family: "Signika";
+}
+
+/*Quick styles just for mobile*/
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 1023px) {
+    .quiz-navigation .button:active {
+        background-color: #332532 !important;
+    }
+}
+/*Styles for everyone else*/
+@media only screen 
+and (min-width : 1024px) {
+
+    .quiz-navigation .button:hover {
+        background-color: #332532 !important;
+    }
+
+    #drawer {
+        position:relative !important;
+        width: 15em !important;
+        -webkit-transform: scale(1) translateY(0) !important;
+        transform: scale(1) translateY(0) !important;
+        -webkit-transition:0s !important;
+        transition:0s !important;
+    }
+    #drawer .toolbar .logo {
+        display:none;
+    }
+    .toolbar .button {
+        display:none;
+    }
+}
