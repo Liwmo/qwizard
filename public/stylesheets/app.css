@@ -1,6 +1,10 @@
 @import url(http://fonts.googleapis.com/css?family=Signika:300,600);
 @import url(http://fonts.googleapis.com/css?family=Dosis:200,300,500);
 
+html {
+    font-size:100%;
+}
+
 /*Convenience Classes */
 .subtext {
     font-size:.7em;
@@ -96,7 +100,7 @@
     font-family: "Dosis";
     text-align: center;
     padding:.5em 0;
-    color: white;
+    color: #fffff5;
     cursor: pointer;
 }
 
@@ -303,7 +307,7 @@ svg, img {
     width: 100%;
     background-color: #5dc0ab;
     height: 3em;
-    color:white;
+    color: #fffff5;
     padding:.5em;
     font-weight:600;
     font-size: 1.3em;
@@ -359,8 +363,8 @@ and (min-device-width : 1025px) {
 .question .button {
     font-family: "Dosis";
     text-align: center;
-    padding:.5em 2em;
-    color: white;
+    padding:.5em 1em;
+    color: #fffff5;
     min-width: 12em;
     margin:.25em 0;
 }
