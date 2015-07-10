@@ -27,11 +27,27 @@ describe('info page', function() {
 
   it('should contain request feature and report bug buttons', function() {
     browser.get('http://localhost:3000/taker/#/info');
-    element.all(by.css('#content span.button.shadow.teal-medium')).then(function(items) {
+    element.all(by.css('#content a.button')).then(function(items) {
       expect(items.length).toBe(2);
       expect(items[0].getText()).toBe('request feature');
       expect(items[1].getText()).toBe('report bug');
     });
+  });
+
+  it('the user should be navigated to /#/bug after clicking report bug button', function() {
+    browser.get('http://localhost:3000/taker/#/info');
+    element.all(by.css('#info-buttons a.button')).then(function(items) {
+      items[1].click();
+      expect(browser.getCurrentUrl()).toBe('http://localhost:3000/taker/#/bug');
+    });    
+  });
+
+  it('the user should be navigated to /#/feature after clicking report bug button', function() {
+    browser.get('http://localhost:3000/taker/#/info');
+    element.all(by.css('#info-buttons a.button')).then(function(items) {
+      items[0].click();
+      expect(browser.getCurrentUrl()).toBe('http://localhost:3000/taker/#/feature');
+    });    
   });
 
 

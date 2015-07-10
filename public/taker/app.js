@@ -22,5 +22,13 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
             controller: "info",
             templateUrl: "views/info.html"
         })
+        .when("/bug", {
+            controller: "bug",
+            templateUrl: "views/bug.html"
+        })
+        .when("/feature", {
+            controller: "feature",
+            templateUrl: "views/feature.html"
+        })
         .otherwise("/");
 }]);
