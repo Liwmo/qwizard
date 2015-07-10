@@ -17,7 +17,11 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
             correctAnswer: [0]
         });
     };
-    //$scope.questions = [{points: 1, name: "", type: "", text: "", answers: []}, {points: 1, name: "", type: "", text: "", answers: []}];
+
+    $scope.removeQuestion = function(index){
+        console.log("removing question " + index);
+        $scope.questions.splice(index, 1);
+    };
 
     $scope.popupToggle = function() {
         document.querySelector('.popup').classList.toggle('visible');

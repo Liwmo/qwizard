@@ -30,10 +30,15 @@ textarea:focus, input:focus{
     border-bottom: .15rem solid #f1eaf0;
 }
 
-maker-question {
+#question {
     padding-bottom:2em;
     padding-top:1em;
     border-bottom:.15em solid #f1eaf0;
+}
+
+#question div {
+    margin-left: 3em;
+    width: 5em;
 }
 
 maker-question > span{

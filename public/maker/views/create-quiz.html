@@ -3,15 +3,17 @@
     <span style="font-family:Dosis" ng-hide="validName">Quiz name is required! No special characters!</span>
 </div>
 <div class="flex" style="overflow-y:auto; padding:2em 0;">
-    <maker-question ng-repeat="question in questions track by $index"
-                    points="question.points" 
-                    question-name="question.name" 
-                    question-type="question.type"
-                    question-text="question.text"
-                    possible-answers="question.answers"
-                    correct-answer="question.correctAnswer"
-                    index="$index"
-                    class="flex-container horizontal"></maker-question>
+    <div id="question" ng-repeat="question in questions track by $index">
+        <maker-question points="question.points" 
+                        question-name="question.name" 
+                        question-type="question.type"
+                        question-text="question.text"
+                        possible-answers="question.answers"
+                        correct-answer="question.correctAnswer"
+                        index="$index"
+                        class="flex-container horizontal"></maker-question>
+        <div ng-click="removeQuestion(index)" class="teal-dark button shadow noselect">Delete</div>
+    </div>
     <div id="add-question" ng-click="addQuestion()">Add Another Question +</div>
     <div class="noselect">
         <span ng-click="publishQuiz()" class="nope button teal-dark shadow noselect">publish</span>
