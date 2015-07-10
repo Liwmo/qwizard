@@ -11,13 +11,13 @@ describe('Dashboard', function() {
 
         it('Menu visibility should change based on width of screen', function() {
             browser.driver.manage().window().setSize(320,480);
-            browser.sleep(5000);
+            browser.sleep(500);
             expect(element(by.css('#drawer')).isDisplayed()).toBeFalsy();
             browser.driver.manage().window().setSize(600,800);
-            browser.sleep(5000);
+            browser.sleep(500);
             expect(element(by.css('#drawer')).isDisplayed()).toBeFalsy();
             browser.driver.manage().window().setSize(768,1024);
-            browser.sleep(5000);
+            browser.sleep(500);
             expect(element(by.css('#drawer')).isDisplayed()).toBeTruthy();
         });
 

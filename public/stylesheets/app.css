@@ -488,8 +488,13 @@ and (min-width : 1024px) {
         width: 15em !important;
         -webkit-transform: scale(1) translateY(0) !important;
         transform: scale(1) translateY(0) !important;
-        transform-origin:bottom center;
-        -webkit-transition:0s;
-        transition:0s;
+        -webkit-transition:0s !important;
+        transition:0s !important;
+    }
+    #drawer .toolbar .logo {
+        display:none;
+    }
+    .toolbar .button {
+        display:none;
     }
 }
