@@ -1,8 +1,11 @@
 app.controller('create-quiz', ['$scope', '$location', function($scope, $location) {
 
-    $scope.validName = false;
-
+    $scope.validName = true;
+    $scope.quizName = "";
     $scope.questions = [];
+
+    $scope.leftAction = $scope.popupToggle;
+    $scope.rightAction = $scope.popupToggle;
 
     $scope.addQuestion = function(){
         $scope.questions.push({
@@ -46,19 +49,44 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
 
     $scope.publishQuiz = function() {
     	if (!$scope.verifyName()) {
-    		console.log("I can't publish with this quiz name");
+    		setPopup("Cannot publish with this quiz name.");
+            return;
     	}
-    	else {
-    		console.log("Publishing the quiz to server");
+        if (!$scope.questions.length) {
+            setPopup("Cannot publish an empy quiz.");
+            return;
+        }else{
+    		for(var i = 0; i < $scope.questions.length; i++){
+                if(!$scope.questions[i].type){
+                    setPopup("Cannot publish a quiz with undefined question types.");
+                    return;
+                }
+                if(!$scope.questions[i].text){
+                    setPopup("Cannot publish with empty question fields.");
+                    return;
+                }
+            }
     	}
     };
 
+    var setPopup = function(text, left, right){
+        if(!left) left = {};
+        if(!right) right = {};
+        $scope.leftAction = left.action || $scope.popupToggle;
+        $scope.rightAction = right.action || $scope.popupToggle;
+        $scope.popupText = text;
+        $scope.leftButton = left.text || "OK";
+        $scope.rightButton = right.text || "";
+        $scope.popupToggle();
+    };
+
     $scope.cancelConfirm = function() {
-    	$scope.popupText = "Unsaved changes will be thrown on the ground. Really cancel?";   	
-    	$scope.leftButton = "Yes, just drop it";
-    	$scope.rightButton = "No, I'm still workin'";
-    	console.log("Confirm that cancellation");
-    	$scope.popupToggle();
+        setPopup("Unsaved changes will be thrown on the ground. Really cancel?",{
+            text: "Yes, just drop it",
+            action: $scope.toDashboard
+        },{
+            text: "No, I'm still workin'",
+        });
     };
 
     $scope.addQuestion();
