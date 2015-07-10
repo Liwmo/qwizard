@@ -11,12 +11,18 @@
 	<input type="range" ng-model="points" value="points" min="1" max="5"></slider>
 </span>
 <span class="flex noselect" ng-hide="questionType"></span>
-<span class="flex noselect" ng-show="questionType=='tf'" ng-init="correctAnswer=0">
+<span class="flex noselect" ng-show="questionType=='tf'">
 		<label for="true-{{index}}">
-    		<input ng-model="correctAnswer" type="radio" value="0" id="true-{{index}}" > <span>True</span>
+    		<input 	ng-checked="!correctAnswer[0]"
+    				type="radio" 
+    				ng-click="tf(0)"
+    				id="true-{{index}}" > <span>True</span>
   		</label>
 	  	<label for="false-{{index}}">
-	    	<input ng-model="correctAnswer" type="radio" value="1" id="false-{{index}}"> <span>False</span>
+	    	<input 	ng-checked="correctAnswer[0]" 
+	    			type="radio"
+	    			ng-click="tf(1)"
+	    			id="false-{{index}}"> <span>False</span>
 	  	</label>
 </span>
 <span class="flex noselect" ng-show="questionType=='mc'">I'm an mc</span>

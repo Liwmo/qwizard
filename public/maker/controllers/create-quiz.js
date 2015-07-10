@@ -2,13 +2,16 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
 
     $scope.validName = false;
 
-    var question = {points: 1, name: "", type: "", text: "", answers: []};
     $scope.questions = [];
-    for (var i = 0; i < 10; i++) {
-        $scope.questions.push(question);
-        //Break the reference
-        question = {};
-        question = {points: 1, name: "", type: "", text: "", answers: []};
+    for (var i = 0; i < 2; i++) {
+        $scope.questions.push({
+            points: 1,
+            name: "",
+            type: "",
+            text: "",
+            answers: [],
+            correctAnswer: [0]
+        });
     }
     
 
