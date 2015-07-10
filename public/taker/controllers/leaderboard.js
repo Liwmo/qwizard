@@ -34,7 +34,7 @@ app.controller('leaderboard', ['$scope', 'leaderboardFactory', function($scope, 
             monthly = users; 
         }   
     });
-
+    
     leaderboardFactory.getWeekly(function(data) {
         if (!data.error) {
             var users = [];
