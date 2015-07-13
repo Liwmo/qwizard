@@ -526,7 +526,7 @@ hr{
 /*Quick styles just for mobile*/
 @media only screen 
 and (min-device-width : 320px) 
-and (max-device-width : 1023px) {
+and (max-device-width : 1024px) {
     .quiz-navigation .button:active {
         background-color: #332532 !important;
     }
@@ -540,7 +540,7 @@ and (min-width : 1024px) {
     }
 
     #drawer {
-        position:relative !important;
+        position: relative !important;
         width: 15em !important;
         -webkit-transform: scale(1) translateY(0) !important;
         transform: scale(1) translateY(0) !important;

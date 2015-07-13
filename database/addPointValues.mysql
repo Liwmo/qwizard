@@ -1,0 +1,3 @@
+ALTER TABLE qwizard_dev.quizzes ADD pointvalues LONGTEXT NOT NULL;
+
+UPDATE qwizard_dev.quizzes SET pointvalues = "[2, 2, 2, 2, 2, 2, 2, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 2, 2, 2, 2, 5]" WHERE id = 1;
