@@ -54,7 +54,7 @@ describe('Send Email Tests', function() {
 
 		it("Should get the quiz we added to the table", function(done){
 			tasks.getQuizzes(function(data){
-				assert.equal(data[0].id, 999999);
+				assert.equal(data[data.length - 1].id, 999999);
 				done();
 			});
 		});
