@@ -4,6 +4,7 @@ var router = express.Router();
 var db = require('../../database/db');
 var convert = require('../userConversion');
 
+<<<<<<< HEAD
 /* NOT SURE IF THIS WAS ACCIDENTALLY DELETED. IS THIS CODE NEEDED???
 router.route('/results')
 	.get(function(req, res) {
@@ -30,9 +31,9 @@ router.route('/results')
 router.route('/')
 	.get(function(req, res) {
 		convert.cookieToId(req.cookies.login, function(userId) {
-			var query = 	'SELECT q.id, q.title, n.typeId ';
+			var query = 	'SELECT q.id, q.title, n.typeID ';
 				query += 	'FROM notifications n, quizzes q ';
-				query += 	'WHERE userId=? and q.id=n.quizId';
+				query += 	'WHERE n.userID=? and q.id=n.quizId';
 
 			var query = db.query(query, userId, function(err, results) {
 				if(err) {
@@ -51,7 +52,7 @@ router.route('/remove/:id')
 			var quizId = req.params.id;
 
 			var query = 	'DELETE FROM notifications ';
-				query += 	'WHERE userId=? and quizId=?';
+				query += 	'WHERE userID=? and quizId=?';
 
 			var query = db.query(query, [userId, quizId], function(err, results) {
 				if(err) {
