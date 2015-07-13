@@ -56,6 +56,10 @@ maker-question .text-input {
     resize: vertical;
 }
 
+maker-question .text-input[ng-model="answer"]{
+  float: right;
+}
+
 maker-question select {
     border: none;
     background: transparent;
@@ -180,57 +184,23 @@ maker-question input[type=range]::-moz-range-thumb {
 
 /*------------------------------------------------------------------------------------------------*/
 
-/* HTML5 Boilerplate accessible hidden styles */
-[type="radio"] {
-  border: 0; 
-  clip: rect(0 0 0 0); 
-  height: 1px; margin: -1px; 
-  overflow: hidden; 
-  padding: 0; 
-  position: absolute; 
-  width: 1px;
-  visibility: hidden;
-}
-
-fieldset {
-    border: none;
-}
-
-/* One radio button per line */
-label {
-  display: block;
+maker-question .answer-field {
   cursor: pointer;
   line-height: 2.5;
   font-size: 1em;
 }
 
-[type="radio"] + span {
-  display: block;
-}
-
-/* the basic, unchecked style */
-[type="radio"] + span:before {
-  content: '';
-  display: inline-block;
-  width: 0.5em;
-  height: 0.5em;
-  vertical-align: 0em;
+.radio {
+  width: 0.75em;
+  height: 0.75em;
   border-radius: 1em;
   border: 0.125em solid #fff;
-  box-shadow: 0 0 0 0.15em #999298;
-  margin-right: 0.75em;
+  box-shadow: 0 0 0 0.125em #999298;
+  margin: 0.75em;
   transition: 0.3s ease all;
 }
 
-/* the checked style using the :checked pseudo class */
-[type="radio"]:checked + span:before {
+.radio.checked {
   background: #17a587;
-  box-shadow: 0 0 0 0.25em #17a587;
-}
-
-/* never forget focus styling */
-[type="radio"]:focus + span:after {
-  font-size: 1.5em;
-  line-height: 1;
-  vertical-align: -0.125em;
+  box-shadow: 0 0 0 0.15em #17a587;
 }
