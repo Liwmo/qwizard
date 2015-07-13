@@ -204,3 +204,38 @@ maker-question .answer-field {
   background: #17a587;
   box-shadow: 0 0 0 0.15em #17a587;
 }
+
+.publish-detail {
+    font-family: "Signika";
+    font-size: 1.25em;
+    font-weight: 300;
+}
+
+.publish-input {
+    padding-top: .5em;
+    border: none;
+    border-color: transparent;
+    border-bottom: solid .15em #A19AA0;
+    font-weight: 300;
+}
+
+.publish-send {
+    width: 100%;
+    font-weight: 300;
+}
+
+.publish-totals {
+    text-align: center;
+}
+
+.publish-number {
+    font-size: 3.5em;
+    font-weight: 200;
+}
+
+.publish-overview {
+    padding-top: 1em;
+    padding-left: 3em;
+    padding-right: 3em;
+    border-bottom:.15em solid #f1eaf0;
+}

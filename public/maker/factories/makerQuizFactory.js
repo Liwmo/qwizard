@@ -7,6 +7,5 @@ app.factory("makerQuizFactory", ["$http", function($http){
 		self.currentQuiz.name = "WWT Handbook";
 	};
 
-
 	return self;
 }]);
