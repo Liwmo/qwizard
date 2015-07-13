@@ -3,8 +3,8 @@ module.exports.calculateQuizScore = function(selectedAnswers, correctAnswers, po
 
 	for(var i = 0; i < correctAnswers.length; i++){
 
-		if(correctAnswers[i].length != selectedAnswers[i].answer.length) {
-			continue;
+			if(correctAnswers[i].length != selectedAnswers[i].answer.length) {
+				continue;
 		}
 
 		var matches = true;
