@@ -1,0 +1,6 @@
+use qwizard_dev;
+create table emailTokens (
+	id int,
+	token varchar(50),
+	PRIMARY KEY (token)
+);
