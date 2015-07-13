@@ -29,6 +29,9 @@ app.directive("makerQuestion", function(){
 					scope.points = 5;
 				}
 			};
+
+			scope.mc = scope.tf;
+
 			//SUPER DUPER IMPORTANT TODO: scope.possibleAnswers should be created to look EXACTLY
 			//  as our quiz object expects it.  For example, a multiple choice would look like:
 			//  scope.possibleAnswers =  ["2 years","3 years","4 years","5 years"]
