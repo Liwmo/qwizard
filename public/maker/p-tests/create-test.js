@@ -26,10 +26,25 @@ describe('create quiz', function() {
         expect(element(by.css("[ng-show=\"questionType=='mc'\"]")).getAttribute('class')).toNotMatch('ng-hide');
     });
 
-    it('should show multiple-select span when mc selected', function() {
+    it('should show multiple-select span when ms selected', function() {
         expect(element(by.css("[ng-show=\"questionType=='ms'\"]")).getAttribute('class')).toMatch('ng-hide');
         element(by.cssContainingText("option","Multiple Select")).click();
         expect(element(by.css("[ng-show=\"questionType=='ms'\"]")).getAttribute('class')).toNotMatch('ng-hide');
+    });
+
+    it('should default to 2 points when tf selected', function() {
+        element(by.cssContainingText("option","True/False")).click();
+        expect(element(by.css(".point-display")).getText()).toMatch("Points: 2");
+    });
+
+    it('should default to 2 points when mc selected', function(){
+        element(by.cssContainingText("option","Multiple Choice")).click();
+        expect(element(by.css(".point-display")).getText()).toMatch("Points: 2");
+    });
+
+    it('should default to 5 points when ms selected', function() {
+        element(by.cssContainingText("option","Multiple Select")).click();
+        expect(element(by.css(".point-display")).getText()).toMatch("Points: 5");
     });
 
     it('logout', function() {

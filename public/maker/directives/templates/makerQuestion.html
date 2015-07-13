@@ -1,14 +1,14 @@
 <span class="flex noselect">
 	<input ng-model="questionName" class="text-input large" type="text" placeholder="Question Name"/>
-	<select ng-model="questionType" class="text-input">
+	<select ng-model="questionType" class="text-input" ng-click="setDefaultPoints()">
 		<option disabled selected value="">Select a question type</option>
 		<option value="tf">True/False</option>
 		<option value="mc">Multiple Choice</option>
 		<option value="ms">Multiple Select</option>
 	</select>
 	<textarea ng-model="questionText" class="text-input" type="text" placeholder="Question Text"></textarea>
-	<span>Points: {{points}}</span>
-	<input type="range" ng-model="points" value="points" min="1" max="5"></slider>
+	<span class="point-display">Points: {{points}}</span>
+	<input type="range" ng-model="points" value="points" min="1" max="10"></slider>
 </span>
 <span class="flex noselect" ng-hide="questionType"></span>
 <span class="flex noselect" ng-show="questionType=='tf'">
@@ -16,7 +16,7 @@
     		<input 	ng-checked="!correctAnswer[0]"
     				type="radio" 
     				ng-click="tf(0)"
-    				id="true-{{index}}" > <span>True</span>
+    				id="true-{{index}}"> <span>True</span>
   		</label>
 	  	<label for="false-{{index}}">
 	    	<input 	ng-checked="correctAnswer[0]" 
