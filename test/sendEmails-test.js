@@ -103,10 +103,9 @@ describe('Send Email Tests', function() {
 
 		it("Should generate an emailToken and insert into the database for our user", function(done) {
 			tasks.createToken(function(token, user) {
-				db.query("select id, name, token from emailTokens where id=?", user.id, function(err, message) {
+				db.query("select id, token from emailTokens where id=?", user.id, function(err, message) {
 					if(!err) {
 						assert.equal(user.id, message[0].id);
-						assert.equal(user.name, message[0].name);
 						assert.equal(token, message[0].token);
 					}	
 					else {

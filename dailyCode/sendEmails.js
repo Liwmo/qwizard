@@ -32,7 +32,7 @@ var createToken = function(next, user){
 	}
 	console.log("INFO: creating token for " + user.name);
 	//var query = 'insert into emailTokens SET ?'
-	db.query('insert into emailTokens VALUES(?, ?, ?)', [user.id, user.name, token], function(err, message){
+	db.query('insert into emailTokens VALUES(?, ?)', [user.id, token], function(err, message){
 		if(!err){
 			next(token, user);
 		}
