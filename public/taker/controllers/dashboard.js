@@ -3,7 +3,9 @@ app.controller('dashboard', ['$scope', 'notificationFactory', 'leaderboardFactor
     $scope.isMaker = false;
     $scope.currentUser = -1;
 
-    $scope.notifications = notificationFactory.getNotifications();
+    notificationFactory.refreshNotifications(function(data){
+        $scope.notifications = data;
+    });
 
 
     userFactory.getUserId(function(id){
