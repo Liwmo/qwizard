@@ -1,4 +1,4 @@
-describe('info page', function() {
+describe('Info page: ', function() {
 	var notification;
 
   beforeEach(function() {
@@ -18,9 +18,6 @@ describe('info page', function() {
   });
 
   it('the user should be navigated to /#/info after clicking info button', function() {
-    element(by.css('#main-content .toolbar .button')).click();
-    //Animate Menu
-    browser.sleep(500);
     element(by.css('#drawer a[href="#/info"]')).click();
     expect(browser.getCurrentUrl()).toBe('http://localhost:3000/taker/#/info');
   });
