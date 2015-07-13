@@ -1,4 +1,4 @@
-create table notifications(
+create table qwizard_dev.notifications(
 	quizId INT NOT NULL,
 	userID INT NOT NULL,
 	typeID INT NOT NULL,

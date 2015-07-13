@@ -23,10 +23,6 @@ app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$locati
 
     $scope.submit = function(){
 
-    document.getElementById("quizView").addEventListener("keyPress", function(e){
-        console.log(e.keyCode);
-    });
-
     quizFactory.postQuiz($scope.quizId, function(data){
             notificationFactory.addNotification("Thanks for taking the WWT Employee Handbook quiz! Your results will be available soon!", "#/");
             $location.path('/');
