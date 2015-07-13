@@ -8,9 +8,9 @@ router.route('/:id')
 	.get(function(req, res){
 		if (req.cookies.login) {
 			var id = parseInt(req.params.id) || -1;
-			db.query('Select quiz from quizzes where id=?', id, function(err, message){
+			db.query('Select title, questions from quizzes where id=?', id, function(err, message){
 				if(!err && message.length) {
-					res.send(message[0].quiz);
+					res.send(message[0]);
 				}
 				else {
 					res.send({error: 'Error lookup up quiz by id in database'});

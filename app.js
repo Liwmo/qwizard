@@ -8,6 +8,7 @@ var auth = require('./routes/authentication');
 
 var login = require('./routes/login');
 var users = require('./routes/users');
+var verify = require('./routes/verify');
 var api = require('./routes/api');
 
 var app = express();
@@ -26,6 +27,7 @@ app.use(cookieParser());
 app.use('/', login);
 app.use('/maker/*', auth.authenticateCookie, auth.authenticateMaker);
 app.use('/taker/*', auth.authenticateCookie);
+app.use('/verify', verify);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', api);
 

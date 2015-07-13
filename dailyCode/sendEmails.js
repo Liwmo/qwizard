@@ -24,45 +24,37 @@ var tasks = new (function(){
 	};
 })();
 
-//used by generateTokens
-var createToken = function(next, user){
-	var token = "";
-	for(var i = 0; i < 50; i++){
-		token += String.fromCharCode(Math.floor(Math.random() * 26 + 65));
-	}
-	console.log("INFO: creating token for " + user.name);
-	//var query = 'insert into emailTokens SET ?'
-	db.query('insert into emailTokens VALUES(?, ?)', [user.id, token], function(err, message){
-		if(!err){
-			next(token, user);
-		}
-		else {
-			console.log(err);
-		}
-	});
-};
 //task -- returns array of users with an id, a name, and a token
 var generateTokens = function(next, users){
-	console.log("generating email tokens...");
-	var tokens = [];
-	var len = users.length;
-	var check = function(token, users){
-		tokens.push({
-			token: token,
-			name: user.name
-		});
-		if(tokens.length == len){
-			next(tokens);
+	var createToken = function() {
+		var token = "";
+		for(var i = 0; i < 50; i++){
+			token += String.fromCharCode(Math.floor(Math.random() * 26 + 65));
 		}
-	};
-
-	for(var i = 0; i < len; i++){
-		tokens[users[i].id] = {
-			name: users[i].name
-		};
-		createToken(check, users[i].id);
+		return token;
 	}
+
+	users.forEach(function(user) {
+		user.token = createToken();
+	});
+
+	next(users);
 };
+
+var insertTokens = function(next, users) {
+	users.forEach(function(user) {
+		db.query('insert into emailTokens VALUES(?, ?)', [user.id, user.token], function(err, message){
+			if(err){
+				console.log(err);
+			}
+		});
+	});
+	console.log('insert tokens:');
+	console.log(users);	
+
+	next(users);
+};
+
 //used by sendQuiz
 var format = function(body, userName, userToken, quizId){
 	var name = userName.split('.');
@@ -75,6 +67,7 @@ var format = function(body, userName, userToken, quizId){
 	result = result.replace(/\{\{id\}\}/g, quizId);
 	return result;
 };
+
 //task -- returns text of file
 var getBody = function(next){
 	console.log("retrieving email body...");
@@ -88,6 +81,7 @@ var getBody = function(next){
 		}
 	})
 };
+
 //task -- returns if there are any quizzes to email
 var getQuizzes = function(next){
 	console.log("fetching quizzes from today");
@@ -106,14 +100,21 @@ var getQuizzes = function(next){
 		}
 	});
 };
+
 //task -- returns list of users to email
 var getUsers = function(next){
 	console.log("fetching user list");
 	var query = 'select id, name from users';
 	db.query(query, function(err, message){
-		next(message);
+		if(err) {
+			console.log('ALERT: getUsers Error!');
+			console.log(err);
+			process.exit();
+		}
+		next(message)
 	});
 };
+
 //task + helpers -- returns nothing
 var emails = new (function(){
 	var quizzes = [];
@@ -127,8 +128,9 @@ var emails = new (function(){
 		quizzes = data;
 	};
 
-	this.send = function(users, next){
+	this.send = function(next, users){
 		var count = 0;
+
 
 		var check = function(){
 			count++;
@@ -147,6 +149,7 @@ var emails = new (function(){
 		}
 	};
 })();
+
 //used by emails.send
 var sendQuiz = function(next, opts){
 	if(!opts.recipients.length){
@@ -165,26 +168,30 @@ var sendQuiz = function(next, opts){
 	}
 };
 
-/*tasks
+
+tasks
 	.add(getBody)
 	.add(getQuizzes)
 	.add(getUsers)
 	.add(generateTokens)
+	.add(insertTokens)
 	.add(emails.send)
 	.add(process.exit)
-	.start();*/
+	.start();
 
-//TASKS:
-//get email body
-//get quizzes that need to be emailed
-//get the list of people to email to
-//generate email tokens
-//format and send email for each user for each quiz
-//link form: http://localhost:3000/verify/ThIsRaNdOmEmAiLkEy?redirect=/taker/quiz/###
+
+// TASKS:
+// get email body
+// get quizzes that need to be emailed
+// get the list of people to email to
+// generate email tokens
+// insert user-token pairs into db
+// format and send email for each user for each quiz
+// link form: http://localhost:3000/verify/ThIsRaNdOmEmAiLkEy?redirect=/taker/quiz/###
 
 module.exports = {
-	createToken: createToken,
 	generateTokens: generateTokens,
+	insertTokens: insertTokens,
 	format: format,
 	getBody: getBody,
 	getQuizzes: getQuizzes,

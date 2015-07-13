@@ -77,7 +77,6 @@ describe('Send Email Tests', function() {
 					console.log(err);
 				}
 			});
-
 		});
 
 		it("Should get the user we added to the table", function(done) {
@@ -98,42 +97,42 @@ describe('Send Email Tests', function() {
 		});
 	});
 
-	describe('createToken Tests', function() {
-		var user = {name: "Bill", id: 999999};
+	// describe('createToken Tests', function() {
+	// 	var user = {name: "Bill", id: 999999};
 
-		it("Should generate an emailToken and insert into the database for our user", function(done) {
-			tasks.createToken(function(token, user) {
-				db.query("select id, token from emailTokens where id=?", user.id, function(err, message) {
-					if(!err) {
-						assert.equal(user.id, message[0].id);
-						assert.equal(token, message[0].token);
-					}	
-					else {
-						assert.equal(true, false);
-					}
-					done();
-				});
-			}, user);
-		});
+	// 	it("Should generate an emailToken and insert into the database for our user", function(done) {
+	// 		tasks.createToken(function(token, user) {
+	// 			db.query("select id, token from emailTokens where id=?", user.id, function(err, message) {
+	// 				if(!err) {
+	// 					assert.equal(user.id, message[0].id);
+	// 					assert.equal(token, message[0].token);
+	// 				}	
+	// 				else {
+	// 					assert.equal(true, false);
+	// 				}
+	// 				done();
+	// 			});
+	// 		}, user);
+	// 	});
 
-		afterEach(function(done) {
-			db.query("delete from emailTokens where id=?", user.id, function(err, message){
-				if(err){
-					console.log(err);
-				}
-				done();
-			});
-		});
-	});
+	// 	afterEach(function(done) {
+	// 		db.query("delete from emailTokens where id=?", user.id, function(err, message){
+	// 			if(err){
+	// 				console.log(err);
+	// 			}
+	// 			done();
+	// 		});
+	// 	});
+	// });
 
-	describe('getBody Tests', function() {
-		it("Should get an html page", function(done) {
-			tasks.getBody(function(data) {
-				assert.ok(data, "data is not defined");
-				done();
-			});
-		});
-	});
+	// describe('getBody Tests', function() {
+	// 	it("Should get an html page", function(done) {
+	// 		tasks.getBody(function(data) {
+	// 			assert.ok(data, "data is not defined");
+	// 			done();
+	// 		});
+	// 	});
+	// });
 
 	describe('sendQuiz Test', function() {
 
@@ -159,6 +158,86 @@ describe('Send Email Tests', function() {
 				assert.equal(true, tasks.nodemailerTransport.sendMail.calledTwice, "2 emails were not sent for 2 recipients");
 				done();
 			}, {recipients: [{name: "devin.kiser", token:";lkjasd;fkljads"},{name: "devin.kiser", token:";lkjasd;fkljads"}], quizName: "Blah Quiz 90000", body: "asdfa", quizId: 2});
+		});
+	});
+
+	describe('generateTokens Test', function() {
+		var tokens;
+		var users;
+		beforeEach(function(done) {
+			// tokens = [];
+			users = [];
+
+			// for(var i=0; i<10; i++) {
+			// 	tokens.push({token: "A", name:"mike.wazowski"});
+			// }
+
+			for(var i=0; i<10; i++) {
+				users.push({
+					id: i,
+					name: "first.last"
+				})
+			}
+			done();
+		});
+
+		it("Should create a list of tokens", function(done) {
+
+			// sinon.stub(tasks, "createToken", function(next) {
+			// 	next("A", {id: 9001, name: "mike.wazowski"});
+			// });
+			
+			tasks.generateTokens(function(users) {
+				users.forEach(function(user) {
+					assert.equal(50, user.token.length);
+				});
+				done();
+			}, users);
+		});
+	});
+
+	describe('insertTokens Test', function() {
+		var users;
+
+		beforeEach(function(done) {
+			users = [];
+			for(var i=0; i<10; i++) {
+				users.push({
+					id: i + 900000,
+					token: "ABCDEFG" + i.toString()
+				});
+			}
+
+			done();
+		});
+
+		it("Should insert the tokens into the database", function(done) {
+			tasks.insertTokens(function() {
+				users.forEach(function(user) {
+					db.query("select id, token from emailTokens where id=?", user.id, function(err, message) {
+						if(!err) {
+							assert.equal(user.id, message[0].id);
+							assert.equal(user.token, message[0].token);
+						} else {
+							console.log(err);
+						}
+					});
+				});	
+			}, users);
+
+			done();
+		});
+
+		afterEach(function(done) {
+			users.forEach(function(user) {
+				db.query("delete from emailTokens where id=?", user.id, function(err, message) {
+					if(err) {
+						console.log(err);
+					}
+				});
+			});
+
+			done();
 		});
 	});
 });
