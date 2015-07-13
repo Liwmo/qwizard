@@ -7,7 +7,7 @@ app.factory("notificationFactory", ["$http", function($http){
     };
 
     var getText = function(data){
-        if(data.typeId == 1){
+        if(data.typeID == 1){
             return data.title + " quiz is ready to take.";
         }else{
             return "Results from " + data.title + " quiz are available. View now >>";
@@ -22,7 +22,7 @@ app.factory("notificationFactory", ["$http", function($http){
                     text: getText(data[i]),
                     link: "#/quiz/" + data[i].id,
                     id: data[i].id,
-                    type: data[i].typeId
+                    type: data[i].typeID
                 });
             }
             callback(notifications);
