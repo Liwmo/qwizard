@@ -19,13 +19,18 @@
   <script src="/taker/controllers/quiz.js"></script>
   <script src="/taker/controllers/results.js"></script>
   <script src="/taker/controllers/leaderboard.js"></script>
+  <script src="/taker/controllers/info.js"></script>
+  <script src="/taker/controllers/bug.js"></script>
+  <script src="/taker/controllers/feature.js"></script>
+
   <!--Directives-->
   <script src="/taker/directives/question.js"></script>
   <script src="/taker/directives/results-question.js"></script>
   <script src="/taker/directives/quizNotification.js"></script>
   <script src="/taker/directives/submitNotification.js"></script>
   <script src="/taker/directives/leaderboard.js"></script>
-    <!--Factories-->
+
+  <!--Factories-->
   <script src="/taker/factories/quizFactory.js"></script>
   <script src="/taker/factories/leaderboardFactory.js"></script>
   <script src="/taker/factories/notificationFactory.js"></script>
@@ -69,7 +74,7 @@
         <span>leaderboard</span>
       </span>
     </a>
-    <a href="#/" ng-click="toggleMenu()" class="flex flex-container item">
+    <a href="#/info" ng-click="toggleMenu()" class="flex flex-container item">
       <span>
         <div class="icon info"></div>
         <span>info</span>
@@ -79,6 +84,12 @@
       <span>
         <div class="icon manage-quizzes-white"></div>
         <span>manage quizzes</span>
+      </span>
+    </a>
+    <a href="/maker/#/create" ng-show="isMaker" class="flex flex-container item">
+      <span>
+        <div class="icon create-quiz"></div>
+        <span>create quiz</span>
       </span>
     </a>
     <a href="/logout" class="flex flex-container item">
@@ -92,7 +103,7 @@
 
 <div class="flex flex-container vertical" id="main-content">
   <div class="shadow teal-dark flex-container toolbar">
-    <div class="logo"><div class="icon logo-horizontal"></div></div>
+    <a href="#/" class="logo"><div class="icon logo-horizontal"></div></a>
     <span class="flex toasties"></span>
     <div ng-click="toggleMenu()" class="button noselect"><div class="icon menu"></div></div>
   </div>

@@ -3,6 +3,11 @@ describe('Quiz Notifications', function() {
 
   beforeEach(function() {
   	browser.get('http://localhost:3000/taker');
+    browser.ignoreSynchronization = true;
+    browser.get('http://localhost:3000/tests/removeNotification');
+    browser.get('http://localhost:3000/tests/addNotification');
+    browser.get('http://localhost:3000/taker');
+    browser.ignoreSynchronization = false;
   	notification = element.all(by.css('.notification')).first();
   });
 
@@ -40,5 +45,12 @@ describe('Quiz Notifications', function() {
   	var dashURL = browser.getLocationAbsUrl();
   	notification.click();
   	expect(browser.getLocationAbsUrl()).toNotBe(dashURL);
+  });
+
+  it('should cleanup', function(){
+    browser.ignoreSynchronization = true;
+    browser.get('http://localhost:3000/tests/removeNotification');
+    browser.get('http://localhost:3000/logout');
+    browser.ignoreSynchronization = false;
   });
 });
