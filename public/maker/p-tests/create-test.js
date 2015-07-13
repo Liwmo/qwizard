@@ -130,7 +130,7 @@ describe('create quiz', function() {
             expect(elements.length).toBe(1);
             element(by.css('#add-question')).click();
             element.all(by.css('maker-question')).then(function(elements) {
-            expect(elements.length).toBe(2);            
+                expect(elements.length).toBe(2);            
             });
         });
     });
