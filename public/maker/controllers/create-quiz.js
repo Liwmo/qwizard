@@ -34,8 +34,7 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
 
     $scope.verifyName = function() {
     	var pattern = new RegExp("^[A-Za-z0-9_]*[A-Za-z0-9][A-Za-z0-9 _'-]*$");
-    	console.log(pattern.test($scope.quizName));
-        $scope.validName = pattern.test($scope.quizName);
+    	$scope.validName = pattern.test($scope.quizName);
     	return pattern.test($scope.quizName);
     };
 
@@ -80,6 +79,7 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
                     setPopup("Question text cannot exceed 150 characters.");
                     return;
                 }
+                console.log($scope.questions[i].text.length);
                 if(!$scope.questions[i].text){
                     setPopup("Cannot publish with empty question fields.");
                     return;

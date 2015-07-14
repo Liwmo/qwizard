@@ -151,13 +151,13 @@ describe('create quiz', function() {
     });
 
     it('should not allow one to type more than 150 characters into the question text field', function() {
-        element(by.css('.question-text')).clear();
+        element(by.css('[ng-model="questionText"]')).clear();
         var tooMuchText = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
                           'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
                           'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii';
 
-        element(by.css('.question-text')).sendKeys(tooMuchText);
-        expect(element(by.css('.question-text')).getText()).toBe("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+        element(by.css('[ng-model="questionText"]')).sendKeys(tooMuchText);
+        expect(element(by.css('[ng-model="questionText"]')).getAttribute('value')).toBe("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
     });
 
     it('should not allow one to type more than 20 characters into the question title field', function() {
