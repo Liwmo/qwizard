@@ -11,12 +11,7 @@ describe('leaderboard directive', function() {
 
         element = '<leaderboard id="leaderboard" class="flex-container flex vertical" current-user="currentUser" leaders="leaders" start="start"></leaderboard>';
 
-        $scope.currentUser = {
-            userid: 507,
-            name: 'me.me',
-            score: 600,
-            rank: 85
-        };
+        $scope.currentUser = 507;
 
         $scope.leaders = [{
           "userid": 500,

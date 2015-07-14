@@ -1,18 +1,40 @@
 app.factory("notificationFactory", ["$http", function($http){
     var self = this;
-    var notifications = [
-        {
-            text: "WWT Employee Handbook quiz is ready to take.",
-            link: "#/quiz/1"
-        },
-        {
-            text: "Results for Quiz 1 have been released. View now >>",
-            link: "#/results/1"
-        }
-    ];
+    var notifications = [];
 
     self.getNotifications = function(){
         return notifications;
+    };
+
+    var getText = function(data){
+        if(data.typeID == 1){
+            return data.title + " quiz is ready to take.";
+        }else{
+            return "Results from " + data.title + " quiz are available. View now >>";
+        }
+    };
+
+    var getLink = function(data){
+        if(data.typeID == 1){
+            return '#/quiz/' + data.id;
+        }else{
+            return '#/results/' + data.id;
+        }
+    };
+
+    self.refreshNotifications = function(callback) {
+        $http.get('/api/notifications/').success(function(data){
+            notifications = [];
+            for(var i = 0; i < data.length; i++){
+                notifications.push({
+                    text: getText(data[i]),
+                    link: getLink(data[i]),
+                    id: data[i].id,
+                    type: data[i].typeID
+                });
+            }
+            callback(notifications);
+        });
     };
 
     self.addNotification = function(text, link){
@@ -23,6 +45,7 @@ app.factory("notificationFactory", ["$http", function($http){
     };
 
     self.removeNotification = function(notification){
+        $http.get('/api/notifications/remove/' + notification.id);
         notifications.splice(notifications.indexOf(notification), 1);
     };
 

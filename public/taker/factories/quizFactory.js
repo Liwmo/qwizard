@@ -3,7 +3,9 @@ app.factory("quizFactory", ["$http", function($http){
 	var quizzes = {};
 
 	self.getQuiz = function(id, callback){
-		if(id === undefined) id = -1;
+		if(typeof id != "number") {
+			id = -1;
+		}
 		if(quizzes[id.toString()]){
 			callback(quizzes[id.toString()]);
 		}else{
@@ -20,12 +22,14 @@ app.factory("quizFactory", ["$http", function($http){
 	};
 
 	self.postQuiz = function(id, callback){
-		if(id === undefined) id = -1;
+		if(typeof id != "number") {
+			id = -1;
+		}
 		var selected = [];
         for(var i = 0; i < quizzes[id.toString()].questions.length; i++){
             selected.push({
                 answer: quizzes[id.toString()].questions[i].selected,
-                type: quizzes[id.toString()].questions[i].type
+                // type: quizzes[id.toString()].questions[i].type
             });
         }
 		$http.post("/api/quiz/" + id, selected).success(callback);

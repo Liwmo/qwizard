@@ -4,7 +4,7 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
     $scope.currentQuestion = 0;
     $scope.points = 0;
     $scope.max_points = 71;//hard coded
-    $scope.quizId = $routeParams.id;
+    $scope.quizId =  $scope.quizId  || $routeParams.id;
 
     $scope.showAnswers = function() {
     	document.getElementById("results-prompt").classList.toggle("remove");
@@ -12,17 +12,27 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
     }
     
     quizFactory.getQuiz($scope.quizId, function(quizData){
-        $scope.name = quizData.title;
-        $scope.questions = quizData.questions;
-        quizFactory.getQuizResults(1, function(resultsData) {
-            var answers = JSON.parse(resultsData.answers);
-            var selected = JSON.parse(resultsData.selected);
-            for (var i = 0; i < $scope.questions.length; i++) {
-                  console.log("question " + (i+1) + ' has ' + selected[i].answer.length + ' selected answers');
-                  $scope.questions[i].selected = selected[i].answer;
-                  $scope.questions[i].correct = answers[i];
-            }
-        });
+        if(quizData.error) {
+            $scope.error = quizData.error;
+        }
+        else {
+            $scope.name = quizData.title;
+            $scope.questions = quizData.questions;
+            quizFactory.getQuizResults($scope.quizId, function(resultsData) {
+                if(resultsData.error) {
+                    $scope.error = resultsData.error;
+                }
+                else {
+                    var answers = JSON.parse(resultsData.answers);
+                    var selected = JSON.parse(resultsData.selected);
+                    for (var i = 0; i < $scope.questions.length; i++) {
+                          console.log("question " + (i+1) + ' has ' + selected[i].answer.length + ' selected answers');
+                          $scope.questions[i].selected = selected[i].answer;
+                          $scope.questions[i].correct = answers[i];
+                    }
+                }
+            });
+        }
     });
 
     userFactory.getScoreOnQuiz($scope.quizId, function(data) {
