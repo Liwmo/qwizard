@@ -54,7 +54,7 @@ router.put('/:id', function(req, res){
 			update.results = quiz.results;
 		}
 		if(quiz.publish) {
-			update.publish = quiz.publsh;
+			update.publish = quiz.publish;
 		}
 		if(quiz.pointValues) {
 			update.pointvalues = JSON.stringify(quiz.pointValues);
@@ -72,7 +72,7 @@ router.put('/:id', function(req, res){
 				else {
 					res.send("success");
 					if(quiz.publish === today){
-						immediate.generateNotifiactions(req.params.id);
+						immediate.generateNotifications(req.params.id);
 					}
 				}
 			}

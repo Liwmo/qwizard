@@ -4,8 +4,6 @@ var request = require('supertest');
 var convert = require('../routes/userConversion');
 var request = require('request');
 var db = require('../database/db');
-var convert = require('../routes/userConversion');
-var sinon = require('sinon');
 
 
 describe("Publish API endpoint", function(done){
@@ -50,9 +48,10 @@ describe("Publish API endpoint", function(done){
         });
     });
 
-    it("The previous POST should have added a quiz to the DB with the returnedID", function() {
+    it("The previous POST should have added a quiz to the DB with the returnedID", function(done) {
         db.query("Select * from quizzes where id=?", returnedID, function(error, rows) {
             assert.ok(rows.length == 1);
+            done();
         })
     });
 
@@ -82,6 +81,33 @@ describe("Publish API endpoint", function(done){
             assert.ok(JSON.parse(body).error);
             done();
         });
+    });
+
+    it("PUT to quiz/:id with publish date of today will call immediate.generateNotifications", function(done) {
+        var today = (new Date()).toISOString().substr(0,10);
+        options.form['publish'] = today;
+        options.url = "http://localhost:3000/api/maker/quiz/" + returnedID;
+        console.log("NOTE: THE ID IS: " + returnedID);
+        request.put(options, function(error, response, body) {    });
+        setTimeout(function() {
+            db.query("select * from notifications where typeID=1 and quizId=" + returnedID, function(err, message) {
+                if (err) {
+                    console.log(err);
+                    done();
+                }
+                if (message[0].quizId) {
+                    assert.ok(message[0].quizId == returnedID);
+                    db.query("delete from notifications where typeID=1 and quizId=" + returnedID, function(err, message) {
+                        done();
+                    });  
+                }
+                else {
+                    console.log("quizId was not returned, basically SQL Query did not find a notification");
+                    assert.ok(false);
+                    done();
+                }
+            });
+        }, 500);
     });
 
     it("Logout", function(done) {
