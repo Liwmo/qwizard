@@ -1,29 +1,31 @@
 <span class="flex noselect">
-	<input ng-model="questionName" class="text-input large" type="text" placeholder="Question Name"/>
-	<select ng-model="questionType" class="text-input">
+	<input ng-model="questionName" class="text-input large" type="text" placeholder="Question Name" maxlength="20"/>
+	<select ng-model="questionType" class="text-input" ng-click="setDefaultPoints()">
 		<option disabled selected value="">Select a question type</option>
 		<option value="tf">True/False</option>
 		<option value="mc">Multiple Choice</option>
 		<option value="ms">Multiple Select</option>
 	</select>
-	<textarea ng-model="questionText" class="text-input" type="text" placeholder="Question Text"></textarea>
-	<span>Points: {{points}}</span>
-	<input type="range" ng-model="points" min=1 max=5>
+	<div contentEditable="true" ng-model="questionText" class="text-input question-text" max="150" place-holder="Question Text"></div>
+	<span class="point-display">Points: {{points}}</span>
+	<input type="range" ng-model="points" value="points" min="1" max="10"></slider>
 </span>
 <span class="flex noselect" ng-hide="questionType"></span>
 <span class="flex noselect" ng-show="questionType=='tf'">
-		<label for="true-{{index}}">
-    		<input 	ng-checked="!correctAnswer[0]"
-    				type="radio" 
-    				ng-click="tf(0)"
-    				id="true-{{index}}" > <span>True</span>
-  		</label>
-	  	<label for="false-{{index}}">
-	    	<input 	ng-checked="correctAnswer[0]" 
-	    			type="radio"
-	    			ng-click="tf(1)"
-	    			id="false-{{index}}"> <span>False</span>
-	  	</label>
+	<span class="flex-container horizontal answer-field">
+		<span class="radio" ng-class="{checked: correctAnswer[0]==0}" ng-click="tf(0)"></span>
+		<span class="flex">True</span>
+	</span>
+	<span class="flex-container horizontal answer-field">
+		<span class="radio" ng-class="{checked: correctAnswer[0]==1}" ng-click="tf(1)"></span>
+		<span class="flex">False</span>
+	</span>
 </span>
-<span class="flex noselect" ng-show="questionType=='mc'">I'm an mc</span>
+<span class="flex noselect" ng-show="questionType=='mc'">
+	<span style="flex-wrap:no-wrap;" class="flex-container horizontal answer-field" ng-repeat="answer in possibleAnswers track by $index">
+		<span class="radio" ng-class="{checked: correctAnswer[0]==$index}" ng-click="mc($index)"></span>
+		<input ng-model="answer" class="text-input flex" maxlength="50">
+	</span>
+</span>
+
 <span class="flex noselect" ng-show="questionType=='ms'">I'm an ms</span>

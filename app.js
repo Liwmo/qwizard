@@ -8,8 +8,9 @@ var auth = require('./routes/authentication');
 
 var login = require('./routes/login');
 var users = require('./routes/users');
+var verify = require('./routes/verify');
 var api = require('./routes/api');
-
+var tests = require('./routes/tests');
 var app = express();
 
 // view engine setup
@@ -26,9 +27,10 @@ app.use(cookieParser());
 app.use('/', login);
 app.use('/maker/*', auth.authenticateCookie, auth.authenticateMaker);
 app.use('/taker/*', auth.authenticateCookie);
+app.use('/verify', verify);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', api);
-
+app.use('/tests', tests);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
