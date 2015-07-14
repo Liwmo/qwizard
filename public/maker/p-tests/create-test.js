@@ -115,7 +115,7 @@ describe('create quiz', function() {
         browser.sleep(500);
         element(by.css('[ng-click="leftAction()"]')).click();
         element(by.css('[ng-model="questionName"]')).clear().then(function() {
-            element(by.css('[ng-model="questionText"]')).sendKeys('$$$$');
+            element(by.css('.question-text')).sendKeys('$$$$');
             publish.click();
             expect(popup.getAttribute('class')).toMatch('visible');
             browser.sleep(500);
