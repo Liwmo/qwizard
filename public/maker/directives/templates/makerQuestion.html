@@ -6,9 +6,15 @@
 		<option value="mc">Multiple Choice</option>
 		<option value="ms">Multiple Select</option>
 	</select>
+<<<<<<< Updated upstream
 	<textarea ng-model="questionText" class="text-input" type="text" placeholder="Question Text"></textarea>
 	<span>Points: {{points}}</span>
 	<input type="range" ng-model="points" value="points" min="1" max="5"></slider>
+=======
+	<div contentEditable="true" class="text-input question-text" max="150" place-holder="Question Text"></div>
+	<span class="point-display">Points: {{points}}</span>
+	<input type="range" ng-model="points" value="points" min="1" max="10"></slider>
+>>>>>>> Stashed changes
 </span>
 <span class="flex noselect" ng-hide="questionType"></span>
 <span class="flex noselect" ng-show="questionType=='tf'">
