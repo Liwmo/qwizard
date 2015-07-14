@@ -57,12 +57,17 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
             return;
     	}
         if (!$scope.questions.length) {
-            setPopup("Cannot publish an empy quiz.");
+            setPopup("Cannot publish an empty quiz.");
             return;
-        }else{
+        }
+        else {
     		for(var i = 0; i < $scope.questions.length; i++){
                 if(!$scope.questions[i].type){
                     setPopup("Cannot publish a quiz with undefined question types.");
+                    return;
+                }
+                if ($scope.questions[i].text.length > 150) {
+                    setPopup("Question text cannot exceed 150 characters.");
                     return;
                 }
                 if(!$scope.questions[i].text){
