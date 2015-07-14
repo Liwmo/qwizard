@@ -50,7 +50,7 @@ describe('Quiz Notifications', function() {
   it('should cleanup', function(){
     browser.ignoreSynchronization = true;
     browser.get('http://localhost:3000/tests/removeNotification');
-    browser.get('http://localhost:3000/taker');
+    browser.get('http://localhost:3000/logout');
     browser.ignoreSynchronization = false;
-  })
+  });
 });

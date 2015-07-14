@@ -26,10 +26,25 @@ describe('create quiz', function() {
         expect(element(by.css("[ng-show=\"questionType=='mc'\"]")).getAttribute('class')).toNotMatch('ng-hide');
     });
 
-    it('should show multiple-select span when mc selected', function() {
+    it('should show multiple-select span when ms selected', function() {
         expect(element(by.css("[ng-show=\"questionType=='ms'\"]")).getAttribute('class')).toMatch('ng-hide');
         element(by.cssContainingText("option","Multiple Select")).click();
         expect(element(by.css("[ng-show=\"questionType=='ms'\"]")).getAttribute('class')).toNotMatch('ng-hide');
+    });
+
+    it('should default to 2 points when tf selected', function() {
+        element(by.cssContainingText("option","True/False")).click();
+        expect(element(by.css(".point-display")).getText()).toMatch("Points: 2");
+    });
+
+    it('should default to 2 points when mc selected', function(){
+        element(by.cssContainingText("option","Multiple Choice")).click();
+        expect(element(by.css(".point-display")).getText()).toMatch("Points: 2");
+    });
+
+    it('should default to 5 points when ms selected', function() {
+        element(by.cssContainingText("option","Multiple Select")).click();
+        expect(element(by.css(".point-display")).getText()).toMatch("Points: 5");
     });
 
     it('should only select false when false is clicked in tf question', function() {
@@ -79,16 +94,16 @@ describe('create quiz', function() {
         });
     });  
 
-    it('should show error when question list is empty on publish', function(){
-        element(by.css('[ng-click="removeQuestion(index)"]')).click();
-        var publish = element(by.css('[ng-click="publishQuiz()"]'));
-        var popup = element(by.css('.popup'));
-        publish.click();
-        expect(popup.getAttribute('class')).toMatch('visible');
-        browser.sleep(500);
-        element(by.css('[ng-click="leftAction()"]')).click();
+    // it('should show error when question list is empty on publish', function(){
+    //     element(by.css('[ng-click="removeQuestion(index)"]')).click();
+    //     var publish = element(by.css('[ng-click="publishQuiz()"]'));
+    //     var popup = element(by.css('.popup'));
+    //     publish.click();
+    //     expect(popup.getAttribute('class')).toMatch('visible');
+    //     browser.sleep(500);
+    //     element(by.css('[ng-click="leftAction()"]')).click();
 
-    });
+    // });
 
     it('should show error when question name or text is empty on publish', function(){
         element(by.css('#add-question')).click();
@@ -117,20 +132,20 @@ describe('create quiz', function() {
         element(by.css('[ng-click="leftAction()"]')).click();
     });
 
-    it('should remove question when delete button is clicked', function(){
-        element(by.css('[ng-click="removeQuestion(index)"]')).click();
-        element.all(by.css('maker-question')).then(function(elements) {
-            expect(elements.length).toBe(0);
-        });
-    });
+    // it('should remove question when delete button is clicked', function(){
+    //     element(by.css('[ng-click="removeQuestion(index)"]')).click();
+    //     element.all(by.css('maker-question')).then(function(elements) {
+    //         expect(elements.length).toBe(0);
+    //     });
+    // });
 
     it('should add question when add question button is clicked', function() {
         element(by.css('#add-question')).click();
         element.all(by.css('maker-question')).then(function(elements) {
-            expect(elements.length).toBe(1);
+            expect(elements.length).toBe(3);
             element(by.css('#add-question')).click();
             element.all(by.css('maker-question')).then(function(elements) {
-            expect(elements.length).toBe(2);            
+            expect(elements.length).toBe(4);            
             });
         });
     });

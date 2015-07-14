@@ -29,14 +29,14 @@ describe('Question Directive', function() {
     }));
 
     it('scope.type is templated correctly when tf', inject(function($controller) {
-        expect(element.children()[3].children.length).toBe(2);
-        expect(element.children()[3].children[0].innerHTML).toBe("True");
-        expect(element.children()[3].children[1].innerHTML).toBe("False");
+        expect(element.children()[4].children.length).toBe(2);
+        expect(element.children()[4].children[0].innerHTML).toBe("True");
+        expect(element.children()[4].children[1].innerHTML).toBe("False");
     }));
 
     it('scope.selected should update when true is clicked', inject(function($controller){
         expect($scope.selected).toEqual([]);
-        var el = angular.element(element.children()[3].children[0]);
+        var el = angular.element(element.children()[4].children[0]);
         el.triggerHandler('click');
         expect($scope.selected[0]).toBe(0);
     }));
