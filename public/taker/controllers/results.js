@@ -19,12 +19,17 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
             $scope.name = quizData.title;
             $scope.questions = quizData.questions;
             quizFactory.getQuizResults($scope.quizId, function(resultsData) {
-                var answers = JSON.parse(resultsData.answers);
-                var selected = JSON.parse(resultsData.selected);
-                for (var i = 0; i < $scope.questions.length; i++) {
-                      console.log("question " + (i+1) + ' has ' + selected[i].answer.length + ' selected answers');
-                      $scope.questions[i].selected = selected[i].answer;
-                      $scope.questions[i].correct = answers[i];
+                if(resultsData.error) {
+                    $scope.error = resultsData.error;
+                }
+                else {
+                    var answers = JSON.parse(resultsData.answers);
+                    var selected = JSON.parse(resultsData.selected);
+                    for (var i = 0; i < $scope.questions.length; i++) {
+                          console.log("question " + (i+1) + ' has ' + selected[i].answer.length + ' selected answers');
+                          $scope.questions[i].selected = selected[i].answer;
+                          $scope.questions[i].correct = answers[i];
+                    }
                 }
             });
         }
