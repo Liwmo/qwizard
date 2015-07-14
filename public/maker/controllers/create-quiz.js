@@ -1,4 +1,5 @@
-app.controller('create-quiz', ['$scope', '$location', function($scope, $location) {
+app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($scope, $location, quizFactory) {
+    var quizId;//should be overwritten
 
     $scope.validName = true;
     $scope.quizName = "";
@@ -41,13 +42,22 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
     $scope.saveDraft = function() {
     	if (!$scope.verifyName()) {
     		console.log("I can't save this name");
-    	}
-    	else {
-    		$scope.popupText = "Your draft is saved. Would you like to continue?";
-	    	$scope.leftButton = "No, return to dashboard";
-	    	$scope.rightButton = "Yes, I'm still workin'";
+    	}else{
+
 	    	console.log("Saving current draft");
-	    	$scope.popupToggle();
+            quizFactory.saveQuiz({
+                title: $scope.quizName,
+                questions: $scope.questions,
+                id: quizId
+            }, function(id){
+                quizId = quizId || id;
+                setPopup("Your draft is saved.  Would you like to continue?", {
+                    text: "No, return to dashboard",
+                    action: $scope.toDashboard
+                }, {
+                    text: "Yes, I'm still working"
+                });
+            });
     	}
     };
 
