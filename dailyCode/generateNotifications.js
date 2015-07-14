@@ -28,7 +28,6 @@ var tasks = new (function(){
 var addAvailableNotifications = function(next) {
 	var query =  'insert into notifications (quizId, userId, typeID) ';
 		query += 'select q.id, u.id, 1 from quizzes q join users u where q.publish=?';
-
 	db.query(query, today, function(err, message){
 		if(err){
 			console.log(err);
