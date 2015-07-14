@@ -5,7 +5,7 @@ describe('Info page: ', function() {
   	browser.get('http://localhost:3000');
   });
 
-  it('Should login before running any tests bruh', function() {
+  it('Should login before running any tests', function() {
     browser.get('http://localhost:3000/logout');
     browser.get('http://localhost:3000');
     element(by.css('[type="text"]')).sendKeys('proj-1189-bind');
@@ -15,11 +15,6 @@ describe('Info page: ', function() {
 
   it('the menu should contain an info button', function() {
     expect(element(by.css('#drawer a[href="#/info"]'))).toBeDefined();
-  });
-
-  it('the user should be navigated to /#/info after clicking info button', function() {
-    element(by.css('#drawer a[href="#/info"]')).click();
-    expect(browser.getCurrentUrl()).toBe('http://localhost:3000/taker/#/info');
   });
 
   it('should contain request feature and report bug buttons', function() {
