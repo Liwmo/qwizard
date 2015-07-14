@@ -205,7 +205,7 @@ maker-question .answer-field {
   box-shadow: 0 0 0 0.15em #17a587;
 }
 
-.publish-detail {
+.publish-header {
     font-family: "Signika";
     font-size: 1.25em;
     font-weight: 300;
@@ -238,4 +238,10 @@ maker-question .answer-field {
     padding-left: 3em;
     padding-right: 3em;
     border-bottom:.15em solid #f1eaf0;
+}
+
+.publish-review {
+    padding-top: 1em;
+    padding-left: 3em;
+    padding-right: 3em;
 }

@@ -1,4 +1,4 @@
-describe('manage quiz', function() {
+describe('Manage quiz - Publish: ', function() {
     it('login', function() {
         browser.get('http://localhost:3000/logout');
         browser.get('http://localhost:3000');
@@ -15,15 +15,37 @@ describe('manage quiz', function() {
 
     it('Publish button should redirect to publish quiz view', function() {
         browser.get('http://localhost:3000/maker/#/create');
-        element(by.id('quiz_name')).sendKeys("sdfg");
-        element(by.css('[ng-model="questionName"]')).sendKeys("$$$$");
+        element(by.id('quiz_name')).sendKeys("Test Quiz Name");
+        element(by.css('[ng-model="questionName"]')).sendKeys("Test Question Name");
         element(by.cssContainingText("option","True/False")).click()
-        element(by.css('[ng-model="questionText"]')).sendKeys('$$$$');
+        element(by.css('[ng-model="questionText"]')).sendKeys('Test question text');
 
         element(by.css('[ng-click="publishQuiz()"]')).click();
         browser.getLocationAbsUrl().then(function(url){
             expect(url.indexOf('/publish')).toNotBe(-1);
         });
+    });
+
+    it('Should redirect to /create if there is no quiz already in progress', function() {
+
+    });
+
+    it('Should display quiz name at the top', function() {
+        expect(element(by.name('quiz-name')).getText()).toBe('Test Quiz Name');
+    });
+
+    it('Should error on publish if start date is a past date', function() {
+        element(by.name('start-date')).sendKeys('07-01-2015');
+        element(by.name('publish')).click();
+        expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
+    });
+
+    it('Should error on publish if end date is earlier than start date', function() {
+
+    });
+
+     it('Should error on publish if there is no start or end date set', function() {
+
     });
 
     it('logout', function() {

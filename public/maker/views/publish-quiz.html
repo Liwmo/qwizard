@@ -1,13 +1,13 @@
 <div id="create_header" class="shadow">
-	<div>{{quizName}}</div>
+	<div name="quiz-name">{{quizName}}</div>
 </div>
 
 <div class="flex-container publish-overview">
 	<span class="flex">
-		<div class="publish-detail">Publish Details</div>
+		<div class="publish-header">Publish Details</div>
 		<div>
-			<input class="publish-input" type="date" min="" value="">
-			<input class="publish-input" type="date" min="" value="">
+			<input name="start-date" class="publish-input" type="date" min="" value="">
+			<input name="end-date" class="publish-input" type="date" min="" value="">
 		</div>
 		<div class="publish-send">Send to:
 			<input class="publish-input" type="text">
@@ -21,4 +21,23 @@
 	<span class="flex">
 		<h1>TODO: <br> INSERT CALENDAR HERE</h1>	
 	</span>
+</div>
+<div class="publish-review">
+	<div class="publish-header">Review Questions</div>
+	<div>I'm the questions, honest</div>
+</div>
+
+<div class="noselect">
+    <span name="publish" ng-click="publish()" class="nope button teal-dark shadow noselect">publish</span>
+</div>
+
+<div class="popup light-text flex-container">
+    <div class="card">
+        <div class="noselect">{{popupText}}</div>
+        <hr/>
+        <div class="flex-container horizontal">
+          <span class="button flex teal-dark shadow noselect" ng-click="leftAction()">{{leftButton}}</span>
+          <span class="button flex teal-dark shadow noselect" ng-click="rightAction()" ng-show="rightButton">{{rightButton}}</span>
+        </div>
+    </div>
 </div>
