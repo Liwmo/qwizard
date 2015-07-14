@@ -61,15 +61,27 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
             setPopup("Cannot publish an empy quiz.");
             return;
         }else{
-    		for(var i = 0; i < $scope.questions.length; i++){
-                if(!$scope.questions[i].type){
-                    setPopup("Cannot publish a quiz with undefined question types.");
+            var numberOfQuestions = $scope.questions.length;
+    		for(var i = 0; i < numberOfQuestions; i++){
+                var question = $scope.questions[i];
+                if(!question.type){
+                    setPopup("Question "+(i+1)+" does not have a type selected.");
                     return;
                 }
-                if(!$scope.questions[i].text){
-                    setPopup("Cannot publish with empty question fields.");
+                if(!question.text){
+                    setPopup("Question "+(i+1)+" does not have any question text.");
                     return;
                 }
+                if(question.correctAnswer.length <= 0) {
+                    setPopup("Question "+(i+1)+" does not have an answer selected.");
+                    return;
+                }
+
+                for(var j = 0; j < question.answers.length; j++)
+                    if (question.answers[j].length === 0) {
+                        setPopup("On Question "+(i+1)+", an answer does not have any text.");
+                        return;
+                    }
             }
     	}
     };

@@ -77,7 +77,6 @@ describe('create quiz', function() {
         expect(element.all(by.css('.radio[ng-click="mc($index)"]')).get(3).getAttribute('class')).toNotMatch('checked');
     });
 
-
     it('should show error when quiz name is invalid or blank', function(){
         var field = element(by.id('quiz_name'));
         var error = element(by.css('[ng-hide="validName"]'));
