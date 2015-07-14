@@ -110,9 +110,32 @@ describe("Publish API endpoint", function(done){
         }, 500);
     });
 
+    it('GET to quiz/:id returns quiz if author-quiz pair exists', function(done){
+        request.get(options, function(error, response, body){
+            body = JSON.parse(body);
+            assert.ok(body.title);
+            assert.ok(body.questions);
+            done();
+        });
+    });
+
+    it('GET to quiz/:id returns error if author-quiz pair does not exist', function(done){
+        var badQuiz = 99999999;
+        options.url = "http://localhost:3000/api/maker/quiz/" + badQuiz;
+        request.get(options, function(error, response, body){
+            body = JSON.parse(body);
+            assert.ok(body.error);
+            done();
+        });
+    });
+
     it("Logout", function(done) {
         db.query("delete from tokens where cookie='a'", function() {
-            done();
+        });
+        db.query("delete from quizzes where id >=" + (returnedID-1), function(){
+            db.query("alter table quizzes auto_increment=" + (returnedID-1), function(){
+                done();
+            })
         });
     });
 });

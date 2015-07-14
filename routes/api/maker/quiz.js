@@ -80,4 +80,18 @@ router.put('/:id', function(req, res){
 	});
 });
 
+router.get('/:id', function(req, res) {
+	var query = 'select * from quizzes where id=? and author=?';
+	convert.cookieToId(req.cookies.login, function(userId){
+		db.query(query, [req.params.id, userId], function(err, message){
+			if(err){
+				console.log('ERROR: '+ err)
+				res.send(err);
+			}else{
+				res.send(message[0] || {error: "Author-quiz pair is invalid."});
+			}
+		});
+	});
+});
+
 module.exports = router;
