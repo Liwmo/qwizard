@@ -13,8 +13,9 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
             name: "",
             type: "",
             text: "",
-            answers: ["answer 1", "answer 2", "answer 3", "answer 4"],
-            correctAnswer: [0]
+            answers: ["", "", ""],
+            correctAnswer: [0],
+            max: 6
         });
     };
 

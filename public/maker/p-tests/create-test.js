@@ -32,9 +32,23 @@ describe('create quiz', function() {
         expect(element(by.css("[ng-show=\"questionType=='ms'\"]")).getAttribute('class')).toNotMatch('ng-hide');
     });
 
+    it('should default correct answer to true when tf selected', function() {
+        element(by.cssContainingText("option","True/False")).click();
+        expect(element.all(by.css('.radio[ng-click="mc($index)"]')).get(0).getAttribute('class')).toMatch('checked');
+        expect(element.all(by.css('.radio[ng-click="mc($index)"]')).get(1).getAttribute('class')).toNotMatch('checked');
+    });
+
     it('should default to 2 points when tf selected', function() {
         element(by.cssContainingText("option","True/False")).click();
         expect(element(by.css(".point-display")).getText()).toMatch("Points: 2");
+    });
+
+    it('should default correct answer to option 1 when mc selected', function() {
+        element(by.cssContainingText("option","True/False")).click();
+        expect(element.all(by.css('.radio[ng-click="mc($index)"]')).get(0).getAttribute('class')).toMatch('checked');
+        expect(element.all(by.css('.radio[ng-click="mc($index)"]')).get(1).getAttribute('class')).toNotMatch('checked');
+        expect(element.all(by.css('.radio[ng-click="mc($index)"]')).get(2).getAttribute('class')).toNotMatch('checked');
+        expect(element.all(by.css('.radio[ng-click="mc($index)"]')).get(3).getAttribute('class')).toNotMatch('checked');
     });
 
     it('should default to 2 points when mc selected', function(){
@@ -62,6 +76,7 @@ describe('create quiz', function() {
         expect(element.all(by.css('.radio[ng-click="mc($index)"]')).get(2).getAttribute('class')).toNotMatch('checked');
         expect(element.all(by.css('.radio[ng-click="mc($index)"]')).get(3).getAttribute('class')).toNotMatch('checked');
     });
+
 
     it('should show error when quiz name is invalid or blank', function(){
         var field = element(by.id('quiz_name'));

@@ -24,8 +24,16 @@
 <span class="flex noselect" ng-show="questionType=='mc'">
 	<span style="flex-wrap:no-wrap;" class="flex-container horizontal answer-field" ng-repeat="answer in possibleAnswers track by $index">
 		<span class="radio" ng-class="{checked: correctAnswer[0]==$index}" ng-click="mc($index)"></span>
-		<input ng-model="answer" class="text-input flex" maxlength="50">
+		<input placeholder="Answer Option" name="choice{{$id}}" ng-model="answer" class="text-input flex" maxlength="50">
 	</span>
+	<div ng-click="addOption()" ng-hide="maxedOut">Add another option</div>
 </span>
 
-<span class="flex noselect" ng-show="questionType=='ms'">I'm an ms</span>
+<span class="flex noselect" ng-show="questionType=='ms'">
+	<span style="flex-wrap:no-wrap;" class="flex-container horizontal answer-field" ng-repeat="answer in possibleAnswers track by $index">
+		<span class="check-box" ng-class="{checked: correctAnswer.indexOf($index) > -1}" ng-click="ms($index)"></span>
+		<input placeholder="Answer Option" ng-model="answer" class="text-input flex" maxlength="50">
+	</span>
+	<div ng-click="addOption()" ng-hide="maxedOut">Add another option</div>
+</span>
+

@@ -9,6 +9,8 @@ app.directive("makerQuestion", function(){
 			possibleAnswers: '=',
 			correctAnswer: '=',
 			index: '=',
+			max: '=',
+			maxedOut: '='
 		},
 		templateUrl: '/maker/directives/templates/makerQuestion.html',
 		link: function(scope, elem, attrs){
@@ -25,22 +27,28 @@ app.directive("makerQuestion", function(){
 				else if(scope.questionType == 'mc') {
 					scope.points = 2;
 				}
-				else {
+				else if(scope.questionType == 'ms') {
 					scope.points = 5;
 				}
 			};
 
 			scope.mc = scope.tf;
 
-			// var textfields = document.getElementsByClassName("large"); 
-			// for(i=0; i<textfields.length; i++){
-   // 				textfields[i].addEventListener("keypress", function(e) {
-   //      			if(this.innerHTML.length >= this.getAttribute("max")){
-   //         				e.preventDefault();
-   //          			return false;
-   //      			}
-   //  			}, false);
-			// }
+			scope.ms = function(value) {
+				var index = scope.correctAnswer.indexOf(value);
+				if(index !== -1){
+					scope.correctAnswer.splice(index, 1);
+				}else{
+					scope.correctAnswer.push(value);
+				}
+			};
+
+			scope.addOption = function() {
+				if (scope.possibleAnswers.length < scope.max) {
+					scope.possibleAnswers.push("");
+				}
+				scope.maxedOut = scope.possibleAnswers.length >= scope.max;
+			}
 
 			var textfields = document.getElementsByClassName("question-text"); 
 			for(i=0; i<textfields.length; i++){
@@ -51,10 +59,6 @@ app.directive("makerQuestion", function(){
         			}
     			}, false);
 			}
-
-			//SUPER DUPER IMPORTANT TODO: scope.possibleAnswers should be created to look EXACTLY
-			//  as our quiz object expects it.  For example, a multiple choice would look like:
-			//  scope.possibleAnswers =  ["2 years","3 years","4 years","5 years"]
 		}
 	};
 });
