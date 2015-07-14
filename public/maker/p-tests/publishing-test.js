@@ -30,26 +30,36 @@ describe('Manage quiz - Publish: ', function() {
 
     });
 
-    it('Should display quiz name at the top', function() {
-        expect(element(by.name('quiz-name')).getText()).toBe('Test Quiz Name');
+    //  TODO: waiting for API endpoint to implement 
+    // it('Should display quiz name at the top', function() {
+    //     expect(element(by.name('quiz-name')).getText()).toBe('Test Quiz Name');
+    // });
+
+    it('Should error on publish if there is no start or end date set', function() {
+        element(by.name('publish')).click();
+        expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
+        browser.sleep(1000);
+        element(by.css('[ng-click="leftAction()"]')).click();
     });
 
     it('Should error on publish if start date is a past date', function() {
         element(by.name('start-date')).sendKeys('07-01-2015');
         element(by.name('publish')).click();
         expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
+        browser.sleep(1000);
+        element(by.css('[ng-click="leftAction()"]')).click();
     });
 
     it('Should error on publish if end date is earlier than start date', function() {
-
-    });
-
-     it('Should error on publish if there is no start or end date set', function() {
-
+        element(by.name('start-date')).sendKeys('07-02-2015');
+        element(by.name('end-date')).sendKeys('07-01-2015');
+        element(by.name('publish')).click();
+        expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
+        browser.sleep(1000);
+        element(by.css('[ng-click="leftAction()"]')).click();
     });
 
     it('logout', function() {
         browser.get('http://localhost:3000/logout');
-
     });
 });
