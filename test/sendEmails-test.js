@@ -2,7 +2,7 @@ var should = require('should');
 var assert = require('assert');
 var request = require('supertest');
 var db = require('../database/db');
-var tasks = require('../dailyCode/sendEmails');
+var tasks = require('../dailyCode/emailGenerator');
 var today = (new Date()).toISOString().substr(0,10);
 var sinon = require('sinon');
 
@@ -42,9 +42,12 @@ describe('Send Email Tests', function() {
 	});
 
 	describe('getQuizzes Function', function() {
+		var quizID;
+
 		beforeEach(function(done){
-			db.query("insert into quizzes VALUES (999999, '', ?, ?, '', '')", [today, today], function(err, message){
+			db.query("insert into quizzes (answers, results, publish, title, questions, pointValues, author) VALUES ('', ?, ?, '', '','','')", [today, today], function(err, message){
 				if(!err){
+					quizID = message.insertId;
 					done();
 				}else{
 					console.log(err);
@@ -54,13 +57,13 @@ describe('Send Email Tests', function() {
 
 		it("Should get the quiz we added to the table", function(done){
 			tasks.getQuizzes(function(data){
-				assert.equal(data[data.length - 1].id, 999999);
+				assert.equal(data[data.length - 1].id, quizID);
 				done();
 			});
 		});
 
 		afterEach(function(done){
-			db.query("delete from quizzes where id=999999", function(err, message){
+			db.query("delete from quizzes where id=" + quizID, function(err, message){
 				if(!err){
 					done();
 				}
@@ -97,43 +100,6 @@ describe('Send Email Tests', function() {
 		});
 	});
 
-	// describe('createToken Tests', function() {
-	// 	var user = {name: "Bill", id: 999999};
-
-	// 	it("Should generate an emailToken and insert into the database for our user", function(done) {
-	// 		tasks.createToken(function(token, user) {
-	// 			db.query("select id, token from emailTokens where id=?", user.id, function(err, message) {
-	// 				if(!err) {
-	// 					assert.equal(user.id, message[0].id);
-	// 					assert.equal(token, message[0].token);
-	// 				}	
-	// 				else {
-	// 					assert.equal(true, false);
-	// 				}
-	// 				done();
-	// 			});
-	// 		}, user);
-	// 	});
-
-	// 	afterEach(function(done) {
-	// 		db.query("delete from emailTokens where id=?", user.id, function(err, message){
-	// 			if(err){
-	// 				console.log(err);
-	// 			}
-	// 			done();
-	// 		});
-	// 	});
-	// });
-
-	// describe('getBody Tests', function() {
-	// 	it("Should get an html page", function(done) {
-	// 		tasks.getBody(function(data) {
-	// 			assert.ok(data, "data is not defined");
-	// 			done();
-	// 		});
-	// 	});
-	// });
-
 	describe('sendQuiz Test', function() {
 
 		beforeEach(function() {
@@ -165,12 +131,7 @@ describe('Send Email Tests', function() {
 		var tokens;
 		var users;
 		beforeEach(function(done) {
-			// tokens = [];
 			users = [];
-
-			// for(var i=0; i<10; i++) {
-			// 	tokens.push({token: "A", name:"mike.wazowski"});
-			// }
 
 			for(var i=0; i<10; i++) {
 				users.push({
@@ -181,12 +142,7 @@ describe('Send Email Tests', function() {
 			done();
 		});
 
-		it("Should create a list of tokens", function(done) {
-
-			// sinon.stub(tasks, "createToken", function(next) {
-			// 	next("A", {id: 9001, name: "mike.wazowski"});
-			// });
-			
+		it("Should create a list of tokens", function(done) {			
 			tasks.generateTokens(function(users) {
 				users.forEach(function(user) {
 					assert.equal(50, user.token.length);
