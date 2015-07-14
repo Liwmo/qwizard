@@ -1,10 +1,12 @@
 app.controller('dashboard', ['$scope', 'notificationFactory', 'leaderboardFactory', 'userFactory', function($scope, notificationFactory, leaderboardFactory, userFactory) {
     $scope.greeting = "Hello World";
     $scope.isMaker = false;
-
-    $scope.notifications = notificationFactory.getNotifications();
-
     $scope.currentUser = -1;
+
+    notificationFactory.refreshNotifications(function(data){
+        $scope.notifications = data;
+    });
+
 
     userFactory.getUserId(function(id){
       $scope.currentUser = id;

@@ -25,7 +25,7 @@ app.factory("quizFactory", ["$http", function($http){
         for(var i = 0; i < quizzes[id.toString()].questions.length; i++){
             selected.push({
                 answer: quizzes[id.toString()].questions[i].selected,
-                type: quizzes[id.toString()].questions[i].type
+                // type: quizzes[id.toString()].questions[i].type
             });
         }
 		$http.post("/api/quiz/" + id, selected).success(callback);
