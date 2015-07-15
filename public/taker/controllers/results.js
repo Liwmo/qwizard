@@ -5,6 +5,7 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
     $scope.points = 0;
     $scope.max_points = 71;//hard coded
     $scope.quizId =  $scope.quizId  || $routeParams.id;
+    $scope.ready = false;
 
     $scope.showAnswers = function() {
     	document.getElementById("results-prompt").classList.toggle("remove");
@@ -30,6 +31,7 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
                           $scope.questions[i].selected = selected[i].answer;
                           $scope.questions[i].correct = answers[i];
                     }
+                    $scope.ready = true;
                 }
             });
         }
