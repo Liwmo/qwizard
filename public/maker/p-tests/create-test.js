@@ -150,6 +150,10 @@ describe('create quiz', function() {
         });
     });
 
+    it('Publishing a valid quiz will redirect to the publish page', function() {
+
+    });
+
     it('logout', function() {
         browser.get('http://localhost:3000/logout');
     });

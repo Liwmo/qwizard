@@ -25,7 +25,11 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
     };
 
     $scope.popupToggle = function() {
-        document.querySelector('.popup').classList.toggle('visible');
+        try{
+            document.querySelector('.popup').classList.toggle('visible');
+        }catch(e){
+            console.log('no popup to show');
+        }
     };
 
     $scope.toDashboard = function() {
@@ -43,13 +47,11 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
     	if (!$scope.verifyName()) {
     		console.log("I can't save this name");
     	}else{
-
-	    	console.log("Saving current draft");
             quizFactory.saveQuiz({
                 title: $scope.quizName,
                 questions: $scope.questions,
                 id: quizId
-            }, function(id){
+                }, function(id){
                 quizId = quizId || id;
                 setPopup("Your draft is saved.  Would you like to continue?", {
                     text: "No, return to dashboard",
@@ -67,7 +69,7 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
             return;
     	}
         if (!$scope.questions.length) {
-            setPopup("Cannot publish an empy quiz.");
+            setPopup("Cannot publish an empty quiz.");
             return;
         }else{
     		for(var i = 0; i < $scope.questions.length; i++){
@@ -99,7 +101,7 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
             text: "Yes, just drop it",
             action: $scope.toDashboard
         },{
-            text: "No, I'm still workin'",
+            text: "No, I'm still working",
         });
     };
 

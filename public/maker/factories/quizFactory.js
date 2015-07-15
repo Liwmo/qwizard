@@ -9,15 +9,15 @@ app.factory("quizFactory", ["$http", function($http){
 	};
 
 	self.getQuizzes = function(callback){
-		$http.get('/api/maker/myQuizzes').success(callback);
+		$http.get('/api/maker/quiz').success(callback);
 	};
 
 	self.getQuiz = function(id, callback){
-		$http.get('/api/maker/myQuizzes/' + id).success(callback);
+		$http.get('/api/maker/quiz/' + id).success(callback);
 	};
 
 	self.saveQuiz = function(quiz, callback){
-		var endpoint = '/api/maker/publish';
+		var endpoint = '/api/maker/quiz';
 		if(quiz.id) {
 			endpoint += '/' + quiz.id;
 		}
