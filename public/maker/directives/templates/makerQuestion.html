@@ -6,7 +6,7 @@
 		<option value="mc">Multiple Choice</option>
 		<option value="ms">Multiple Select</option>
 	</select>
-	<div contentEditable="true" class="text-input question-text" max="150" place-holder="Question Text"></div>
+	<textarea ng-model="questionText" value="questionText" class="text-input question-text" maxlength="150" placeholder="Question Text"></textarea>
 	<span class="point-display">Points: {{points}}</span>
 	<input type="range" ng-model="points" value="points" min="1" max="10"></slider>
 </span>
@@ -24,7 +24,7 @@
 <span class="flex noselect" ng-show="questionType=='mc'">
 	<span style="flex-wrap:no-wrap;" class="flex-container horizontal answer-field" ng-repeat="answer in possibleAnswers track by $index">
 		<span class="radio" ng-class="{checked: correctAnswer[0]==$index}" ng-click="mc($index)"></span>
-		<input ng-model="answer" class="text-input flex" maxlength="50">
+		<input ng-model="answer" value="answer" class="text-input flex" maxlength="50">
 	</span>
 </span>
 
