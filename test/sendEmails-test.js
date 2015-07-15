@@ -84,7 +84,14 @@ describe('Send Email Tests', function() {
 
 		it("Should get the user we added to the table", function(done) {
 			tasks.getUsers(function(data) {
-				assert.equal(data[0].id, 999999);
+				var userFound = false;
+				data.forEach(function(user) {
+					if(user.id === 999999) {
+						userFound = true;
+					}
+				});
+
+				assert.equal(userFound, true);
 				done();
 			});
 		});
