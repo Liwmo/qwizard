@@ -18,6 +18,7 @@
 
 		<div class="quiz_cont">
 		    <div ng-repeat="question in questions" class="question shadow no-interact" ng-show="$index == currentQuestion">
+		    	<div ng-class="{correctFlag: question.correct.toString() === question.selected.toString()}" class='question shadow' ng-show="question.correct.toString() === question.selected.toString()">Correct</div>
 		        <question 
 		              text="question.text"
 		              name="question.name"
