@@ -38,7 +38,7 @@ describe('Manage quiz - Publish: ', function() {
     it('Should error on publish if there is no start or end date set', function() {
         element(by.name('publish')).click();
         expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
-        browser.sleep(1000);
+        browser.sleep(500);
         element(by.css('[ng-click="leftAction()"]')).click();
     });
 
@@ -46,7 +46,7 @@ describe('Manage quiz - Publish: ', function() {
         element(by.name('start-date')).sendKeys('07-01-2015');
         element(by.name('publish')).click();
         expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
-        browser.sleep(1000);
+        browser.sleep(500);
         element(by.css('[ng-click="leftAction()"]')).click();
     });
 
@@ -55,7 +55,7 @@ describe('Manage quiz - Publish: ', function() {
         element(by.name('end-date')).sendKeys('07-01-2015');
         element(by.name('publish')).click();
         expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
-        browser.sleep(1000);
+        browser.sleep(500);
         element(by.css('[ng-click="leftAction()"]')).click();
     });
 

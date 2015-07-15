@@ -95,10 +95,6 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
                 $location.path('/publish/' + id || quizId);
             });
     	}
-
-        //TODO: Submit Quiz to DB and get the id of created quiz
-        //  Pass in that id to publish view
-        $location.path("/publish/1");
     };
 
     var setPopup = function(text, left, right){
@@ -122,8 +118,5 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
     };
 
     $scope.addQuestion();
-    // setInterval(function() {
-    //     console.log(JSON.stringify($scope.questions));
-    // }, 1000);
 
 }]);

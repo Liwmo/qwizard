@@ -1,9 +1,11 @@
-app.controller('publish-quiz', ['$scope', '$routeParams', 'makerQuizFactory',
- function($scope, $routeParams, makerQuizFactory) {
+app.controller('publish-quiz', ['$scope', '$routeParams', 'quizFactory',
+ function($scope, $routeParams, quizFactory) {
 
-  makerQuizFactory.getQuiz($routeParams.id);
-  //TODO: QuizName should be grabbed using a factory
-  $scope.quizName = makerQuizFactory.currentQuiz.name;
+  var quiz;
+  quizFactory.getQuiz($routeParams.id, function(data) {
+    quiz = data;
+    $scope.quizName = quiz.title;
+  });
   $scope.leftAction = $scope.popupToggle;
   $scope.rightAction = $scope.popupToggle;
 
@@ -20,7 +22,7 @@ app.controller('publish-quiz', ['$scope', '$routeParams', 'makerQuizFactory',
   		setPopup("Cannot end quiz before it starts.");
       return;
   	}
-  }
+  };
 
  	var setPopup = function(text, left, right){
     if(!left) left = {};
@@ -34,7 +36,11 @@ app.controller('publish-quiz', ['$scope', '$routeParams', 'makerQuizFactory',
   };
 
   $scope.popupToggle = function() {
-    document.querySelector('.popup').classList.toggle('visible');
+    try{
+        document.querySelector('.popup').classList.toggle('visible');
+    }catch(e){
+        console.log('no popup to show');
+    }
   };  
 
 	$scope.verifyDateExistance = function() {
