@@ -1,4 +1,5 @@
-app.controller('create-quiz', ['$scope', '$location', function($scope, $location) {
+app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($scope, $location, quizFactory) {
+    var quizId;//should be overwritten
 
     $scope.validName = true;
     $scope.quizName = "";
@@ -24,7 +25,11 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
     };
 
     $scope.popupToggle = function() {
-        document.querySelector('.popup').classList.toggle('visible');
+        try{
+            document.querySelector('.popup').classList.toggle('visible');
+        }catch(e){
+            console.log('no popup to show');
+        }
     };
 
     $scope.toDashboard = function() {
@@ -33,21 +38,27 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
 
     $scope.verifyName = function() {
     	var pattern = new RegExp("^[A-Za-z0-9_]*[A-Za-z0-9][A-Za-z0-9 _'-]*$");
-    	console.log(pattern.test($scope.quizName));
-        $scope.validName = pattern.test($scope.quizName);
+    	$scope.validName = pattern.test($scope.quizName);
     	return pattern.test($scope.quizName);
     };
 
     $scope.saveDraft = function() {
     	if (!$scope.verifyName()) {
     		console.log("I can't save this name");
-    	}
-    	else {
-    		$scope.popupText = "Your draft is saved. Would you like to continue?";
-	    	$scope.leftButton = "No, return to dashboard";
-	    	$scope.rightButton = "Yes, I'm still workin'";
-	    	console.log("Saving current draft");
-	    	$scope.popupToggle();
+    	}else{
+            quizFactory.saveQuiz({
+                title: $scope.quizName,
+                questions: $scope.questions,
+                id: quizId
+            }, function(id){
+                quizId = quizId || id;
+                setPopup("Your draft is saved.  Would you like to continue?", {
+                    text: "No, return to dashboard",
+                    action: $scope.toDashboard
+                }, {
+                    text: "Yes, I'm still working"
+                });
+            });
     	}
     };
 
@@ -57,19 +68,32 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
             return;
     	}
         if (!$scope.questions.length) {
-            setPopup("Cannot publish an empy quiz.");
+            setPopup("Cannot publish an empty quiz.");
             return;
-        }else{
+        }
+        else {
     		for(var i = 0; i < $scope.questions.length; i++){
                 if(!$scope.questions[i].type){
                     setPopup("Cannot publish a quiz with undefined question types.");
                     return;
                 }
+                if ($scope.questions[i].text.length > 150) {
+                    setPopup("Question text cannot exceed 150 characters.");
+                    return;
+                }
+                console.log($scope.questions[i].text.length);
                 if(!$scope.questions[i].text){
                     setPopup("Cannot publish with empty question fields.");
                     return;
                 }
             }
+            quizFactory.saveQuiz({
+                title: $scope.quizName,
+                questions: $scope.questions,
+                id: quizId
+            }, function(id){
+                $location.path('/publish/' + id || quizId);
+            });
     	}
 
         //TODO: Submit Quiz to DB and get the id of created quiz
@@ -93,7 +117,7 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
             text: "Yes, just drop it",
             action: $scope.toDashboard
         },{
-            text: "No, I'm still workin'",
+            text: "No, I'm still working",
         });
     };
 

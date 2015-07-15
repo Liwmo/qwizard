@@ -1,0 +1,2 @@
+ALTER TABLE qwizard_dev.quizzes ADD author INT;
+UPDATE qwizard_dev.quizzes SET author=1 where id=1;

@@ -1,4 +1,4 @@
-textarea:focus, input:focus{
+textarea:focus, input:focus, div:focus, select:focus{
     outline: 0;
 }
 
@@ -7,7 +7,7 @@ textarea:focus, input:focus{
     width: 100%;
     background-color: #5dc0ab;
     color: #fffff5;
-    font-weight:600;
+    font-weight:300;
     padding: 1em 3em;
     margin-bottom: 0.4em;
 }
@@ -16,6 +16,7 @@ textarea:focus, input:focus{
     border: none;
     border-color: transparent;
     border-bottom:solid .1em #fffff5;
+    min-height: 1em;
     display: block;
 }
 
@@ -36,9 +37,9 @@ textarea:focus, input:focus{
     border-bottom:.15em solid #f1eaf0;
 }
 
-#question div {
-    margin-left: 3em;
-    width: 5em;
+.question-text {
+    height: auto; 
+    width: 100%;
 }
 
 maker-question > span{

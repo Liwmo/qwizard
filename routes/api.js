@@ -10,6 +10,7 @@ var leaderboard = require('./api/leaderboard');
 var userScore = require('./api/userScore');
 var user = require('./api/user');
 var notifications = require('./api/notifications');
+var maker = require('./api/maker');
 
 router.all('/*', auth.authenticateCookie);
 
@@ -18,5 +19,5 @@ router.use('/leaderboard', leaderboard);
 router.use('/userscore', userScore);
 router.use('/user', user);
 router.use('/notifications', notifications);
-
+router.use('/maker', maker);
 module.exports = router;
