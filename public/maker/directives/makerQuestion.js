@@ -41,6 +41,8 @@ app.directive("makerQuestion", function(){
 				}else{
 					scope.correctAnswer.push(value);
 				}
+
+				scope.correctAnswer.sort(function(a,b){return a-b});
 			};
 
 			scope.addOption = function() {
@@ -48,16 +50,6 @@ app.directive("makerQuestion", function(){
 					scope.possibleAnswers.push("");
 				}
 				scope.maxedOut = scope.possibleAnswers.length >= scope.max;
-			}
-
-			var textfields = document.getElementsByClassName("question-text"); 
-			for(i=0; i<textfields.length; i++){
-   				textfields[i].addEventListener("keypress", function(e) {
-        			if(this.innerHTML.length >= this.getAttribute("max")){
-           				e.preventDefault();
-            			return false;
-        			}
-    			}, false);
 			}
 		}
 	};

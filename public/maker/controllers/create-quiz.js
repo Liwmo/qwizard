@@ -64,6 +64,7 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
             var numberOfQuestions = $scope.questions.length;
     		for(var i = 0; i < numberOfQuestions; i++){
                 var question = $scope.questions[i];
+                console.log(JSON.stringify(question));
                 if(!question.type){
                     setPopup("Question "+(i+1)+" does not have a type selected.");
                     return;
@@ -76,12 +77,14 @@ app.controller('create-quiz', ['$scope', '$location', function($scope, $location
                     setPopup("Question "+(i+1)+" does not have an answer selected.");
                     return;
                 }
-
-                for(var j = 0; j < question.answers.length; j++)
-                    if (question.answers[j].length === 0) {
-                        setPopup("On Question "+(i+1)+", an answer does not have any text.");
-                        return;
+                if (question.type != 'tf') {
+                    for(var j = 0; j < question.answers.length; j++) {
+                        if (question.answers[j].length === 0) {
+                            setPopup("On Question "+(i+1)+", an answer does not have any text.");
+                            return;
+                        }
                     }
+                }
             }
     	}
     };
