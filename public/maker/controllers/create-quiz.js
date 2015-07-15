@@ -14,8 +14,9 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
             name: "",
             type: "",
             text: "",
-            answers: ["answer 1", "answer 2", "answer 3", "answer 4"],
-            correctAnswer: [0]
+            answers: ["", "", ""],
+            correctAnswer: [0],
+            max: 6
         });
     };
 
@@ -74,17 +75,32 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
         else {
     		for(var i = 0; i < $scope.questions.length; i++){
                 if(!$scope.questions[i].type){
-                    setPopup("Cannot publish a quiz with undefined question types.");
+                    setPopup("Question "+(i+1)+" does not have a type selected.");
+                    return;
+                }
+                if(!$scope.questions[i].text){
+                    setPopup("Question "+(i+1)+" does not have any question text.");
                     return;
                 }
                 if ($scope.questions[i].text.length > 150) {
                     setPopup("Question text cannot exceed 150 characters.");
                     return;
                 }
-                console.log($scope.questions[i].text.length);
                 if(!$scope.questions[i].text){
                     setPopup("Cannot publish with empty question fields.");
                     return;
+                }
+                if($scope.questions[i].correctAnswer.length <= 0) {
+                    setPopup("Question "+(i+1)+" does not have an answer selected.");
+                    return;
+                }
+                if ($scope.questions[i].type != 'tf') {
+                    for(var j = 0; j < $scope.questions[i].answers.length; j++) {
+                        if ($scope.questions[i].answers[j].length === 0) {
+                            setPopup("On Question "+(i+1)+", an answer does not have any text.");
+                            return;
+                        }
+                    }
                 }
             }
             quizFactory.saveQuiz({

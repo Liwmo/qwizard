@@ -2,6 +2,14 @@ textarea:focus, input:focus, div:focus, select:focus{
     outline: 0;
 }
 
+input {
+    padding:0;
+    margin:0;
+}
+[ng-click] {
+    cursor:pointer;
+}
+
 #create_header {
     font-family:"Signika";
     width: 100%;
@@ -16,7 +24,7 @@ textarea:focus, input:focus, div:focus, select:focus{
     border: none;
     border-color: transparent;
     border-bottom:solid .1em #fffff5;
-    min-height: 1em;
+    max-height: 2em;
     display: block;
 }
 
@@ -29,6 +37,7 @@ textarea:focus, input:focus, div:focus, select:focus{
     padding: .5em;
     margin-bottom: 2rem;
     border-bottom: .15rem solid #f1eaf0;
+    cursor:pointer;
 }
 
 #question {
@@ -189,19 +198,24 @@ maker-question .answer-field {
   cursor: pointer;
   line-height: 2.5;
   font-size: 1em;
+  align-items:center;
 }
 
-.radio {
-  width: 0.75em;
-  height: 0.75em;
-  border-radius: 1em;
+.radio, .check-box {
+  width: 1em;
+  height: 1em;
+  border-radius: 0%;
   border: 0.125em solid #fff;
   box-shadow: 0 0 0 0.125em #999298;
   margin: 0.75em;
   transition: 0.3s ease all;
 }
 
-.radio.checked {
+.radio {
+    border-radius: 50%;
+}
+
+.checked {
   background: #17a587;
   box-shadow: 0 0 0 0.15em #17a587;
 }

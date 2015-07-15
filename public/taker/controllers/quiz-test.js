@@ -5,14 +5,17 @@
 
 describe('Quiz view', function() {
     var $scope;
-
+    var routeParams = {id: 1};
     beforeEach(module('app'));
     beforeEach(inject(function($rootScope, $controller) {
         $scope = $rootScope.$new();
-        $controller('quiz', {$scope: $scope});
+        $controller('quiz', {
+        	$scope: $scope,
+        	$routeParams: routeParams
+        });
     }));
 
     it('Should have scope.name', inject(function($controller) {
-        expect($scope.name).toBe("WWT Quiz");
+        expect($scope.name).toBeTruthy();
     }));
 });

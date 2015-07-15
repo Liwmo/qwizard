@@ -9,6 +9,8 @@ app.directive("makerQuestion", function(){
 			possibleAnswers: '=',
 			correctAnswer: '=',
 			index: '=',
+			max: '=',
+			maxedOut: '='
 		},
 		templateUrl: '/maker/directives/templates/makerQuestion.html',
 		link: function(scope, elem, attrs){
@@ -25,12 +27,30 @@ app.directive("makerQuestion", function(){
 				else if(scope.questionType == 'mc') {
 					scope.points = 2;
 				}
-				else {
+				else if(scope.questionType == 'ms') {
 					scope.points = 5;
 				}
 			};
 
 			scope.mc = scope.tf;
+
+			scope.ms = function(value) {
+				var index = scope.correctAnswer.indexOf(value);
+				if(index !== -1){
+					scope.correctAnswer.splice(index, 1);
+				}else{
+					scope.correctAnswer.push(value);
+				}
+
+				scope.correctAnswer.sort(function(a,b){return a-b});
+			};
+
+			scope.addOption = function() {
+				if (scope.possibleAnswers.length < scope.max) {
+					scope.possibleAnswers.push("");
+				}
+				scope.maxedOut = scope.possibleAnswers.length >= scope.max;
+			}
 		}
 	};
 });
