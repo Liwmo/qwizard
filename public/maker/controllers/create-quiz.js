@@ -29,7 +29,7 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
         try{
             document.querySelector('.popup').classList.toggle('visible');
         }catch(e){
-            console.log('no popup to show');
+            console.log('no popup to show: ' + $scope.popupText);
         }
     };
 
@@ -134,8 +134,5 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
     };
 
     $scope.addQuestion();
-    // setInterval(function() {
-    //     console.log(JSON.stringify($scope.questions));
-    // }, 1000);
 
 }]);

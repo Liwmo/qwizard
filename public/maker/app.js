@@ -10,5 +10,9 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
             controller: "create-quiz",
             templateUrl: "views/create-quiz.html"
         })
+        .when("/publish/:id", {
+            controller: "publish-quiz",
+            templateUrl: "views/publish-quiz.html"
+        })
         .otherwise("/");
 }]);
