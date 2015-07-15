@@ -150,6 +150,47 @@ describe('create quiz', function() {
         });
     });
 
+    it('should not allow one to type more than 150 characters into the question text field', function() {
+        element(by.css('[ng-model="questionText"]')).clear();
+        var tooMuchText = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
+                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
+                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii';
+
+        element(by.css('[ng-model="questionText"]')).sendKeys(tooMuchText);
+        expect(element(by.css('[ng-model="questionText"]')).getAttribute('value')).toBe("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+    });
+
+    it('should not allow one to type more than 20 characters into the question title field', function() {
+        element(by.css('[ng-model="questionName"]')).clear();
+        var tooMuchText = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
+                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
+                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii';
+
+        element(by.css('[ng-model="questionName"]')).sendKeys(tooMuchText);
+        expect(element(by.css('[ng-model="questionName"]')).getAttribute('value')).toBe("iiiiiiiiiiiiiiiiiiii");
+    });
+
+    it('should not allow one to type more than 20 characters into the quiz title field', function() {
+        element(by.css('[ng-model="quizName"]')).clear();
+        var tooMuchText = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
+                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
+                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii';
+
+        element(by.css('[ng-model="quizName"]')).sendKeys(tooMuchText);
+        expect(element(by.css('[ng-model="quizName"]')).getAttribute('value')).toBe("iiiiiiiiiiiiiiiiiiii");
+    });
+
+    it('should not allow one to type more than 50 characters into the answer text field', function() {
+        element(by.cssContainingText("option","Multiple Choice")).click();
+        element(by.css('[ng-model="answer"]')).clear();
+        var tooMuchText = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
+                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
+                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii';
+
+        element(by.css('[ng-model="answer"]')).sendKeys(tooMuchText);
+        expect(element(by.css('[ng-model="answer"]')).getAttribute('value')).toBe("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+    });
+
     it('logout', function() {
         browser.get('http://localhost:3000/logout');
     });

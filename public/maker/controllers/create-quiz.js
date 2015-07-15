@@ -25,7 +25,11 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
     };
 
     $scope.popupToggle = function() {
-        document.querySelector('.popup').classList.toggle('visible');
+        try{
+            document.querySelector('.popup').classList.toggle('visible');
+        }catch(e){
+            console.log('no popup to show');
+        }
     };
 
     $scope.toDashboard = function() {
@@ -34,8 +38,7 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
 
     $scope.verifyName = function() {
     	var pattern = new RegExp("^[A-Za-z0-9_]*[A-Za-z0-9][A-Za-z0-9 _'-]*$");
-    	console.log(pattern.test($scope.quizName));
-        $scope.validName = pattern.test($scope.quizName);
+    	$scope.validName = pattern.test($scope.quizName);
     	return pattern.test($scope.quizName);
     };
 
@@ -43,8 +46,6 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
     	if (!$scope.verifyName()) {
     		console.log("I can't save this name");
     	}else{
-
-	    	console.log("Saving current draft");
             quizFactory.saveQuiz({
                 title: $scope.quizName,
                 questions: $scope.questions,
@@ -67,19 +68,32 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
             return;
     	}
         if (!$scope.questions.length) {
-            setPopup("Cannot publish an empy quiz.");
+            setPopup("Cannot publish an empty quiz.");
             return;
-        }else{
+        }
+        else {
     		for(var i = 0; i < $scope.questions.length; i++){
                 if(!$scope.questions[i].type){
                     setPopup("Cannot publish a quiz with undefined question types.");
                     return;
                 }
+                if ($scope.questions[i].text.length > 150) {
+                    setPopup("Question text cannot exceed 150 characters.");
+                    return;
+                }
+                console.log($scope.questions[i].text.length);
                 if(!$scope.questions[i].text){
                     setPopup("Cannot publish with empty question fields.");
                     return;
                 }
             }
+            quizFactory.saveQuiz({
+                title: $scope.quizName,
+                questions: $scope.questions,
+                id: quizId
+            }, function(id){
+                $location.path('/publish/' + id || quizId);
+            });
     	}
     };
 
@@ -99,7 +113,7 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
             text: "Yes, just drop it",
             action: $scope.toDashboard
         },{
-            text: "No, I'm still workin'",
+            text: "No, I'm still working",
         });
     };
 

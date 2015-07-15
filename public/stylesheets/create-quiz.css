@@ -42,12 +42,6 @@ textarea:focus, input:focus, div:focus, select:focus{
     width: 100%;
 }
 
-[contentEditable=true]:empty:not(:focus):before{
-    content:attr(place-holder);
-    color: #7A757E;
-    opacity: 0.8
-}
-
 maker-question > span{
     font-family:"Signika";
     padding: 0em 3em;
