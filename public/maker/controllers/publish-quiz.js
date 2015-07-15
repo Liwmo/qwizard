@@ -23,7 +23,8 @@ app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFact
   		setPopup("Cannot end quiz before it starts.");
       return;
   	}
-    $location.path('/');
+
+    $scope.redirectToManagementPage();
   };
 
  	var setPopup = function(text, left, right){
@@ -76,5 +77,9 @@ app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFact
 		}
 		return true;
 	};
+
+  $scope.redirectToManagementPage = function() {
+    $location.path('/');
+  };
 
 }]);
