@@ -42,7 +42,7 @@ var format = function(body, userName, userToken, quizId){
 		name[i] = name[i][0].toUpperCase() + name[i].substr(1);
 	}
 	name = name.join(' ');
-	var hostname = os.hostname();
+	var hostname = os.hostname().split('.')[0];
 	var result = body.replace(/\{\{name\}\}/g, name);
 	result = result.replace(/\{\{token\}\}/g, userToken);
 	result = result.replace(/\{\{id\}\}/g, quizId);
