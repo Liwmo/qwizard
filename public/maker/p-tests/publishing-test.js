@@ -26,10 +26,6 @@ describe('Manage quiz - Publish: ', function() {
         });
     });
 
-    it('Should redirect to /create if there is no quiz already in progress', function() {
-
-    });
-
     //  TODO: waiting for API endpoint to implement 
     // it('Should display quiz name at the top', function() {
     //     expect(element(by.name('quiz-name')).getText()).toBe('Test Quiz Name');
@@ -57,6 +53,20 @@ describe('Manage quiz - Publish: ', function() {
         expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
         browser.sleep(500);
         element(by.css('[ng-click="leftAction()"]')).click();
+    });
+
+    it('Should redirect to manage quizzes on successful publish', function() {
+        var twodaysfromnow = new Date();
+        var threedaysfromnow = new Date();
+        var today = new Date();
+        twodaysfromnow.setDate(today.getDate() + 2);
+        threedaysfromnow.setDate(today.getDate() + 3);
+
+        element(by.name('start-date')).sendKeys(twodaysfromnow.toLocaleDateString());
+        element(by.name('end-date')).sendKeys(threedaysfromnow.toLocaleDateString());
+        element(by.name('publish')).click();
+
+        expect(browser.getCurrentUrl()).toBe('http://localhost:3000/maker/#/');
     });
 
     it('logout', function() {

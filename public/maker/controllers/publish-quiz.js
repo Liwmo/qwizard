@@ -1,11 +1,12 @@
-app.controller('publish-quiz', ['$scope', '$routeParams', 'quizFactory',
- function($scope, $routeParams, quizFactory) {
+app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFactory',
+ function($scope, $routeParams, $location, quizFactory) {
 
   var quiz;
   quizFactory.getQuiz($routeParams.id, function(data) {
     quiz = data;
     $scope.quizName = quiz.title;
   });
+  $scope.quizId = $routeParams.id;
   $scope.leftAction = $scope.popupToggle;
   $scope.rightAction = $scope.popupToggle;
 
@@ -22,6 +23,7 @@ app.controller('publish-quiz', ['$scope', '$routeParams', 'quizFactory',
   		setPopup("Cannot end quiz before it starts.");
       return;
   	}
+    $location.path('/');
   };
 
  	var setPopup = function(text, left, right){
