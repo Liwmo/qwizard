@@ -9,6 +9,8 @@ app.directive("makerQuestion", function(){
 			possibleAnswers: '=',
 			correctAnswer: '=',
 			index: '=',
+			max: '=',
+			maxedOut: '='
 		},
 		templateUrl: '/maker/directives/templates/makerQuestion.html',
 		link: function(scope, elem, attrs){
@@ -25,32 +27,30 @@ app.directive("makerQuestion", function(){
 				else if(scope.questionType == 'mc') {
 					scope.points = 2;
 				}
-				else {
+				else if(scope.questionType == 'ms') {
 					scope.points = 5;
 				}
 			};
 
 			scope.mc = scope.tf;
 
-			// var textfield = document.querySelector(".question-text"); 
-   // 			textfield.addEventListener("keypress", function(e) {
-   //      		if(this.innerHTML.length >= this.getAttribute("max")){
-   //         			e.preventDefault();
-   //          		return false;
-   //      		}
-   //      		console.log('char: ', e.char);
-   //      		console.log('key: ', e.key);
-   //      		console.log('charCode: ', e.charCode);
-   //      		console.log('keyCode: ', e.keyCode);
+			scope.ms = function(value) {
+				var index = scope.correctAnswer.indexOf(value);
+				if(index !== -1){
+					scope.correctAnswer.splice(index, 1);
+				}else{
+					scope.correctAnswer.push(value);
+				}
 
-   //      		console.log('this.innerHTML: ', this.innerHTML);
-   //      		// scope.questionText = this.innerHTML;
-   //      		scope.questionText = String.fromCharCode(e.charCode);
-   //      		console.log('questionText: ', scope.questionText);
-   //  		}, false);
-			//SUPER DUPER IMPORTANT TODO: scope.possibleAnswers should be created to look EXACTLY
-			//  as our quiz object expects it.  For example, a multiple choice would look like:
-			//  scope.possibleAnswers =  ["2 years","3 years","4 years","5 years"]
+				scope.correctAnswer.sort(function(a,b){return a-b});
+			};
+
+			scope.addOption = function() {
+				if (scope.possibleAnswers.length < scope.max) {
+					scope.possibleAnswers.push("");
+				}
+				scope.maxedOut = scope.possibleAnswers.length >= scope.max;
+			}
 		}
 	};
 });
