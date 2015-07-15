@@ -2,25 +2,15 @@ app.factory("quizFactory", ["$http", function($http){
 	var self = this;
 	var cache = {};
 
-	self.publishQuiz = function(quiz, callback){
-		self.saveQuiz(quiz, function(data){
-			callback(data);
-		});
-	};
-
 	self.getQuizzes = function(callback){
-		$http.get('/api/maker/myQuizzes').success(callback);
+		$http.get('/api/maker/quiz').success(callback);
 	};
 
 	self.getQuiz = function(id, callback){
-		$http.get('/api/maker/myQuizzes/' + id).success(callback);
+		$http.get('/api/maker/quiz/' + id).success(callback);
 	};
 
-	self.saveQuiz = function(quiz, callback){
-		var endpoint = '/api/maker/publish';
-		if(quiz.id) {
-			endpoint += '/' + quiz.id;
-		}
+	self.formatQuiz = function(quiz){
 		var data = {};
 		if(quiz.title) {
 			data.title = quiz.title;
@@ -46,7 +36,23 @@ app.factory("quizFactory", ["$http", function($http){
 		if(quiz.results) { 
 			data.results = quiz.results;
 		}
-		$http.post(endpoint, data).success(function(data){
+		return data;
+	};
+
+	self.saveQuiz = function(quiz, callback){
+		var endpoint = '/api/maker/quiz';
+		if(quiz.id) {
+			endpoint += '/' + quiz.id;
+		}
+
+		var data = self.formatQuiz(quiz);
+		
+		var send = $http.post;
+		if(quiz.id){
+			send = $http.put;
+		}
+
+		send(endpoint, data).success(function(data){
 			if(data.id){
 				callback(data.id);
 			} else {

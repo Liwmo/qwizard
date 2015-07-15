@@ -25,7 +25,11 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
     };
 
     $scope.popupToggle = function() {
-        document.querySelector('.popup').classList.toggle('visible');
+        try{
+            document.querySelector('.popup').classList.toggle('visible');
+        }catch(e){
+            console.log('no popup to show');
+        }
     };
 
     $scope.toDashboard = function() {
@@ -42,8 +46,6 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
     	if (!$scope.verifyName()) {
     		console.log("I can't save this name");
     	}else{
-
-	    	console.log("Saving current draft");
             quizFactory.saveQuiz({
                 title: $scope.quizName,
                 questions: $scope.questions,
@@ -85,6 +87,13 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
                     return;
                 }
             }
+            quizFactory.saveQuiz({
+                title: $scope.quizName,
+                questions: $scope.questions,
+                id: quizId
+            }, function(id){
+                $location.path('/publish/' + id || quizId);
+            });
     	}
     };
 
@@ -104,7 +113,7 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
             text: "Yes, just drop it",
             action: $scope.toDashboard
         },{
-            text: "No, I'm still workin'",
+            text: "No, I'm still working",
         });
     };
 
