@@ -127,7 +127,7 @@ describe('create quiz', function() {
         browser.sleep(500);
         element(by.css('[ng-click="leftAction()"]')).click();
         element(by.css('[ng-model="questionName"]')).clear().then(function() {
-            element(by.css('[ng-model="questionText"]')).sendKeys('$$$$');
+            element(by.css('.question-text')).sendKeys('$$$$');
             publish.click();
             expect(popup.getAttribute('class')).toMatch('visible');
             browser.sleep(500);
@@ -171,18 +171,23 @@ describe('create quiz', function() {
         var publish = element(by.css('[ng-click="publishQuiz()"]'));
         var dismiss = element(by.css('[ng-click="leftAction()"]'));
 
-        it('should have the ability to select a type Multiple-select', function() {
+        beforeEach(function() {
             browser.get("http://localhost:3000/maker/#/create");
+        });
+
+        it('should have the ability to select a type Multiple-select', function() {
             element(by.cssContainingText("option","Multiple Select")).click();
             expect(element(by.css("[ng-show=\"questionType=='ms'\"]")).getAttribute('class')).toNotMatch('ng-hide');
         });
 
         it('should check second option when option 2 is clicked', function() {
+            element(by.cssContainingText("option","Multiple Select")).click();
              element.all(by.css('.check-box[ng-click="ms($index)"]')).get(1).click();
              expect(element.all(by.css('.check-box[ng-click="ms($index)"]')).get(1).getAttribute('class')).toMatch('checked');
         });
 
         it('should error if publishing when possible answers\' text are not entered', function() {
+            element(by.cssContainingText("option","Multiple Select")).click();
             quizNameInput.sendKeys("TestQuiz");
             questionNameInput.sendKeys("TestQuestion");
             questionTextInput.sendKeys("TestQuestionText");
@@ -194,8 +199,11 @@ describe('create quiz', function() {
         });
 
         it('should error if a correct answer is not selected', function() {
+            element(by.cssContainingText("option","Multiple Select")).click();
+            quizNameInput.sendKeys("TestQuiz");
+            questionNameInput.sendKeys("TestQuestion");
+            questionTextInput.sendKeys("TestQuestionText");
             element.all(by.css('.check-box[ng-click="ms($index)"]')).get(0).click();
-            element.all(by.css('.check-box[ng-click="ms($index)"]')).get(1).click();
             publish.click();
             browser.sleep(500);
             expect(popup.getAttribute('class')).toMatch('visible');
@@ -204,16 +212,20 @@ describe('create quiz', function() {
         });
 
         it('should allow multiple answers to be selected and published', function() {
-            element.all(by.css('.check-box[ng-click="ms($index)"]')).get(0).click();
+            element(by.cssContainingText("option","Multiple Select")).click();
+            quizNameInput.sendKeys("TestQuiz");
+            questionNameInput.sendKeys("TestQuestion");
+            questionTextInput.sendKeys("TestQuestionText");
             element.all(by.css('.check-box[ng-click="ms($index)"]')).get(1).click();
             element.all(by.css('.msText')).get(0).sendKeys("TestAnswer");
             element.all(by.css('.msText')).get(1).sendKeys("TestAnswer");
             element.all(by.css('.msText')).get(2).sendKeys("TestAnswer");
             publish.click();
-            expect(popup.getAttribute('class')).toNotMatch('visible');
+            expect(browser.getCurrentUrl()).toBe("http://localhost:3000/maker/#/");
         });
 
         it('should increase answers options when button is pressed', function() {
+            element(by.cssContainingText("option","Multiple Select")).click();
             element.all(by.css('[ng-click="addOption()"]')).get(1).click();
             element.all(by.css('.msText')).then(function(elements) {
                 expect(elements.length).toBe(4);
@@ -221,10 +233,53 @@ describe('create quiz', function() {
         });
         
         it('should not be able to add more than 6 options (max)', function() {
+            element(by.cssContainingText("option","Multiple Select")).click();
+            element.all(by.css('[ng-click="addOption()"]')).get(1).click();
             element.all(by.css('[ng-click="addOption()"]')).get(1).click();
             element.all(by.css('[ng-click="addOption()"]')).get(1).click();
             expect(element.all(by.css('[ng-click="addOption()"]')).get(1).getAttribute('class')).toMatch("ng-hide");
         });
+    });
+
+    it('should not allow one to type more than 150 characters into the question text field', function() {
+        element(by.css('[ng-model="questionText"]')).clear();
+        var tooMuchText = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
+                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
+                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii';
+
+        element(by.css('[ng-model="questionText"]')).sendKeys(tooMuchText);
+        expect(element(by.css('[ng-model="questionText"]')).getAttribute('value')).toBe("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+    });
+
+    it('should not allow one to type more than 20 characters into the question title field', function() {
+        element(by.css('[ng-model="questionName"]')).clear();
+        var tooMuchText = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
+                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
+                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii';
+
+        element(by.css('[ng-model="questionName"]')).sendKeys(tooMuchText);
+        expect(element(by.css('[ng-model="questionName"]')).getAttribute('value')).toBe("iiiiiiiiiiiiiiiiiiii");
+    });
+
+    it('should not allow one to type more than 20 characters into the quiz title field', function() {
+        element(by.css('[ng-model="quizName"]')).clear();
+        var tooMuchText = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
+                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
+                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii';
+
+        element(by.css('[ng-model="quizName"]')).sendKeys(tooMuchText);
+        expect(element(by.css('[ng-model="quizName"]')).getAttribute('value')).toBe("iiiiiiiiiiiiiiiiiiii");
+    });
+
+    it('should not allow one to type more than 50 characters into the answer text field', function() {
+        element(by.cssContainingText("option","Multiple Choice")).click();
+        element(by.css('[ng-model="possibleAnswers[$index]"]')).clear();
+        var tooMuchText = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
+                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
+                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii';
+
+        element(by.css('[ng-model="possibleAnswers[$index]"]')).sendKeys(tooMuchText);
+        expect(element(by.css('[ng-model="possibleAnswers[$index]"]')).getAttribute('value')).toBe("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
     });
 
     it('logout', function() {
