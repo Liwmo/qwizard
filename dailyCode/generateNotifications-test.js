@@ -28,7 +28,7 @@ describe('Notification Generator Tests', function(){
 			finished(err, message);
 			db.query('insert into notifications SET ?', {
 				quizId: message.insertId,
-				userId: 123456789,
+				userId: 1,
 				typeId: 1
 			}, finished);
 		});
@@ -43,11 +43,11 @@ describe('Notification Generator Tests', function(){
 
 	it('should add Notifications for quizzes available today', function(done){
 		var notificationCount = 0;
-		db.query('select * from notifications', function(err, message){
+		db.query('select * from notifications where userId=1', function(err, message){
 			notificationCount = message.length;
 			tasks.addAvailableNotifications(function(){
-				db.query('select * from notifications', function(err, message){
-					assert.ok(message.length > notificationCount);
+				db.query('select * from notifications where userId=1', function(err, message){
+					assert.equal(message.length, notificationCount+1);
 					done();
 				});
 			});
@@ -56,11 +56,11 @@ describe('Notification Generator Tests', function(){
 
 	it('should remove notifications for quiz results released today', function(done){
 		var notificationCount = 0;
-		db.query('select * from notifications', function(err, message){
+		db.query('select * from notifications where userId=1', function(err, message){
 			notificationCount = message.length;
 			tasks.removeAvailableNotifications(function(){
-				db.query('select * from notifications', function(err, message){
-					assert.ok(message.length < notificationCount);
+				db.query('select * from notifications where userId=1', function(err, message){
+					assert.equal(message.length, notificationCount-1);
 					done();
 				});
 			});
@@ -69,11 +69,11 @@ describe('Notification Generator Tests', function(){
 
 	it('should add Notifications for quizzes available today', function(done){
 		var notificationCount = 0;
-		db.query('select * from notifications', function(err, message){
+		db.query('select * from notifications where userId=1', function(err, message){
 			notificationCount = message.length;
 			tasks.addResultsNotifications(function(){
-				db.query('select * from notifications', function(err, message){
-					assert.ok(message.length > notificationCount);
+				db.query('select * from notifications where userId=1', function(err, message){
+					assert.equal(message.length, notificationCount+1);
 					done();
 				});
 			});
