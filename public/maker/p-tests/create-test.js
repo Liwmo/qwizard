@@ -221,7 +221,10 @@ describe('create quiz', function() {
             element.all(by.css('.msText')).get(1).sendKeys("TestAnswer");
             element.all(by.css('.msText')).get(2).sendKeys("TestAnswer");
             publish.click();
-            expect(browser.getCurrentUrl()).toBe("http://localhost:3000/maker/#/");
+            var expectedUrl = "http://localhost:3000/maker/#/publish/";
+            browser.getCurrentUrl().then(function(url) {
+                expect(url.slice(0, expectedUrl.length)).toBe(expectedUrl);
+            });
         });
 
         it('should increase answers options when button is pressed', function() {

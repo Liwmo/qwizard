@@ -4,7 +4,7 @@ app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFact
   var quiz;
   quizFactory.getQuiz($routeParams.id, function(data) {
     quiz = data;
-    $scope.quizId = quiz.id
+    $scope.quizId = quiz.id;
     $scope.quizName = quiz.title;
   });
   // $scope.quizId = $routeParams.id;
@@ -48,7 +48,7 @@ app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFact
     try{
         document.querySelector('.popup').classList.toggle('visible');
     }catch(e){
-        console.log('no popup to show');
+        console.log('no popup to show: ' + $scope.popupText);
     }
   };  
 

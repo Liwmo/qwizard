@@ -29,7 +29,7 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
         try{
             document.querySelector('.popup').classList.toggle('visible');
         }catch(e){
-            console.log('no popup to show');
+            console.log('no popup to show: ' + $scope.popupText);
         }
     };
 

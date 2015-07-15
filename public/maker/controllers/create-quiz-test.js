@@ -28,9 +28,12 @@ describe('create quiz tests', function(){
 		});
 		mockQuiz = {};
 		$scope.quizName = "Mock Quiz";
+		$scope.questions = [{}];
 		$scope.questions[0].name = "Mock Name";
 		$scope.questions[0].text = "Mock Text";
 		$scope.questions[0].type = "mc";
+		$scope.questions[0].correctAnswer = [0];
+		$scope.questions[0].answers = ["answer1", "b", "c"];
 	}));
 
 	it('saveDraft - should send quiz to quizFactory for it to be saved', inject(function($controller){
