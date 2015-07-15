@@ -9,7 +9,7 @@ var addAvailableNotifications = function(next) {
 		if(err){
 			console.log(err);
 		}else{
-			console.log("success");
+			console.log("success: publish notifications added");
 		}
 		next();
 	});
@@ -24,7 +24,7 @@ var removeAvailableNotifications = function(next){
 		if(err){
 			console.log(err);
 		}else{
-			console.log("success");
+			console.log("success: old publish notifications removed");
 		}
 		next();
 	});
@@ -38,7 +38,7 @@ var addResultsNotifications = function(next) {
 		if(err){
 			console.log(err);
 		}else{
-			console.log("success");
+			console.log("success: results notifications added");
 		}
 		next();
 	});

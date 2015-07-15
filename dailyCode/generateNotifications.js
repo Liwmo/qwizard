@@ -1,7 +1,5 @@
 var notifications = require('./notificationGenerator');
 
-var today = (new Date()).toISOString().substr(0,10);
-
 //   insert into notifications (quizId,userId,typeId)  select q.id, u.id, 1  from quizzes q join users u where q.publish = '2015-07-08'
 
 var tasks = new (function(){
