@@ -2,6 +2,7 @@ var db = require('../database/db');
 var fs = require('fs');
 var nodemailer = require('nodemailer');
 var email = nodemailer.createTransport();
+var os = require('os');
 
 //task -- returns array of users with an id, a name, and a token
 var generateTokens = function(next, users){
@@ -41,9 +42,11 @@ var format = function(body, userName, userToken, quizId){
 		name[i] = name[i][0].toUpperCase() + name[i].substr(1);
 	}
 	name = name.join(' ');
+	var hostname = os.hostname();
 	var result = body.replace(/\{\{name\}\}/g, name);
 	result = result.replace(/\{\{token\}\}/g, userToken);
 	result = result.replace(/\{\{id\}\}/g, quizId);
+	result = result.replace(/\{\{hostname\}\}/g, hostname);
 	return result;
 };
 
