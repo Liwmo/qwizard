@@ -51,7 +51,7 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
                 title: $scope.quizName,
                 questions: $scope.questions,
                 id: quizId
-                }, function(id){
+            }, function(id){
                 quizId = quizId || id;
                 setPopup("Your draft is saved.  Would you like to continue?", {
                     text: "No, return to dashboard",
@@ -82,6 +82,13 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
                     return;
                 }
             }
+            quizFactory.saveQuiz({
+                title: $scope.quizName,
+                questions: $scope.questions,
+                id: quizId
+            }, function(id){
+                $location.path('/publish/' + id || quizId);
+            });
     	}
     };
 
