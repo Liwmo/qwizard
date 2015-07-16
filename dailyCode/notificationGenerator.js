@@ -3,7 +3,7 @@ var db = require('../database/db');
 var today = (new Date()).toISOString().substr(0,10);
 
 var addAvailableNotifications = function(next) {
-	var query =  'insert into notifications (quizId, userId, typeID) ';
+	var query =  'insert ignore into notifications (quizId, userId, typeID) ';
 		query += 'select q.id, u.id, 1 from quizzes q join users u where q.publish=?';
 	db.query(query, today, function(err, message){
 		if(err){
@@ -31,7 +31,7 @@ var removeAvailableNotifications = function(next){
 };
 
 var addResultsNotifications = function(next) {
-	var query =  'insert into notifications (quizId, userId, typeID) ';
+	var query =  'insert ignore into notifications (quizId, userId, typeID) ';
 		query += 'select q.id, u.id, 2 from quizzes q join users u where q.results=?';
 
 	db.query(query, today, function(err, message){
