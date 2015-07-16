@@ -19,7 +19,7 @@ router.post('/', function(req, res){
 			author: userId
 		}, function(err, message){
 			if(err){
-				res.send(err);
+				res.send({error: "Unable to create quiz."});
 			}else{
 				//insertId is a property automatically passed, is the auto_increment value
 				res.send({id: message.insertId});
@@ -70,7 +70,7 @@ router.put('/:id', function(req, res){
 					res.send({error: "Quiz-Author pair is invalid."})
 				}
 				else {
-					res.send("success");
+					res.send({id: req.params.id});
 					if(quiz.publish === today){
 						immediate.generateNotifications(req.params.id);
 					}
@@ -86,7 +86,7 @@ router.get('/:id', function(req, res) {
 		db.query(query, [req.params.id, userId], function(err, message){
 			if(err){
 				console.log('ERROR: '+ err)
-				res.send(err);
+				res.send({error: 'Quiz not found.'});
 			}else{
 				res.send(message[0] || {error: "Author-quiz pair is invalid."});
 			}

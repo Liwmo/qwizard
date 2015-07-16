@@ -7,9 +7,38 @@ app.factory("quizFactory", ["$http", function($http){
 	};
 
 	self.getQuiz = function(id, callback){
-		$http.get('/api/maker/quiz/' + id).success(callback);
+		$http.get('/api/maker/quiz/' + id).success(function(data){
+			if(data.error){
+				console.log(data.error);
+				callback(data);
+			}else{
+				var quiz = self.unformatQuiz(data);
+				callback(quiz);
+			}
+		});
 	};
-
+	//when receiving from server
+	self.unformatQuiz = function(data){
+		var quiz = {};
+		quiz.id = data.id;
+		quiz.title = data.title;
+		quiz.questions = [];
+		data.questions = JSON.parse(data.questions);
+		data.answers = JSON.parse(data.answers);
+		data.pointValues = JSON.parse(data.pointvalues);
+		for(var i = 0; i < data.questions.length; i++){
+			quiz.questions.push({
+				type: data.questions[i].type,
+				text: data.questions[i].text,
+				answers: data.questions[i].answers,
+				name: data.questions[i].name,
+				correctAnswer: data.answers[i],
+				points: data.pointValues[i]
+			});
+		}
+		return quiz;
+	};
+	//for sending to server
 	self.formatQuiz = function(quiz){
 		var data = {};
 		if(quiz.title) {
@@ -56,6 +85,7 @@ app.factory("quizFactory", ["$http", function($http){
 			if(data.id){
 				callback(data.id);
 			} else {
+				console.log(data.error);
 				callback(data);
 			}
 		});
