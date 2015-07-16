@@ -73,13 +73,13 @@
         <span>info</span>
       </span>
     </a>
-    <a href="/maker" ng-show="isMaker" class="flex flex-container item">
+    <a href="#/" ng-click="toggleMenu()" ng-show="isMaker" class="flex flex-container item">
       <span>
         <div class="icon manage-quizzes-white"></div>
         <span>manage quizzes</span>
       </span>
     </a>
-    <a href="#/create" class="flex flex-container item">
+    <a href="#/create" ng-click="toggleMenu()" class="flex flex-container item">
       <span>
         <div class="icon create-quiz"></div>
         <span>create quiz</span>
