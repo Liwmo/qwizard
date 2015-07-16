@@ -4,7 +4,7 @@
 			<div class="answer" style="font-size: 1.3em; font-weight: 600; font-family:'Signika'; color: #332532;">{{ratio > .5 ? "Congrats!" : "Uh oh!"}}</div>
 			<hr class="purple-light">
 			<div class="answer" style="color: #5c515b; margin-bottom: .5em">
-				{{points + " points earned on " + name + (ratio > .5 ? "!" : ". Better study more next time!")}}
+				{{points + " out of " + maxPoints + " points earned on " + name + (ratio > .5 ? "!" : ". Better study more next time!")}}
 			</div>
 		</div>
 		<div class="button plum-dark quiz-navigation" ng-click="showAnswers()">View Answers</div>
@@ -17,15 +17,17 @@
 		</div>
 
 		<div class="quiz_cont">
-		    <div ng-repeat="question in questions" class="question shadow no-interact" ng-show="$index == currentQuestion">
-		    	<div ng-class="{correctFlag: question.correct.toString() === question.selected.toString()}" class='question shadow' ng-show="question.correct.toString() === question.selected.toString()">Correct</div>
-		        <question 
-		              text="question.text"
-		              name="question.name"
-		              answers="question.answers"
-		              type="question.type"
-		              selected="question.selected"
-		              correct="question.correct"></question>
+		    <div ng-repeat="question in questions" ng-show="$index == currentQuestion">
+		    	<div class='question shadow resultsHeader'>{{getResultsHeader(question)}}</div>
+		    	<div class='question shadow no-interact'>
+			        <question 
+			              text="question.text"
+			              name="question.name"
+			              answers="question.answers"
+			              type="question.type"
+			              selected="question.selected"
+			              correct="question.correct"></question>
+		          </div>
 		    </div>
 		    <div class="flex-container quiz-navigation">
 		        <span ng-click="prev()" ng-class="{hidden: !currentQuestion}" class="plum-medium nav-btn flex shadow button noselect light-text" style="width:.1px">previous</span>

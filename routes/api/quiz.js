@@ -76,7 +76,7 @@ router.route('/:id/results')
 	.get(function(req, res){
 		var id =  req.params.id;
 		convert.cookieToId(req.cookies.login, function(userId){
-			var getQuizQuery = 	'select q.answers, r.answers as selected ';
+			var getQuizQuery = 	'select q.answers, q.pointvalues, r.answers as selected ';
 				getQuizQuery += 'from quizzes as q, results as r ';
 				getQuizQuery += 'where q.id=? and r.quizid=? and r.userid=?';
 			db.query(getQuizQuery, [id, id, userId], function(err, message) {
