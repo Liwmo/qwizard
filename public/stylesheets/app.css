@@ -50,8 +50,6 @@ html {
     flex-wrap: wrap;
 }
 
-
-
 .flex {
     -ms-flex: 1 1 0.000000001px;
     -webkit-flex: 1;
@@ -325,10 +323,15 @@ hr{
 
 .question{
     position: relative;
-    border-top: .4em solid #ac7ea6;
     padding: 1em .5em;
     margin:0 auto;
     max-width:45em;
+}
+
+.resultsHeader {
+    padding: .2em .5em;
+    color: #fffff5;
+    background-color: #a3709c;
 }
 
 .quiz-navigation {
