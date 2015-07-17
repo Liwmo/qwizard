@@ -26,7 +26,7 @@
 		<span class="radio" ng-class="{checked: correctAnswer[0]==$index}" ng-click="mc($index)"></span>
 		<input placeholder="Choice {{$index + 1}}" name="choice{{$id}}" ng-model="possibleAnswers[$index]" class="text-input flex" maxlength="50">
 	</span>
-	<div ng-click="addOption()" ng-hide="maxedOut">Add another option</div>
+	<div class="add-choice" ng-click="addOption()" ng-hide="maxedOut">Add Another Choice +</div>
 </span>
 
 <span class="flex noselect" ng-show="questionType=='ms'">
