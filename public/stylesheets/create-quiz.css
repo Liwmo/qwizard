@@ -26,6 +26,10 @@ input {
     border-bottom:solid .1em #fffff5;
     max-height: 2em;
     display: block;
+    opacity:.7;
+}
+.text-input:focus {
+    opacity:1;
 }
 
 #add-question{
@@ -123,7 +127,7 @@ maker-question input[type=range]::-moz-range-thumb {
 }
 
 [placeholder]:focus::-webkit-input-placeholder {
-  transition: opacity 0.2s 0.2s ease; 
+  transition: opacity 0.2s ease; 
   opacity: 0;
 }
 
