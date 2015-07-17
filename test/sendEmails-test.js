@@ -107,6 +107,23 @@ describe('Send Email Tests', function() {
 		});
 	});
 
+	describe('sendToUser Test', function(){
+		var data = {};
+
+		beforeEach(function() {
+			sinon.stub(tasks, "sendQuiz", function(opts, next){
+				data.analyze(opts);
+				next();
+			});
+		});
+
+		afterEach(function(){
+			tasks.sendQuiz.restore();
+		});
+
+		it('should pass the corresponding quiz and token data to sendQuiz')
+	});
+
 	describe('sendQuiz Test', function() {
 
 		beforeEach(function() {
@@ -123,36 +140,47 @@ describe('Send Email Tests', function() {
 			tasks.sendQuiz(function(data) {
 				assert.equal(true, tasks.nodemailerTransport.sendMail.called, "1 email was not sent for one recipient");
 				done();
-			}, {recipients: [{name: "devin.kiser", token:";lkjasd;fkljads"}], quizName: "Blah Quiz 90000", body: "asdfa", quizId: 2});
+			}, {user: "devin.kiser", token:";lkjasd;fkljads", quizName: "Blah Quiz 90000", body: "asdfa", quizId: 2});
 		});
 
 		it("Should call email.sendMail twice for 2 recipients", function(done) {
 			tasks.sendQuiz(function(data) {
 				assert.equal(true, tasks.nodemailerTransport.sendMail.calledTwice, "2 emails were not sent for 2 recipients");
 				done();
-			}, {recipients: [{name: "devin.kiser", token:";lkjasd;fkljads"},{name: "devin.kiser", token:";lkjasd;fkljads"}], quizName: "Blah Quiz 90000", body: "asdfa", quizId: 2});
+			}, {recipients: [{name: "devin.kiser", tokens:[";lkjasd;fkljads"]},{name: "devin.kiser", tokens:[";lkjasd;fkljads"]}], quizName: "Blah Quiz 90000", body: "asdfa", quizId: 2});
 		});
 	});
 
 	describe('generateTokens Test', function() {
-		var tokens;
 		var users;
-		beforeEach(function(done) {
+
+		beforeEach(function(){
+			sinon.stub(tasks.emails, "getQuizCount", function(){
+				return 5;
+			});
+
 			users = [];
 
 			for(var i=0; i<10; i++) {
 				users.push({
 					id: i,
 					name: "first.last"
-				})
+				});
 			}
-			done();
+
 		});
 
-		it("Should create a list of tokens", function(done) {			
+		afterEach(function(){
+			tasks.emails.getQuizCount.restore();
+		});
+
+		it("Should create a list of tokens for each user for each quiz", function(done) {			
 			tasks.generateTokens(function(users) {
 				users.forEach(function(user) {
-					assert.equal(50, user.token.length);
+					assert.equal(5, user.tokens.length);
+					user.tokens.forEach(function(token){
+						assert.equal(50, token.length);
+					});
 				});
 				done();
 			}, users);
@@ -162,33 +190,37 @@ describe('Send Email Tests', function() {
 	describe('insertTokens Test', function() {
 		var users;
 
-		beforeEach(function(done) {
+		beforeEach(function() {
 			users = [];
 			for(var i=0; i<10; i++) {
 				users.push({
 					id: i + 900000,
-					token: "ABCDEFG" + i.toString()
+					tokens: ["ABCDEFG" + i.toString()]
 				});
 			}
-
-			done();
 		});
 
 		it("Should insert the tokens into the database", function(done) {
+			var count = 0;
+			var tryDone = function(){
+				count++;
+				if(count == users.length){
+					done();
+				}
+			};
 			tasks.insertTokens(function() {
 				users.forEach(function(user) {
 					db.query("select id, token from emailTokens where id=?", user.id, function(err, message) {
 						if(!err) {
 							assert.equal(user.id, message[0].id);
-							assert.equal(user.token, message[0].token);
+							assert.equal(user.tokens[0], message[0].token);
 						} else {
 							console.log(err);
 						}
+						tryDone();
 					});
 				});	
 			}, users);
-
-			done();
 		});
 
 		afterEach(function(done) {
