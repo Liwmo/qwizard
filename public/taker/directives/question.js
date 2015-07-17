@@ -24,6 +24,7 @@ app.directive("question", function(){
 				}else{
 					scope.selected.push(answer);
 				}
+				scope.selected.sort(function(a, b){return a - b});
 			};
 
 			scope.getType = function(){
