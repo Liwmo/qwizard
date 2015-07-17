@@ -107,24 +107,115 @@ describe('Send Email Tests', function() {
 		});
 	});
 
-	describe('sendToUser Test', function(){
-		var data = {};
+	describe('emails.send Test', function(){
+		var analyze = function(opts){
+			assert.equal("first.last", opts.name);
+			assert.equal("body", opts.body);
+			assert.equal("ABCDEFG", opts.tokens[0]);
+			assert.equal("Title", opts.quizzes[0].title);
+		};
 
 		beforeEach(function() {
-			sinon.stub(tasks, "sendQuiz", function(opts, next){
-				data.analyze(opts);
+			sinon.stub(tasks.emails, "sendToUser", function(next, opts){
+				analyze(opts);
 				next();
 			});
 		});
 
 		afterEach(function(){
-			tasks.sendQuiz.restore();
+			tasks.emails.sendToUser.restore();
 		});
 
-		it('should pass the corresponding quiz and token data to sendQuiz')
+		it('should pass all quizzes, body, all tokens, and user name to sendToUser for 1 user', function(done){
+			tasks.emails.setQuizzes([{title: "Title"}]);
+			tasks.emails.setBody("body");
+			tasks.emails.send(function(){
+				assert.equal(true, tasks.emails.sendToUser.called, "user was sent to");
+				done();
+			}, [{
+				tokens: ["ABCDEFG"],
+				name: "first.last"
+			}]);
+		});
+
+		it('should pass all quizzes, body, all tokens, and user name to sendToUser for 2 users', function(done){
+			tasks.emails.setQuizzes([{title: "Title"}]);
+			tasks.emails.setBody("body");
+			tasks.emails.send(function(){
+				assert.equal(true, tasks.emails.sendToUser.calledTwice, "user was sent to");
+				done();
+			}, [
+				{
+					tokens: ["ABCDEFG"],
+					name: "first.last"
+				},
+				{
+					tokens: ["ABCDEFG"],
+					name: "first.last"
+				}
+			]);
+		});
 	});
 
-	describe('sendQuiz Test', function() {
+	describe('emails.sendToUser Test', function(){
+		var analyze = function(opts){
+			assert.equal("Title", opts.quizName);
+			assert.equal(999999, opts.quizId);
+			assert.equal("body", opts.body);
+			assert.equal("first.last", opts.user);
+			assert.equal("ABCDEFG", opts.token);
+		};
+
+		beforeEach(function() {
+			sinon.stub(tasks.emails, "sendQuiz", function(next, opts){
+				analyze(opts);
+				next();
+			});
+		});
+
+		afterEach(function(){
+			tasks.emails.sendQuiz.restore();
+		});
+
+		it('should pass the corresponding quiz and token data to sendQuiz with 1 quiz', function(done){
+			tasks.emails.sendToUser(function(){
+				assert.equal(true, tasks.emails.sendQuiz.called, "quiz was sent");
+				done();
+			}, {
+				name: "first.last", 
+				tokens: ["ABCDEFG"],
+				quizzes: [{
+					title: "Title", 
+					id: 999999
+				}],
+				body: "body"
+			})
+		});
+
+		it('should pass the corresponding quiz and token data to sendQuiz with 2 quizzes', function(done){
+			tasks.emails.sendToUser(function(){
+				assert.equal(true, tasks.emails.sendQuiz.calledTwice, "quizzes were sent");
+				done();
+			}, {
+				name: "first.last", 
+				tokens: ["ABCDEFG", "ABCDEFG"],
+				quizzes: [
+					{
+						title: "Title", 
+						id: 999999
+					},
+					{
+						title: "Title", 
+						id: 999999
+					}
+				],
+				body: "body"
+			})
+		});
+
+	});
+
+	describe('emails.sendQuiz Test', function() {
 
 		beforeEach(function() {
 			sinon.stub(tasks.nodemailerTransport, "sendMail", function(opts, next){
@@ -137,17 +228,10 @@ describe('Send Email Tests', function() {
 		});
 
 		it("Should call email.sendMail once for 1 recipient", function(done) {
-			tasks.sendQuiz(function(data) {
+			tasks.emails.sendQuiz(function(data) {
 				assert.equal(true, tasks.nodemailerTransport.sendMail.called, "1 email was not sent for one recipient");
 				done();
 			}, {user: "devin.kiser", token:";lkjasd;fkljads", quizName: "Blah Quiz 90000", body: "asdfa", quizId: 2});
-		});
-
-		it("Should call email.sendMail twice for 2 recipients", function(done) {
-			tasks.sendQuiz(function(data) {
-				assert.equal(true, tasks.nodemailerTransport.sendMail.calledTwice, "2 emails were not sent for 2 recipients");
-				done();
-			}, {recipients: [{name: "devin.kiser", tokens:[";lkjasd;fkljads"]},{name: "devin.kiser", tokens:[";lkjasd;fkljads"]}], quizName: "Blah Quiz 90000", body: "asdfa", quizId: 2});
 		});
 	});
 

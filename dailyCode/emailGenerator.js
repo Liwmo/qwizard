@@ -137,66 +137,50 @@ var emails = new (function(){
 		};
 
 		for(var i = 0; i < users.length; i++){
-			sendToUser(check, {
+			emails.sendToUser(check, {
 				quizzes: quizzes,
 				body: body,
-				recipient: user
+				tokens: users[i].tokens,
+				name: users[i].name
 			});
 		}
 	};
 
-	// this.send = function(next, users){
-	// 	var count = 0;
+	this.sendToUser = function(next, opts){
+		if(!opts.quizzes.length){
+			return next();
+		}else{
+			var count = 0;
 
+			var check = function(){
+				count++;
+				if(count == opts.quizzes.length){
+					next();
+				}
+			};
+			console.log(opts);
+			for(var i = 0; i < opts.quizzes.length; i++){
+				emails.sendQuiz(check, {
+					user: opts.name,
+					token: opts.tokens[i],
+					quizName: opts.quizzes[i].title,
+					quizId: opts.quizzes[i].id,
+					body: opts.body
+				});
+			}
+		}
+	};
 
-	// 	var check = function(){
-	// 		count++;
-	// 		if(count == quizzes.length){
-	// 			next();
-	// 		}
-	// 	};
-
-	// 	for(var i = 0; i < quizzes.length; i++){
-	// 		sendQuiz(check, {
-	// 			quizName: quizzes[i].title,
-	// 			quizId: quizzes[i].id,
-	// 			body: body,
-	// 			recipients: users
-	// 		});
-	// 	}
-	// };
-})();
-
-var sendToUser = function(next, opts){
-	if(!opts.quizzes.length){
-		return next();
-	}else{
-
-	}
-};
-
-//used by emails.send
-var sendQuiz = function(next, opts){
-	if(!opts.recipients.length){
-		return next();
-	}else{
-		var recipient = opts.recipients.shift();
-		console.log("sending email to " + recipient.name);
-		var total = 
+	this.sendQuiz = function(next, opts){
+		console.log("sending email to " + opts.user + " for quiz " + opts.quizName);
 		email.sendMail({
     		from: "Qwizard <qwizard@asynchrony.com>",
-    		to: recipient.name + "@asynchrony.com",
+    		to: opts.user + "@asynchrony.com",
     		subject: opts.quizName + " Quiz is Ready", // Subject line
-    		html: format(opts.body, recipient.name, recipient.tokens[0], opts.quizId)
-		}, function(){
-			sendQuiz(next, opts);
-		});
-	}
-};
-
-
-
-
+    		html: format(opts.body, opts.user, opts.token, opts.quizId)
+		}, next);
+	};
+})();
 
 // TASKS:
 // get email body
@@ -215,7 +199,5 @@ module.exports = {
 	getQuizzes: getQuizzes,
 	getUsers: getUsers,
 	emails: emails,
-	sendToUser: sendToUser,
-	sendQuiz: sendQuiz,
 	nodemailerTransport: email
 };
