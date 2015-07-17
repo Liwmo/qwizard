@@ -19,6 +19,7 @@ describe('Manage quiz - Publish: ', function() {
         element(by.css('[ng-model="questionName"]')).sendKeys("Test Question Name");
         element(by.cssContainingText("option","True/False")).click()
         element(by.css('[ng-model="questionText"]')).sendKeys('Test question text');
+        element(by.css('.radio[ng-click="tf(1)"]')).click();
 
         element(by.css('[ng-click="publishQuiz()"]')).click();
         browser.getLocationAbsUrl().then(function(url){
