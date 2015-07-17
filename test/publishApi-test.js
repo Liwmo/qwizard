@@ -55,10 +55,10 @@ describe("Publish API endpoint", function(done){
         })
     });
 
-    it("PUT to quiz/:id will return success for a valid ID", function(done) {
+    it("PUT to quiz/:id will return the same ID for a valid ID", function(done) {
         options.url = "http://localhost:3000/api/maker/quiz/" + returnedID;
         request.put(options, function(error, response, body) {
-            assert.ok(body == "success");
+            assert.ok(JSON.parse(body).id == returnedID);
             done();
         });
     });
@@ -66,7 +66,7 @@ describe("Publish API endpoint", function(done){
         options.url = "http://localhost:3000/api/maker/quiz/" + returnedID;
         options.form['title'] = "BLAH";
         request.put(options, function(error, response, body) {
-            assert.ok(body == "success");
+            assert.ok(JSON.parse(body).id == returnedID);
             db.query("Select title from quizzes where id=" + returnedID, function(err, message) {
                 assert.ok(message[0].title == "BLAH");
                 done();

@@ -1,4 +1,4 @@
-app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($scope, $location, quizFactory) {
+app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routeParams', function($scope, $location, quizFactory, $routeParams) {
     var quizId;//should be overwritten
 
     $scope.validName = true;
@@ -29,7 +29,7 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
         try{
             document.querySelector('.popup').classList.toggle('visible');
         }catch(e){
-            console.log('no popup to show');
+            console.log('no popup to show: ' + $scope.popupText);
         }
     };
 
@@ -51,14 +51,18 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
                 title: $scope.quizName,
                 questions: $scope.questions,
                 id: quizId
-            }, function(id){
-                quizId = quizId || id;
-                setPopup("Your draft is saved.  Would you like to continue?", {
-                    text: "No, return to dashboard",
-                    action: $scope.toDashboard
-                }, {
-                    text: "Yes, I'm still working"
-                });
+            }, function(data){
+                if(data.error){
+                    setPopup("There was an error saving your draft.");
+                }else{
+                    quizId = data;
+                    setPopup("Your draft is saved.  Would you like to continue?", {
+                        text: "No, return to dashboard",
+                        action: $scope.toDashboard
+                    }, {
+                        text: "Yes, I'm still working"
+                    });
+                }
             });
     	}
     };
@@ -107,8 +111,12 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
                 title: $scope.quizName,
                 questions: $scope.questions,
                 id: quizId
-            }, function(id){
-                $location.path('/publish/' + id || quizId);
+            }, function(data){
+                if(data.error){
+                    setPopup("There was an error publishing your quiz.");
+                }else{
+                    $location.path('/publish/' + data);
+                }
             });
     	}
     };
@@ -119,23 +127,33 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', function($s
         $scope.leftAction = left.action || $scope.popupToggle;
         $scope.rightAction = right.action || $scope.popupToggle;
         $scope.popupText = text;
-        $scope.leftButton = left.text || "OK";
+        $scope.leftButton = left.text || "ok";
         $scope.rightButton = right.text || "";
         $scope.popupToggle();
     };
 
     $scope.cancelConfirm = function() {
-        setPopup("Unsaved changes will be thrown on the ground. Really cancel?",{
-            text: "Yes, just drop it",
+        setPopup("unsaved changes will be discarded. Really cancel?",{
+            text: "yes",
             action: $scope.toDashboard
         },{
-            text: "No, I'm still working",
+            text: "no",
         });
     };
 
-    $scope.addQuestion();
-    // setInterval(function() {
-    //     console.log(JSON.stringify($scope.questions));
-    // }, 1000);
+    if ($routeParams.id) {
+        quizFactory.getQuiz($routeParams.id, function(data) {
+            if(data.error){
+                $location.path('/create');
+            }else{
+                quizId = data.id;
+                $scope.questions = data.questions;
+                $scope.quizName = data.title;
+            }
+        });
+    }
+    else {
+        $scope.addQuestion();    
+    }
 
 }]);

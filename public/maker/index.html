@@ -27,6 +27,7 @@
   <script src="/maker/controllers/dashboard.js"></script>
   <script src="/maker/controllers/manager.js"></script>
   <script src="/maker/controllers/create-quiz.js"></script>
+  <script src="/maker/controllers/publish-quiz.js"></script>
 
   <!--Directives-->
   <script src="/maker/directives/makerQuestion.js"></script>
@@ -60,16 +61,28 @@
         <span>quizzes</span>
       </span>
     </a>
-    <a href="/maker" ng-show="isMaker" class="flex flex-container item">
+    <a href="#/" ng-click="toggleMenu()" ng-show="isMaker" class="flex flex-container item">
       <span>
         <div class="icon manage-quizzes-white"></div>
         <span>manage quizzes</span>
       </span>
     </a>
-    <a href="#/create" class="flex flex-container item">
+    <a href="#/create" ng-click="toggleMenu()" class="flex flex-container item">
       <span>
         <div class="icon create-quiz"></div>
         <span>create quiz</span>
+      </span>
+    </a>
+    <a href="/taker/#/leaderboard" ng-click="toggleMenu()" class="flex flex-container item">
+      <span>
+        <div class="icon leaderboard-white"></div>
+        <span>leaderboard</span>
+      </span>
+    </a>
+    <a href="/taker/#/info" ng-click="toggleMenu()" class="flex flex-container item">
+      <span>
+        <div class="icon info"></div>
+        <span>info</span>
       </span>
     </a>
     <a href="/taker/#/leaderboard" ng-click="toggleMenu()" class="flex flex-container item">

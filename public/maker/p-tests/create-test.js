@@ -157,7 +157,7 @@ describe('create quiz', function() {
             expect(elements.length).toBe(3);
             element(by.css('#add-question')).click();
             element.all(by.css('maker-question')).then(function(elements) {
-            expect(elements.length).toBe(4);            
+            expect(elements.length).toBe(4);
             });
         });
     });
@@ -221,7 +221,10 @@ describe('create quiz', function() {
             element.all(by.css('.msText')).get(1).sendKeys("TestAnswer");
             element.all(by.css('.msText')).get(2).sendKeys("TestAnswer");
             publish.click();
-            expect(browser.getCurrentUrl()).toBe("http://localhost:3000/maker/#/");
+            var expectedUrl = "http://localhost:3000/maker/#/publish/";
+            browser.getCurrentUrl().then(function(url) {
+                expect(url.slice(0, expectedUrl.length)).toBe(expectedUrl);
+            });
         });
 
         it('should increase answers options when button is pressed', function() {

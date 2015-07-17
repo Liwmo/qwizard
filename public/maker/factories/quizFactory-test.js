@@ -23,15 +23,62 @@ describe('quiz factory tests', function(){
 		mockHttp.flush();
 	});
 
-	it('getQuiz - should hit the endpoint for quiz id', function(done){
+	it('getQuiz - should pass error to controller to be handled', function(done){
 		var id = 123456789;
-		var str = Math.random().toString();
-		mockHttp.expectGET('/api/maker/quiz/' + id).respond(str);
+		var error = {
+			error: "This is an error."
+		};
+
+		mockHttp.expectGET('/api/maker/quiz/' + id).respond(error);
 		factory.getQuiz(id, function(data){
-			expect(data).toBe(str);
+			expect(data).toEqual(error);
 			done();
 		});
 		mockHttp.flush();
+	});
+
+	it('getQuiz - should pass data to unformatQuiz and pass result to callback', function(done){
+		var id = 123456789;
+		var quiz = {
+			title: "original data"
+		};
+
+		var unformattedQuiz = {
+			title: "unformatted"
+		};
+
+		factory.unformatQuiz = function(quizPassed){
+			expect(quizPassed).toEqual(quiz);
+			return unformattedQuiz;
+		};
+
+		mockHttp.expectGET('/api/maker/quiz/' + id).respond(quiz);
+		factory.getQuiz(id, function(data){
+			expect(data).toBe(unformattedQuiz);
+			done();
+		});
+		mockHttp.flush();
+	});
+
+	it('unformatQuiz - correctly structures quiz data for client use', function(){
+		var data = {
+			"id":58,
+			"answers":"[[0],[0],[0]]",
+			"results":null,
+			"publish":null,
+			"title":"Title",
+			"questions":"[{\"type\":\"tf\",\"text\":\"Its true now, agian\",\"answers\":[\"\",\"\",\"\"],\"name\":\"Q1\"},{\"type\":\"tf\",\"text\":\"asdf\",\"answers\":[\"\",\"\",\"\"],\"name\":\"asdf\"},{\"type\":\"tf\",\"text\":\"\",\"answers\":[\"\",\"\",\"\"],\"name\":\"\"}]",
+			"pointvalues":"[1,2,2]",
+			"author":1
+		};
+		var quiz = factory.unformatQuiz(data);
+		expect(quiz.title).toBe(data.title);
+		expect(quiz.id).toBe(data.id);
+		expect(quiz.questions.length).toEqual(data.questions.length);
+		expect(quiz.pointvalues).toBeFalsy();
+		expect(quiz.answers).toBeFalsy();
+		expect(quiz.questions[0].correctAnswer).toBeTruthy();
+		expect(quiz.questions[0].points).toBeTruthy();
 	});
 
 	it('saveQuiz - should hit endpoint for posting', function(done){
