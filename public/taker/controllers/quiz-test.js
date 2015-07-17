@@ -1,6 +1,3 @@
-/**
- * Created by dev1 on 6/23/15.
- */
 'use strict';
 
 describe('Quiz view', function() {
