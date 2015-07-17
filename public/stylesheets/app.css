@@ -481,10 +481,10 @@ hr{
 }
 #info-view .button {
     display:inline-block;
-    padding:.75rem 0;
-    width: 12rem;
+    padding:.5rem .2rem;
+    width: 8rem;
     text-align:center;
-    font-size:1.5em;
+    font-size:1.2em;
     margin:0 .5rem;
 }
 
@@ -493,8 +493,7 @@ hr{
 }
 #info-header {
     text-align: center;
-    padding: 3.5rem;
-    padding-bottom:1.5rem;
+    padding: 1.5rem;
 }
 
 #info-header div {
@@ -512,15 +511,22 @@ hr{
 
 #info-buttons {
     text-align: center;
-    margin-bottom: 4em;
+    margin-bottom: 2em;
 }
 
 #info-content {
-    justify-content:space-around;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
 }
 
 #info-content h2 {
     font-family: "Signika";
+}
+
+#info-content .info-item {
+    min-width:16em;
+    width:45%;
 }
 
 /*Quick styles just for mobile*/
@@ -552,5 +558,15 @@ and (min-width : 1024px) {
     }
     .toolbar .button {
         display:none;
+    }
+}
+
+/*Styles for everyone else*/
+@media only screen 
+and (max-width : 750px) {
+
+    .info-item {
+        width:100% !important;
+        padding: 1em;
     }
 }
