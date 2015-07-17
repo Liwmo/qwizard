@@ -26,6 +26,10 @@ input {
     border-bottom:solid .1em #fffff5;
     max-height: 2em;
     display: block;
+    opacity:.7;
+}
+.text-input:focus {
+    opacity:1;
 }
 
 #add-question{
@@ -51,8 +55,8 @@ input {
     width: 100%;
 }
 
-maker-question > span{
-    font-family:"Signika";
+maker-question > span {
+    font-family:"Dosis";
     padding: 0em 3em;
 }
 
@@ -64,6 +68,7 @@ maker-question .text-input {
     border-bottom: solid 0.15rem #A19AA0;
     width: 100%;
     resize: vertical;
+    font-weight: 300;
 }
 
 maker-question .text-input[ng-model="answer"]{
@@ -123,12 +128,13 @@ maker-question input[type=range]::-moz-range-thumb {
 }
 
 [placeholder]:focus::-webkit-input-placeholder {
-  transition: opacity 0.2s 0.2s ease; 
+  transition: opacity 0.2s ease; 
   opacity: 0;
 }
 
 .text-input.large {
     font-size: 1.3em;
+    font-family: 'Signika';
 }
 
 #quiz_name::-webkit-input-placeholder  {
@@ -198,7 +204,11 @@ maker-question .answer-field {
   cursor: pointer;
   line-height: 2.5;
   font-size: 1em;
-  align-items:center;
+  align-items: center;
+}
+
+maker-question .add-choice {
+    margin-left: 2.5em;
 }
 
 .radio, .check-box {
@@ -220,6 +230,10 @@ maker-question .answer-field {
   box-shadow: 0 0 0 0.15em #17a587;
 }
 
+#publish-quiz-name {
+    font-size: 1.5em;
+}
+
 .publish-header {
     font-family: "Signika";
     font-size: 1.25em;
@@ -231,6 +245,7 @@ maker-question .answer-field {
     border: none;
     border-color: transparent;
     border-bottom: solid .15em #A19AA0;
+    font-family: 'Signika';
     font-weight: 300;
 }
 
