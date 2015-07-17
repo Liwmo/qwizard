@@ -30,14 +30,14 @@ describe('Results Controller Tests', function(){
 		expect($scope.error).toBe(mockQuiz.error);
 	}));
 
-	it('setting mockQuiz to proper quiz', function(){
+	it('setting mockQuiz && results to proper quiz', function(){
 		mockQuiz = {
 			title: "Mock Title",
 			questions: [{
 				type: 'mc',
 				text: 'Mock Question',
 				name: 'Mock',
-				answers: ["Mock 1", "Mock 2", "Mock 3"]
+				answers: ["Mock 1", "Mock 2", "Mock 3"],
 			}]
 		};
 	});
@@ -49,7 +49,8 @@ describe('Results Controller Tests', function(){
 	it('setting mockResults to proper results', function(){
 		mockResults = {
 			answers: JSON.stringify([[2]]),
-			selected: JSON.stringify([{answer: [1]}])
+			selected: JSON.stringify([{answer: [1]}]),
+			pointvalues: JSON.stringify([1])
 		};
 	});
 

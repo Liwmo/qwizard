@@ -27,7 +27,7 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
                 else {
                     var answers = JSON.parse(resultsData.answers);
                     var selected = JSON.parse(resultsData.selected);
-                    var points = JSON.parse(resultsData.pointvalues);
+                    var points =  JSON.parse(resultsData.pointvalues);
                     for (var i = 0; i < $scope.questions.length; i++) {
                           //console.log("question " + (i+1) + ' has ' + selected[i].answer.length + ' selected answers');
                           $scope.questions[i].selected = selected[i].answer;
@@ -44,6 +44,10 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
     
     // NOTE: It seems that question.correct or question.selected is undefined somewhere!!!!
     $scope.getResultsHeader = function(question) {
+        if(!$scope.ready) {
+            return;
+        }
+            
         if(question.correct.toString() === question.selected.toString()) {
             return "Congrats! +" + question.points + " points!";
         } else {
