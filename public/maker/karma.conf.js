@@ -42,7 +42,7 @@ module.exports = function(config) {
     },
 
     ngHtml2JsPreprocessor: {
-      prependPrefix: '/taker/',
+      prependPrefix: '/maker/',
       moduleName: 'my.templates'
     },
 
