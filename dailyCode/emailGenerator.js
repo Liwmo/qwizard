@@ -14,25 +14,37 @@ var generateTokens = function(next, users){
 		return token;
 	}
 
-	users.forEach(function(user) {
-		user.token = createToken();
-	});
+	var numQuizzes = emails.getQuizCount();
+
+	for(var i = 0; i < users.length; i++){
+		users[i].tokens = [];
+		for(var j = 0; j < numQuizzes; j++){
+			users[i].tokens.push(createToken());
+		}
+	}
 
 	next(users);
 };
 
 var insertTokens = function(next, users) {
-	users.forEach(function(user) {
-		db.query('insert into emailTokens VALUES(?, ?)', [user.id, user.token], function(err, message){
-			if(err){
-				console.log(err);
-			}
-		});
-	});
+	var total = users.length * users[0].tokens.length;
+	var count = 0;
+	for(var i = 0; i < users.length; i++){
+		for(var j = 0; j < users[i].tokens.length; j++){
+			db.query('insert into emailTokens VALUES(?, ?)', [users[i].id, users[i].tokens[j]], function(err, message){
+				if(err){
+					console.log(err);
+				}
+				count++;
+				if(count == total){
+					next(users);
+				}
+			});
+		}
+	}
+
 	console.log('insert tokens:');
 	console.log(users);	
-
-	next(users);
 };
 
 //used by sendQuiz
@@ -110,49 +122,65 @@ var emails = new (function(){
 		quizzes = data;
 	};
 
+	this.getQuizCount = function(){
+		return quizzes.length;
+	};
+
 	this.send = function(next, users){
 		var count = 0;
 
-
 		var check = function(){
 			count++;
-			if(count == quizzes.length){
+			if(count == users.length){
 				next();
 			}
 		};
 
-		for(var i = 0; i < quizzes.length; i++){
-			sendQuiz(check, {
-				quizName: quizzes[i].title,
-				quizId: quizzes[i].id,
+		for(var i = 0; i < users.length; i++){
+			emails.sendToUser(check, {
+				quizzes: quizzes,
 				body: body,
-				recipients: JSON.parse(JSON.stringify(users))
+				tokens: users[i].tokens,
+				name: users[i].name
 			});
 		}
 	};
-})();
 
-//used by emails.send
-var sendQuiz = function(next, opts){
-	if(!opts.recipients.length){
-		return next();
-	}else{
-		var recipient = opts.recipients.shift();
-		console.log("sending email to " + recipient.name);
+	this.sendToUser = function(next, opts){
+		if(!opts.quizzes.length){
+			return next();
+		}else{
+			var count = 0;
+
+			var check = function(){
+				count++;
+				if(count == opts.quizzes.length){
+					next();
+				}
+			};
+			console.log(opts);
+			for(var i = 0; i < opts.quizzes.length; i++){
+				emails.sendQuiz(check, {
+					user: opts.name,
+					token: opts.tokens[i],
+					quizName: opts.quizzes[i].title,
+					quizId: opts.quizzes[i].id,
+					body: opts.body
+				});
+			}
+		}
+	};
+
+	this.sendQuiz = function(next, opts){
+		console.log("sending email to " + opts.user + " for quiz " + opts.quizName);
 		email.sendMail({
     		from: "Qwizard <qwizard@asynchrony.com>",
-    		to: recipient.name + "@asynchrony.com",
+    		to: opts.user + "@asynchrony.com",
     		subject: opts.quizName + " Quiz is Ready", // Subject line
-    		html: format(opts.body, recipient.name, recipient.token, opts.quizId)
-		}, function(){
-			sendQuiz(next, opts);
-		});
-	}
-};
-
-
-
-
+    		html: format(opts.body, opts.user, opts.token, opts.quizId)
+		}, next);
+	};
+})();
 
 // TASKS:
 // get email body
@@ -171,6 +199,5 @@ module.exports = {
 	getQuizzes: getQuizzes,
 	getUsers: getUsers,
 	emails: emails,
-	sendQuiz: sendQuiz,
 	nodemailerTransport: email
 };
