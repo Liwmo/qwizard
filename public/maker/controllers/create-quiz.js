@@ -15,7 +15,7 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
             type: "",
             text: "",
             answers: ["", "", ""],
-            correctAnswer: [0],
+            correctAnswer: [],
             max: 6
         });
     };

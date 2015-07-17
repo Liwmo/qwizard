@@ -9,7 +9,7 @@ describe('create quiz', function() {
     });
 
     it('should have one question by default', function() {
-        element.all(by.css("maker-question")).then(function(els){
+        element.all(by.css("maker-question")).then(function(els){0
             expect(els.length).toBe(1);
         });
     });
@@ -32,9 +32,9 @@ describe('create quiz', function() {
         expect(element(by.css("[ng-show=\"questionType=='ms'\"]")).getAttribute('class')).toNotMatch('ng-hide');
     });
 
-    it('should default correct answer to true when tf selected', function() {
+    it('should not default to a correct answer when TF', function() {
         element(by.cssContainingText("option","True/False")).click();
-        expect(element.all(by.css('.radio[ng-click="mc($index)"]')).get(0).getAttribute('class')).toMatch('checked');
+        expect(element.all(by.css('.radio[ng-click="mc($index)"]')).get(0).getAttribute('class')).toNotMatch('checked');
         expect(element.all(by.css('.radio[ng-click="mc($index)"]')).get(1).getAttribute('class')).toNotMatch('checked');
     });
 
@@ -43,9 +43,9 @@ describe('create quiz', function() {
         expect(element(by.css(".point-display")).getText()).toMatch("Points: 2");
     });
 
-    it('should default correct answer to option 1 when mc selected', function() {
-        element(by.cssContainingText("option","True/False")).click();
-        expect(element.all(by.css('.radio[ng-click="mc($index)"]')).get(0).getAttribute('class')).toMatch('checked');
+    it('should not default to a correct answer when MC', function() {
+        element(by.cssContainingText("option","Multiple Choice")).click();
+        expect(element.all(by.css('.radio[ng-click="mc($index)"]')).get(0).getAttribute('class')).toNotMatch('checked');
         expect(element.all(by.css('.radio[ng-click="mc($index)"]')).get(1).getAttribute('class')).toNotMatch('checked');
         expect(element.all(by.css('.radio[ng-click="mc($index)"]')).get(2).getAttribute('class')).toNotMatch('checked');
     });
@@ -154,10 +154,10 @@ describe('create quiz', function() {
     it('should add question when add question button is clicked', function() {
         element(by.css('#add-question')).click();
         element.all(by.css('maker-question')).then(function(elements) {
-            expect(elements.length).toBe(3);
+            beforeAddingLength = elements.length;
             element(by.css('#add-question')).click();
             element.all(by.css('maker-question')).then(function(elements) {
-            expect(elements.length).toBe(4);
+            expect(elements.length).toBe(beforeAddingLength + 1);
             });
         });
     });
@@ -182,8 +182,8 @@ describe('create quiz', function() {
 
         it('should check second option when option 2 is clicked', function() {
             element(by.cssContainingText("option","Multiple Select")).click();
-             element.all(by.css('.check-box[ng-click="ms($index)"]')).get(1).click();
-             expect(element.all(by.css('.check-box[ng-click="ms($index)"]')).get(1).getAttribute('class')).toMatch('checked');
+            element.all(by.css('.check-box[ng-click="ms($index)"]')).get(1).click();
+            expect(element.all(by.css('.check-box[ng-click="ms($index)"]')).get(1).getAttribute('class')).toMatch('checked');
         });
 
         it('should error if publishing when possible answers\' text are not entered', function() {
@@ -191,6 +191,7 @@ describe('create quiz', function() {
             quizNameInput.sendKeys("TestQuiz");
             questionNameInput.sendKeys("TestQuestion");
             questionTextInput.sendKeys("TestQuestionText");
+            element.all(by.css('.check-box[ng-click="ms($index)"]')).get(1).click();
             publish.click();
             browser.sleep(500);
             expect(popup.getAttribute('class')).toMatch('visible');
@@ -202,8 +203,7 @@ describe('create quiz', function() {
             element(by.cssContainingText("option","Multiple Select")).click();
             quizNameInput.sendKeys("TestQuiz");
             questionNameInput.sendKeys("TestQuestion");
-            questionTextInput.sendKeys("TestQuestionText");
-            element.all(by.css('.check-box[ng-click="ms($index)"]')).get(0).click();
+            questionTextInput.sendKeys("TestQuestionText");;
             publish.click();
             browser.sleep(500);
             expect(popup.getAttribute('class')).toMatch('visible');
@@ -217,6 +217,7 @@ describe('create quiz', function() {
             questionNameInput.sendKeys("TestQuestion");
             questionTextInput.sendKeys("TestQuestionText");
             element.all(by.css('.check-box[ng-click="ms($index)"]')).get(1).click();
+            element.all(by.css('.check-box[ng-click="ms($index)"]')).get(0).click();
             element.all(by.css('.msText')).get(0).sendKeys("TestAnswer");
             element.all(by.css('.msText')).get(1).sendKeys("TestAnswer");
             element.all(by.css('.msText')).get(2).sendKeys("TestAnswer");
@@ -229,10 +230,13 @@ describe('create quiz', function() {
 
         it('should increase answers options when button is pressed', function() {
             element(by.cssContainingText("option","Multiple Select")).click();
-            element.all(by.css('[ng-click="addOption()"]')).get(1).click();
-            element.all(by.css('.msText')).then(function(elements) {
-                expect(elements.length).toBe(4);
-            });   
+            element.all(by.css('.msText')).then(function(msOptions) {
+                beforeClickLength = msOptions.length;
+                element.all(by.css('[ng-click="addOption()"]')).get(1).click();
+                element.all(by.css('.msText')).then(function(elements) {
+                    expect(elements.length).toBe(beforeClickLength+1);
+                }); 
+            }); 
         });
         
         it('should not be able to add more than 6 options (max)', function() {
