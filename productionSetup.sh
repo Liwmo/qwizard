@@ -1,3 +1,5 @@
+NODE_PATH=$(which node)
+setcap 'cap_net_bind_service=+ep' $NODE_PATH
 sudo yum install nodejs
 sudo yum install npm
 sudo yum install mysql
