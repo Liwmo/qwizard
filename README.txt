@@ -20,7 +20,7 @@ Install project dependencies using:
 	npm install
 
 Creating Database:
-	npm init-db
+	npm run-script init-db
 
 Start Server:
 	npm start

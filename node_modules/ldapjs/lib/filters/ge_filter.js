@@ -3,19 +3,64 @@
 var assert = require('assert');
 var util = require('util');
 
-var parents = require('ldap-filter');
+var escape = require('./escape').escape;
 
 var Filter = require('./filter');
+
+var Protocol = require('../protocol');
+
 
 
 ///--- API
 
 function GreaterThanEqualsFilter(options) {
-  parents.GreaterThanEqualsFilter.call(this, options);
+  if (typeof (options) === 'object') {
+    if (!options.attribute || typeof (options.attribute) !== 'string')
+      throw new TypeError('options.attribute (string) required');
+    if (!options.value || typeof (options.value) !== 'string')
+      throw new TypeError('options.value (string) required');
+    this.attribute = options.attribute;
+    this.value = options.value;
+  } else {
+    options = {};
+  }
+
+  options.type = Protocol.FILTER_GE;
+  Filter.call(this, options);
+
+  var self = this;
+  this.__defineGetter__('json', function () {
+    return {
+      type: 'GreaterThanEqualsMatch',
+      attribute: self.attribute || undefined,
+      value: self.value || undefined
+    };
+  });
 }
-util.inherits(GreaterThanEqualsFilter, parents.GreaterThanEqualsFilter);
-Filter.mixin(GreaterThanEqualsFilter);
+util.inherits(GreaterThanEqualsFilter, Filter);
 module.exports = GreaterThanEqualsFilter;
+
+
+GreaterThanEqualsFilter.prototype.toString = function () {
+  return '(' + escape(this.attribute) + '>=' + escape(this.value) + ')';
+};
+
+
+GreaterThanEqualsFilter.prototype.matches = function (target) {
+  if (typeof (target) !== 'object')
+    throw new TypeError('target (object) required');
+
+  var tv = Filter.get_attr_caseless(target, this.attribute);
+
+  if (tv !== null) {
+    var value = this.value;
+    return Filter.multi_test(
+      function (v) { return value <= v; },
+      tv);
+  }
+
+  return false;
+};
 
 
 GreaterThanEqualsFilter.prototype.parse = function (ber) {

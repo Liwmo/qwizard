@@ -3,19 +3,49 @@
 var assert = require('assert');
 var util = require('util');
 
-var parents = require('ldap-filter');
+var escape = require('./escape').escape;
 
 var Filter = require('./filter');
+
+var Protocol = require('../protocol');
 
 
 ///--- API
 
 function PresenceFilter(options) {
-  parents.PresenceFilter.call(this, options);
+  if (typeof (options) === 'object') {
+    if (!options.attribute || typeof (options.attribute) !== 'string')
+      throw new TypeError('options.attribute (string) required');
+    this.attribute = options.attribute;
+  } else {
+    options = {};
+  }
+  options.type = Protocol.FILTER_PRESENT;
+  Filter.call(this, options);
+
+  var self = this;
+  this.__defineGetter__('json', function () {
+    return {
+      type: 'PresenceMatch',
+      attribute: self.attribute || undefined
+    };
+  });
 }
-util.inherits(PresenceFilter, parents.PresenceFilter);
-Filter.mixin(PresenceFilter);
+util.inherits(PresenceFilter, Filter);
 module.exports = PresenceFilter;
+
+
+PresenceFilter.prototype.toString = function () {
+  return '(' + escape(this.attribute) + '=*)';
+};
+
+
+PresenceFilter.prototype.matches = function (target) {
+  if (typeof (target) !== 'object')
+    throw new TypeError('target (object) required');
+
+  return (Filter.get_attr_caseless(target, this.attribute) !== null);
+};
 
 
 PresenceFilter.prototype.parse = function (ber) {
