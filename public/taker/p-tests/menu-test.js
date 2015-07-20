@@ -37,6 +37,7 @@ describe('Menu bar: ', function() {
 	it('the user should be navigated to /#/manage after clicking manage button', function() {
 		openMenu();
 	    element(by.css('a[href="/maker"]')).click();
+	    browser.sleep(100);
 	    expect(browser.getCurrentUrl()).toBe('http://localhost:3000/maker/#/');
 	});
 
