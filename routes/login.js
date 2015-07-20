@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var ldap = require('ldapjs');
+var ldap = require('ldapjs-hotfix');
 var db = require('../database/db');
 var convert = require('./userConversion');
 

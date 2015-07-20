@@ -3,7 +3,7 @@ Install Documentation
 For CentOS platform
 ---------------------
 Install Node and npm:
-	sudo yum install node
+	sudo yum install nodejs
 	sudo yum install npm
 
 Install mysql:
