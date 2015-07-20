@@ -7,7 +7,7 @@
     "start-production": "NODE_ENV=production PORT=443 node ./bin/www",
     "uat-taker": "webdriver-manager start & protractor public/taker/p-tests/conf.js --no-verbose --no-stackTrace --resultJsonOutputFile=TakerResults.json",
     "uat-maker": "webdriver-manager start & protractor public/maker/p-tests/conf.js --no-verbose --no-stackTrace --resultJsonOutputFile=MakerResults.json",
-    "init-db": "mysql -u root -p qwizard_dev < database/createEmptyDatabase.mysql",
+    "init-db": "mysql -u root qwizard_dev < database/createEmptyDatabase.mysql",
     "run-all-tests": "mocha && npm run-script uat-maker && npm run-script uat-taker && cd public/taker && karma start --single-run && cd ../maker && karma start --single-run"
   },
   "dependencies": {
