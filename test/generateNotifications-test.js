@@ -47,7 +47,7 @@ describe('Notification Generator Tests', function(){
 			notificationCount = message.length;
 			tasks.addAvailableNotifications(function(){
 				db.query('select * from notifications where userId=1', function(err, message){
-					assert.equal(message.length, notificationCount+1);
+					assert.ok(message.length > notificationCount);
 					done();
 				});
 			});
