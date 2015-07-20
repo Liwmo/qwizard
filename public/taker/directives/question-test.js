@@ -66,4 +66,17 @@ describe('Question Directive', function() {
         angular.element(element.find("span")[0]).triggerHandler("click");
         expect($scope.selected).toEqual([1]);
     });
+
+    it('scope.selected should update when multiple select is clicked to sorted order', function(){
+        $scope.type = "ms";
+        $scope.selected = [];
+        $scope.answers = ["1","2","3","4"];
+        $scope.$digest();
+        angular.element(element.find("span")[1]).triggerHandler("click");
+        expect($scope.selected).toEqual([1]);
+        angular.element(element.find("span")[0]).triggerHandler("click");
+        expect($scope.selected).toEqual([0,1]);
+        angular.element(element.find("span")[0]).triggerHandler("click");
+        expect($scope.selected).toEqual([1]);
+    });
 });

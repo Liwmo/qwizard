@@ -1,10 +1,31 @@
 describe('Manage quiz - Publish: ', function() {
+    var httpBackendMock = function(){
+        angular.module('httpBackendMock', ['ngMockE2E', 'app'])
+            .run(function($httpBackend) {
+
+            $httpBackend.whenPOST('/api/maker/quiz').respond(function(method, url, data, headers) {
+                return [200, {id: 9000003}, {}];
+            });
+            $httpBackend.whenGET('/api/maker/quiz/9000003').respond(function(method, url, data, headers) {
+                return [200, {id: 9000003, title: "Mock Title"}, {}];
+            });
+            $httpBackend.whenPUT('/api/maker/quiz/9000003').respond(function(method, url, data, headers) {
+                return [200, {id: 9000003}, {}];
+            });
+
+            $httpBackend.whenGET(/.*/).passThrough();
+            $httpBackend.whenPUT(/.*/).passThrough();
+            $httpBackend.whenPOST(/.*/).passThrough();
+         });
+    };
+
     it('login', function() {
         browser.get('http://localhost:3000/logout');
         browser.get('http://localhost:3000');
         element(by.css('[type="text"]')).sendKeys('proj-1189-bind');
         element(by.css('[type="password"]')).sendKeys('OEHss$4r$mHb^j');
         element(by.css('[type="submit"]')).click();
+        browser.addMockModule('httpBackendMock', httpBackendMock);
         browser.get('http://localhost:3000/maker');
     });
 
@@ -32,6 +53,9 @@ describe('Manage quiz - Publish: ', function() {
     //     expect(element(by.name('quiz-name')).getText()).toBe('Test Quiz Name');
     // });
 
+      // Commenting all of this because these tests do not test correct things because
+      //   you cannot "sendKeys" to a datepicker field
+
     it('Should error on publish if there is no start or end date set', function() {
         element(by.name('publish')).click();
         expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
@@ -40,37 +64,40 @@ describe('Manage quiz - Publish: ', function() {
     });
 
     it('Should error on publish if start date is a past date', function() {
-        element(by.name('start-date')).sendKeys('07-01-2015');
+        element(by.name('start-date')).sendKeys('07/01/2015');
+        element(by.name('end-date')).sendKeys('07/02/2015');
         element(by.name('publish')).click();
         expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
         browser.sleep(500);
         element(by.css('[ng-click="leftAction()"]')).click();
+        element(by.name('start-date')).clear();
+        element(by.name('end-date')).clear();
     });
 
     it('Should error on publish if end date is earlier than start date', function() {
-        element(by.name('start-date')).sendKeys('07-02-2015');
-        element(by.name('end-date')).sendKeys('07-01-2015');
+        element(by.name('start-date')).sendKeys('02/02/2050');
+        element(by.name('end-date')).sendKeys('01/01/2050');
         element(by.name('publish')).click();
         expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
         browser.sleep(500);
         element(by.css('[ng-click="leftAction()"]')).click();
+        element(by.name('start-date')).clear();
+        element(by.name('end-date')).clear();
     });
 
     it('Should redirect to manage quizzes on successful publish', function() {
-        var twodaysfromnow = new Date();
-        var threedaysfromnow = new Date();
-        var today = new Date();
-        twodaysfromnow.setDate(today.getDate() + 2);
-        threedaysfromnow.setDate(today.getDate() + 3);
-
-        element(by.name('start-date')).sendKeys(twodaysfromnow.toLocaleDateString());
-        element(by.name('end-date')).sendKeys(threedaysfromnow.toLocaleDateString());
+        element(by.name('start-date')).sendKeys('2050-01-01');
+        element(by.name('end-date')).sendKeys('2050-02-02');
         element(by.name('publish')).click();
+        browser.sleep(100);
 
         expect(browser.getCurrentUrl()).toBe('http://localhost:3000/maker/#/');
     });
 
+    
+
     it('logout', function() {
+        browser.removeMockModule('httpBackendMock');
         browser.get('http://localhost:3000/logout');
     });
 });
