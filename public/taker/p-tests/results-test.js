@@ -95,4 +95,9 @@ describe('Results page test: ', function() {
         //         .element(by.cssContainingText('.resultsHeader','Incorrect')).isPresent()
         //     ).toBe(true);
         // });
+
+        it('logout', function() {
+            browser.removeMockModule('httpBackendMock');
+            browser.get('http://localhost:3000/logout');
+        });
 });
