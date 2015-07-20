@@ -1,0 +1,1 @@
+/home/dev1/.nvm/versions/node/v0.12.4/bin/node /home/dev1/Projects/qwizard/dailyCode/generateNotifications.js
