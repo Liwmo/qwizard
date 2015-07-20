@@ -63,8 +63,8 @@ app.use(function(err, req, res, next) {
 });
 
 //Handlers for error events
-app.listen(3000, 'localhost', function() {
-    console.log("3000 ~ ~");
+app.listen(443, 'localhost', function() {
+    console.log("443 ~ ~");
 }).on('error', function(err){
     console.log('on error handler');
     console.log(err);
