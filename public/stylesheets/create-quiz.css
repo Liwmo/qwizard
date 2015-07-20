@@ -23,13 +23,12 @@ input {
 .text-input {
     border: none;
     border-color: transparent;
-    border-bottom:solid .1em #fffff5;
+    border-bottom:solid .1em rgba(255, 255, 245, 0.6);
     max-height: 2em;
     display: block;
-    opacity:.7;
 }
 .text-input:focus {
-    opacity:1;
+    border-bottom:solid 0.15rem rgba(255, 255, 245, 1);
 }
 
 #add-question{
@@ -55,6 +54,10 @@ input {
     width: 100%;
 }
 
+.point-display {
+    font-weight: 300;
+}
+
 maker-question > span {
     font-family:"Dosis";
     padding: 0em 3em;
@@ -65,7 +68,7 @@ maker-question .flex:first-child > * {
 }
 
 maker-question .text-input {
-    border-bottom: solid 0.15rem #A19AA0;
+    border-bottom: solid 0.15rem rgba(161, 154, 160, 0.6);
     width: 100%;
     resize: vertical;
     font-weight: 300;
