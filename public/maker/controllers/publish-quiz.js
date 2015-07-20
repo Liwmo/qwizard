@@ -88,4 +88,12 @@ app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFact
     $location.path('/');
   };
 
+  var startDate = document.getElementsByName("start-date")[0];
+  var endDate = document.getElementsByName("end-date")[0];
+  if(startDate && endDate){
+    startDate.onchange = endDate.onchange = function(){
+        $scope.startDate = new Date(startDate.value);
+        $scope.endDate = new Date(endDate.value);
+    };
+  }
 }]);

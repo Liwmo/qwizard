@@ -1,10 +1,26 @@
 describe('create quiz', function() {
+
+    var httpBackendMock = function(){
+        angular.module('httpBackendMock', ['ngMockE2E', 'app'])
+            .run(function($httpBackend) {
+
+            $httpBackend.whenPOST('/api/maker/quiz').respond(function(method, url, data, headers) {
+                return [200, {id: 9000003}, {}];
+            });
+
+            $httpBackend.whenGET(/.*/).passThrough();
+            $httpBackend.whenPUT(/.*/).passThrough();
+            $httpBackend.whenPOST(/.*/).passThrough();
+         });
+    };
+
     it('login', function() {
         browser.get('http://localhost:3000/logout');
         browser.get('http://localhost:3000');
         element(by.css('[type="text"]')).sendKeys('proj-1189-bind');
         element(by.css('[type="password"]')).sendKeys('OEHss$4r$mHb^j');
         element(by.css('[type="submit"]')).click();
+        browser.addMockModule('httpBackendMock', httpBackendMock);
         browser.get('http://localhost:3000/maker/#/create');
     });
 
@@ -290,6 +306,7 @@ describe('create quiz', function() {
     });
 
     it('logout', function() {
+        browser.removeMockModule('httpBackendMock');
         browser.get('http://localhost:3000/logout');
     });
 });
