@@ -5,4 +5,4 @@ sudo cp database/my.cnf /etc/my.cnf
 sudo service mysqld start
 npm install --production
 npm run-script init-db
-npm start
+npm run-script start-production
