@@ -1,0 +1,53 @@
+DROP DATABASE IF EXISTS qwizard_dev;
+
+CREATE DATABASE qwizard_dev;
+use qwizard_dev;
+
+CREATE TABLE users (
+	id INT NOT NULL AUTO_INCREMENT,
+	name VARCHAR(40) NOT NULL UNIQUE,
+	role INT NOT NULL DEFAULT 0,
+	PRIMARY KEY (id)
+);
+
+CREATE TABLE tokens (
+	cookie VARCHAR(40) NOT NULL,
+	userid INT NOT NULL,
+	FOREIGN KEY (userid) REFERENCES users(id),
+	PRIMARY KEY (cookie)
+);
+
+CREATE TABLE quizzes (
+	id INT NOT NULL AUTO_INCREMENT,
+	title VARCHAR(40) NOT NULL,
+	question LONGTEXT NOT NULL,
+	answers LONGTEXT NOT NULL,
+	author INT,
+	results date,
+	publish date,
+	pointvalues LONGTEXT NOT NULL,
+	PRIMARY KEY (id)
+);
+
+CREATE TABLE results (
+	quizid INT NOT NULL,
+	userid INT NOT NULL,
+    points INT NOT NULL,
+    answers LONGTEXT NOT NULL,
+    FOREIGN KEY (quizid) REFERENCES quizzes(id),
+    FOREIGN KEY (userid) REFERENCES users(id),
+    PRIMARY KEY (quizid, userid)
+);
+
+create table qwizard_dev.notifications(
+	quizId INT NOT NULL,
+	userID INT NOT NULL,
+	typeID INT NOT NULL,
+	PRIMARY KEY (quizId, userID)
+);
+
+create table emailTokens (
+	id int,
+	token varchar(50),
+	PRIMARY KEY (token)
+);
