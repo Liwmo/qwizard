@@ -55,7 +55,6 @@ router.post('/', function(req, res, next) {
         return;
     }
 
-    //console.log("This is " + username + " of " + password);
     var tlsOptions = { 'rejectUnauthorized': false }
     var client = ldap.createClient({
         url: 'ldaps://dc3-stl.schafer.lan:636',
