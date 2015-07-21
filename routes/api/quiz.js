@@ -87,7 +87,21 @@ router.route('/:id/results')
 				}
 			});
 		});
-	});
-		
+	})
+	
+	.post(function(req, res){
+		console.log("UPDATING VIEWED VALUE");
+		var id =  req.params.id;
+		convert.cookieToId(req.cookies.login, function(userId){
+			var getQuizQuery = 	'update results set viewed=1 where id=?, userid=?';
+			db.query(getQuizQuery, [id, userId], function(err, message) {
+				if (err) {
+					console.log("ERROR: ---------------------" + err);
+				}
+
+				console.log("MESSAGE: -------------------" + message[0]);
+			});
+		});
+	});		
 
 module.exports = router;

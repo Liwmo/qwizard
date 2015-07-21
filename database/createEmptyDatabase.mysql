@@ -34,6 +34,7 @@ CREATE TABLE results (
 	userid INT NOT NULL,
     points INT NOT NULL,
     answers LONGTEXT NOT NULL,
+    viewed INT NOT NULL DEFAULT 0,
     FOREIGN KEY (quizid) REFERENCES quizzes(id),
     FOREIGN KEY (userid) REFERENCES users(id),
     PRIMARY KEY (quizid, userid)
