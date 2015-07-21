@@ -1,0 +1,1 @@
+$(which node) /home/dev1/Projects/qwizard/dailyCode/generateNotifications.js
