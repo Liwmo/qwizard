@@ -7,6 +7,7 @@ var convert = require('../userConversion');
 router.route('/')
 	.get(function(req, res) {
 		convert.cookieToId(req.cookies.login, function(userId) {
+			console.log("Retrieving notifications from database");
 			var query = 	'SELECT q.id, q.title, n.typeID ';
 				query += 	'FROM notifications n, quizzes q ';
 				query += 	'WHERE n.userID=? and q.id=n.quizId';

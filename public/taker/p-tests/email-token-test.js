@@ -1,7 +1,9 @@
-describe('Quiz Notifications', function() {
+describe('Email Tokens', function() {
+
    var token = "THISISMYFREAKINGTOKEN";
    
   it('Should login before running any tests bruh', function() {
+    console.log('\n-----------Email Tokens Suite----------------');
     browser.ignoreSynchronization = true;
     browser.get('http://localhost:3000/logout');
     browser.get('http://localhost:3000');
@@ -25,5 +27,6 @@ describe('Quiz Notifications', function() {
 
   it('should logout', function(){
     browser.get('http://localhost:3000/logout');
+    browser.ignoreSynchronization = false;
   });
 });
