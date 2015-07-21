@@ -79,6 +79,7 @@ router.route('/:id/results')
 			var getQuizQuery = 	'select q.answers, q.pointvalues, r.answers as selected ' +
 								'from quizzes as q, results as r ' +
 								'where q.id=? and r.quizid=? and r.userid=?';
+								
 			var getQuizNoUser = 'select answers, pointvalues from quizzes where id=?';
 			db.query(getQuizQuery, [id, id, userId], function(err, message) {
 				if (err){
