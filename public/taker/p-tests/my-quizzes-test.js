@@ -1,5 +1,4 @@
 describe('My Quizzes: ', function() {
-	var quizzes = [];
 
 	beforeEach(function(){
 		browser.get('http://localhost:3000');
@@ -12,44 +11,49 @@ describe('My Quizzes: ', function() {
 	    element(by.css('[type="password"]')).sendKeys('OEHss$4r$mHb^j');
 	    element(by.css('[type="submit"]')).click();
 
-	    var httpBackendMock = function() {
-            angular.module('httpBackendMock', ['ngMockE2E', 'app'])
-              .run(function($httpBackend) {
-
-                $httpBackend.whenGET('/api/quiz/').respond(function(method, url, data, headers) {
-                    return [200, quizzes, {}];
-                });
-
-                $httpBackend.whenGET(/.*/).passThrough();
-                $httpBackend.whenPOST(/.*/).passThrough();
-             });
-        };
-        browser.addMockModule('httpBackendMock', httpBackendMock);
-
-	    browser.get('http://localhost:3000/taker/#/myQuizzes');
   	});
 
   	it('should not display live section when no quizzes are available', function(){
+	    var httpBackendMock = function() {
+	        angular.module('httpBackendMock', ['ngMockE2E', 'app'])
+	          .run(function($httpBackend) {
+
+	            $httpBackend.whenGET('/api/quiz/').respond(function(method, url, data, headers) {
+	                return [200, [], {}];
+	            });
+
+	            $httpBackend.whenGET(/.*/).passThrough();
+	            $httpBackend.whenPOST(/.*/).passThrough();
+	         });
+	    };
+        browser.addMockModule('httpBackendMock', httpBackendMock);
+	    browser.get('http://localhost:3000/taker/#/myQuizzes');
   		browser.sleep(2000);
-  		expect(element(by.cssContainingText('.header', 'live quizzes')).getAttribute('class')).toMatch('ng-hide');
+  		expect(element(by.id('liveQuizzes')).getAttribute('class')).toMatch('ng-hide');
+		browser.removeMockModule('httpBackendMock');
   	});
 
-	it("should list live quizzes", function(done){
-		quizzes.push({
-			title: 'Mock Quiz',
-			results: '2020-03-14T05:00:00.000Z',
-			id: 123456789
-		});
-		browser.refresh();
+	it("should list live quizzes", function(){
+		var httpBackendMock = function() {
+	        angular.module('httpBackendMock', ['ngMockE2E', 'app'])
+	          .run(function($httpBackend) {
+
+	            $httpBackend.whenGET('/api/quiz/').respond(function(method, url, data, headers) {
+	                return [200, [{title: 'Mock Quiz', results: '2020-03-14T05:00:00.000Z', id: 123456789}], {}];
+	            });
+
+	            $httpBackend.whenGET(/.*/).passThrough();
+	            $httpBackend.whenPOST(/.*/).passThrough();
+	         });
+	    };
+
+		browser.addMockModule('httpBackendMock', httpBackendMock);
+		browser.get('http://localhost:3000/taker/#/myQuizzes');
 		browser.sleep(2000);
-		expect(element(by.cssContainingText('.header', 'live quizzes')).isPresent()).toBe(true);
+		expect(element(by.id('liveQuizzes')).getAttribute('class')).toNotMatch('ng-hide');
 	});
 
-	// it("should begin quiz by clicking on a row in live quizzes", function(done){
-
-	// });
-
-	// it("should hide if no quizzes are available", function(done){
+	// it("should begin quiz by clicking on a row in live quizzes", function(){
 
 	// });
 
