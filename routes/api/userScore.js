@@ -4,6 +4,28 @@ var router = express.Router();
 var db = require('../../database/db');
 var convert = require('../userConversion');
 
+
+router.route('/')
+	.get(function(req, res) {
+		convert.cookieToId(req.cookies.login, function(userId) {
+
+			var query =  'SELECT q.publish, q.results, q.title, r.points ';
+				query += 'FROM quizzes q, results r ';
+				query += 'WHERE q.id=r.quizid and r.userid=? and q.results<=? ';
+				query += 'ORDER BY q.results DESC';
+
+			var today = (new Date()).toISOString().substr(0,10);
+
+			db.query(query, [userId, today], function(err, message) {
+				if(err) {
+					res.send({error: 'Users results query failed'});
+				}else{
+					res.send(message);
+				}
+			});
+		});
+	});
+
 router.route('/:id')
 	.get(function(req, res){
 		convert.cookieToId(req.cookies.login, function(userId){
