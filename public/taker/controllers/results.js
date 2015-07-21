@@ -59,8 +59,7 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
             });
         }
     });
-    
-    // NOTE: It seems that question.correct or question.selected is undefined somewhere!!!!
+
     $scope.getResultsHeader = function(question) {
         if(!$scope.ready) {
             return;

@@ -86,11 +86,12 @@ router.route('/:id/results')
 				}
 				else if (message.length <= 0) {
 					db.query(getQuizNoUser, [id], function(err, message) {
-						if (err) {
-							console.log("ERROR: Request for quiz not found");
+						if (err || message.length <= 0) {
+							console.log("ERROR: Request for quiz, not found");
 							res.send({error: 'could not find quiz'});
 						}
 						else {
+							console.log("ALERT: User didn't take quiz, returning answers");
 							res.send(message[0]);
 						}
 					});
