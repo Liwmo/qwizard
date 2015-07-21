@@ -26,23 +26,40 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
                 }
                 else {
                     var answers = JSON.parse(resultsData.answers);
-                    var selected = JSON.parse(resultsData.selected);
+                    if (resultsData.selected) {
+                        var selected = JSON.parse(resultsData.selected)
+                    } else {
+                        var selected = [];
+                        for (var i = 0; i < $scope.questions.length; i++)
+                        {
+                            selected.push({answer: []})
+                        }
+                    }
                     var points =  JSON.parse(resultsData.pointvalues);
                     for (var i = 0; i < $scope.questions.length; i++) {
-                          //console.log("question " + (i+1) + ' has ' + selected[i].answer.length + ' selected answers');
                           $scope.questions[i].selected = selected[i].answer;
                           $scope.questions[i].correct = answers[i];
                           $scope.questions[i].points = points[i];
 
                           $scope.maxPoints += points[i];
                     }
+                    if (resultsData.selected) {
+                        userFactory.getScoreOnQuiz($scope.quizId, function(data) {
+                            $scope.points = data.points;
+                            $scope.ratio = $scope.points / $scope.maxPoints;
+                            $scope.header = $scope.ratio > .5 ? "Congrats!" : "Uh oh!";
+                            $scope.message = $scope.points + " out of " + $scope.maxPoints + " points earned on " + $scope.name + ($scope.ratio > .5 ? "!" : ". Better study more next time!");
+                        });  
+                    } else {
+                        $scope.header = "You missed this quiz!";
+                        $scope.message = "Take a look at the answers anyway. It could be useful later!";
+                    }
                     $scope.ready = true;
                 }
             });
         }
     });
-    
-    // NOTE: It seems that question.correct or question.selected is undefined somewhere!!!!
+
     $scope.getResultsHeader = function(question) {
         if(!$scope.ready) {
             return;
@@ -55,10 +72,6 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
         }
     };
 
-    userFactory.getScoreOnQuiz($scope.quizId, function(data) {
-        $scope.points = data.points;
-        $scope.ratio = $scope.points / $scope.maxPoints;
-    });
 
     $scope.next = function(){
         $scope.currentQuestion++;

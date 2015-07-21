@@ -91,13 +91,28 @@ router.route('/:id/results')
 	.get(function(req, res){
 		var id =  req.params.id;
 		convert.cookieToId(req.cookies.login, function(userId){
-			var getQuizQuery = 	'select q.answers, q.pointvalues, r.answers as selected ';
-				getQuizQuery += 'from quizzes as q, results as r ';
-				getQuizQuery += 'where q.id=? and r.quizid=? and r.userid=?';
+			var getQuizQuery = 	'select q.answers, q.pointvalues, r.answers as selected ' +
+								'from quizzes as q, results as r ' +
+								'where q.id=? and r.quizid=? and r.userid=?';
+								
+			var getQuizNoUser = 'select answers, pointvalues from quizzes where id=?';
 			db.query(getQuizQuery, [id, id, userId], function(err, message) {
-				if (err || !message.length){
+				if (err){
 					res.send({error: 'no results for user-quiz pair'});
-				}else{
+				}
+				else if (message.length <= 0) {
+					db.query(getQuizNoUser, [id], function(err, message) {
+						if (err || message.length <= 0) {
+							console.log("ERROR: Request for quiz, not found");
+							res.send({error: 'could not find quiz'});
+						}
+						else {
+							console.log("ALERT: User didn't take quiz, returning answers");
+							res.send(message[0]);
+						}
+					});
+				}
+				else{
 					res.send(message[0]);
 				}
 			});
