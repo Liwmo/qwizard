@@ -2,3 +2,4 @@
 *.log
 TakerResults.json
 MakerResults.json
+node_modules/

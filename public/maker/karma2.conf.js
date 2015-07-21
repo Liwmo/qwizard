@@ -42,7 +42,7 @@ module.exports = function(config) {
     },
 
     ngHtml2JsPreprocessor: {
-      prependPrefix: '/taker/',
+      prependPrefix: '/maker/',
       moduleName: 'my.templates'
     },
 
@@ -56,7 +56,8 @@ module.exports = function(config) {
       outputFile: 'test-results.xml'
     },
 
-    // web server port-ja
+
+    // web server port
     port: 9876,
 
 
@@ -70,6 +71,7 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
+    autoWatch: true,
 
 
     // start these browsers
@@ -78,20 +80,20 @@ module.exports = function(config) {
 
     customLaunchers: {
        'PhantomJS_custom': {
-	       base: 'PhantomJS',
-	       options: {
-	         windowName: 'myWindow',
-	         settings: {
-		       webSecurityEnabled: false
-	         },
-	       },
-	    flags: ['--load-images=true'],
-	    debug: true
-	   }
+         base: 'PhantomJS',
+         options: {
+           windowName: 'myWindow',
+           settings: {
+           webSecurityEnabled: false
+           },
+         },
+      flags: ['--load-images=true'],
+      debug: true
+      }
     },
 
     phantomjsLauncher: {
-	   exitOnResourceError: true
+      exitOnResourceError: true
     },
 
     plugins: [
