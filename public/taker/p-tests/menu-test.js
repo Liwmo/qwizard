@@ -38,7 +38,7 @@ describe('Menu bar: ', function() {
 		openMenu();
 	    element(by.css('a[href="/maker"]')).click();
 	    browser.sleep(500);
-	    expect(browser.getCurrentUrl()).toBe('http://localhost:3000/maker/#/');
+	    expect(browser.getCurrentUrl()).toContain('http://localhost:3000/maker/');
 	});
 
 	it('the user should be navigated to /#/create after clicking create button', function() {
