@@ -70,6 +70,24 @@ router.route('/:id')
 				res.send("error");
 			}
 		})
+	})
+	.delete(function(req, res) {
+		console.log("Entering the delete endpoint");
+		var quizId = parseInt(req.params.id) || -1;
+		convert.cookieToId(req.cookies.login, function(userId) {
+			db.query('select author from quizzes where id=' + quizId + " and author=" + userId, function(err, message) {
+				if (err) {console.log(err); res.send({error: err});}
+				if (message.length > 0) {
+					console.log("ALERT: Removing Quiz and results - " + quizId);
+					db.query('delete from results where quizid=' + quizId, function(err, message){
+						db.query('delete from quizzes where id=' + quizId, function(err, message) {
+							if (err) {console.log(err); res.send({error: err});}
+							res.send({success: "Quiz and results have been deleted"});
+						});
+					});
+				}
+			});
+		});
 	});
 
 router.route('/:id/results')
