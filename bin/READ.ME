@@ -1,0 +1,12 @@
+(Dependent on an installation of Node)
+
+To run these daily do the following:
+ 1. $ crontab -e
+ 	1.a You may need to select a text editor of your choice
+ 
+ 2. append the following to the bottom of the file:
+ 	@daily /path/to/dailyEmailGen.sh
+ 	@daily /path/to/dailyNotificationGen.sh
+
+ 3. Save and exit, it is important that we edit this file using crontab -e
+  otherwise the new configuration will not be loaded immediately
