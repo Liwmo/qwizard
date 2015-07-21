@@ -15,11 +15,11 @@
 NAME=qwizard
 NODE_BIN_DIR=$(dirname $(which node))
 NODE_ENV=production
-#NODE_PATH=/usr/lib/node_modules
-NODE_PATH=/home/dev1/.nvm/versions/node/v0.12.4/bin
+NODE_PATH=/usr/lib/node_modules
+#NODE_PATH=/home/dev1/.nvm/versions/node/v0.12.4/bin
 NODE_TLS_REJECT_UNAUTHORIZED=0
-#APPLICATION_DIRECTORY=/opt/qwizard
-APPLICATION_DIRECTORY=/home/dev1/qwizard
+APPLICATION_DIRECTORY=/opt/qwizard
+#APPLICATION_DIRECTORY=/home/dev1/qwizard
 APPLICATION_START='-c "npm run-script start-production" ./'
 PIDFILE=/var/run/qwizard.pid
 LOGFILE=/var/log/qwizard.log
@@ -41,7 +41,7 @@ start() {
     then
         echo "Starting $NAME..."
 
-        /home/dev1/.nvm/versions/node/v0.12.4/bin/forever --pidFile $PIDFILE --uid $NODE_ENV --sourceDir $APPLICATION_DIRECTORY \
+        forever --pidFile $PIDFILE --uid $NODE_ENV --sourceDir $APPLICATION_DIRECTORY \
             -a -l $LOGFILE --minUptime 5000 --spinSleepTime 2000 \
             start -c "npm run-script start-production" ./ > $LOGFILE &
         RETVAL=$?
