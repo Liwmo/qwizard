@@ -51,6 +51,7 @@ describe('My Quizzes: ', function() {
 		browser.get('http://localhost:3000/taker/#/myQuizzes');
 		browser.sleep(2000);
 		expect(element(by.id('liveQuizzes')).getAttribute('class')).toNotMatch('ng-hide');
+		browser.removeMockModule('httpBackendMock');
 	});
 
 	// it("should begin quiz by clicking on a row in live quizzes", function(){
@@ -58,8 +59,8 @@ describe('My Quizzes: ', function() {
 	// });
 
 	it('logout', function() {
-            browser.removeMockModule('httpBackendMock');
-            browser.get('http://localhost:3000/logout');
+        browser.removeMockModule('httpBackendMock');
+        browser.get('http://localhost:3000/logout');
     });
 
 });
