@@ -11,7 +11,7 @@
 }
 #liveQuizzes .liveQuiz {
 	padding:.5rem 1.5rem;
-	border-top:.1rem solid #fffff5;
+	border-top:.1rem solid rgba(255, 255, 245, 0.7);
 }
 #liveQuizzes .liveQuiz .quizName {
 	font-family:dosis;

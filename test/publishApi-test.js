@@ -135,7 +135,7 @@ describe("Publish API endpoint", function(done){
         db.query("delete from quizzes where id >=" + (returnedID-1), function(){
             db.query("alter table quizzes auto_increment=" + (returnedID-1), function(){
                 done();
-            })
+            });
         });
     });
 });

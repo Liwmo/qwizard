@@ -2,6 +2,13 @@ app.factory("quizFactory", ["$http", function($http){
 	var self = this;
 	var quizzes = {};
 
+	self.getLiveQuizzes = function(callback){
+		$http.get('/api/quiz/').success(function(data){
+			console.log(data);
+			callback(data);
+		});
+	};
+
 	self.getQuiz = function(id, callback){
 		if(quizzes[id.toString()]){
 			callback(quizzes[id.toString()]);
