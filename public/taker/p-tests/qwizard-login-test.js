@@ -1,6 +1,8 @@
 describe('Qwizard Homepage', function() {
 
 	it ("Should not allow browsing directly to any taker webpage", function() {
+		console.log('\n-----------Qwizard Homepage Suite----------------');
+		browser.get("http://localhost:3000/logout");
 		var url = 'http://localhost:3000/taker/#/';
 		browser.get(url);
 		browser.sleep(500);

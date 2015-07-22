@@ -1,4 +1,5 @@
 describe('Menu bar: ', function() {
+
 	var visible = false;
 	var openMenu = function() {
 		element(by.css('.icon.menu')).isDisplayed().then(function(isDisplayed){
@@ -14,6 +15,7 @@ describe('Menu bar: ', function() {
 	});
 
 	it('Should login before running any tests', function() {
+	console.log('\n-----------Menu Bar Suite----------------');
 	    browser.get('http://localhost:3000/logout');
 	    browser.get('http://localhost:3000');
 	    element(by.css('[type="text"]')).sendKeys('proj-1189-bind');

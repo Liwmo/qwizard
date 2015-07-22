@@ -106,25 +106,22 @@ router.route('/:id/results')
 			db.query(getQuizQuery, [id, id, userId], function(err, message) {
 				if (err){
 					res.send({error: 'no results for user-quiz pair'});
-				}
-				else if (message.length <= 0) {
+				}else if (message.length <= 0) {
 					db.query(getQuizNoUser, [id], function(err, message) {
-						if (err || message.length <= 0) {
-							console.log("ERROR: Request for quiz, not found");
+						if (err || message.length <= 0) { //Bad quiz or other error
 							res.send({error: 'could not find quiz'});
 						}
-						else {
-							console.log("ALERT: User didn't take quiz, returning answers");
+						else { //No user-selected answers, good quiz
 							res.send(message[0]);
 						}
 					});
 				}
-				else{
+				else {
 					res.send(message[0]);
+					db.query("UPDATE results SET viewed=1 WHERE userid=? AND quizid=?", [userId, id], function(){});
 				}
 			});
 		});
 	});
-		
-
+	
 module.exports = router;
