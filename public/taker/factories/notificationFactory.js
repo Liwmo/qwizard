@@ -24,7 +24,14 @@ app.factory("notificationFactory", ["$http", function($http){
 
     self.refreshNotifications = function(callback) {
         $http.get('/api/notifications/').success(function(data){
-            notifications = [];
+
+            // Dont delete notifications that thank you for taking a quiz, as they aren't stored in the DB
+            notifications.forEach(function(notification) {
+                if(notification.link !== "#/") {
+                    notifications.splice(notifications.indexOf(notification), 1);
+                }
+            });
+
             for(var i = 0; i < data.length; i++){
                 notifications.push({
                     text: getText(data[i]),
