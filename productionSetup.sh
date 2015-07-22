@@ -13,4 +13,3 @@ sudo service mysqld start
 
 npm install --production
 npm run-script init-db
-npm run-script start-production
