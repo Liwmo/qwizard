@@ -48,6 +48,7 @@ describe('Send Email Tests', function() {
 			db.query("insert into quizzes (answers, results, publish, title, questions, pointValues, author) VALUES ('', ?, ?, '', '','','')", [today, today], function(err, message){
 				if(!err){
 					quizID = message.insertId;
+					console.log("The quizId is " + quizID);
 					done();
 				}else{
 					console.log(err);
@@ -57,7 +58,12 @@ describe('Send Email Tests', function() {
 
 		it("Should get the quiz we added to the table", function(done){
 			tasks.getQuizzes(function(data){
-				assert.equal(data[data.length - 1].id, quizID);
+				var foundId = false;
+				for (var i = 0; i < data.length; i++) {
+					if (data[i].id == quizID)
+						foundId = true;
+				}
+				assert.ok(foundId);
 				done();
 			});
 		});
