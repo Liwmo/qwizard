@@ -85,9 +85,18 @@ describe('Manage quiz - Publish: ', function() {
         element(by.name('end-date')).clear();
     });
 
-    it('Should redirect to manage quizzes on successful publish', function() {
+    it('Should keep start date as is when entering end date', function() {
         element(by.name('start-date')).sendKeys('2050-01-01');
         element(by.name('end-date')).sendKeys('2050-02-02');
+        browser.sleep(500);
+        expect(element(by.name('start-date')).getAttribute('value')).toMatch('2050-01-01');
+        element(by.name('start-date')).clear();
+        element(by.name('end-date')).clear();
+    });
+
+    it('Should redirect to manage quizzes on successful publish', function() {
+        element(by.name('start-date')).sendKeys('01/01/2050');
+        element(by.name('end-date')).sendKeys('02/02/2050');
         element(by.name('publish')).click();
         browser.sleep(100);
 
