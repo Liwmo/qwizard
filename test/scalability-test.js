@@ -9,7 +9,7 @@ var today = (new Date()).toISOString().substr(0,10);
 describe("Publish API endpoint", function(done){
     var baseUrl = "http://localhost:3000/";
     var totalRequests = 1000;
-    var timeout = 15000;
+    var timeout = 35*1000;
 
     var createQuiz = {
         title: "Temp Quiz",
@@ -112,21 +112,48 @@ describe("Publish API endpoint", function(done){
             request.get(options('api/quiz/' + (i + returnedID + 1) + '/results', createQuiz), finished);   
         }
     });
+    
+    it("DELETE quizzes that were made", function(done) {
+        this.timeout(timeout);
+        var requests = 0;
+        var finished = function(err, response, data){
+            if(data.error) {
+                console.log(data.error);
+            }
+            requests++;
+            if(requests == totalRequests) {
+                done();
+            }
+        };
+        var delOptions = {
+            url: baseUrl + "api/quiz",
+            headers: {
+                'cookie': "login=a"
+            }
+        };
+        for (var i = 0; i < totalRequests+1; i++) {
+            delOptions.url = baseUrl + "api/quiz/" + (returnedID + i);
+            request.del(delOptions, finished);
+        }
+    });
 
     it("Logout and clean up database", function(done) {
         db.query("delete from tokens where cookie='a'", function() {
+            done();
         });
-        db.query("delete from results where quizId >=" + (returnedID), function(){
-            db.query("delete from quizzes where id >=" + (returnedID), function(){
-                db.query("alter table quizzes auto_increment=" + (returnedID), function(){
-                    done();
-                });
-            });
-        });
+        // db.query("delete from results where quizId >=" + (returnedID), function(){
+        //     db.query("delete from quizzes where id >=" + (returnedID), function(){
+        //         db.query("alter table quizzes auto_increment=" + (returnedID), function(){
+        //             done();
+        //         });
+        //     });
+        // });
     });
 
     it("should log how long it took", function(){
         var end = new Date();
         console.log((end.getTime() - start.getTime()) / 1000 + " secs");
-    })
+    });
+
+    
 });
