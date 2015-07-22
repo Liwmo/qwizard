@@ -58,14 +58,18 @@ describe("results api tests: ", function(done){
     		if(err) {
                 console.log("POST ERROR: ----------------------- " + err);
             }else{
-                db.query("select viewed from results where quizid=900000", function(err, message) {
+                console.log("waiting 2 seconds for the GET request to finish");
+                setTimeout(function() {
+                    console.log("done waiting, beginning the query for viewed property");
+                    db.query("select viewed from results where quizid=900000", function(err, message) {
                     if(err) {
                         console.log("ERROR: ---------------------- " + err);
                     }
-                    //console.log(message);
-                    assert.equal(message[0].viewed, 1);
-                    done();
-                });
+                        //console.log(message);
+                        assert.equal(message[0].viewed, 1);
+                        done();
+                    }, 2000);
+                })
             }
     	});
     });
