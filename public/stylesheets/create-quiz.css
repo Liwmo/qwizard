@@ -140,6 +140,10 @@ maker-question input[type=range]::-moz-range-thumb {
     font-family: 'Signika';
 }
 
+#quiz_name{
+    width: 18em;
+}
+
 #quiz_name::-webkit-input-placeholder  {
     color: #fffff5;
 }
