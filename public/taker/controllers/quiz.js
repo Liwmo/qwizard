@@ -24,7 +24,7 @@ app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$locati
     $scope.submit = function(){
 
     quizFactory.postQuiz($scope.quizId, function(data){
-            notificationFactory.addNotification("Thanks for taking the WWT Employee Handbook quiz! Your results will be available soon!", "#/");
+            notificationFactory.addNotification("Thanks for taking the " + $scope.name + " quiz! Your results will be available soon!", "#/");
             $location.path('/');
         });
     };
