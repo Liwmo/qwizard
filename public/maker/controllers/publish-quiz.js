@@ -65,8 +65,6 @@ app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFact
 	$scope.verifyStart = function() {
 		var selected = $scope.startDate;
 		var today = new Date();
-		selected.setHours(0,0,0,0);
-		today.setHours(0,0,0,0);
 		if(selected < today) {
 			return false;	
 		}
@@ -76,8 +74,6 @@ app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFact
 	$scope.verifyEnd = function() {
 		var selected = $scope.endDate;
 		var start = $scope.startDate;
-		selected.setHours(0,0,0,0);
-		start.setHours(0,0,0,0);
 		if(selected < start) {
 			return false;	
 		}
@@ -92,8 +88,8 @@ app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFact
   var endDate = document.getElementsByName("end-date")[0];
   if(startDate && endDate){
     startDate.onchange = endDate.onchange = function(){
-        $scope.startDate = new Date(startDate.value);
-        $scope.endDate = new Date(endDate.value);
+      $scope.startDate = new Date(startDate.value + new Date().toString().slice(-5));
+      $scope.endDate = new Date(endDate.value + new Date().toString().slice(-5));
     };
   }
 }]);
