@@ -9,7 +9,7 @@ router.route('/')
 	.get(function(req, res) {
 		convert.cookieToId(req.cookies.login, function(userId) {
 
-			var query =  'SELECT q.publish, q.results, q.title, r.points ';
+			var query =  'SELECT q.publish, q.results, q.title, q.id, r.viewed, r.points ';
 				query += 'FROM quizzes q, results r ';
 				query += 'WHERE q.id=r.quizid and r.userid=? and q.results<=? ';
 				query += 'ORDER BY q.results DESC';
