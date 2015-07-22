@@ -13,3 +13,5 @@ sudo service mysqld start
 
 npm install --production
 npm run-script init-db
+
+crontab productionCrontab.txt
