@@ -10,7 +10,7 @@ describe("results api tests: ", function(done){
 	var userID = 0;
 
     var options = {
-        url: "http://localhost:3000/api/900000/results",
+        url: "http://localhost:3000/api/quiz/900000/results",
         headers: {
             'cookie': "login=a"
         }
@@ -54,20 +54,20 @@ describe("results api tests: ", function(done){
     });
 
     it('Should find the results with the "viewed" flag set to 1', function(done){
-    	request.post(options, function(err, response, body){
+    	request.get(options, function(err, response, body){
     		if(err) {
                 console.log("POST ERROR: ----------------------- " + err);
+            }else{
+                db.query("select viewed from results where quizid=900000", function(err, message) {
+                    if(err) {
+                        console.log("ERROR: ---------------------- " + err);
+                    }
+                    //console.log(message);
+                    assert.equal(message[0].viewed, 1);
+                    done();
+                });
             }
     	});
-
-        db.query("select viewed from results where quizid=900000", function(err, message) {
-            if(err) {
-                console.log("ERROR: ---------------------- " + err);
-            }
-            //console.log(message);
-            assert.equal(message[0].viewed, 1);
-            done();
-        });
     });
 
     it("Logout", function(done) {
