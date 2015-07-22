@@ -14,4 +14,22 @@
 </div>
 <div id="results">
 	<div class="header teal-medium light-text">Results</div>
+	<a ng-repeat="quiz in taken" href='#/results/{{quiz.id}}'>
+		<div class="takenQuiz flex-container horizontal spacer">
+			<span class="result-1">
+				<div class="dot-container">
+					<div class="dot teal-medium" ng-hide="quiz.viewed"></div>
+				</div>
+				<div class="info">
+					<div class="quizName">{{quiz.title}}</div>
+					<div class="subText">{{getDateRange(quiz.publish, quiz.results)}}</div>
+				</div>
+			</span>
+			<div class="flex spacer result-1"></div>
+			<div class="purple-light point-container">
+				<div class="points">{{quiz.points}}</div>
+				points
+			</div>
+		</div>
+	</a>
 </div>

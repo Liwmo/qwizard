@@ -1,11 +1,13 @@
 describe('Info page: ', function() {
-	var notification;
+
+  var notification;
 
   beforeEach(function() {
-  	browser.get('http://localhost:3000');
+    browser.get('http://localhost:3000');
   });
 
   it('Should login before running any tests', function() {
+    console.log('\n-----------Info Page Suite----------------');
     browser.get('http://localhost:3000/logout');
     browser.get('http://localhost:3000');
     element(by.css('[type="text"]')).sendKeys('proj-1189-bind');

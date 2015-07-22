@@ -1,6 +1,3 @@
-/**
- * Created by dev1 on 7/6/15.
- */
 describe('Maker authentication', function() {
 
     describe('While logged in with non-maker account', function() {
@@ -13,6 +10,7 @@ describe('Maker authentication', function() {
         });
 
         it('Should redirect to the taker page', function() {
+            console.log('\n-----------Maker Authentication Suite----------------');
             expect(browser.getCurrentUrl()).toBe('http://localhost:3000/taker/#/');
         });
 

@@ -38,23 +38,6 @@ describe("myQuizzes API endpoint", function(done){
     	});
 	});
 
-    //	these are not actally mocha tests
-	// it("should list live quizzes", function(done){
-
-	// });
-
-	// it("should calculate the time until a quiz closes", function(done){
-
-	// });
-
-	// it("should begin quiz by clicking on a row in live quizzes", function(done){
-
-	// });
-
-	// it("should hide if no quizzes are available", function(done){
-
-	// });
-
     it("Logout", function(done) {
         db.query("delete from tokens where cookie='a'", function() {});
         done();
