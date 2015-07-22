@@ -9,6 +9,13 @@ app.factory("quizFactory", ["$http", function($http){
 		});
 	};
 
+	self.getTakenQuizzes = function(callback){
+		$http.get('/api/userscore/').success(function(data){
+			console.log(data);
+			callback(data);
+		});
+	};
+
 	self.getQuiz = function(id, callback){
 		if(quizzes[id.toString()]){
 			callback(quizzes[id.toString()]);

@@ -13,7 +13,7 @@
 	padding:.5rem 1.5rem;
 	border-top:.1rem solid rgba(255, 255, 245, 0.7);
 }
-#liveQuizzes .liveQuiz .quizName {
+#liveQuizzes .liveQuiz .quizName, #results .takenQuiz .quizName {
 	font-family:dosis;
 	font-size:1.5em;
 	line-height:.8em;
@@ -24,4 +24,55 @@
 }
 .spacer {
 	flex-grow: 12;
+}
+
+#results .takenQuiz{
+	color: #332532;
+	height: 4.5em;
+}
+
+#results .takenQuiz .result-1{
+	border-bottom: 0.1em solid #f1eaf0;
+}
+
+#results .takenQuiz .result-1 div{
+	float: left;
+	display: inline-block;
+}
+
+#results .takenQuiz .result-1 div div{
+	display: block;
+	float: none;
+}
+
+#results .takenQuiz .dot-container{
+	width: 2em;
+	text-align: center;
+	margin: 1em;
+}
+
+#results .info{
+	margin: 1em 0;
+}
+
+#results .takenQuiz .dot-container .dot{
+	margin: 1em auto;
+	border-radius: 1em;
+	height: .6em;
+	width: .6em;
+}
+
+#results .takenQuiz .points{
+	font-family: Dosis;
+	font-weight: 200;
+	font-size: 2em;
+	margin: 0;
+	margin-bottom: -0.2em;
+	width: 2em;
+	text-align: center;
+}
+
+#results .takenQuiz .point-container {
+	text-align: center;
+	border-bottom: 0.1em solid white;
 }

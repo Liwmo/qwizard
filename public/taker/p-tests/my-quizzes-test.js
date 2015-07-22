@@ -76,7 +76,7 @@ describe('My Quizzes: ', function() {
 		browser.addMockModule('httpBackendMock', httpBackendMock);
 		browser.get('http://localhost:3000/taker/#/myQuizzes');
 		browser.sleep(500);
-		element(by.css('.quizName')).click();
+		element.all(by.css('.quizName')).first().click();
 		expect(browser.getCurrentUrl()).toMatch('/quiz/123456789');
 		browser.removeMockModule('httpBackendMock');
 	});
