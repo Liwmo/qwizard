@@ -18,7 +18,6 @@ NODE_ENV=production
 NODE_PATH=/usr/lib/node_modules
 NODE_TLS_REJECT_UNAUTHORIZED=0
 APPLICATION_DIRECTORY=/opt/qwizard
-APPLICATION_START='-c \"npm run-script start-production\" ./'
 PIDFILE=/var/run/qwizard.pid
 LOGFILE=/var/log/qwizard.log
 
