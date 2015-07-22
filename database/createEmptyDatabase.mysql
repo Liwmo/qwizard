@@ -20,7 +20,7 @@ CREATE TABLE tokens (
 CREATE TABLE quizzes (
 	id INT NOT NULL AUTO_INCREMENT,
 	title VARCHAR(40) NOT NULL,
-	question LONGTEXT NOT NULL,
+	questions LONGTEXT NOT NULL,
 	answers LONGTEXT NOT NULL,
 	author INT,
 	results date,
