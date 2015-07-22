@@ -5,6 +5,21 @@ var db = require('../../database/db');
 var convert = require('../userConversion');
 var utils = require('../../utilities/utilities')
 
+router.route('/')
+	.get(function(req, res){
+		var today = (new Date()).toISOString().substr(0,10);
+		convert.cookieToId(req.cookies.login, function(userId){
+			var query =  'SELECT q.id, q.title, q.results ';
+				query += 'FROM quizzes q ';
+				query += 'WHERE q.publish<=? AND q.results>? AND (q.id, ?) NOT IN ';
+				query += '(SELECT quizid, userid FROM results)';
+
+			db.query(query, [today, today, userId], function(err, message){
+				res.send(message);
+			});
+		});
+	});
+
 router.route('/:id')
 	.get(function(req, res){
 		var today = (new Date()).toISOString().substr(0,10);
@@ -35,19 +50,6 @@ router.route('/:id')
 					return;
 				}
 
-				// var points = 0;
-				// for(var i = 0; i < answers.length; i++){
-				// 	var matches = true;
-				// 	for(var j = 0; j < answers[i].length; j++){
-				// 		if(selected[i].answer[j] != answers[i][j]){
-				// 			matches = false;
-				// 		}
-				// 	}
-				// 	if(matches){
-				// 		points += pointValues[i];
-				// 	}
-				// }
-
 				var points = utils.calculateQuizScore(selected, answers, pointValues);
 
 				convert.cookieToId(req.cookies.login, function(userId){
@@ -70,19 +72,54 @@ router.route('/:id')
 				res.send("error");
 			}
 		})
+	})
+	.delete(function(req, res) {
+		var quizId = parseInt(req.params.id) || -1;
+		convert.cookieToId(req.cookies.login, function(userId) {
+			db.query('select author from quizzes where id=' + quizId + " and author=" + userId, function(err, message) {
+				if (err) {console.log(err); res.send({error: err});}
+				if (message.length > 0) {
+					console.log("ALERT: Removing Quiz and results - " + quizId);
+					db.query('delete from results where quizid=' + quizId, function(err, message){
+						db.query('delete from quizzes where id=' + quizId, function(err, message) {
+							if (err) {console.log(err); res.send({error: err});}
+							res.send({success: "Quiz and results have been deleted"});
+						});
+					});
+				}
+				else {
+					res.send({error: "You are not the author or invalid quizId"});
+				}
+			});
+		});
 	});
 
 router.route('/:id/results')
 	.get(function(req, res){
 		var id =  req.params.id;
 		convert.cookieToId(req.cookies.login, function(userId){
-			var getQuizQuery = 	'select q.answers, q.pointvalues, r.answers as selected ';
-				getQuizQuery += 'from quizzes as q, results as r ';
-				getQuizQuery += 'where q.id=? and r.quizid=? and r.userid=?';
+			var getQuizQuery = 	'select q.answers, q.pointvalues, r.answers as selected ' +
+								'from quizzes as q, results as r ' +
+								'where q.id=? and r.quizid=? and r.userid=?';
+								
+			var getQuizNoUser = 'select answers, pointvalues from quizzes where id=?';
 			db.query(getQuizQuery, [id, id, userId], function(err, message) {
-				if (err || !message.length){
+				if (err){
 					res.send({error: 'no results for user-quiz pair'});
-				}else{
+				}
+				else if (message.length <= 0) {
+					db.query(getQuizNoUser, [id], function(err, message) {
+						if (err || message.length <= 0) {
+							console.log("ERROR: Request for quiz, not found");
+							res.send({error: 'could not find quiz'});
+						}
+						else {
+							console.log("ALERT: User didn't take quiz, returning answers");
+							res.send(message[0]);
+						}
+					});
+				}
+				else{
 					res.send(message[0]);
 				}
 			});

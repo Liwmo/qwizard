@@ -23,6 +23,7 @@
   <script src="/taker/controllers/info.js"></script>
   <script src="/taker/controllers/bug.js"></script>
   <script src="/taker/controllers/feature.js"></script>
+  <script src="/taker/controllers/my-quizzes.js"></script>
 
   <!--Directives-->
   <script src="/taker/directives/question.js"></script>
@@ -43,6 +44,7 @@
   <link rel="stylesheet" type="text/css" href="../stylesheets/normalize.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/app.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/iconPack.css">
+  <link rel="stylesheet" type="text/css" href="../stylesheets/myQuizzes.css">
 
 </head>
 <body ng-controller="dashboard" class="flex-container horizontal" ng-app="app">
@@ -63,10 +65,10 @@
         <span>stats</span>
       </span>
     </a>
-    <a href="#/" ng-click="toggleMenu()" class="flex flex-container item">
+    <a href="#/myQuizzes" ng-click="toggleMenu()" class="flex flex-container item">
       <span>
         <div class="icon quizzes-white"></div>
-        <span>quizzes</span>
+        <span>my quizzes</span>
       </span>
     </a>
     <a href="/maker" ng-show="isMaker" class="flex flex-container item">
