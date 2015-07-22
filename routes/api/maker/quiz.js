@@ -71,7 +71,9 @@ router.put('/:id', function(req, res){
 				}
 				else {
 					res.send({id: req.params.id});
-					if(quiz.publish === today){
+					console.log("Comparing against date: " + today + "  " + quiz.publish);
+					if(quiz.publish.substr(0,10) === today){
+						console.log("ALERT: notifications to be generated today for quiz #" + req.params.id);
 						immediate.generateNotifications(req.params.id);
 					}
 				}
