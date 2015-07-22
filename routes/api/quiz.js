@@ -5,6 +5,21 @@ var db = require('../../database/db');
 var convert = require('../userConversion');
 var utils = require('../../utilities/utilities')
 
+router.route('/')
+	.get(function(req, res){
+		var today = (new Date()).toISOString().substr(0,10);
+		convert.cookieToId(req.cookies.login, function(userId){
+			var query =  'SELECT q.id, q.title, q.results ';
+				query += 'FROM quizzes q ';
+				query += 'WHERE q.publish<=? AND q.results>? AND (q.id, ?) NOT IN ';
+				query += '(SELECT quizid, userid FROM results)';
+
+			db.query(query, [today, today, userId], function(err, message){
+				res.send(message);
+			});
+		});
+	});
+
 router.route('/:id')
 	.get(function(req, res){
 		var today = (new Date()).toISOString().substr(0,10);

@@ -25,5 +25,6 @@ describe('Quiz Notifications', function() {
 
   it('should logout', function(){
     browser.get('http://localhost:3000/logout');
+    browser.ignoreSynchronization = false;
   });
 });
