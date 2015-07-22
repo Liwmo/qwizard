@@ -22,3 +22,6 @@
 	font-size:2.5em;
 	font-weight:200;
 }
+.spacer {
+	flex-grow: 12;
+}
