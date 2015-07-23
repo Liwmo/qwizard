@@ -173,7 +173,8 @@ svg, img {
     overflow: hidden;
     z-index: 10;
     -webkit-transform: scale(.00001) translateY(-50em) ;
-    transform: scale(.00001) translateY(-50em);
+    transform: scale(.00001) translateY(-50em);\
+    -webkit-transform-origin:100% 50%;
     transform-origin:bottom center;
     -webkit-transition:.35s;
     transition:.25s;
