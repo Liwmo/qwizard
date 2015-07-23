@@ -38,15 +38,17 @@ router.route('/:id')
 		});
 	})
 	.post(function(req, res){
+		var today = (new Date()).toISOString().substr(0,10);
 		var quizId = parseInt(req.params.id) || -1;
-		db.query('Select answers, pointvalues from quizzes where id=?', quizId, function(err, message){
+		console.log(req.body);
+		db.query('Select answers, pointvalues from quizzes where id=? and results>?', [quizId, today], function(err, message){
 			if(!err && message.length) {
 				var answers = JSON.parse(message[0].answers);
 				var pointValues = JSON.parse(message[0].pointvalues);
 
 				var selected = req.body;
 				if(selected.length !== answers.length){
-					res.send("error: answer length mismatch");
+					res.send({error: "answer length mismatch"});
 					return;
 				}
 
@@ -69,7 +71,7 @@ router.route('/:id')
 				});
 			}else{
 				console.log("ERROR: Couldn't get correct answers for quiz " + quizId );
-				res.send("error");
+				res.send({error: "Quiz does not exist or is closed to submission."});
 			}
 		})
 	})
