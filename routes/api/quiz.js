@@ -117,8 +117,10 @@ router.route('/:id/results')
 					});
 				}
 				else {
-					res.send(message[0]);
-					db.query("UPDATE results SET viewed=1 WHERE userid=? AND quizid=?", [userId, id], function(){});
+					db.query("UPDATE results SET viewed=1 WHERE userid=? AND quizid=?", [userId, id], function(){
+						res.send(message[0]);
+					});
+					
 				}
 			});
 		});
