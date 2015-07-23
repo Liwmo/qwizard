@@ -24,11 +24,12 @@ router.route('/:id')
 	.get(function(req, res){
 		var today = (new Date()).toISOString().substr(0,10);
 		var id = parseInt(req.params.id) || -1;
-		db.query('Select title, questions from quizzes where id=? and publish<=?', [id, today], function(err, message){
+		db.query('Select title, questions, results from quizzes where id=? and publish<=?', [id, today], function(err, message){
 			if(!err && message.length) {
 				var quiz = {
 					title: message[0].title,
-					questions: JSON.parse(message[0].questions)
+					questions: JSON.parse(message[0].questions),
+					closeDate: message[0].results 
 				};
 				res.send(quiz);
 			}
@@ -38,15 +39,17 @@ router.route('/:id')
 		});
 	})
 	.post(function(req, res){
+		var today = (new Date()).toISOString().substr(0,10);
 		var quizId = parseInt(req.params.id) || -1;
-		db.query('Select answers, pointvalues from quizzes where id=?', quizId, function(err, message){
+		db.query('Select answers, pointvalues from quizzes where id=? and results>?', [quizId, today], function(err, message){
 			if(!err && message.length) {
 				var answers = JSON.parse(message[0].answers);
 				var pointValues = JSON.parse(message[0].pointvalues);
 
 				var selected = req.body;
 				if(selected.length !== answers.length){
-					res.send("error: answer length mismatch");
+					console.log("ALERT: Attempt to submit invalid answers #" + quizId);
+					res.send({error: "answer length mismatch"});
 					return;
 				}
 
@@ -68,8 +71,8 @@ router.route('/:id')
 					});
 				});
 			}else{
-				console.log("ERROR: Couldn't get correct answers for quiz " + quizId );
-				res.send("error");
+				console.log("ERROR: Quiz doesn't exist or closed to submission #" + quizId );
+				res.send({error: "Quiz does not exist or is closed to submission."});
 			}
 		})
 	})
@@ -106,25 +109,24 @@ router.route('/:id/results')
 			db.query(getQuizQuery, [id, id, userId], function(err, message) {
 				if (err){
 					res.send({error: 'no results for user-quiz pair'});
-				}
-				else if (message.length <= 0) {
+				}else if (message.length <= 0) {
 					db.query(getQuizNoUser, [id], function(err, message) {
-						if (err || message.length <= 0) {
-							console.log("ERROR: Request for quiz, not found");
+						if (err || message.length <= 0) { //Bad quiz or other error
 							res.send({error: 'could not find quiz'});
 						}
-						else {
-							console.log("ALERT: User didn't take quiz, returning answers");
+						else { //No user-selected answers, good quiz
 							res.send(message[0]);
 						}
 					});
 				}
-				else{
-					res.send(message[0]);
+				else {
+					db.query("UPDATE results SET viewed=1 WHERE userid=? AND quizid=?", [userId, id], function(){
+						res.send(message[0]);
+					});
+					
 				}
 			});
 		});
 	});
-		
-
+	
 module.exports = router;

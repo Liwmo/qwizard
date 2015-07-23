@@ -1,6 +1,7 @@
 describe('Results page test: ', function() {
 
         it('Should log in and set up the mocks', function() {
+            console.log('\n-----------Results Page Suite----------------');
             browser.get('http://localhost:3000/logout');
             browser.get('http://localhost:3000');
             element(by.css('[type="text"]')).sendKeys('proj-1189-bind');

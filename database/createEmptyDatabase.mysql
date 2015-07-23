@@ -1,7 +1,8 @@
 DROP DATABASE IF EXISTS qwizard_dev;
+DROP DATABASE IF EXISTS qwizard;
 
-CREATE DATABASE qwizard_dev;
-use qwizard_dev;
+CREATE DATABASE qwizard;
+use qwizard;
 
 CREATE TABLE users (
 	id INT NOT NULL AUTO_INCREMENT,
@@ -20,7 +21,7 @@ CREATE TABLE tokens (
 CREATE TABLE quizzes (
 	id INT NOT NULL AUTO_INCREMENT,
 	title VARCHAR(40) NOT NULL,
-	question LONGTEXT NOT NULL,
+	questions LONGTEXT NOT NULL,
 	answers LONGTEXT NOT NULL,
 	author INT,
 	results date,
@@ -34,12 +35,13 @@ CREATE TABLE results (
 	userid INT NOT NULL,
     points INT NOT NULL,
     answers LONGTEXT NOT NULL,
+    viewed INT NOT NULL DEFAULT 0,
     FOREIGN KEY (quizid) REFERENCES quizzes(id),
     FOREIGN KEY (userid) REFERENCES users(id),
     PRIMARY KEY (quizid, userid)
 );
 
-create table qwizard_dev.notifications(
+create table notifications(
 	quizId INT NOT NULL,
 	userID INT NOT NULL,
 	typeID INT NOT NULL,

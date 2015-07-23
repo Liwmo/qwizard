@@ -27,9 +27,15 @@ input {
     max-height: 2em;
     display: block;
 }
+
 .text-input:focus {
+    border-bottom:solid 0.15rem rgba(150, 150, 150, 1);
+}
+
+.teal-medium.text-input:focus {
     border-bottom:solid 0.15rem rgba(255, 255, 245, 1);
 }
+
 
 #add-question{
     font-family: "Signika";
@@ -138,6 +144,10 @@ maker-question input[type=range]::-moz-range-thumb {
 .text-input.large {
     font-size: 1.3em;
     font-family: 'Signika';
+}
+
+#quiz_name{
+    width: 18em;
 }
 
 #quiz_name::-webkit-input-placeholder  {
