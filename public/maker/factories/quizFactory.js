@@ -69,6 +69,7 @@ app.factory("quizFactory", ["$http", function($http){
 	};
 
 	self.saveQuiz = function(quiz, callback){
+		console.log(quiz);
 		var endpoint = '/api/maker/quiz';
 		if(quiz.id) {
 			endpoint += '/' + quiz.id;

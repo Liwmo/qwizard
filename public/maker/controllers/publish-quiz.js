@@ -12,6 +12,7 @@ app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFact
   $scope.rightAction = $scope.popupToggle;
 
   $scope.publish = function() {
+    console.log($scope.startDate, $scope.endDate);
   	if (!$scope.verifyDateExistance()) {
   		setPopup("Must set a publish date.");
       return;
@@ -59,12 +60,19 @@ app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFact
 		if(!$scope.endDate) {
 			return false;
 		}
+    if(!verifyDate($scope.startDate)){
+      return false;
+    }
+    if(!verifyDate($scope.endDate)){
+      return false;
+    }
 		return true;
 	};
 
 	$scope.verifyStart = function() {
 		var selected = $scope.startDate;
-		var today = new Date();
+		var today = (new Date()).toISOString().substr(0,10);
+    console.log(selected);
 		if(selected < today) {
 			return false;	
 		}
@@ -74,22 +82,31 @@ app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFact
 	$scope.verifyEnd = function() {
 		var selected = $scope.endDate;
 		var start = $scope.startDate;
-		if(selected < start) {
+		if(selected <= start) {
 			return false;	
 		}
 		return true;
 	};
 
+  var verifyDate = function(date){
+    if(date instanceof Date){
+      date = date.toISOString().substr(0,10);
+    }
+    var proper = date.match(/^\d{4}-\d{2}-\d{2}$/);
+    var castable = !isNaN((new Date(date)).getTime());
+    return proper && castable;
+  };
+
   $scope.redirectToManagementPage = function() {
     $location.path('/');
   };
-
+  
   var startDate = document.getElementsByName("start-date")[0];
   var endDate = document.getElementsByName("end-date")[0];
   if(startDate && endDate){
     startDate.onchange = endDate.onchange = function(){
-      $scope.startDate = new Date(startDate.value + new Date().toString().slice(-5));
-      $scope.endDate = new Date(endDate.value + new Date().toString().slice(-5));
+      $scope.startDate = startDate.value;
+      $scope.endDate = endDate.value;
     };
   }
 }]);
