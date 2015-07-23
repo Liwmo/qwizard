@@ -47,7 +47,7 @@ start() {
 
         forever --pidFile $PIDFILE --uid $NODE_ENV --sourceDir $APPLICATION_DIRECTORY \
             -a -l $LOGFILE --minUptime 5000 --spinSleepTime 2000 \
-            start -c "npm run-script start-production" ./ | addDate >> $LOGFILE &
+            start -c "npm run-script start-production" ./ | addDate >> qwizard.log &
         RETVAL=$?
 
         echo "Started $NAME."
