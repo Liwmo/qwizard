@@ -30,9 +30,14 @@ app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$locati
     };
 
     quizFactory.getQuiz($scope.quizId, function(data){
-        console.log('data: ', data);
-        $scope.name = data.title;
-        $scope.questions = data.questions;
+        var today = new Date();
+        if(new Date(data.closeDate) < today){
+            $scope.error = "Quiz submission is closed";
+            console.log("Quiz submission is close");
+        }else{
+            $scope.name = data.title;
+            $scope.questions = data.questions;
+        }
     });
 }]);
 

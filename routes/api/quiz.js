@@ -24,11 +24,12 @@ router.route('/:id')
 	.get(function(req, res){
 		var today = (new Date()).toISOString().substr(0,10);
 		var id = parseInt(req.params.id) || -1;
-		db.query('Select title, questions from quizzes where id=? and publish<=?', [id, today], function(err, message){
+		db.query('Select title, questions, results from quizzes where id=? and publish<=?', [id, today], function(err, message){
 			if(!err && message.length) {
 				var quiz = {
 					title: message[0].title,
-					questions: JSON.parse(message[0].questions)
+					questions: JSON.parse(message[0].questions),
+					closeDate: message[0].results 
 				};
 				res.send(quiz);
 			}
@@ -40,7 +41,6 @@ router.route('/:id')
 	.post(function(req, res){
 		var today = (new Date()).toISOString().substr(0,10);
 		var quizId = parseInt(req.params.id) || -1;
-		console.log(req.body);
 		db.query('Select answers, pointvalues from quizzes where id=? and results>?', [quizId, today], function(err, message){
 			if(!err && message.length) {
 				var answers = JSON.parse(message[0].answers);
@@ -48,6 +48,7 @@ router.route('/:id')
 
 				var selected = req.body;
 				if(selected.length !== answers.length){
+					console.log("ALERT: Attempt to submit invalid answers #" + quizId);
 					res.send({error: "answer length mismatch"});
 					return;
 				}
@@ -70,7 +71,7 @@ router.route('/:id')
 					});
 				});
 			}else{
-				console.log("ERROR: Couldn't get correct answers for quiz " + quizId );
+				console.log("ERROR: Quiz doesn't exist or closed to submission #" + quizId );
 				res.send({error: "Quiz does not exist or is closed to submission."});
 			}
 		})
