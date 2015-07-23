@@ -26,6 +26,13 @@ export NODE_ENV=$NODE_ENV
 export NODE_PATH=$NODE_PATH
 export NODE_TLS_REJECT_UNAUTHORIZED=$NODE_TLS_REJECT_UNAUTHORIZED
 
+addDate() {
+    while IFS= read -r line; do
+        echo "$(date) $line"
+    done
+}
+
+
 _pid() {
     if [ -f $PIDFILE ]
     then
@@ -40,7 +47,7 @@ start() {
 
         forever --pidFile $PIDFILE --uid $NODE_ENV --sourceDir $APPLICATION_DIRECTORY \
             -a -l $LOGFILE --minUptime 5000 --spinSleepTime 2000 \
-            start -c "npm run-script start-production" ./ > $LOGFILE &
+            start -c "npm run-script start-production" ./ | addDate > $LOGFILE &
         RETVAL=$?
 
         echo "Started $NAME."

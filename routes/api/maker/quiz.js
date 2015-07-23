@@ -33,7 +33,7 @@ router.put('/:id', function(req, res){
 	var quiz = req.body;
 
 	if (typeof quiz !== "object" || JSON.stringify(quiz) === "{}"){
-		console.log("ERROR: Attempt to save invalid quiz");
+		console.log("ERROR: UserId: " + userId + " attempted to save invalid quiz");
 		res.send({error: "Data is invalid"});
 		return;
 	}
@@ -65,7 +65,7 @@ router.put('/:id', function(req, res){
 				console.log('ERROR: '+ err)
 				res.send(err);
 			}else{
-				console.log("NOTE: after updating server said this: ", message.affectedRows);
+				console.log("NOTE: UserId " + userId + " saved quiz " + req.params.id + ". Rows affected after updating: ", message.affectedRows);
 				if(message.affectedRows == 0) {
 					res.send({error: "Quiz-Author pair is invalid."})
 				}

@@ -37,7 +37,6 @@ router.route('/:id')
 						res.send(message[0]);
 					}
 					else {
-						console.log('Error with Query');
 						res.send("error");
 					}
 				})

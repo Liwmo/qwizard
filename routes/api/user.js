@@ -11,7 +11,6 @@ router.route('/role')
                     console.log("ERROR: SQL query error");
                      res.send({error: err});
                  } else if (!result.length) {
-                    console.log("ERROR: User doesn't have ");
                     res.send({error: "Unable to lookup specified user in database!"});
                  } else {
                          res.send(result[0]);
@@ -26,7 +25,6 @@ router.route('/id')
             if(userId){
                 res.send({id: userId});
             }else{
-                console.log("ERROR: No associated ID");
                 res.send({error: 'no associated userId'});
             }
         });
