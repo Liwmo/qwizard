@@ -96,7 +96,7 @@ describe('Manage quiz - Publish: ', function() {
 
     it('Should redirect to manage quizzes on successful publish', function() {
         element(by.name('start-date')).sendKeys('2050-01-01');
-        element(by.name('end-date')).sendKeys('2050-01-01');
+        element(by.name('end-date')).sendKeys('2050-01-02');
         element(by.name('publish')).click();
         browser.sleep(100);
 
