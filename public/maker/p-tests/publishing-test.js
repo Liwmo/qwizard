@@ -64,8 +64,8 @@ describe('Manage quiz - Publish: ', function() {
     });
 
     it('Should error on publish if start date is a past date', function() {
-        element(by.name('start-date')).sendKeys('07/01/2015');
-        element(by.name('end-date')).sendKeys('07/02/2015');
+        element(by.name('start-date')).sendKeys('2015-07-01');
+        element(by.name('end-date')).sendKeys('2015-07-02');
         element(by.name('publish')).click();
         expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
         browser.sleep(500);
@@ -75,8 +75,8 @@ describe('Manage quiz - Publish: ', function() {
     });
 
     it('Should error on publish if end date is earlier than start date', function() {
-        element(by.name('start-date')).sendKeys('02/02/2050');
-        element(by.name('end-date')).sendKeys('01/01/2050');
+        element(by.name('start-date')).sendKeys('2025-07-02');
+        element(by.name('end-date')).sendKeys('2020-07-02');
         element(by.name('publish')).click();
         expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
         browser.sleep(500);
@@ -85,9 +85,18 @@ describe('Manage quiz - Publish: ', function() {
         element(by.name('end-date')).clear();
     });
 
-    it('Should redirect to manage quizzes on successful publish', function() {
+    it('Should keep start date as is when entering end date', function() {
         element(by.name('start-date')).sendKeys('2050-01-01');
         element(by.name('end-date')).sendKeys('2050-02-02');
+        browser.sleep(500);
+        expect(element(by.name('start-date')).getAttribute('value')).toMatch('2050-01-01');
+        element(by.name('start-date')).clear();
+        element(by.name('end-date')).clear();
+    });
+
+    it('Should redirect to manage quizzes on successful publish', function() {
+        element(by.name('start-date')).sendKeys('2050-01-01');
+        element(by.name('end-date')).sendKeys('2050-01-02');
         element(by.name('publish')).click();
         browser.sleep(100);
 
