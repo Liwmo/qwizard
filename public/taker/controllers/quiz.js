@@ -26,9 +26,11 @@ app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$locati
 
     quizFactory.getQuiz($scope.quizId, function(data){
         var today = new Date();
+        console.log(data.closeDate);
         if(new Date(data.closeDate) < today){
             $scope.error = "Quiz submission is closed";
-            console.log("Quiz submission is closed");
+            console.log("redirecting to: " + '/results/' + $scope.quizId);
+            $location.path('/results/' + $scope.quizId);
         }else{
             $scope.name = data.title;
             $scope.questions = data.questions;
