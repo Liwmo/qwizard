@@ -6,7 +6,7 @@ var request = require('request');
 var db = require('../database/db');
 
 
-describe("Publish API endpoint", function(done){
+describe("UserScore API endpoint: ", function(done){
 	var userID = 0;
 
     var options = {

@@ -1,0 +1,1 @@
+NODE_ENV=production $(which node) /opt/qwizard/dailyCode/sendEmails.js

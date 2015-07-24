@@ -18,7 +18,6 @@ router.route('/')
 				}else{
 					res.send(results);
 				}
-				console.log(query.sql);
 			});
 		});
 	});
@@ -37,7 +36,6 @@ router.route('/remove/:id')
 				}else{
 					res.send(results);
 				}
-				console.log(query.sql);
 			});
 		});
 	});
