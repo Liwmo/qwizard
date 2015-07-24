@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "NODE_ENV=development node ./bin/www",
-    "start-production": "NODE_ENV=production PORT=443 node ./bin/www",
+    "start-production": "NODE_ENV=production node ./bin/www",
     "uat-taker": "webdriver-manager start & protractor public/taker/p-tests/conf.js --no-verbose --no-stackTrace --resultJsonOutputFile=TakerResults.json",
     "uat-maker": "webdriver-manager start & protractor public/maker/p-tests/conf.js --no-verbose --no-stackTrace --resultJsonOutputFile=MakerResults.json",
     "init-db": "mysql -u root < database/createEmptyDatabase.mysql",
