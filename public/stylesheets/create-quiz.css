@@ -257,12 +257,12 @@ maker-question .add-choice {
     padding-top: .5em;
     border: none;
     border-color: transparent;
-    border-bottom: solid .15em #A19AA0;
+    border-bottom: solid 1px #A19AA0;
     font-family: 'Signika';
     font-weight: 300;
 }
 
-.publish-send {
+.publish-label {
     width: 100%;
     font-weight: 300;
 }
@@ -277,9 +277,7 @@ maker-question .add-choice {
 }
 
 .publish-overview {
-    padding-top: 1em;
-    padding-left: 3em;
-    padding-right: 3em;
+    padding: 1em 3em 2em;
     border-bottom:.15em solid #f1eaf0;
 }
 
