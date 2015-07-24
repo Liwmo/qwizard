@@ -37,7 +37,7 @@ router.route('/:id')
 						res.send(message[0]);
 					}
 					else {
-						console.log('Error with Query');
+						console.log("ERROR: There was an error fetching user " + userId + "'s results for quiz " + id + ".");
 						res.send("error");
 					}
 				})

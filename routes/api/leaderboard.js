@@ -33,7 +33,6 @@ router.route('/since/:date')
 			query +=	'from users as u, results as r, quizzes as q ';
 			query += 	'where r.userid=u.id and r.quizid=q.id and q.results>=? ';
 			query += 	'group by userid';
-		console.log(query);
 		db.query(query, date.toISOString().substr(0,10), function(err, message) {
 			if(err) {
 				res.send({error: 'cannot access leaderboard data'});
