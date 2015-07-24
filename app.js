@@ -20,7 +20,7 @@ app.set('view engine', 'hbs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 
-app.use(logger('User IP: :remote-addr ":method :url HTTP/:http-version" - :status'));
+app.use(logger(':date  User IP: :remote-addr ":method :url HTTP/:http-version" - :status'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
