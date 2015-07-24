@@ -9,7 +9,8 @@ describe("Quiz Results endpoint", function(done){
     var options = {
         url: "http://localhost:3000/maker/",
         headers: {
-            'cookie': "login=a"
+            'cookie': "login=a",
+            'content-type': 'application/json'
         },
         form: {
             'title': 'BLAHBLAH' 
@@ -43,8 +44,6 @@ describe("Quiz Results endpoint", function(done){
         });
     });
     it("Request to /api/quiz/:id/results will return quiz (without selected) for invalid user and valid quiz id", function(done) {
-        options.url = "http://localhost:3000/api/quiz/1/results";
-
         var quiz = {
             answers: "[[2]]",
             results: "12-5-2014",
@@ -71,6 +70,19 @@ describe("Quiz Results endpoint", function(done){
             });
         });
         
+    });
+
+    it("Attempting to POST quiz results after the publish date will return error", function(done) {
+        delete options.form; 
+        options.body = JSON.stringify([{"answer":[1]}]);
+        options.url = "http://localhost:3000/api/quiz/" + quizId;
+
+        request.post(options, function(err, response, body) {
+            body = JSON.parse(body);
+            assert.ok(body.error);
+            console.log(body);
+            done();
+        });
     });
 
     it("Request to /api/quiz/:id/results will return quiz for valid user and quiz id", function(done) {

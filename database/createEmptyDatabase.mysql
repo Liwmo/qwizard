@@ -41,7 +41,7 @@ CREATE TABLE results (
     PRIMARY KEY (quizid, userid)
 );
 
-create table qwizard.notifications(
+create table notifications(
 	quizId INT NOT NULL,
 	userID INT NOT NULL,
 	typeID INT NOT NULL,

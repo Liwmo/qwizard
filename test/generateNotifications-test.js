@@ -6,46 +6,50 @@ var tasks = require('../dailyCode/notificationGenerator');
 var convert = require('../routes/userConversion');
 var today = (new Date()).toISOString().substr(0,10);
 
-var firstQuiz = 0;
 var bindId = 1;
 
 describe('Notification Generator Tests', function(){
 	it('should set up database before tests', function(done){
-		var totalQueries = 4;
+		var totalQueries = 6;
 		var finishedQueries = 0;
 		var finished = function(err, message){
-			firstQuiz = firstQuiz || message.insertId;
 			finishedQueries++;
 			if(finishedQueries == totalQueries){
 				done();
 			}
 		};
-		convert.nameToId('proj-1189-bind', function(id) {
-			bindId = id;
-			db.query('delete from notifications where userId=' + bindId, function(err, message) {
-				finished(err, message);
-				db.query('insert into quizzes SET ?', {
-					title: "",
-					questions: "",
-					answers: "",
-					publish: "2015-01-01",
-					results: today
-				}, function(err, message){
-					finished(err, message);
-					db.query('insert into notifications SET ?', {
-						quizId: message.insertId,
-						userId: bindId,
-						typeId: 1
+		db.query('delete from results', function(err, message) {
+			finished();
+			db.query('delete from quizzes', function(err, message) {
+				finished();
+				convert.nameToId('proj-1189-bind', function(id) {
+					bindId = id;
+					db.query('delete from notifications where userId=' + bindId, function(err, message) {
+						finished(err, message);
+						db.query('insert into quizzes SET ?', {
+							title: "",
+							questions: "",
+							answers: "",
+							publish: "2015-01-01",
+							results: today
+						}, function(err, message){
+							finished(err, message);
+							db.query('insert into notifications SET ?', {
+								quizId: message.insertId,
+								userId: bindId,
+								typeId: 1
+							}, finished);
+						});
+					});
+					db.query('insert into quizzes SET ?', {
+						title: "",
+						questions: "",
+						answers: "",
+						publish: today,
+						results: "2222-01-01"
 					}, finished);
-				});
+				})
 			});
-			db.query('insert into quizzes SET ?', {
-				title: "",
-				questions: "",
-				answers: "",
-				publish: today,
-				results: "2222-01-01"
-			}, finished);
 		});
 	});
 
@@ -74,7 +78,7 @@ describe('Notification Generator Tests', function(){
 			});
 		});
 	});
-	it('should add Notifications for quizzes available today', function(done){
+	it('should add notifications for quizzes that wrapped up today', function(done){
 		var notificationCount = 0;
 		db.query('select * from notifications where userId=' + bindId, function(err, message){
 			notificationCount = message.length;
@@ -89,11 +93,9 @@ describe('Notification Generator Tests', function(){
 
 
 	it('should cleanup database', function(done){
-		db.query('delete from notifications where quizId>=?', firstQuiz, function(err, message){
-			db.query('delete from quizzes where id>=?', firstQuiz, function(err, message){
-				db.query('alter table quizzes auto_increment=', firstQuiz, function(){
-					done();
-				});
+		db.query('delete from notifications', function(err, message){
+			db.query('delete from quizzes', function(err, message){
+				done();				
 			});
 		});
 	});
