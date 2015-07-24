@@ -33,7 +33,10 @@
 	z-index:2;
 }
 #results .quizName {
-	font-size:1.5em;
+	font-size:1.2em;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 #results .result{
@@ -56,6 +59,7 @@
 
 #results .info .subText {
 	color: rgba(51,37,50,.8);
+	font-size: .8em;
 }
 
 #results .points{
