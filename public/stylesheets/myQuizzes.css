@@ -29,8 +29,14 @@
 	font-family:Dosis;
 	overflow-y: auto;
 }
+#results .header {
+	z-index:2;
+}
 #results .quizName {
-	font-size:1.5em;
+	font-size:1.2em;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 #results .result{
@@ -39,7 +45,6 @@
 	color: black;
 	-webkit-align-items:center;
 	align-items:center;
-	z-index:-1;
 	height:4rem;
 }
 #results .dot{
@@ -51,11 +56,10 @@
 #results .info {
 	overflow:hidden;
 }
-#results .info .quizName {
-	overflow:auto;
-}
+
 #results .info .subText {
 	color: rgba(51,37,50,.8);
+	font-size: .8em;
 }
 
 #results .points{

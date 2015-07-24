@@ -3,16 +3,16 @@ var convert = require('./userConversion');
 
 module.exports.authenticateCookie = function(req, res, next) {
     // console.log('NOTE: route caught, running authenticateCookie');
-    // console.log(req.originalUrl);
-    db.query('SELECT * FROM tokens WHERE cookie=?', req.cookies.login || '', function(err, results) {
+    console.log('cookies: ', req.cookies);
+    var query = db.query('SELECT * FROM tokens WHERE cookie=?', req.cookies.login || '', function(err, results) {
         if(err || !results.length) {
             console.log("ERROR: User's cookie was invalid");
             if(req.originalUrl.indexOf("api") > -1){
                 res.send({error: 'cookie not authenticated'});
             }else{
                 res.redirect('/logout');
+                console.log("NOTE: Sending user back to the root");
             }
-            console.log("NOTE: Sending user back to the root");
         } else {
             // console.log('NOTE: cookie authenticated');
             next();

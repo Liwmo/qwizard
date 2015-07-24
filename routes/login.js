@@ -84,7 +84,7 @@ router.post('/', function(req, res, next) {
                                 if(err){
                                     res.redirect('/');
                                 }else{
-                                    res.cookie('login', cookie, {maxAge: 365 * 24 * 60 * 60 * 1000});
+                                    res.cookie('login', cookie, {path: '/', maxAge: 365 * 24 * 60 * 60 * 1000});
                                     res.redirect('/taker');
                                 }
                             });
@@ -95,7 +95,7 @@ router.post('/', function(req, res, next) {
                         if(err){
                             res.redirect('/');
                         }else{
-                            res.cookie('login', cookie, {maxAge: 365 * 24 * 60 * 60 * 1000});
+                            res.cookie('login', cookie, {path: '/', maxAge: 365 * 24 * 60 * 60 * 1000});
                             res.redirect('/taker');
                         }
                     });
