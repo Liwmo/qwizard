@@ -82,7 +82,7 @@ router.route('/:id')
 			db.query('select author from quizzes where id=' + quizId + " and author=" + userId, function(err, message) {
 				if (err) {console.log(err); res.send({error: err});}
 				if (message.length > 0) {
-					console.log("ALERT: Removing Quiz and results - " + quizId);
+					console.log("ALERT: UserId " + userId + " removed quiz " + quizId + " and results");
 					db.query('delete from results where quizid=' + quizId, function(err, message){
 						db.query('delete from quizzes where id=' + quizId, function(err, message) {
 							if (err) {console.log(err); res.send({error: err});}

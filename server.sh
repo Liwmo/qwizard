@@ -40,7 +40,7 @@ start() {
 
         forever --pidFile $PIDFILE --uid $NODE_ENV --sourceDir $APPLICATION_DIRECTORY \
             -a -l $LOGFILE --minUptime 5000 --spinSleepTime 2000 \
-            start bin/www > $LOGFILE &
+            start bin/www >> $LOGFILE &
         RETVAL=$?
 
         echo "Started $NAME."
