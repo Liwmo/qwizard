@@ -35,7 +35,7 @@ app.set('port', port);
 
 var server;
 if(app.get('env') === 'production') {
-  server = https.createServer(credentials, app); 
+  server = http.createServer(app);  
 
 } else {
   server = http.createServer(app); 
