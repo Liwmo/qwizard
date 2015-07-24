@@ -33,42 +33,42 @@ describe('Menu bar: ', function() {
 	it('the user should be navigated to /#/myQuizzes after clicking quizzes button', function() {
 		openMenu();
 	    element(by.css('a[href="#/myQuizzes"]')).click();
-	    browser.sleep(100);
+	    browser.sleep(1000);
 	    expect(browser.getCurrentUrl()).toBe('http://localhost:3000/taker/#/myQuizzes');
 	});
 
 	it('the user should be navigated to /#/manage after clicking manage button', function() {
 		openMenu();
 	    element(by.css('a[href="/maker"]')).click();
-	    browser.sleep(500);
+	    browser.sleep(1000);
 	    expect(browser.getCurrentUrl()).toContain('http://localhost:3000/maker/');
 	});
 
 	it('the user should be navigated to /#/create after clicking create button', function() {
 		openMenu();
 	    element(by.css('a[href="/maker/#/create"]')).click();
-	    browser.sleep(100);
+	    browser.sleep(1000);
 	    expect(browser.getCurrentUrl()).toBe('http://localhost:3000/maker/#/create');
 	});
 
 	it('the user should be navigated to /#/leaderboard after clicking leaderboard button', function() {
 		openMenu();
 	    element(by.css('a[href="#/leaderboard"]')).click();
-	    browser.sleep(100);
+	    browser.sleep(1000);
 	    expect(browser.getCurrentUrl()).toBe('http://localhost:3000/taker/#/leaderboard');
 	});
 
 	it('the user should be navigated to /#/info after clicking info button', function() {
 		openMenu();
 	    element(by.css('a[href="#/info"]')).click();
-	    browser.sleep(100);
+	    browser.sleep(1000);
 	    expect(browser.getCurrentUrl()).toBe('http://localhost:3000/taker/#/info');
 	});
 
 	it('the user should be navigated to /#/logout after clicking logout button', function() {
 		openMenu();
 	    element(by.css('a[href="/logout"]')).click();
-	    browser.sleep(100);
+	    browser.sleep(1000);
 	    expect(browser.getCurrentUrl()).toBe('http://localhost:3000/');
 	});
 
