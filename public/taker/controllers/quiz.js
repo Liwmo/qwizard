@@ -17,8 +17,7 @@ app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$locati
     };
 
     $scope.submit = function(){
-
-    quizFactory.postQuiz($scope.quizId, function(data){
+        quizFactory.postQuiz($scope.quizId, function(data){
             notificationFactory.addNotification("Thanks for taking the " + $scope.name + " quiz! Your results will be available soon!", "#/");
             $location.path('/');
         });
