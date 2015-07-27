@@ -142,8 +142,8 @@ describe('My Quizzes: ', function() {
 		browser.addMockModule('httpBackendMock', httpBackendMock);
 		browser.get('http://localhost:3000/taker/#/myQuizzes');
 		browser.sleep(500);
-		expect(element.all(by.css('.dot')).first().getAttribute('class')).toNotMatch('ng-hide');
-		expect(element.all(by.css('.dot')).get(1).getAttribute('class')).toMatch('ng-hide');
+		expect(element.all(by.css('.dot')).first().getAttribute('class')).toNotMatch('viewed');
+		expect(element.all(by.css('.dot')).get(1).getAttribute('class')).toMatch('viewed');
 		browser.removeMockModule('httpBackendMock');
 	});
 
