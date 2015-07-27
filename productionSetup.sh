@@ -2,7 +2,6 @@ sudo yum install nodejs
 sudo yum install npm
 npm install forever -g
 
-#Allows node to run on ports less than 1024
 NODE_PATH=$(which node)
 
 sudo yum install mysql

@@ -4,4 +4,3 @@ FLUSH PRIVILEGES;
 CREATE USER 'Qwizard'@'localhost' IDENTIFIED BY 'iS#0&dZoT@&$Vi';
 GRANT ALL PRIVILEGES ON qwizard.* TO 'Qwizard'@'localhost';
 FLUSH PRIVILEGES;
-DROP 

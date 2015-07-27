@@ -8,18 +8,6 @@ var app = require('../app');
 var debug = require('debug')('BlankExpressProject:server');
 var http = require('http');
 var https = require('https');
-var fs = require('fs');
-var path = require('path');
-
-
-var keyPath = path.join(__dirname, '../security/qwizard.key');
-var crtPath = path.join(__dirname, '../security/qwizard.crt');
-
-
-var privateKey = fs.readFileSync(keyPath, 'utf8');
-var certificate = fs.readFileSync(crtPath, 'utf8');
-
-var credentials = {key: privateKey, cert: certificate};
 
 /**
  * Get port from environment and store in Express.
@@ -36,7 +24,6 @@ app.set('port', port);
 var server;
 if(app.get('env') === 'production') {
   server = http.createServer(app);  
-
 } else {
   server = http.createServer(app); 
 }
