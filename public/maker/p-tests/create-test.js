@@ -264,7 +264,7 @@ describe('create quiz', function() {
         });
     });
 
-describe('MA Testing', function() {
+    describe('MA Testing', function() {
         var quizNameInput = element(by.id('quiz_name'));
         var questionNameInput = element(by.css('[ng-model="questionName"]'));
         var questionTextInput = element(by.css('[ng-model="questionText"]'));
@@ -279,7 +279,23 @@ describe('MA Testing', function() {
 
         it('should have the ability to select a type Matching', function() {
             element(by.cssContainingText("option","Matching")).click();
-            expect(element(by.css("[ng-show=\"questionType=='ms'\"]")).getAttribute('class')).toNotMatch('ng-hide');
+            element.all(by.css("[ng-show=\"questionType=='ma'\"].ng-hide")).then(function(els) {
+                expect(els.length).toBe(0);
+            });
+        });
+
+        it('should have 4 clue fields', function() {
+            element(by.cssContainingText("option","Matching")).click();
+            element.all(by.css('maker-question .clue')).then(function(elements) {
+                expect(elements.length).toBe(4);
+            });
+        });
+
+        it('should have 4 answer fields', function() {
+            element(by.cssContainingText("option","Matching")).click();
+            element.all(by.css('maker-question .answer')).then(function(elements) {
+                expect(elements.length).toBe(4);
+            });
         });
 
 
