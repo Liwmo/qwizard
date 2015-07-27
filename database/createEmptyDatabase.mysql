@@ -33,7 +33,7 @@ CREATE TABLE quizzes (
 CREATE TABLE results (
 	quizid INT NOT NULL,
 	userid INT NOT NULL,
-    points INT NOT NULL,
+    points INT,
     answers LONGTEXT NOT NULL,
     viewed INT NOT NULL DEFAULT 0,
     FOREIGN KEY (quizid) REFERENCES quizzes(id),

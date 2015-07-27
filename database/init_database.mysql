@@ -27,7 +27,7 @@ CREATE TABLE quizzes (
 CREATE TABLE results (
 	quizid INT NOT NULL,
 	userid INT NOT NULL,
-    points INT NOT NULL,
+    points INT,
     answers LONGTEXT NOT NULL,
     FOREIGN KEY (quizid) REFERENCES quizzes(id),
     FOREIGN KEY (userid) REFERENCES users(id),
