@@ -264,21 +264,17 @@ describe('create quiz', function() {
         });
     });
 
-    it('should not allow one to type more than 150 characters into the question text field', function() {
+    it('should not allow one to type more than 300 characters into the question text field', function() {
         element(by.css('[ng-model="questionText"]')).clear();
-        var tooMuchText = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
-                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
-                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii';
+        var tooMuchText = new Array(600).join('i');
 
         element(by.css('[ng-model="questionText"]')).sendKeys(tooMuchText);
-        expect(element(by.css('[ng-model="questionText"]')).getAttribute('value')).toBe("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+        expect(element(by.css('[ng-model="questionText"]')).getAttribute('value')).toBe(new Array(301).join('i'));
     });
 
     it('should not allow one to type more than 20 characters into the question title field', function() {
         element(by.css('[ng-model="questionName"]')).clear();
-        var tooMuchText = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
-                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
-                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii';
+        var tooMuchText = new Array(600).join('i');
 
         element(by.css('[ng-model="questionName"]')).sendKeys(tooMuchText);
         expect(element(by.css('[ng-model="questionName"]')).getAttribute('value')).toBe("iiiiiiiiiiiiiiiiiiii");
@@ -286,9 +282,7 @@ describe('create quiz', function() {
 
     it('should not allow one to type more than 20 characters into the quiz title field', function() {
         element(by.css('[ng-model="quizName"]')).clear();
-        var tooMuchText = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
-                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
-                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii';
+        var tooMuchText = new Array(600).join('i');
 
         element(by.css('[ng-model="quizName"]')).sendKeys(tooMuchText);
         expect(element(by.css('[ng-model="quizName"]')).getAttribute('value')).toBe("iiiiiiiiiiiiiiiiiiii");
@@ -297,12 +291,10 @@ describe('create quiz', function() {
     it('should not allow one to type more than 50 characters into the answer text field', function() {
         element(by.cssContainingText("option","Multiple Choice")).click();
         element(by.css('[ng-model="possibleAnswers[$index]"]')).clear();
-        var tooMuchText = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
-                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
-                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii';
+        var tooMuchText = new Array(600).join('i');
 
         element(by.css('[ng-model="possibleAnswers[$index]"]')).sendKeys(tooMuchText);
-        expect(element(by.css('[ng-model="possibleAnswers[$index]"]')).getAttribute('value')).toBe("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+        expect(element(by.css('[ng-model="possibleAnswers[$index]"]')).getAttribute('value')).toBe(new Array(51).join('i'));
     });
 
     it('logout', function() {

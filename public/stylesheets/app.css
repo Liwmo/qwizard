@@ -329,6 +329,20 @@ hr{
     max-width:45em;
 }
 
+[ng-bind-html] a{
+    color: #17a587;
+}
+
+[ng-bind-html] a:hover{
+    text-decoration: underline;
+}
+
+[ng-bind-html] img{
+    display: block;
+    max-width: 90%;
+    margin: 0.8em auto;
+}
+
 .resultsHeader {
     padding: .2em .5em;
     color: #fffff5;
