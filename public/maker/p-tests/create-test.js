@@ -264,44 +264,86 @@ describe('create quiz', function() {
         });
     });
 
-    describe('MA Testing', function() {
-        var quizNameInput = element(by.id('quiz_name'));
-        var questionNameInput = element(by.css('[ng-model="questionName"]'));
-        var questionTextInput = element(by.css('[ng-model="questionText"]'));
-        var popup = element(by.css('.popup'));
-        var popupText = element(by.css('.popup .noselect'));
-        var publish = element(by.css('[ng-click="publishQuiz()"]'));
-        var dismiss = element(by.css('[ng-click="leftAction()"]'));
+    it("Run MA", function() {
+        describe('MA Testing', function() {
+            var quizNameInput = element(by.id('quiz_name'));
+            var questionNameInput = element(by.css('[ng-model="questionName"]'));
+            var questionTextInput = element(by.css('[ng-model="questionText"]'));
+            var popup = element(by.css('.popup'));
+            var popupText = element(by.css('.popup .noselect'));
+            var publish = element(by.css('[ng-click="publishQuiz()"]'));
+            var dismiss = element(by.css('[ng-click="leftAction()"]'));
 
-        beforeEach(function() {
-            browser.get("http://localhost:3000/maker/#/create");
-        });
+            beforeEach(function() {
+                browser.get("http://localhost:3000/maker/#/create");
+            });
 
-        it('should have the ability to select a type Matching', function() {
-            element(by.cssContainingText("option","Matching")).click();
-            element.all(by.css("[ng-show=\"questionType=='ma'\"].ng-hide")).then(function(els) {
-                expect(els.length).toBe(0);
+            it ("login for MA Testing", function() {
+                browser.get('http://localhost:3000/logout');
+                browser.get('http://localhost:3000');
+                element(by.css('[type="text"]')).sendKeys('proj-1189-bind');
+                element(by.css('[type="password"]')).sendKeys('OEHss$4r$mHb^j');
+                element(by.css('[type="submit"]')).click();
+                browser.addMockModule('httpBackendMock', httpBackendMock);
+                browser.get('http://localhost:3000/maker/#/create');
+            });
+
+            it('should have the ability to select a type Matching', function() {
+                element(by.cssContainingText("option","Matching")).click();
+                element.all(by.css("[ng-show=\"questionType=='ma'\"].ng-hide")).then(function(els) {
+                    expect(els.length).toBe(0);
+                });
+            });
+
+            it('should have 4 clue fields', function() {
+                element(by.cssContainingText("option","Matching")).click();
+                element.all(by.css('maker-question .clue')).then(function(elements) {
+                    expect(elements.length).toBe(4);
+                });
+            });
+
+            it('should have 4 answer fields', function() {
+                element(by.cssContainingText("option","Matching")).click();
+                element.all(by.css('maker-question .answer')).then(function(elements) {
+                    expect(elements.length).toBe(4);
+                });
+            });
+            it('should popup error if clue field is empty', function() {
+                quizNameInput.sendKeys('IIII');
+                questionTextInput.sendKeys('IIIIText');
+                questionNameInput.sendKeys('IIIIName');
+                element(by.cssContainingText("option","Matching")).click();
+                element.all(by.css('maker-question .answer')).then(function(elements) {
+                    for (var i = 0; i < elements.length; i++) {
+                        elements[i].sendKeys('iiii');
+                    }
+                    publish.click();
+                    browser.sleep(500);
+                    expect(popup.getAttribute('class')).toMatch('visible');
+                    dismiss.click();
+                    browser.sleep(5000);
+                });
+            });
+            it('should popup error if answer field is empty', function() {
+                quizNameInput.sendKeys('IIII');
+                questionTextInput.sendKeys('IIIIText');
+                questionNameInput.sendKeys('IIIIName');
+                element(by.cssContainingText("option","Matching")).click();
+                element.all(by.css('maker-question .clue')).then(function(elements) {
+                    for (var i = 0; i < elements.length; i++) {
+                        elements[i].sendKeys('iiii');
+                    }
+                    publish.click();
+                    browser.sleep(500);
+                    expect(popup.getAttribute('class')).toMatch('visible');
+                    dismiss.click();
+                });
             });
         });
-
-        it('should have 4 clue fields', function() {
-            element(by.cssContainingText("option","Matching")).click();
-            element.all(by.css('maker-question .clue')).then(function(elements) {
-                expect(elements.length).toBe(4);
-            });
-        });
-
-        it('should have 4 answer fields', function() {
-            element(by.cssContainingText("option","Matching")).click();
-            element.all(by.css('maker-question .answer')).then(function(elements) {
-                expect(elements.length).toBe(4);
-            });
-        });
-
-
     });
 
     it('should not allow one to type more than 150 characters into the question text field', function() {
+        browser.get("http://localhost:3000/maker/#/create");
         element(by.css('[ng-model="questionText"]')).clear();
         var tooMuchText = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
                           'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +

@@ -32,7 +32,12 @@ app.directive("makerQuestion", function(){
 				}
 				else if(scope.questionType == "ma") {
 					scope.points = 5;
-					scope.possibleAnswers = ["", "", "", ""]
+					if(scope.possibleAnswers.length < 4) {
+						scope.possibleAnswers.push("");
+					}
+					while (scope.possibleAnswers.length > 4)
+						scope.possibleAnswers.pop();
+					scope.buildAnswers();
 				}
 			};
 

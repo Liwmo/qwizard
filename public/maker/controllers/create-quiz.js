@@ -106,6 +106,15 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
                         }
                     }
                 }
+                if ($scope.questions[i].type == 'ma') {
+                    for (var j = 0; j < $scope.questions[i].answers.length; j++) {
+                        var pair = $scope.questions[i].answers[j].split(':');
+                        if (pair[0].length <= 0 || pair[1].length <= 0) {
+                            setPopup("On Question "+(i+1)+", an answer does not have any text.");
+                            return;
+                        }
+                    }
+                }
             }
             quizFactory.saveQuiz({
                 title: $scope.quizName,
