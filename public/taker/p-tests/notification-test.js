@@ -5,7 +5,7 @@ describe('Quiz Notifications', function() {
   //  notification = element.all(by.css('.notification')).first();
   // });
 
-  it('Should login before running any tests bruh', function() {
+  it('Should login before running any tests', function() {
     console.log('\n-----------Quiz Notification Suite----------------');
     browser.get('http://localhost:3000/logout');
     browser.get('http://localhost:3000');
@@ -42,7 +42,7 @@ describe('Quiz Notifications', function() {
     expect(notification.element(by.css('close'))).toBeDefined();
   });
 
-  it('Notification close button will remove notification from controller/view bruh', function() {
+  it('Notification close button will remove notification from controller/view', function() {
     var numNotifications;
     element.all(by.repeater('notification in notifications')).then(function (notes) {
       numNotifications = notes.length;
