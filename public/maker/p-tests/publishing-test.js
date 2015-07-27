@@ -98,12 +98,11 @@ describe('Manage quiz - Publish: ', function() {
         element(by.name('start-date')).sendKeys('2050-01-01');
         element(by.name('end-date')).sendKeys('2050-01-02');
         element(by.name('publish')).click();
-        browser.sleep(1000);
-
+        browser.sleep(2000);
         expect(browser.getCurrentUrl()).toBe('http://localhost:3000/maker/#/');
+        browser.sleep(2000);
     });
-
-    
+ 
 
     it('logout', function() {
         browser.removeMockModule('httpBackendMock');

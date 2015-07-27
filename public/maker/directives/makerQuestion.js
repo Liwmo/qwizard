@@ -51,6 +51,10 @@ app.directive("makerQuestion", function(){
 				}
 				scope.maxedOut = scope.possibleAnswers.length >= scope.max;
 			}
+
+			scope.remove = function() {
+				scope.$emit('removeQuestion', scope.index);
+			}
 		}
 	};
 });
