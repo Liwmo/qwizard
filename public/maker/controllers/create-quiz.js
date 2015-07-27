@@ -20,10 +20,9 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
         });
     };
 
-    $scope.removeQuestion = function(index){
-        console.log("removing question " + index);
+    $scope.$on('removeQuestion', function(event, index) {
         $scope.questions.splice(index, 1);
-    };
+    });
 
     $scope.popupToggle = function() {
         try{
@@ -86,8 +85,8 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
                     setPopup("Question "+(i+1)+" does not have any question text.");
                     return;
                 }
-                if ($scope.questions[i].text.length > 150) {
-                    setPopup("Question text cannot exceed 150 characters.");
+                if ($scope.questions[i].text.length > 300) {
+                    setPopup("Question text cannot exceed 300 characters.");
                     return;
                 }
                 if(!$scope.questions[i].text){

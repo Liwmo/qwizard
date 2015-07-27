@@ -10,8 +10,9 @@ router.route('/')
 		convert.cookieToId(req.cookies.login, function(userId) {
 
 			var query =  'SELECT q.publish, q.results, q.title, q.id, r.viewed, r.points ';
-				query += 'FROM quizzes q, results r ';
-				query += 'WHERE q.id=r.quizid and r.userid=? and q.results<=? ';
+				query += 'FROM quizzes q LEFT JOIN results r ';
+				query += 'ON q.id=r.quizid ';
+				query += 'WHERE (r.userid=? or ISNULL(r.userid)) and q.results<=? ';
 				query += 'ORDER BY q.results DESC';
 
 			var today = (new Date()).toISOString().substr(0,10);

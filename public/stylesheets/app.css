@@ -69,7 +69,8 @@ html {
 }
 
 .shadow{
-    box-shadow: 1px 1px 2px rgba(73,73,73,.4);
+    /*box-shadow: 1px 1px 2px rgba(73,73,73,.4);*/
+    box-shadow: 0 0 .2rem 0 rgba(73,73,73,.4), .1rem .1rem .25rem 0 rgba(73, 73, 73, .2);
 }
 .logo {
     height:1em;
@@ -329,6 +330,20 @@ hr{
     max-width:45em;
 }
 
+[ng-bind-html] a{
+    color: #17a587;
+}
+
+[ng-bind-html] a:hover{
+    text-decoration: underline;
+}
+
+[ng-bind-html] img{
+    display: block;
+    max-width: 90%;
+    margin: 0.8em auto;
+}
+
 .resultsHeader {
     padding: .2em .5em;
     color: #fffff5;
@@ -482,6 +497,7 @@ hr{
 
 #info-view {
     overflow-y:auto;
+    font-weight:300;
 }
 #info-view .button {
     display:inline-block;

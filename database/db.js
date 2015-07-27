@@ -7,8 +7,8 @@ if (isProd) {
 	console.log("ALERT: Production environment, using qwizard")
 	var pool = mysql.createPool({
 	    host: 'localhost',
-	    user: 'root',
-	    password: '',
+	    user: 'Qwizard',
+	    password: 'iS#0&dZoT@&$Vi',
 	    database: 'qwizard'
 	});
 } else {

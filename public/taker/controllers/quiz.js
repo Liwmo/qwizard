@@ -1,6 +1,5 @@
-app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$location", "$routeParams",
+app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$location", "$routeParams", 
     function($scope, quizFactory, notificationFactory, $location, $routeParams) {
-
     $scope.name = "WWT Quiz";
     $scope.quizId= $routeParams.id;
     
@@ -17,10 +16,11 @@ app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$locati
     };
 
     $scope.submit = function(){
-
-    quizFactory.postQuiz($scope.quizId, function(data){
-            notificationFactory.addNotification("Thanks for taking the " + $scope.name + " quiz! Your results will be available soon!", "#/");
-            $location.path('/');
+        quizFactory.postQuiz($scope.quizId, function(data){
+            notificationFactory.removeNotification($routeParams, function() {
+                notificationFactory.addNotification("Thanks for taking the " + $scope.name + " quiz! Your results will be available soon!", "#/");
+                $location.path('/');
+            });
         });
     };
 
@@ -36,5 +36,22 @@ app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$locati
             $scope.questions = data.questions;
         }
     });
+    //listener for link being clicked to redirect to new window rather than direct navigation
+    var quizView = document.getElementById('quizView');
+    if(quizView){
+        quizView.addEventListener('click', function(e){
+            if(e.target.tagName == "A"){
+                window.open(e.target.href);
+                e.preventDefault();
+            }else if(e.target.matches("[ng-bind-html] a *")){
+                var a = e.target.parentElement;
+                while(a.tagName !== "A"){
+                    a = a.parentElement;
+                }
+                window.open(a.href);
+                e.preventDefault();
+            }
+        }, true);
+    }
 }]);
 

@@ -160,12 +160,34 @@ describe('create quiz', function() {
         element(by.css('[ng-click="leftAction()"]')).click();
     });
 
-    // it('should remove question when delete button is clicked', function(){
-    //     element(by.css('[ng-click="removeQuestion(index)"]')).click();
-    //     element.all(by.css('maker-question')).then(function(elements) {
-    //         expect(elements.length).toBe(0);
-    //     });
-    // });
+    it('should remove question when delete button is clicked', function(){
+        browser.get('http://localhost:3000/maker/#/create');
+        element(by.css('[ng-click="remove()"]')).click();
+        element.all(by.css('maker-question')).then(function(elements) {
+            expect(elements.length).toBe(0);
+        });
+    });
+
+    it('should remove the question which was clicked', function() {
+        element(by.css('#add-question')).click();
+        element(by.css('#add-question')).click();
+        element(by.css('#add-question')).click();
+        element.all(by.css('[ng-model="questionName"]')).then(function(elements) {
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].sendKeys("" + i);
+            }
+            browser.sleep(5000);
+            element.all(by.css('.delete')).then(function(elements) {
+                elements[1].click();
+                browser.sleep(5000);
+                element.all(by.css('[ng-model="questionName"]')).then(function(elements) {
+                    expect(elements.length).toBe(2);
+                    expect(elements[0].getAttribute('value')).toBe('0');
+                    expect(elements[1].getAttribute('value')).toBe('2');
+                });
+            });
+        });
+    });
 
     it('should add question when add question button is clicked', function() {
         element(by.css('#add-question')).click();
@@ -263,7 +285,6 @@ describe('create quiz', function() {
             expect(element.all(by.css('[ng-click="addOption()"]')).get(1).getAttribute('class')).toMatch("ng-hide");
         });
     });
-
     it("Run MA", function() {
         describe('MA Testing', function() {
             var quizNameInput = element(by.id('quiz_name'));
@@ -341,23 +362,18 @@ describe('create quiz', function() {
             });
         });
     });
-
-    it('should not allow one to type more than 150 characters into the question text field', function() {
+    it('should not allow one to type more than 300 characters into the question text field', function() {
         browser.get("http://localhost:3000/maker/#/create");
         element(by.css('[ng-model="questionText"]')).clear();
-        var tooMuchText = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
-                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
-                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii';
+        var tooMuchText = new Array(600).join('i');
 
         element(by.css('[ng-model="questionText"]')).sendKeys(tooMuchText);
-        expect(element(by.css('[ng-model="questionText"]')).getAttribute('value')).toBe("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+        expect(element(by.css('[ng-model="questionText"]')).getAttribute('value')).toBe(new Array(301).join('i'));
     });
 
     it('should not allow one to type more than 20 characters into the question title field', function() {
         element(by.css('[ng-model="questionName"]')).clear();
-        var tooMuchText = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
-                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
-                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii';
+        var tooMuchText = new Array(600).join('i');
 
         element(by.css('[ng-model="questionName"]')).sendKeys(tooMuchText);
         expect(element(by.css('[ng-model="questionName"]')).getAttribute('value')).toBe("iiiiiiiiiiiiiiiiiiii");
@@ -365,9 +381,7 @@ describe('create quiz', function() {
 
     it('should not allow one to type more than 20 characters into the quiz title field', function() {
         element(by.css('[ng-model="quizName"]')).clear();
-        var tooMuchText = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
-                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
-                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii';
+        var tooMuchText = new Array(600).join('i');
 
         element(by.css('[ng-model="quizName"]')).sendKeys(tooMuchText);
         expect(element(by.css('[ng-model="quizName"]')).getAttribute('value')).toBe("iiiiiiiiiiiiiiiiiiii");
@@ -376,12 +390,10 @@ describe('create quiz', function() {
     it('should not allow one to type more than 50 characters into the answer text field', function() {
         element(by.cssContainingText("option","Multiple Choice")).click();
         element(by.css('[ng-model="possibleAnswers[$index]"]')).clear();
-        var tooMuchText = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
-                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
-                          'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii';
+        var tooMuchText = new Array(600).join('i');
 
         element(by.css('[ng-model="possibleAnswers[$index]"]')).sendKeys(tooMuchText);
-        expect(element(by.css('[ng-model="possibleAnswers[$index]"]')).getAttribute('value')).toBe("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+        expect(element(by.css('[ng-model="possibleAnswers[$index]"]')).getAttribute('value')).toBe(new Array(51).join('i'));
     });
 
     it('logout', function() {

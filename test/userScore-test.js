@@ -42,7 +42,7 @@ describe("UserScore API endpoint: ", function(done){
     	db.query(query, ["Quiz 1", "2025-07-23", "2015-07-01"], finished);
     	db.query(query, ["Quiz 2", "2015-07-02", "2015-07-01"], finished);
     	db.query(query, ["Quiz 3", "2015-07-03", "2015-07-01"], finished);
-    	db.query(query, ["Quiz 4", "2015-07-02", "2015-07-01"], finished);
+    	db.query(query, ["Quiz 4", "2015-07-04", "2015-07-01"], finished);
     });
     
     it("Adds results to the database", function(done) {
@@ -64,9 +64,10 @@ describe("UserScore API endpoint: ", function(done){
     it('should get the correct results in the correct order', function(done){
     	request.get(options, function(err, response, body){
     		var data = JSON.parse(body);
-    		assert.equal(data.length, 2);
-    		assert.equal(data[0].title, "Quiz 3");
-    		assert.equal(data[1].title, "Quiz 2");
+    		assert.equal(data.length, 3);
+            assert.equal(data[0].title, "Quiz 4");
+    		assert.equal(data[1].title, "Quiz 3");
+    		assert.equal(data[2].title, "Quiz 2");
     		done();
     	});
     });

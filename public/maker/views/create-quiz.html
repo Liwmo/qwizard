@@ -1,4 +1,4 @@
-<div id="create_header">
+<div id="create_header" class="shadow">
     <input ng-model="quizName" ng-change="verifyName()" id="quiz_name" type="text" class="teal-medium text-input large" placeholder="Quiz Name" maxlength="20">
     <span style="font-family:Dosis" ng-hide="validName">Quiz name is required! No special characters!</span>
 </div>
@@ -12,7 +12,7 @@
                         correct-answer="question.correctAnswer"
                         index="$index"
                         max="question.max"
-                        class="flex-container horizontal"></maker-question>
+                        class="flex-container horizontal shadow"></maker-question>
         <!-- <div ng-click="removeQuestion(index)" class="teal-dark button shadow noselect">Delete</div> -->
     </div>
     <div id="add-question" ng-click="addQuestion()">Add Another Question +</div>

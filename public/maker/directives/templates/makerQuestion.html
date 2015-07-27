@@ -7,7 +7,7 @@
 		<option value="ms">Multiple Select</option>
 		<option value="ma">Matching</option>
 	</select>
-	<textarea ng-model="questionText" value="questionText" class="text-input question-text" maxlength="150" placeholder="Question Text"></textarea>
+	<textarea ng-model="questionText" value="questionText" class="text-input question-text" maxlength="300" placeholder="Question Text"></textarea>
 	<span class="point-display">Points: {{points}}</span>
 	<input type="range" ng-model="points" value="points" min="0" max="10"></slider>
 </span>
@@ -37,10 +37,10 @@
 	</span>
 	<div class="add-choice" ng-click="addOption()" ng-hide="maxedOut">Add Another Choice +</div>
 </span>
-
 <span class="flex noselect" ng-show="questionType=='ma'">
 	<span style="flex-wrap:no-wrap;" class="flex-container horizontal answer-field" ng-repeat="answer in possibleAnswers track by $index">
 		<input placeholder="Clue" ng-model="matchingClues[$index]" ng-change='buildAnswers()' class="text-input flex maText clue" maxlength="50">
 		<input placeholder="Answer" ng-model="matchingAnswers[$index]" ng-change='buildAnswers()' class="text-input flex maText answer" maxlength="50">
 	</span>
 </span>
+<div class="icon delete" ng-click="remove()"></div>

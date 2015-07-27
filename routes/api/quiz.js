@@ -115,7 +115,9 @@ router.route('/:id/results')
 							res.send({error: 'could not find quiz'});
 						}
 						else { //No user-selected answers, good quiz
-							res.send(message[0]);
+							db.query("INSERT INTO results SET userid=?, quizid=?, viewed=1", [userId, id], function(){
+								res.send(message[0]);
+							});
 						}
 					});
 				}

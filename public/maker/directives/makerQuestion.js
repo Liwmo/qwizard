@@ -85,15 +85,18 @@ app.directive("makerQuestion", function(){
 				console.log("Possible: " + JSON.stringify(scope.possibleAnswers));
 			}
 
-			function shuffle(array)
-			{
+			
+			scope.remove = function() {
+				scope.$emit('removeQuestion', scope.index);
+			}
+
+			function shuffle(array) {
 				tmpArray = [];
 				for (var i = 0; i < array.length; i++)
 					tmpArray.push(array[i]);
 
 			  var m = tmpArray.length, t, i;
-			  while (m > 0) 
-			  {
+			  while (m > 0) {
 				i = Math.floor(Math.random() * m--);
 				t = tmpArray[m];
 				tmpArray[m] = tmpArray[i];
