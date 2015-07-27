@@ -264,6 +264,27 @@ describe('create quiz', function() {
         });
     });
 
+describe('MA Testing', function() {
+        var quizNameInput = element(by.id('quiz_name'));
+        var questionNameInput = element(by.css('[ng-model="questionName"]'));
+        var questionTextInput = element(by.css('[ng-model="questionText"]'));
+        var popup = element(by.css('.popup'));
+        var popupText = element(by.css('.popup .noselect'));
+        var publish = element(by.css('[ng-click="publishQuiz()"]'));
+        var dismiss = element(by.css('[ng-click="leftAction()"]'));
+
+        beforeEach(function() {
+            browser.get("http://localhost:3000/maker/#/create");
+        });
+
+        it('should have the ability to select a type Matching', function() {
+            element(by.cssContainingText("option","Matching")).click();
+            expect(element(by.css("[ng-show=\"questionType=='ms'\"]")).getAttribute('class')).toNotMatch('ng-hide');
+        });
+
+
+    });
+
     it('should not allow one to type more than 150 characters into the question text field', function() {
         element(by.css('[ng-model="questionText"]')).clear();
         var tooMuchText = 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii' +
