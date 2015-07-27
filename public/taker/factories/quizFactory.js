@@ -1,4 +1,4 @@
-app.factory("quizFactory", ["$http", function($http){
+app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 	var self = this;
 	var quizzes = {};
 
@@ -24,6 +24,7 @@ app.factory("quizFactory", ["$http", function($http){
 				if(!data.error){
 					for(var i = 0; i < data.questions.length; i++){
             			data.questions[i].selected = data.questions[i].selected || [];
+                		data.questions[i].text = $sce.trustAsHtml(data.questions[i].text); //allows HTML question text
         			}
 					quizzes[id.toString()] = data;
 				}
