@@ -93,7 +93,7 @@ describe("Quiz Results endpoint", function(done){
             answers: "[[2]]"
         };
 
-        db.query("insert into results SET ?", quizTaken, function(err, message) {
+        db.query("update results SET ? WHERE quizid=?", [quizTaken, quizId], function(err, message) {
             options.url = "http://localhost:3000/api/quiz/"+quizId+"/results";
             request.get(options, function(err, response, body) {
                 if (err) {
