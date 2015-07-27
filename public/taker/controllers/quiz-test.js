@@ -4,7 +4,7 @@ describe('Quiz view', function() {
     var $scope;
     var routeParams = {id: 1456879};
     var quizFactory = { postQuiz: function(){}, getQuiz: function() {} };
-    var notificationFactory = { addNotification: function() {} };
+    var notificationFactory = { addNotification: function() {}, removeNotification: function() {} };
     var location = { path: function() {} };
 
     beforeEach(module('app'));
@@ -75,9 +75,13 @@ describe('Quiz view', function() {
         });
 
         it('should post with callback to add notifications', function() {
-            var callback, notificationText;
+            var callback, notificationText, removeNotificationCallback;
             quizFactory.postQuiz = function() {
                 callback = arguments[1]
+            };
+
+            notificationFactory.removeNotification = function() {
+                removeNotificationCallback = arguments[1];
             };
             notificationFactory.addNotification = function() {
                 notificationText = arguments[0];
@@ -87,23 +91,77 @@ describe('Quiz view', function() {
 
             $scope.submit();
             callback({});
+            removeNotificationCallback();
 
             expect(notificationText).toBe("Thanks for taking the amazing quiz quiz! Your results will be available soon!");
         });
 
         it('should post with callback to relocate to /', function() {
-            var callback, relocationPath;
+            var postQuizCallback, relocationPath, removeNotificationCallback;
             quizFactory.postQuiz = function() {
-                callback = arguments[1]
+                postQuizCallback = arguments[1]
+            };
+            notificationFactory.removeNotification = function() {
+                removeNotificationCallback = arguments[1];
             };
             location.path = function() {
                 relocationPath = arguments[0];
             };
             
             $scope.submit();
-            callback({});
+            postQuizCallback({});
+            removeNotificationCallback();
 
             expect(relocationPath).toBe("/");
+        });
+
+
+        it('should not relocate to / when remove notification hasn\'t been called yet', function() {
+            var postQuizCallback, relocationPath = null;
+            quizFactory.postQuiz = function() {
+                postQuizCallback = arguments[1]
+            };
+            location.path = function() {
+                relocationPath = arguments[0];
+            };
+            
+            $scope.submit();
+            postQuizCallback({});
+
+            expect(relocationPath).toBe(null);
+        });
+
+        it('should call remove notification only in callback of postQuiz', function() {
+            var called = false, callback;
+            quizFactory.postQuiz = function() {
+                callback = arguments[1]
+            };
+            notificationFactory.removeNotification = function() {
+                called = true;
+            };
+
+            expect(called).toBe(false);
+
+            $scope.submit();
+            expect(called).toBe(false);
+
+            callback({});
+            expect(called).toBe(true);
+        });
+
+        it('should remove notification for submitted quiz', function() {
+            var id, callback;
+            quizFactory.postQuiz = function() {
+                callback = arguments[1]
+            };
+            notificationFactory.removeNotification = function() {
+                id = arguments[0].id;
+            };
+
+            $scope.submit();
+            callback({});
+
+            expect(id).toBe(routeParams.id);
         });
     });
     

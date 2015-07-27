@@ -51,9 +51,10 @@ app.factory("notificationFactory", ["$http", function($http){
         });
     };
 
-    self.removeNotification = function(notification){
+    self.removeNotification = function(notification, callback){
         $http.get('/api/notifications/remove/' + notification.id);
         notifications.splice(notifications.indexOf(notification), 1);
+        callback();
     };
 
     return self;
