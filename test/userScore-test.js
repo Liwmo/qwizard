@@ -18,47 +18,43 @@ describe("UserScore API endpoint: ", function(done){
 
     var returnedID;
 
-    it("Login", function(done) {
+    beforeEach(function(done){
         convert.nameToId("proj-1189-bind", function(id) {
-        	userID = id;
-            db.query("INSERT INTO tokens values ('a', ?)", id, function() {
-                done();
+            userID = id;
+            var total = 7;
+            var count = 0;
+            var finished = function(err, message){
+                count++;
+                if(count == total){
+                    done();
+                }
+            };
+            var query1 = "INSERT INTO tokens values ('a', ?)";
+            var query2 = "insert into quizzes SET title=?, results=?, publish=?";
+            var query3 = "insert into results SET quizid=?, userid=?, points=?";
+            db.query(query1, id, function() {
+                db.query(query2, ["Quiz 1", "2025-07-23", "2015-07-01"], finished);
+                db.query(query2, ["Quiz 2", "2015-07-02", "2015-07-01"], finished);
+                db.query(query2, ["Quiz 3", "2015-07-03", "2015-07-01"], finished);
+                db.query(query2, ["Quiz 4", "2015-07-04", "2015-07-01"], finished);
+
+                db.query(query3, [returnedID, userID, 12], finished);
+                db.query(query3, [returnedID+1, userID, 15], finished);
+                db.query(query3, [returnedID+2, userID, 18], finished);
             });
         });
     });
 
-    it("Adds quizzes to the database", function(done) {
-    	var total = 4;
-    	var count = 0;
-    	var finished = function(err, message){
-    		returnedID = returnedID || message.insertId;
-    		count++;
-    		if(count == total){
-    			done();
-    		}
-    	};
-    	var query = "insert into quizzes SET title=?, results=?, publish=?";
+    afterEach(function(done){
+        db.query("delete from tokens where cookie='a'", function() {});
 
-    	db.query(query, ["Quiz 1", "2025-07-23", "2015-07-01"], finished);
-    	db.query(query, ["Quiz 2", "2015-07-02", "2015-07-01"], finished);
-    	db.query(query, ["Quiz 3", "2015-07-03", "2015-07-01"], finished);
-    	db.query(query, ["Quiz 4", "2015-07-04", "2015-07-01"], finished);
-    });
-    
-    it("Adds results to the database", function(done) {
-    	var total = 3;
-    	var count = 0;
-    	var finished = function(err, message){
-    		count++;
-    		if(count == total){
-    			done();
-    		}
-    	};
-    	var query = "insert into results SET quizid=?, userid=?, points=?";
-
-    	db.query(query, [returnedID, userID, 12], finished);
-    	db.query(query, [returnedID+1, userID, 15], finished);
-    	db.query(query, [returnedID+2, userID, 18], finished);
+        db.query('delete from results where quizid>=' + returnedID, function(){
+            db.query("delete from quizzes where id >=" + returnedID, function(){
+                db.query("alter table quizzes auto_increment=" + returnedID, function(){
+                    done();
+                });
+            });
+        });
     });
 
     it('should get the correct results in the correct order', function(done){
@@ -72,15 +68,11 @@ describe("UserScore API endpoint: ", function(done){
     	});
     });
 
-    it("Logout", function(done) {
-        db.query("delete from tokens where cookie='a'", function() {});
-
-        db.query('delete from results where quizid>=' + returnedID, function(){
-        	db.query("delete from quizzes where id >=" + returnedID, function(){
-            	db.query("alter table quizzes auto_increment=" + returnedID, function(){
-                	done();
-            	});
-        	});
+    it('should filter point releases by results date', function(done){
+        request.get(options, function(err, response, body){
+            var data = JSON.parse(body);
+            done();
         });
     });
+
 });
