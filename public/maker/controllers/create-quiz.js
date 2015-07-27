@@ -20,10 +20,9 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
         });
     };
 
-    $scope.removeQuestion = function(index){
-        console.log("removing question " + index);
+    $scope.$on('removeQuestion', function(event, index) {
         $scope.questions.splice(index, 1);
-    };
+    });
 
     $scope.popupToggle = function() {
         try{

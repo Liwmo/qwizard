@@ -160,12 +160,34 @@ describe('create quiz', function() {
         element(by.css('[ng-click="leftAction()"]')).click();
     });
 
-    // it('should remove question when delete button is clicked', function(){
-    //     element(by.css('[ng-click="removeQuestion(index)"]')).click();
-    //     element.all(by.css('maker-question')).then(function(elements) {
-    //         expect(elements.length).toBe(0);
-    //     });
-    // });
+    it('should remove question when delete button is clicked', function(){
+        browser.get('http://localhost:3000/maker/#/create');
+        element(by.css('[ng-click="remove()"]')).click();
+        element.all(by.css('maker-question')).then(function(elements) {
+            expect(elements.length).toBe(0);
+        });
+    });
+
+    it('should remove the question which was clicked', function() {
+        element(by.css('#add-question')).click();
+        element(by.css('#add-question')).click();
+        element(by.css('#add-question')).click();
+        element.all(by.css('[ng-model="questionName"]')).then(function(elements) {
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].sendKeys("" + i);
+            }
+            browser.sleep(5000);
+            element.all(by.css('.delete')).then(function(elements) {
+                elements[1].click();
+                browser.sleep(5000);
+                element.all(by.css('[ng-model="questionName"]')).then(function(elements) {
+                    expect(elements.length).toBe(2);
+                    expect(elements[0].getAttribute('value')).toBe('0');
+                    expect(elements[1].getAttribute('value')).toBe('2');
+                });
+            });
+        });
+    });
 
     it('should add question when add question button is clicked', function() {
         element(by.css('#add-question')).click();
