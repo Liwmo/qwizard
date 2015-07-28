@@ -401,7 +401,7 @@ describe('create quiz', function() {
 
             it('should properly populate fields when it gets a draft', function() {
                 browser.get("http://localhost:3000/maker/#/create/1");
-                browser.sleep(30000);
+                browser.sleep(500);
                 expect(element(by.css('[ng-model="quizName"]')).getAttribute('value')).toBe("Name");
             });
         });
