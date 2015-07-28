@@ -319,6 +319,25 @@ describe('create quiz', function() {
         expect(element(by.css('[ng-model="possibleAnswers[$index]"]')).getAttribute('value')).toBe(new Array(51).join('i'));
     });
 
+    it('should not show "delete answer" buttons when only 3 answers are showing', function() {
+        browser.refresh();
+        element(by.cssContainingText("option","Multiple Choice")).click();
+        element.all(by.css('[class="delete-answer"]')).then(function(elements) {
+            for(var i = 0; i < elements.length; i++){
+                expect(elements[i].getAttribute('class')).toMatch("ng-hide");
+            }
+        });
+    });
+
+    it('should show "delete answer" button when more than 3 answers are showing', function() {
+        element(by.css('[ng-click="addOption()"]')).click();
+        element.all(by.css('[class="delete-answer"]')).then(function(elements) {
+            for(var i = 0; i < elements.length; i++){
+                expect(elements[i].getAttribute('class')).not.toMatch("ng-hide");
+            }
+        });
+    });
+
     it('logout', function() {
         browser.removeMockModule('httpBackendMock');
         browser.get('http://localhost:3000/logout');

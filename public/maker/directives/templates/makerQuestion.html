@@ -25,6 +25,7 @@
 	<span style="flex-wrap:no-wrap;" class="flex-container horizontal answer-field" ng-repeat="answer in possibleAnswers track by $index">
 		<span class="radio" ng-class="{checked: correctAnswer[0]==$index}" ng-click="mc($index)"></span>
 		<input placeholder="Choice {{$index + 1}}" name="choice{{$id}}" ng-model="possibleAnswers[$index]" class="text-input flex" maxlength="50">
+		<span class="delete-answer" ng-click="removeAnswer($index)" ng-show="possibleAnswers.length > 3">X</span>
 	</span>
 	<div class="add-choice" ng-click="addOption()" ng-hide="maxedOut">Add Another Choice +</div>
 </span>
