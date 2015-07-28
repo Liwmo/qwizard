@@ -30,6 +30,17 @@ app.directive("question", ['ngDraggable', function(){
 			scope.getType = function(){
 				return '/taker/directives/templates/' + scope.type + '.html';
 			}
+			scope.onDropComplete = function(dropIndex, data, e) {
+				var dropElement = document.querySelector("#drop" + dropIndex);
+				var dragElement = e.element[0];
+				if (dropElement.children.length == 0) {
+					dropElement.appendChild(e.element[0]);
+					dragElement.classList.add("dropped");
+					dragElement.classList.remove("shadow");
+					scope.selected[dropIndex] = scope.clues[dropIndex]+':'+scope.options[data.index];
+				}
+
+			}
 
 			scope.clues = [];
 			scope.options = [];
@@ -39,25 +50,6 @@ app.directive("question", ['ngDraggable', function(){
 					scope.clues[i] = pair[0];
 					scope.options[i] = pair[1];
 				}
-			}
-
-			// scope.onDragComplete = function(data, e) {
-			// 	console.log(data);
-			// 	console.log("Successful Drag: ", e);
-			// }
-
-			scope.onDropComplete = function(dropIndex, data, e) {
-				console.log("Successful Drop:", data.index + " dropped on " + dropIndex);
-				var dropElement = document.querySelector("#drop" + dropIndex);
-				var dragElement = e.element[0];
-				if (dropElement.children.length == 0) {
-					dropElement.appendChild(e.element[0]);
-					dragElement.classList.add("dropped");
-					dragElement.classList.remove("shadow");
-					scope.selected[dropIndex] = scope.clues[dropIndex]+':'+scope.options[data.index];
-					console.log(scope.selected);
-				}
-
 			}
 		}
 	};
