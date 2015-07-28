@@ -367,6 +367,24 @@ describe('create quiz', function() {
         }); 
     });
 
+    it('should remove the answer as "correct" when the answer is deleted', function() {
+        browser.refresh();
+        element(by.cssContainingText("option","Multiple Select")).click();
+        element(by.css('[ng-show="questionType==\'ms\'"] [ng-click="addOption()"]')).click();
+        element.all(by.css('[ng-click="ms($index)"]')).then(function(elements){
+            elements[elements.length-1].click();
+            expect(elements[elements.length-1].getAttribute("class")).toMatch("checked");
+            element.all(by.css('[ng-click="removeAnswer($index)"]')).then(function(elements) {
+                elements[elements.length - 1].click();
+                element(by.css('[ng-show="questionType==\'ms\'"] [ng-click="addOption()"]')).click();
+                element.all(by.css('[ng-click="ms($index)"]')).then(function(elements){
+                    expect(elements[elements.length-1].getAttribute("class")).not.toMatch("checked");
+                });
+            });
+
+        });
+    });
+
     it('logout', function() {
         browser.removeMockModule('httpBackendMock');
         browser.get('http://localhost:3000/logout');

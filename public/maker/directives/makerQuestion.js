@@ -18,7 +18,6 @@ app.directive("makerQuestion", function(){
 
 			scope.tf = function(value){
 				scope.correctAnswer[0] = value;
-				console.log(scope.correctAnswer);
 			};
 
 			scope.setDefaultPoints = function() {
@@ -46,8 +45,6 @@ app.directive("makerQuestion", function(){
 				}
 
 				scope.correctAnswer.sort(function(a,b){return a-b});
-
-				console.log(scope.correctAnswer);
 			};
 
 			scope.addOption = function() {
@@ -58,6 +55,11 @@ app.directive("makerQuestion", function(){
 			}
 
 			scope.removeAnswer = function(index) {
+				var correctIndex = scope.correctAnswer.indexOf(index);//index in array of correct answers
+				if(correctIndex !== -1){
+					scope.correctAnswer.splice(correctIndex, 1);
+				}
+
 				scope.possibleAnswers.splice(index, 1);
 			}
 
