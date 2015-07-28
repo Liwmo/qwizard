@@ -76,6 +76,20 @@ maker-question .icon.delete:hover {
     opacity:1;
 }
 
+.delete-answer {
+    padding: 0 .5em;
+    color: #5B515B;
+    opacity: .6;
+}
+
+.delete-answer:hover {
+    opacity: 1;
+}
+
+.delete-container {
+    min-width: 1.5em;
+}
+
 maker-question > span {
     font-family:"Dosis";
 }
