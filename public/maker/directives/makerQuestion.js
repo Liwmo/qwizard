@@ -14,13 +14,12 @@ app.directive("makerQuestion", function(){
 		},
 		templateUrl: '/maker/directives/templates/makerQuestion.html',
 		link: function(scope, elem, attrs){
-			scope.points = 1;
-
 			scope.tf = function(value){
 				scope.correctAnswer[0] = value;
 			};
 
-			scope.setDefaultPoints = function() {
+			scope.setQuestionDefaults = function() {
+				scope.possibleAnswers = ["", "", ""];
 				if(scope.questionType == 'tf') {
 					scope.points = 2;
 				}
@@ -29,6 +28,15 @@ app.directive("makerQuestion", function(){
 				}
 				else if(scope.questionType == 'ms') {
 					scope.points = 5;
+				}
+				else if(scope.questionType == "ma") {
+					scope.points = 5;
+					if(scope.possibleAnswers.length < 4) {
+						scope.possibleAnswers.push("");
+					}
+					while (scope.possibleAnswers.length > 4)
+						scope.possibleAnswers.pop();
+					scope.buildAnswers();
 				}
 
 				scope.correctAnswer = [];
@@ -54,6 +62,39 @@ app.directive("makerQuestion", function(){
 				scope.maxedOut = scope.possibleAnswers.length >= scope.max;
 			}
 
+			scope.matchingClues = ["", "", "", ""];
+			scope.matchingAnswers = ["", "", "", ""];
+
+			// Unpacking matching answers if loading quiz from server
+			if(scope.questionType === 'ma' && scope.correctAnswer.length) {
+				scope.correctAnswer.forEach(function(answer, index) {
+					var split = answer.split(':');
+					scope.matchingClues[index] = split[0];
+					scope.matchingAnswers[index] = split[1];
+				});
+			}
+
+			scope.buildAnswers = function() {
+				scope.correctAnswer = [
+					scope.matchingClues[0] + ":" + scope.matchingAnswers[0],
+					scope.matchingClues[1] + ":" + scope.matchingAnswers[1],
+					scope.matchingClues[2] + ":" + scope.matchingAnswers[2],
+					scope.matchingClues[3] + ":" + scope.matchingAnswers[3]
+				];
+
+				var randoms = shuffle(scope.matchingAnswers);
+
+				scope.possibleAnswers = [
+					scope.matchingClues[0] + ":" + randoms[0],
+					scope.matchingClues[1] + ":" + randoms[1],
+					scope.matchingClues[2] + ":" + randoms[2],
+					scope.matchingClues[3] + ":" + randoms[3]
+				];
+
+				console.log("Correct: " + JSON.stringify(scope.correctAnswer));
+				console.log("Possible: " + JSON.stringify(scope.possibleAnswers));
+			}
+
 			scope.removeAnswer = function(index) {
 				var correctIndex = scope.correctAnswer.indexOf(index);//index in array of correct answers
 				if(correctIndex !== -1){
@@ -66,6 +107,24 @@ app.directive("makerQuestion", function(){
 			scope.remove = function() {
 				scope.$emit('removeQuestion', scope.index);
 			}
+
+			function shuffle(array) {
+				tmpArray = [];
+				for (var i = 0; i < array.length; i++)
+					tmpArray.push(array[i]);
+
+			  var m = tmpArray.length, t, i;
+			  while (m > 0) {
+				i = Math.floor(Math.random() * m--);
+				t = tmpArray[m];
+				tmpArray[m] = tmpArray[i];
+				tmpArray[i] = t;
+			  }
+			  return tmpArray;
+			}
+
+			console.log('possibleAnswers: ', scope.possibleAnswers);
+			console.log('correctAnswer: ', scope.correctAnswer);
 		}
 	};
 });

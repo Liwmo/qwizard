@@ -381,6 +381,49 @@ hr{
     background-color: #17a587;
 }
 
+.question .clueContainer, .question .optionContainer {
+    width:100%;
+    -webkit-justify-content:space-between;
+    justify-content:space-between;
+    flex-wrap:wrap;
+}
+.question .clue {
+    width:48.5%;
+    min-width:48.5%;
+    margin-top:1rem;
+}
+.question .clueText {
+    text-align:center;
+    padding:.65em;
+    overflow:hidden;
+}
+.question .drop {
+    background:#EAE9EA;
+    height:2.5rem;
+    position:relative;
+}
+.question .optionContainer {
+    margin-top:1.5em;
+}
+.question .option {
+    width:48.5%;
+    text-align:center;
+    padding:.75em;
+    overflow:hidden;
+    margin:.25rem 0;
+    background:#5DC0AB;
+}
+.question .option.dropped {
+    position:absolute !important;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    margin:0;
+    width:100% !important;
+    background:#A3709C;
+}
+
 .stats {
     font-family: "Signika";
     font-weight: 300;
