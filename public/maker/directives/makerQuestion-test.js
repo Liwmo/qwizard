@@ -21,8 +21,6 @@ describe('Question Directive', function() {
         $scope.name = "Get to know you";
         $scope.type = "tf";
         $scope.text = "";
-        $scope.correct = [];
-        $scope.possible = ["","",""];
         $scope.max = 6;
         element = $compile(element)($scope);
 
@@ -35,7 +33,7 @@ describe('Question Directive', function() {
     }));
 
     it('scope.text is passed back out properly when editted', inject(function($controller) {
-        element.children()[0].children[2].innerHTML = "What yo name, shaw-day?";
+        element.children()[0].children[2].innerHTML = "What is your name?";
         expect(element.children()[0].children[2].value).toBe($scope.text);
     }));
 
@@ -91,5 +89,32 @@ describe('Question Directive', function() {
     //     expect($scope.selected).toEqual([0,1]);
     //     angular.element(element.find("span")[0]).triggerHandler("click");
     //     expect($scope.selected).toEqual([1]);
+    // });
+
+    //After spending over an hour attempting to write a test for something that I've manually tested, 
+    //  I've determined it's no longer worth my time - DK
+
+    // describe("Matching Questions", function() {
+
+    //     it('buildAnswers will build possibleAnswers', inject(function($controller) {
+    //         var directiveScope = element.isolateScope();
+    //         directiveScope.matchingClues = ["A", "B", "C", "D"];
+    //         directiveScope.matchingAnswers = ["A", "B", "C", "D"];
+    //         $scope.$digest();
+    //         directiveScope.buildAnswers();
+    //         $scope.$digest();
+    //         expect($scope.possible).not.toBe(["A:A", "B:B", "C:C", "D:D"]);
+    //     }));
+
+    //     it('buildAnswers will build correctAnswers', inject(function($controller) {
+    //         var directiveScope = element.isolateScope();
+    //         directiveScope.matchingClues = ["A", "B", "C", "D"];
+    //         directiveScope.matchingAnswers = ["A", "B", "C", "D"];
+    //         $scope.$digest();
+    //         directiveScope.buildAnswers();
+    //         $scope.$digest();
+    //         expect($scope.correct).toBe(["A:A", "B:B", "C:C", "D:D"]);
+    //     }));
+
     // });
 });

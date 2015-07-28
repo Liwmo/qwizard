@@ -238,6 +238,44 @@ maker-question input[type=range]::-moz-range-thumb {
     transition:.5s;
 }
 
+.clue {
+    text-align: center;
+    font-size: 1em;
+}
+
+.maAnswer {
+    background-color: #a3709c;
+    padding: 0.3em;
+    
+}
+
+.maAnswer input {
+    border-bottom:solid .1em rgba(255, 255, 245, 0.6) !important;
+    background-color: transparent;
+    color: #fffff5;
+    text-align: center;
+    font-size: 1em;
+}
+
+.maAnswer input:-moz-placeholder{
+    color: #fffff5;
+}
+
+.maAnswer input::-webkit-input-placeholder {
+   color: #fffff5;
+}
+
+.maAnswer input:-moz-placeholder { /* Firefox 18- */
+   color: #fffff5;  
+}
+
+.maAnswer input::-moz-placeholder {  /* Firefox 19+ */
+   color: #fffff5;  
+}
+
+.maAnswer input:-ms-input-placeholder {  
+   color: #fffff5;  
+}
 
 /*------------------------------------------------------------------------------------------------*/
 

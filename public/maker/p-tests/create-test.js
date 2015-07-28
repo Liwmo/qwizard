@@ -285,8 +285,129 @@ describe('create quiz', function() {
             expect(element.all(by.css('[ng-click="addOption()"]')).get(1).getAttribute('class')).toMatch("ng-hide");
         });
     });
+    it("Run MA", function() {
+        describe('MA Testing', function() {
+            var quizNameInput = element(by.id('quiz_name'));
+            var questionNameInput = element(by.css('[ng-model="questionName"]'));
+            var questionTextInput = element(by.css('[ng-model="questionText"]'));
+            var popup = element(by.css('.popup'));
+            var popupText = element(by.css('.popup .noselect'));
+            var publish = element(by.css('[ng-click="publishQuiz()"]'));
+            var dismiss = element(by.css('[ng-click="leftAction()"]'));
+         
+            var httpBackendMock = function() {
+                angular.module('httpBackendMock', ['ngMockE2E', 'app']).run(function($httpBackend) {
+                    // $httpBackend.whenPOST('/api/maker/quiz').respond(function(method, url, data, headers) {
+                    //     return [200, {id: 1}, {}];
+                    // });
 
+                    // $httpBackend.whenGET('/api/maker/quiz/1').respond(function(method, url, data, headers) {
+                    //     return [200, {id: 1, title: "Mock Title", }, {}];
+                    // });
+
+                    var quizObject = {
+                        id:1, 
+                        answers:JSON.stringify([["clue1:answer1", "clue2:answer2", "clue3:answer3","clue4:answer4"]]),
+                        results:null,
+                        publish:null,
+                        author:1,
+                        pointvalues:JSON.stringify([7]),
+                        title:"Name",
+                        questions:JSON.stringify([{type:"ma", text:"Match", answers:["clue1:answer1", "clue2:answer4", "clue3:answer3", "clue4:answer2"], name:"Quiz category"}])
+                    };
+
+
+                    $httpBackend.whenGET('/api/maker/quiz/1').respond(function(method, url, data, headers) {
+                        return [200, quizObject, {}];
+                    });
+
+                    
+
+                    // $httpBackend.whenPUT('/api/maker/quiz/9000003').respond(function(method, url, data, headers) {
+                    //     return [200, {id: 1}, {}];
+                    // });
+
+                    $httpBackend.whenGET(/.*/).passThrough();
+                    $httpBackend.whenPUT(/.*/).passThrough();
+                    $httpBackend.whenPOST(/.*/).passThrough();
+                });
+            };
+
+            beforeEach(function() {
+                browser.get("http://localhost:3000/maker/#/create");
+            });
+
+            it ("login for MA Testing", function() {
+                browser.get('http://localhost:3000/logout');
+                browser.get('http://localhost:3000');
+                element(by.css('[type="text"]')).sendKeys('proj-1189-bind');
+                element(by.css('[type="password"]')).sendKeys('OEHss$4r$mHb^j');
+                element(by.css('[type="submit"]')).click();
+                browser.addMockModule('httpBackendMock', httpBackendMock);
+                browser.get('http://localhost:3000/maker/#/create');
+            });
+
+            it('should have the ability to select a type Matching', function() {
+                element(by.cssContainingText("option","Matching")).click();
+                element.all(by.css("[ng-show=\"questionType=='ma'\"].ng-hide")).then(function(els) {
+                    expect(els.length).toBe(0);
+                });
+            });
+
+            it('should have 4 clue fields', function() {
+                element(by.cssContainingText("option","Matching")).click();
+                element.all(by.css('maker-question .clue')).then(function(elements) {
+                    expect(elements.length).toBe(4);
+                });
+            });
+
+            it('should have 4 answer fields', function() {
+                element(by.cssContainingText("option","Matching")).click();
+                element.all(by.css('maker-question .maAnswer')).then(function(elements) {
+                    expect(elements.length).toBe(4);
+                });
+            });
+            it('should popup error if clue field is empty', function() {
+                quizNameInput.sendKeys('IIII');
+                questionTextInput.sendKeys('IIIIText');
+                questionNameInput.sendKeys('IIIIName');
+                element(by.cssContainingText("option","Matching")).click();
+                element.all(by.css('maker-question .answer')).then(function(elements) {
+                    for (var i = 0; i < elements.length; i++) {
+                        elements[i].sendKeys('iiii');
+                    }
+                    publish.click();
+                    browser.sleep(500);
+                    expect(popup.getAttribute('class')).toMatch('visible');
+                    dismiss.click();
+                    browser.sleep(5000);
+                });
+            });
+            it('should popup error if answer field is empty', function() {
+                quizNameInput.sendKeys('IIII');
+                questionTextInput.sendKeys('IIIIText');
+                questionNameInput.sendKeys('IIIIName');
+                element(by.cssContainingText("option","Matching")).click();
+                element.all(by.css('maker-question .clue')).then(function(elements) {
+                    for (var i = 0; i < elements.length; i++) {
+                        elements[i].sendKeys('iiii');
+                    }
+                    publish.click();
+                    browser.sleep(500);
+                    expect(popup.getAttribute('class')).toMatch('visible');
+                    dismiss.click();
+                });
+            });
+
+            it('should properly populate fields when it gets a draft', function() {
+                browser.get("http://localhost:3000/maker/#/create/1");
+                browser.sleep(30000);
+                expect(element(by.css('[ng-model="quizName"]')).getAttribute('value')).toBe("Name");
+            });
+        });
+    });
     it('should not allow one to type more than 300 characters into the question text field', function() {
+        browser.get("http://localhost:3000/maker/#/create");
         element(by.css('[ng-model="questionText"]')).clear();
         var tooMuchText = new Array(600).join('i');
 
