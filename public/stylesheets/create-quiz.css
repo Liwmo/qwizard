@@ -224,7 +224,7 @@ maker-question input[type=range]::-moz-range-thumb {
     transition:.5s;
 }
 
-.maText {
+.clue {
     text-align: center;
     font-size: 1em;
 }

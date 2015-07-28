@@ -325,7 +325,7 @@ describe('create quiz', function() {
 
             it('should have 4 answer fields', function() {
                 element(by.cssContainingText("option","Matching")).click();
-                element.all(by.css('maker-question .answer')).then(function(elements) {
+                element.all(by.css('maker-question .maAnswer')).then(function(elements) {
                     expect(elements.length).toBe(4);
                 });
             });
