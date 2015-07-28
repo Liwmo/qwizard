@@ -30,7 +30,7 @@ app.directive("makerQuestion", function(){
 					scope.points = 5;
 				}
 				else if(scope.questionType == "ma") {
-					scope.points = 5;
+					scope.points = 2;
 					if(scope.possibleAnswers.length < 4) {
 						scope.possibleAnswers.push("");
 					}

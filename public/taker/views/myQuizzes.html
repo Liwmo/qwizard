@@ -1,16 +1,18 @@
 <div id="liveQuizzes" class="teal-dark light-text shadow" ng-show="live.length">
 	<div class="header">live quizzes</div>
-	<a ng-repeat="quiz in live" href='#/quiz/{{quiz.id}}'>
-		<div class="liveQuiz teal-dark flex-container horizontal spacer">
-			<div>
-				<div class="quizName">{{quiz.title}}</div>
-				<div class="time">{{getTimeLeft(quiz.results)}}</div>
-				<div class="subText">until quiz close</div>
+	<div style="max-height: 10rem" class="scroller">
+		<a ng-repeat="quiz in live" href='#/quiz/{{quiz.id}}'>
+			<div class="liveQuiz teal-dark flex-container horizontal spacer">
+				<div>
+					<div class="quizName">{{quiz.title}}</div>
+					<div class="time">{{getTimeLeft(quiz.results)}}</div>
+					<div class="subText">until quiz close</div>
+				</div>
+				<div class="flex spacer"></div>
+				<div class="flex icon arrow"></div>
 			</div>
-			<div class="flex spacer"></div>
-			<div class="flex icon arrow"></div>
-		</div>
-	</a>
+		</a>
+	</div>
 </div>
 <div id="results" class="flex flex-container vertical">
 	<div class="header teal-medium light-text shadow">Results</div>
