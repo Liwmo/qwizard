@@ -5,11 +5,12 @@ var db = require('../../database/db');
 
 router.route('/')
 	.get(function(req, res) {
+		var today = new Date().toISOString().substr(0,10);
 		var query =		'select name, userid, sum(points) as score ';
-			query +=	'from users, results ';
-			query += 	'where userid=id ';
+			query +=	'from users as u, results as r, quizzes as q ';
+			query += 	'where r.userid=u.id and r.quizid=q.id and q.results<=? ';
 			query += 	'group by userid';
-		db.query(query, function(err, message) {
+		db.query(query, today, function(err, message) {
 			if(err) {
 				res.send({error: 'cannot access leaderboard data'});
 			}else{
@@ -23,6 +24,7 @@ router.route('/')
 router.route('/since/:date')
 	.get(function(req, res){
 		var date = new Date(req.params.date);
+		var today = new Date().toISOString().substr(0,10);
 
 		if(date.toString() == "Invalid Date"){
 			res.send({error: 'invalid date'});
@@ -31,9 +33,9 @@ router.route('/since/:date')
 
 		var query =		'select name, userid, sum(points) as score ';
 			query +=	'from users as u, results as r, quizzes as q ';
-			query += 	'where r.userid=u.id and r.quizid=q.id and q.results>=? ';
+			query += 	'where r.userid=u.id and r.quizid=q.id and q.results>=? and q.results<=? ';
 			query += 	'group by userid';
-		db.query(query, date.toISOString().substr(0,10), function(err, message) {
+		db.query(query, [date.toISOString().substr(0,10), today], function(err, message) {
 			if(err) {
 				res.send({error: 'cannot access leaderboard data'});
 			}else{
