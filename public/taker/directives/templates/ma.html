@@ -1,0 +1,19 @@
+<div>
+	<div><span>Text 1</span><span>Text 2</span></div>
+	<div><span ondrop="drop(event)" ondragover="allowDrop(event)">Answer slot 1</span>
+		<span ondrop="drop(event)" ondragover="allowDrop(event)">Answer slot 2</span></div>
+	<div><span>Text 3</span><span>Text 4</span></div>
+	<div><span ondrop="drop(event)" ondragover="allowDrop(event)">Answer slot 3</span>
+		<span ondrop="drop(event)" ondragover="allowDrop(event)">Answer slot 4</span></div>
+</div>
+<div>
+	<div><span draggable="true" ondragstart="drag(event)">Answer box 1</span>
+		<span draggable="true" ondragstart="drag(event)">Answer box 2</span></div>
+	<div><span draggable="true" ondragstart="drag(event)">Answer box 3</span>
+		<span draggable="true" ondragstart="drag(event)">Answer box 4</span></div>
+</div>
+<!-- <span style="width:100%"
+      class="teal-medium shadow button noselect"
+      ng-click="mc($index)"
+      ng-class="{'purple-medium selected': selected.indexOf($index) > -1, 'correct': correct.indexOf($index) > -1, 'incorrect': correct.indexOf($index) <= -1}"
+      ng-repeat="answer in answers track by $index">{{answer}}</span> -->
