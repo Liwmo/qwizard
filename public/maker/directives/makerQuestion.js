@@ -52,6 +52,10 @@ app.directive("makerQuestion", function(){
 				scope.maxedOut = scope.possibleAnswers.length >= scope.max;
 			}
 
+			scope.removeAnswer = function(index) {
+				scope.possibleAnswers.splice(index, 1);
+			}
+
 			scope.remove = function() {
 				scope.$emit('removeQuestion', scope.index);
 			}

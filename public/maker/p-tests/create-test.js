@@ -338,6 +338,35 @@ describe('create quiz', function() {
         });
     });
 
+    it('should remove one answer when the delete answer button is clicked', function() {
+        var size;
+        element.all(by.css('[ng-click="mc($index)"]')).then(function(elements) {
+            size = elements.length;
+        });
+
+        element(by.css('[ng-click="removeAnswer($index)"]')).click();
+
+        element.all(by.css('[ng-click="mc($index)"]')).then(function(elements) {
+            expect(elements.length).toBe(size-1);
+        });
+    });
+
+    it('should remove the answer next to the button that was clicked', function() {
+        element(by.css('[ng-click="addOption()"]')).click();
+        element.all(by.css('[ng-model="possibleAnswers[$index]"]')).then(function(elements) {
+            elements[2].sendKeys("To Be Deleted");
+            elements[3].sendKeys("To Remain");
+        });    
+
+        element.all(by.css('[ng-click="removeAnswer($index)"]')).then(function(elements) {
+            elements[2].click();
+        });
+
+        element.all(by.css('[ng-model="possibleAnswers[$index]"]')).then(function(elements) {
+            expect(elements[2].getAttribute("value")).toBe("To Remain");
+        }); 
+    });
+
     it('logout', function() {
         browser.removeMockModule('httpBackendMock');
         browser.get('http://localhost:3000/logout');
