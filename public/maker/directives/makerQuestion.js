@@ -100,8 +100,8 @@ app.directive("makerQuestion", function(){
 				if(correctIndex !== -1){
 					scope.correctAnswer.splice(correctIndex, 1);
 				}
-
 				scope.possibleAnswers.splice(index, 1);
+				scope.maxedOut = scope.possibleAnswers.length >= scope.max;
 			}
 
 			scope.remove = function() {
