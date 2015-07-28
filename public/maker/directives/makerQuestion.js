@@ -30,6 +30,8 @@ app.directive("makerQuestion", function(){
 				else if(scope.questionType == 'ms') {
 					scope.points = 5;
 				}
+
+				scope.correctAnswer = [];
 			};
 
 			scope.mc = scope.tf;
@@ -50,6 +52,15 @@ app.directive("makerQuestion", function(){
 					scope.possibleAnswers.push("");
 				}
 				scope.maxedOut = scope.possibleAnswers.length >= scope.max;
+			}
+
+			scope.removeAnswer = function(index) {
+				var correctIndex = scope.correctAnswer.indexOf(index);//index in array of correct answers
+				if(correctIndex !== -1){
+					scope.correctAnswer.splice(correctIndex, 1);
+				}
+
+				scope.possibleAnswers.splice(index, 1);
 			}
 
 			scope.remove = function() {
