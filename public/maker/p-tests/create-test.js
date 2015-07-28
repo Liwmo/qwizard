@@ -176,10 +176,10 @@ describe('create quiz', function() {
             for (var i = 0; i < elements.length; i++) {
                 elements[i].sendKeys("" + i);
             }
-            browser.sleep(5000);
+            browser.sleep(500);
             element.all(by.css('.delete')).then(function(elements) {
                 elements[1].click();
-                browser.sleep(5000);
+                browser.sleep(500);
                 element.all(by.css('[ng-model="questionName"]')).then(function(elements) {
                     expect(elements.length).toBe(2);
                     expect(elements[0].getAttribute('value')).toBe('0');
