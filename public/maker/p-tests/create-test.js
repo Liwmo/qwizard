@@ -294,6 +294,44 @@ describe('create quiz', function() {
             var popupText = element(by.css('.popup .noselect'));
             var publish = element(by.css('[ng-click="publishQuiz()"]'));
             var dismiss = element(by.css('[ng-click="leftAction()"]'));
+         
+            var httpBackendMock = function() {
+                angular.module('httpBackendMock', ['ngMockE2E', 'app']).run(function($httpBackend) {
+                    // $httpBackend.whenPOST('/api/maker/quiz').respond(function(method, url, data, headers) {
+                    //     return [200, {id: 1}, {}];
+                    // });
+
+                    // $httpBackend.whenGET('/api/maker/quiz/1').respond(function(method, url, data, headers) {
+                    //     return [200, {id: 1, title: "Mock Title", }, {}];
+                    // });
+
+                    var quizObject = {
+                        id:1, 
+                        answers:JSON.stringify([["clue1:answer1", "clue2:answer2", "clue3:answer3","clue4:answer4"]]),
+                        results:null,
+                        publish:null,
+                        author:1,
+                        pointvalues:JSON.stringify([7]),
+                        title:"Name",
+                        questions:JSON.stringify([{type:"ma", text:"Match", answers:["clue1:answer1", "clue2:answer4", "clue3:answer3", "clue4:answer2"], name:"Quiz category"}])
+                    };
+
+
+                    $httpBackend.whenGET('/api/maker/quiz/1').respond(function(method, url, data, headers) {
+                        return [200, quizObject, {}];
+                    });
+
+                    
+
+                    // $httpBackend.whenPUT('/api/maker/quiz/9000003').respond(function(method, url, data, headers) {
+                    //     return [200, {id: 1}, {}];
+                    // });
+
+                    $httpBackend.whenGET(/.*/).passThrough();
+                    $httpBackend.whenPUT(/.*/).passThrough();
+                    $httpBackend.whenPOST(/.*/).passThrough();
+                });
+            };
 
             beforeEach(function() {
                 browser.get("http://localhost:3000/maker/#/create");
@@ -359,6 +397,12 @@ describe('create quiz', function() {
                     expect(popup.getAttribute('class')).toMatch('visible');
                     dismiss.click();
                 });
+            });
+
+            it('should properly populate fields when it gets a draft', function() {
+                browser.get("http://localhost:3000/maker/#/create/1");
+                browser.sleep(30000);
+                expect(element(by.css('[ng-model="quizName"]')).getAttribute('value')).toBe("Name");
             });
         });
     });
