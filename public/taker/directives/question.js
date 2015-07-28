@@ -47,10 +47,17 @@ app.directive("question", ['ngDraggable', function(){
 			// }
 
 			scope.onDropComplete = function(dropIndex, data, e) {
-				console.log("Successful Drop:", data.index);
-				console.log(e);
-				e.element[0].classList.add("dropped");
-				document.querySelector("#drop" + dropIndex).appendChild(e.element[0]);
+				console.log("Successful Drop:", data.index + " dropped on " + dropIndex);
+				var dropElement = document.querySelector("#drop" + dropIndex);
+				var dragElement = e.element[0];
+				if (dropElement.children.length == 0) {
+					dropElement.appendChild(e.element[0]);
+					dragElement.classList.add("dropped");
+					dragElement.classList.remove("shadow");
+					scope.selected[dropIndex] = scope.clues[dropIndex]+':'+scope.options[data.index];
+					console.log(scope.selected);
+				}
+
 			}
 		}
 	};

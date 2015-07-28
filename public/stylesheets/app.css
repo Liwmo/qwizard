@@ -406,7 +406,6 @@ hr{
     margin-top:1.5em;
 }
 .question .option {
-
     width:48.5%;
     text-align:center;
     padding:.75em;
@@ -422,6 +421,7 @@ hr{
     bottom:0;
     margin:0;
     width:100% !important;
+    background:#A3709C;
 }
 
 .stats {
