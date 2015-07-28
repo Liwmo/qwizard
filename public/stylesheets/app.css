@@ -535,6 +535,7 @@ hr{
 }
 
 #info-content {
+    -webkit-justify-content: space-around;
     justify-content: space-around;
     align-items: center;
     align-content: center;
