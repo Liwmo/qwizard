@@ -38,6 +38,8 @@ app.directive("makerQuestion", function(){
 						scope.possibleAnswers.pop();
 					scope.buildAnswers();
 				}
+
+				scope.correctAnswer = [];
 			};
 
 			scope.mc = scope.tf;
@@ -93,7 +95,15 @@ app.directive("makerQuestion", function(){
 				console.log("Possible: " + JSON.stringify(scope.possibleAnswers));
 			}
 
-			
+			scope.removeAnswer = function(index) {
+				var correctIndex = scope.correctAnswer.indexOf(index);//index in array of correct answers
+				if(correctIndex !== -1){
+					scope.correctAnswer.splice(correctIndex, 1);
+				}
+
+				scope.possibleAnswers.splice(index, 1);
+			}
+
 			scope.remove = function() {
 				scope.$emit('removeQuestion', scope.index);
 			}

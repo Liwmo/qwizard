@@ -396,6 +396,72 @@ describe('create quiz', function() {
         expect(element(by.css('[ng-model="possibleAnswers[$index]"]')).getAttribute('value')).toBe(new Array(51).join('i'));
     });
 
+    it('should not show "delete answer" buttons when only 3 answers are showing', function() {
+        browser.refresh();
+        element(by.cssContainingText("option","Multiple Choice")).click();
+        element.all(by.css('[class="delete-answer"]')).then(function(elements) {
+            for(var i = 0; i < elements.length; i++){
+                expect(elements[i].getAttribute('class')).toMatch("ng-hide");
+            }
+        });
+    });
+
+    it('should show "delete answer" button when more than 3 answers are showing', function() {
+        element(by.css('[ng-click="addOption()"]')).click();
+        element.all(by.css('[class="delete-answer"]')).then(function(elements) {
+            for(var i = 0; i < elements.length; i++){
+                expect(elements[i].getAttribute('class')).not.toMatch("ng-hide");
+            }
+        });
+    });
+
+    it('should remove one answer when the delete answer button is clicked', function() {
+        var size;
+        element.all(by.css('[ng-click="mc($index)"]')).then(function(elements) {
+            size = elements.length;
+        });
+
+        element(by.css('[ng-click="removeAnswer($index)"]')).click();
+
+        element.all(by.css('[ng-click="mc($index)"]')).then(function(elements) {
+            expect(elements.length).toBe(size-1);
+        });
+    });
+
+    it('should remove the answer next to the button that was clicked', function() {
+        element(by.css('[ng-click="addOption()"]')).click();
+        element.all(by.css('[ng-model="possibleAnswers[$index]"]')).then(function(elements) {
+            elements[2].sendKeys("To Be Deleted");
+            elements[3].sendKeys("To Remain");
+        });    
+
+        element.all(by.css('[ng-click="removeAnswer($index)"]')).then(function(elements) {
+            elements[2].click();
+        });
+
+        element.all(by.css('[ng-model="possibleAnswers[$index]"]')).then(function(elements) {
+            expect(elements[2].getAttribute("value")).toBe("To Remain");
+        }); 
+    });
+
+    it('should remove the answer as "correct" when the answer is deleted', function() {
+        browser.refresh();
+        element(by.cssContainingText("option","Multiple Select")).click();
+        element(by.css('[ng-show="questionType==\'ms\'"] [ng-click="addOption()"]')).click();
+        element.all(by.css('[ng-click="ms($index)"]')).then(function(elements){
+            elements[elements.length-1].click();
+            expect(elements[elements.length-1].getAttribute("class")).toMatch("checked");
+            element.all(by.css('[ng-click="removeAnswer($index)"]')).then(function(elements) {
+                elements[elements.length - 1].click();
+                element(by.css('[ng-show="questionType==\'ms\'"] [ng-click="addOption()"]')).click();
+                element.all(by.css('[ng-click="ms($index)"]')).then(function(elements){
+                    expect(elements[elements.length-1].getAttribute("class")).not.toMatch("checked");
+                });
+            });
+
+        });
+    });
+
     it('logout', function() {
         browser.removeMockModule('httpBackendMock');
         browser.get('http://localhost:3000/logout');
