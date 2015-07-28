@@ -14,13 +14,12 @@ app.directive("makerQuestion", function(){
 		},
 		templateUrl: '/maker/directives/templates/makerQuestion.html',
 		link: function(scope, elem, attrs){
-			scope.points = 1;
-
 			scope.tf = function(value){
 				scope.correctAnswer[0] = value;
 			};
 
 			scope.setQuestionDefaults = function() {
+				scope.possibleAnswers = ["", "", ""];
 				if(scope.questionType == 'tf') {
 					scope.points = 2;
 				}
@@ -64,6 +63,15 @@ app.directive("makerQuestion", function(){
 			scope.matchingClues = ["", "", "", ""];
 			scope.matchingAnswers = ["", "", "", ""];
 
+			// Unpacking matching answers if loading quiz from server
+			if(scope.questionType === 'ma' && scope.correctAnswer.length) {
+				scope.correctAnswer.forEach(function(answer, index) {
+					var split = answer.split(':');
+					scope.matchingClues[index] = split[0];
+					scope.matchingAnswers[index] = split[1];
+				});
+			}
+
 			scope.buildAnswers = function() {
 				scope.correctAnswer = [
 					scope.matchingClues[0] + ":" + scope.matchingAnswers[0],
@@ -104,6 +112,9 @@ app.directive("makerQuestion", function(){
 			  }
 			  return tmpArray;
 			}
+
+			console.log('possibleAnswers: ', scope.possibleAnswers);
+			console.log('correctAnswer: ', scope.correctAnswer);
 		}
 	};
 });
