@@ -11,6 +11,7 @@ describe('Maker authentication', function() {
 
         it('Should redirect to the taker page', function() {
             console.log('\n-----------Maker Authentication Suite----------------');
+            browser.sleep(200);
             expect(browser.getCurrentUrl()).toBe('http://localhost:3000/taker/#/');
         });
 
