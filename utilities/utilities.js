@@ -3,19 +3,29 @@ module.exports.calculateQuizScore = function(selectedAnswers, correctAnswers, po
 
 	for(var i = 0; i < correctAnswers.length; i++){
 
-			if(correctAnswers[i].length != selectedAnswers[i].answer.length) {
-				continue;
+		if(correctAnswers[i].length != selectedAnswers[i].answer.length) {
+			continue;
 		}
 
 		var matches = true;
-		for(var j = 0; j < correctAnswers[i].length; j++){
-			if(selectedAnswers[i].answer[j] != correctAnswers[i][j]){
-				matches = false;
+
+		// If the answer is a string then it must be a matching question
+		if(typeof selectedAnswers[i].answer[0] === 'string') {
+			for(var j = 0; j < correctAnswers[i].length; j++) {
+				if(selectedAnswers[i].answer[j] === correctAnswers[i][j]) {
+					points += pointValues[i];
+				}
 			}
-		}
-		
-		if(matches){
-			points += pointValues[i];
+		} else {
+			for(var j = 0; j < correctAnswers[i].length && matches; j++){
+				if(selectedAnswers[i].answer[j] != correctAnswers[i][j]){
+					matches = false;
+				}
+			}
+
+			if(matches) {
+				points += pointValues[i];	
+			}
 		}
 	}
 
