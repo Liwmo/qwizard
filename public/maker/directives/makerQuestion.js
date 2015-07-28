@@ -18,6 +18,7 @@ app.directive("makerQuestion", function(){
 
 			scope.tf = function(value){
 				scope.correctAnswer[0] = value;
+				console.log(scope.correctAnswer);
 			};
 
 			scope.setDefaultPoints = function() {
@@ -30,6 +31,8 @@ app.directive("makerQuestion", function(){
 				else if(scope.questionType == 'ms') {
 					scope.points = 5;
 				}
+
+				scope.correctAnswer = [];
 			};
 
 			scope.mc = scope.tf;
@@ -43,6 +46,8 @@ app.directive("makerQuestion", function(){
 				}
 
 				scope.correctAnswer.sort(function(a,b){return a-b});
+
+				console.log(scope.correctAnswer);
 			};
 
 			scope.addOption = function() {
