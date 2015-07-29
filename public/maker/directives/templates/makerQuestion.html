@@ -39,23 +39,15 @@
 	</span>
 	<div class="add-choice" ng-click="addOption()" ng-hide="maxedOut">Add Another Choice +</div>
 </span>
-<span style="margin-left: 6em" class="flex flex-container horizontal noselect" ng-show="questionType=='ma'">
-	<!-- <span style="flex-wrap:nowrap;" class="flex-container horizontal answer-field" ng-repeat="answer in possibleAnswers track by $index">
-		<input placeholder="Clue" ng-model="matchingClues[$index]" ng-change='buildAnswers()' class="text-input flex maText clue" maxlength="50">
-		<input placeholder="Answer" ng-model="matchingAnswers[$index]" ng-change='buildAnswers()' class="text-input flex maText answer" maxlength="50">
-	</span> -->
+<span class="flex flex-container horizontal noselect" style="-webkit-justify-content: space-between; justify-content:space-between;" ng-show="questionType=='ma'">
 
-	<div style="width: 50%; min-width: 10em; max-width: 25em" class="flex-container horizontal answer-field" ng-repeat="answer in possibleAnswers track by $index">
-		<div style="margin: 2em" class="flex">
+	<div style="width: 48%; min-width: 10em; max-width: 25em" class="flex-container horizontal answer-field" ng-repeat="answer in possibleAnswers track by $index">
+		<div  class="flex">
 			<input placeholder="Clue" ng-model="matchingClues[$index]" ng-change='buildAnswers()' class="text-input clue" maxlength="25">
 			<div class="maAnswer">
 				<input placeholder="Answer" ng-model="matchingAnswers[$index]" ng-change='buildAnswers()' class="text-input" maxlength="25">
 			</div>
 		</div>
 	</div>	
-
-
-
-
 </span>
 <div class="icon delete" ng-click="remove()"></div>

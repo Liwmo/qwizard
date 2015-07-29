@@ -4,7 +4,7 @@
       <div class="subtext">{{currentQuestion + 1}} of {{questions.length}}</div>
   </div>
   <div class="quiz_cont">
-      <div ng-repeat="question in questions" class="question shadow" ng-show="$index == currentQuestion">
+      <div ng-repeat="question in questions" class="question shadow card" ng-show="$index == currentQuestion">
           <question 
                 text="question.text"
                 name="question.name"
