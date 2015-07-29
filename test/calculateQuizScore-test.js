@@ -219,6 +219,74 @@ describe('quiz score calculation test', function(){
 		done();
 	});
 
+	it('should award max number of points for a matching question if all matches are made correctly', function(done) {
+		var selectedAnswers = [
+			{
+				answer: ["clue1:answer1", "clue2:answer2", "clue3:answer3", "clue4:answer4"]
+			}
+		];
+
+		var correctAnswers = [
+			["clue1:answer1", "clue2:answer2", "clue3:answer3", "clue4:answer4"]
+		];	
+
+		var pointsPerCorrectMatch = 5;
+
+		assert.equal(calculateQuizScore(selectedAnswers, correctAnswers, [pointsPerCorrectMatch]), pointsPerCorrectMatch * 4);
+		done();
+	});
+
+	it('should award correct points for a matching question if half of the matches are made correctly', function(done) {
+		var selectedAnswers = [
+			{
+				answer: ["clue1:answer1", "clue2:answer2", "clue3:answer4", "clue4:answer3"]
+			}
+		];
+
+		var correctAnswers = [
+			["clue1:answer1", "clue2:answer2", "clue3:answer3", "clue4:answer4"]
+		];	
+
+		var pointsPerCorrectMatch = 5;
+		
+		assert.equal(calculateQuizScore(selectedAnswers, correctAnswers, [pointsPerCorrectMatch]), pointsPerCorrectMatch * 2);
+		done();
+	});
+
+	it('should award correct points for a matching question if only one match is made correctly', function(done) {
+		var selectedAnswers = [
+			{
+				answer: ["clue1:answer1", "clue2:answer3", "clue3:answer4", "clue4:answer2"]
+			}
+		];
+
+		var correctAnswers = [
+			["clue1:answer1", "clue2:answer2", "clue3:answer3", "clue4:answer4"]
+		];	
+
+		var pointsPerCorrectMatch = 5;
+
+		assert.equal(calculateQuizScore(selectedAnswers, correctAnswers, [pointsPerCorrectMatch]), pointsPerCorrectMatch * 1);
+		done();
+	});
+
+	it('should zero points for a matching question if no correct matches are made', function(done) {
+		var selectedAnswers = [
+			{
+				answer: ["clue1:answer2", "clue2:answer3", "clue3:answer4", "clue4:answer1"]
+			}
+		];
+
+		var correctAnswers = [
+			["clue1:answer1", "clue2:answer2", "clue3:answer3", "clue4:answer4"]
+		];	
+
+		var pointsPerCorrectMatch = 5;
+
+		assert.equal(calculateQuizScore(selectedAnswers, correctAnswers, [pointsPerCorrectMatch]), pointsPerCorrectMatch * 0);
+		done();
+	});	
+
 	it('should award correct number of points for a quiz', function(done) {
 		var correctAnswers = [
 			[1],
