@@ -6,6 +6,7 @@
 		<option value="mc">Multiple Choice</option>
 		<option value="ms">Multiple Select</option>
 		<option value="ma">Matching</option>
+		<option value="pm">Photo Matching</option>
 	</select>
 	<textarea ng-model="questionText" value="questionText" class="text-input question-text" maxlength="300" placeholder="Question Text"></textarea>
 	<span class="point-display">Points{{questionType=='ma' ? " per correct match" : ""}}: {{points}}</span>
@@ -53,9 +54,17 @@
 			</div>
 		</div>
 	</div>	
-
-
-
-
+</span>
+<span style="margin-left: 6em" class="flex flex-container horizontal noselect" ng-show="questionType=='pm'">
+	<div style="width: 50%; min-width: 10em; max-width: 25em" class="flex-container horizontal answer-field" ng-repeat="answer in possibleAnswers track by $index">
+		<div style="margin: 2em" class="flex">
+			<div class='clue'>
+				<img src="../images/{{matchingClues[$index]}}.svg"/>
+			</div>
+			<div class="maAnswer">
+				<span class="text-input">{{matchingAnswers[$index]}}</span>
+			</div>
+		</div>
+	</div>	
 </span>
 <div class="icon delete" ng-click="remove()"></div>

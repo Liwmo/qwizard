@@ -1,4 +1,4 @@
-app.directive("makerQuestion", function(){
+app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 	return {
 		restrict: 'E',
 		scope: {
@@ -38,7 +38,19 @@ app.directive("makerQuestion", function(){
 						scope.possibleAnswers.pop();
 					scope.buildAnswers();
 				}
-
+				else if(scope.questionType == "pm"){
+					scope.points = 2;
+					if(scope.possibleAnswers.length < 4) {
+						scope.possibleAnswers.push("");
+					}
+					while (scope.possibleAnswers.length > 4)
+						scope.possibleAnswers.pop();
+					employeeFactory.getRandomEmployees(function(data){
+						scope.matchingClues = data.matchingClues;
+						scope.matchingAnswers = data.matchingAnswers;
+						scope.buildAnswers();
+					});
+				}
 				scope.correctAnswer = [];
 			};
 
@@ -121,4 +133,4 @@ app.directive("makerQuestion", function(){
 			}
 		}
 	};
-});
+}]);
