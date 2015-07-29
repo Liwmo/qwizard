@@ -2,7 +2,7 @@
     <input ng-model="quizName" ng-change="verifyName()" id="quiz_name" type="text" class="teal-medium text-input large" placeholder="Quiz Name" maxlength="20">
     <span style="font-family:Dosis" ng-hide="validName">Quiz name is required! No special characters!</span>
 </div>
-<div class="flex" style="overflow-y:auto;">
+<div class="flex " style="overflow-y:auto;">
     <div id="question" ng-repeat="question in questions track by $index">
         <maker-question points="question.points" 
                         question-name="question.name" 
@@ -16,7 +16,7 @@
         <!-- <div ng-click="removeQuestion(index)" class="teal-dark button shadow noselect">Delete</div> -->
     </div>
     <div id="add-question" ng-click="addQuestion()">Add Another Question +</div>
-    <div class="noselect">
+    <div id="makerButtons" class="noselect">
         <span ng-click="publishQuiz()" class="nope button teal-dark shadow noselect">publish</span>
         <span ng-click="saveDraft()" class="nope button teal-dark shadow noselect">save draft</span>
         <span ng-click="cancelConfirm()" class="nope button teal-dark shadow noselect">cancel</span>
@@ -34,4 +34,3 @@
         </div>
     </div>
 </div>
-
