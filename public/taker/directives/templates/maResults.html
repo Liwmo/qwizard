@@ -1,0 +1,9 @@
+<div class="clueContainer flex-container noselect">
+	<div class="clue" ng-repeat="answer in correct track by $index">
+		<div class="clueText">{{answer.split(':')[0]}}</div>
+		<div style="width:100%" class="teal-medium shadow button noselect selected correct" ng-class="{'purple-medium': selected.indexOf(answer) > -1}">{{answer.split(':')[1]}}</div>
+	</div>
+</div>
+<!-- <div class="optionContainer flex-container noselect">
+	<div ng-drag-success="onDragComplete($data, $event)" ng-drag="true" ng-drag-data="{index: $index}" class="option light-text shadow" ng-repeat="option in options track by $index">{{option}}</div>
+</div> -->
