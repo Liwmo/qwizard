@@ -243,13 +243,20 @@ maker-question input[type=range]::-moz-range-thumb {
     font-size: 1em;
 }
 
+.clue img{
+    background: rgba(20,20,20,0.9);
+    width: 100px;
+    height: 100px;
+    margin-bottom: -1.5em;
+}
+
 .maAnswer {
     background-color: #a3709c;
     padding: 0.3em;
     
 }
 
-.maAnswer input {
+.maAnswer input, .maAnswer span {
     border-bottom:solid .1em rgba(255, 255, 245, 0.6) !important;
     background-color: transparent;
     color: #fffff5;
