@@ -231,7 +231,7 @@ maker-question input[type=range]::-moz-range-thumb {
     border: 0.1em solid #fffff5;
 }
 
-.popup {
+.popup > div:first-child {
     margin:auto;
     padding: 1em;
     background: #332532;
@@ -358,9 +358,7 @@ maker-question .add-choice {
 }
 
 .publish-overview {
-    margin:1em ;
     padding: 1em 3em 2em;
-    border-bottom:.15em solid #f1eaf0;
     max-width:85rem;
 }
 
