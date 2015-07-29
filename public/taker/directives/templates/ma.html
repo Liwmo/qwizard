@@ -5,7 +5,7 @@
 	</div>
 </div>
 <div class="optionContainer flex-container noselect">
-	<div ng-drag-success="onDragComplete($data, $event)" ng-drag="true" ng-drag-data="{index: $index}" class="option light-text shadow" ng-repeat="option in options track by $index">{{option}}</div>
+	<div id="option{{$index}}" ng-drag="true" ng-drag-data="{index: $index}" class="option light-text shadow" ng-repeat="option in options track by $index">{{option}}</div>
 </div>
 <!-- <span style="width:100%"
       class="teal-medium shadow button noselect"
