@@ -23,11 +23,10 @@ client.bind(bindPath, password, function(err, ldapRes) {
                 attributes: ['cn', 'displayName', 'thumbnailPhoto']
             };
 
-              client.search('CN=james.hoekzema,OU=Employees,OU=UsersAccounts,OU=StLouis,DC=schafer,DC=lan', opts, function (err, search) {
+              client.search('OU=Employees,OU=UsersAccounts,OU=StLouis,DC=schafer,DC=lan', opts, function (err, search) {
 			    search.on('searchEntry', function (entry) {
 			      var user = entry.object;
-			      console.log(user.displayName);
-			      console.log(user.thumbnailPhoto);
+			      console.log(user.displayName, !!user.thumbnailPhoto);
 			    });
 
 			    search.on('end', function(){
