@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-function writeImage(fileName, fileData, callback) {
+function writeImage(fileName, fileData) {
 	fs.writeFileSync(fileName, fileData);
 }
 
