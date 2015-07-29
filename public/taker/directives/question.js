@@ -38,19 +38,53 @@ app.directive("question", ['ngDraggable', function(){
 			}
 			
 			scope.onDropComplete = function(dropIndex, data, e) {
-				var dropElement = document.querySelector("#drop" + dropIndex);
 				var dragElement = e.element[0];
-				if (dropElement.children.length == 0) {
-					dropElement.appendChild(e.element[0]);
+				var optionIndexOfDraggedElement = dragElement.id[dragElement.id.length-1];
+				var clueIndexOfDraggedFromTarget = dragElement.parentElement.id[dragElement.parentElement.id.length-1];
+
+				var dropToTarget = elem[0].querySelector("#drop" + dropIndex);
+				var dropFromTarget = elem[0].querySelector("#drop" + clueIndexOfDraggedFromTarget);
+
+				var swapElement = dropToTarget.children[0];
+				var optionIndexOfSwapElement = scope.dropped[dropIndex];
+				
+				if (dropToTarget.children.length == 0 && !clueIndexOfDraggedFromTarget) {
+					dropToTarget.appendChild(dragElement);
 					dragElement.classList.add("dropped");
 					dragElement.classList.remove("shadow");
-					scope.selected[dropIndex] = scope.clues[dropIndex]+':'+scope.options[data.index];
+					scope.dropped[dropIndex] = optionIndexOfDraggedElement;
+				}
+				else if (dropToTarget.children.length == 0 && dropFromTarget.children.length > 0) {
+					dropToTarget.appendChild(dragElement);
+					dragElement.classList.add("dropped");
+					scope.dropped[dropIndex] = optionIndexOfDraggedElement;
+					scope.dropped[clueIndexOfDraggedFromTarget] = -1;
+				}
+				else if (dropToTarget.children.length > 0) {
+					dropToTarget.appendChild(dragElement);
+					dropFromTarget.appendChild(swapElement);
+					scope.dropped[dropIndex] = optionIndexOfDraggedElement;
+					scope.dropped[clueIndexOfDraggedFromTarget] = optionIndexOfSwapElement; 
 				}
 
+				buildSelected();
+			}
+
+			var buildSelected = function() {
+				for (var i = 0; i < scope.clues.length; i++) {
+					if (scope.dropped[i] < 0) {
+						scope.selected[i] = scope.clues[i]+':'+"";
+					}
+					else {
+						scope.selected[i] = scope.clues[i]+':'+scope.options[scope.dropped[i]];	
+					}
+				}
+				console.log(scope.selected);
 			}
 
 			scope.clues = [];
 			scope.options = [];
+			scope.dropped = [-1, -1, -1,-1];
 			if (scope.type == 'ma') {
 				for (var i = 0; i < scope.answers.length; i++) {
 					var pair = scope.answers[i].split(':');

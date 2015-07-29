@@ -1,9 +1,10 @@
 <div class="clueContainer flex-container noselect">
 	<div class="clue" ng-repeat="clue in clues track by $index">
 		<div class="clueText">{{clue}}</div>
-		<div id="drop{{$index}}" ng-drop="true" ng-drop-data="{index: $index}" class="drop" ng-drop-success="onDropComplete($index, $data, $event)"></div>
+		<div id="drop{{$index}}" ng-drop="true" class="drop" ng-drop-success="onDropComplete($index, $data, $event)"></div>
 	</div>
 </div>
 <div class="optionContainer flex-container noselect">
-	<div ng-drag-success="onDragComplete($data, $event)" ng-drag="true" ng-drag-data="{index: $index}" class="option light-text shadow" ng-repeat="option in options track by $index">{{option}}</div>
+	<div id="option{{$index}}" ng-drag="true" class="option light-text shadow" ng-repeat="option in options track by $index">{{option}}</div>
 </div>
+
