@@ -28,8 +28,15 @@ app.directive("question", ['ngDraggable', function(){
 			};
 
 			scope.getType = function(){
-				return '/taker/directives/templates/' + scope.type + '.html';
+				var path;
+				if(!((scope.type==='ma') && scope.correct)) {
+					path = '/taker/directives/templates/' + scope.type + '.html';
+				} else {
+					path = '/taker/directives/templates/maResults.html';
+				}
+				return path;
 			}
+			
 			scope.onDropComplete = function(dropIndex, data, e) {
 				var dragElement = e.element[0];
 				var optionIndexOfDraggedElement = dragElement.id[dragElement.id.length-1];

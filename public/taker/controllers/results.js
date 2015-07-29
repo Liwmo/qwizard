@@ -41,7 +41,11 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
                           $scope.questions[i].correct = answers[i];
                           $scope.questions[i].points = points[i];
 
-                          $scope.maxPoints += points[i];
+                          if($scope.questions[i].type === 'ma') {
+                            $scope.maxPoints += points[i]*4;
+                          } else {
+                            $scope.maxPoints += points[i]; 
+                          }
                     }
                     if (resultsData.selected) {
                         userFactory.getScoreOnQuiz($scope.quizId, function(data) {
@@ -61,14 +65,27 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
     });
 
     $scope.getResultsHeader = function(question) {
+        var totalPoints = question.points;
+        var partialPoints = 0;
         if(!$scope.ready) {
             return;
         }
             
         if(question.correct.toString() === question.selected.toString()) {
-            return "Congrats! +" + question.points + " points!";
+            if(question.type === 'ma'){
+                totalPoints*=4;
+            }
+            return "Congrats! +" + totalPoints + " points!";
         } else {
-            return "Incorrect";
+            if(question.type === 'ma'){
+                for(var i = 0; i < question.correct.length; i++){
+                    if (question.correct[i] === question.selected[i]) {
+                        partialPoints += question.points;
+                    }
+                }
+                return "Incorrect. +" + partialPoints + " points.";
+            }    
+            return "Incorrect.";
         }
     };
 
