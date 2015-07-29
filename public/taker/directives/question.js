@@ -28,11 +28,11 @@ app.directive("question", ['ngDraggable', function(){
 			};
 
 			scope.getType = function(){
-				var path = '';
-				if(!(scope.type==='ma')) {
+				var path;
+				if(!((scope.type==='ma') && scope.correct)) {
 					path = '/taker/directives/templates/' + scope.type + '.html';
 				} else {
-					path =  '/taker/directives/templates/maResults.html';
+					path = '/taker/directives/templates/maResults.html';
 				}
 				return path;
 			}

@@ -98,4 +98,58 @@ describe('Results page test: ', function() {
         browser.removeMockModule('httpBackendMock');
         browser.get('http://localhost:3000/logout');
     });
+
+    describe('Matching Results', function() {
+        it('Set up new mock', function() {
+            browser.get('http://localhost:3000/logout');
+            browser.get('http://localhost:3000');
+            element(by.css('[type="text"]')).sendKeys('proj-1189-bind');
+            element(by.css('[type="password"]')).sendKeys('OEHss$4r$mHb^j');
+            element(by.css('[type="submit"]')).click();
+            var httpBackendMock = function() {
+                angular.module('httpBackendMock', ['ngMockE2E', 'app'])
+                  .run(function($httpBackend) {
+                    var quiz = '{"title":"Test","questions":[{"name":"Benefits","type":"ma","text":"TF Question","answers":["one:one", "two:two", "three:three", "four:four"]}]}';
+                    var results = {
+                        "answers": "[[\"one:one\", \"two:two\", \"three:three\", \"four:four\"]]",
+                        "selected": "[{\"answer\":[\"one:one\", \"two:three\", \"three:two\", \"four:four\"]}]",
+                        "pointvalues" : "[2, 3, 2, 2, 5]"
+                    };
+
+                    $httpBackend.whenGET('/api/quiz/99999').respond(function(method, url, data, headers) {
+                        return [200, quiz, {}];
+                    });
+                    $httpBackend.whenGET('/api/quiz/99999/results').respond(function(method, url, data, headers) {
+                        return [200, results, {}];
+                    });
+                    $httpBackend.whenGET('/api/quiz/99999/points').respond(function(method, url, data, headers) {
+                        return [200, points, {}];
+                    });
+                    $httpBackend.whenGET('/api/userscore/99999').respond(JSON.stringify({points: 7}));
+
+                    $httpBackend.whenGET(/.*/).passThrough();
+                    $httpBackend.whenPOST(/.*/).passThrough();
+                 });
+            };
+            browser.addMockModule('httpBackendMock', httpBackendMock);
+
+            browser.get('http://localhost:3000/taker/#/results/99999');
+        });    
+
+        it('should display correct answers in purple', function() {
+            element(by.css('[ng-click="showAnswers()"]')).click();
+            var answers = element(by.repeater('question in questions').row(0)).element(by.repeater('answer in correct track by $index').row(0)).element(by.css('.button'));
+            expect(answers.getAttribute("class")).toMatch("purple-medium");
+        });
+
+        it('should display incorrect answers in teal', function() {
+            var answers = element(by.repeater('question in questions').row(0)).element(by.repeater('answer in correct track by $index').row(1)).element(by.css('.button'));
+            expect(answers.getAttribute("class")).not.toMatch("purple-medium");
+        });
+
+        it('logout', function() {
+            browser.removeMockModule('httpBackendMock');
+            browser.get('http://localhost:3000/logout');
+        });
+    });
 });
