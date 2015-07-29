@@ -231,17 +231,17 @@ maker-question input[type=range]::-moz-range-thumb {
     border: 0.1em solid #fffff5;
 }
 
-.card {
+.popup {
     margin:auto;
     padding: 1em;
     background: #332532;
 }
-.card .button {
+.popup .button {
     padding:0.5em 0;
     margin:.1em;
 }
-.card .button:nth-child(odd) {margin-right:.5em}
-.card .button:nth-child(even) {margin-left: .5em}
+.popup .button:nth-child(odd) {margin-right:.5em}
+.popup .button:nth-child(even) {margin-left: .5em}
 
 .popup.visible {
     -webkit-transform: scale(1) translateY(0em);
@@ -261,11 +261,15 @@ maker-question input[type=range]::-moz-range-thumb {
 }
 
 .maAnswer input {
-    border-bottom:solid 1px rgba(255, 255, 245, 0.6) !important;
+    border-bottom:solid 1px rgba(255, 255, 245, 0.6);
     background-color: transparent;
     color: #fffff5;
     text-align: center;
     font-size: 1em;
+}
+
+.maAnswer input:focus, .maAnswer input:active {
+    border-bottom:1px solid rgba(255,255,245, 1);
 }
 
 .maAnswer input:-moz-placeholder{
@@ -354,8 +358,10 @@ maker-question .add-choice {
 }
 
 .publish-overview {
+    margin:1em ;
     padding: 1em 3em 2em;
     border-bottom:.15em solid #f1eaf0;
+    max-width:85rem;
 }
 
 .publish-review {

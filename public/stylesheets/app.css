@@ -5,6 +5,10 @@ html {
     font-size:100%;
 }
 
+body {
+    background: #f9f8f9;
+}
+
 /*Convenience Classes */
 .subtext {
     font-size:.7em;
@@ -101,6 +105,13 @@ html {
     padding:.5em 0;
     color: #fffff5;
     cursor: pointer;
+}
+
+.card {
+    background: white;
+    margin: 1em auto;
+    width:100%;
+    max-width:85rem;
 }
 
 /* Primary Teal */
