@@ -90,9 +90,6 @@ app.directive("makerQuestion", function(){
 					scope.matchingClues[2] + ":" + randoms[2],
 					scope.matchingClues[3] + ":" + randoms[3]
 				];
-
-				console.log("Correct: " + JSON.stringify(scope.correctAnswer));
-				console.log("Possible: " + JSON.stringify(scope.possibleAnswers));
 			}
 
 			scope.removeAnswer = function(index) {
@@ -122,9 +119,6 @@ app.directive("makerQuestion", function(){
 			  }
 			  return tmpArray;
 			}
-
-			console.log('possibleAnswers: ', scope.possibleAnswers);
-			console.log('correctAnswer: ', scope.correctAnswer);
 		}
 	};
 });

@@ -31,32 +31,6 @@ app.directive("question", ['ngDraggable', function(){
 				return '/taker/directives/templates/' + scope.type + '.html';
 			}
 			scope.onDropComplete = function(dropIndex, data, e) {
-				// var dropTarget = document.querySelector("#drop" + dropIndex);
-				// var dragElement = e.element[0];
-				// var optionsIndexofWhereSwapStarted = scope.placedOptions[data.index];
-				// if (optionsIndexofWhereSwapStarted >= 0 && dropTarget.children.length == 0) {
-				// 	scope.placedOptions[optionsIndexofWhereSwapStarted] = -1;
-				// }
-				// if (dropTarget.children.length == 0) {
-				// 	dropTarget.appendChild(e.element[0]);
-				// 	dragElement.classList.add("dropped");
-				// 	dragElement.classList.remove("shadow");
-				// 	scope.placedOptions[dropIndex] = data.index;
-				// 	console.log(dropIndex, scope.placedOptions[dropIndex]);
-				// }
-				// else if (dropTarget.children.length > 0) {
-				// 	var swapElement = dropTarget.children[0];
-				// 	var swapTarget = dragElement.parentElement;
-				// 	dropTarget.appendChild(dragElement);
-				// 	swapTarget.appendChild(swapElement);
-
-				// 	var placedOptions2swapWith = scope.placedOptions[dropIndex];
-				// 	var optionsIndexofWhereSwapStarted = scope.placedOptions[data.index];
-				// 	scope.placedOptions[dropIndex] = data.index;
-				// 	scope.placedOptions[optionsIndexofWhereSwapStarted] = placedOptions2swapWith;
-				// }
-				// buildSelected();
-
 				var dragElement = e.element[0];
 				var optionIndexOfDraggedElement = dragElement.id[dragElement.id.length-1];
 				var clueIndexOfDraggedFromTarget = dragElement.parentElement.id[dragElement.parentElement.id.length-1];
@@ -70,6 +44,7 @@ app.directive("question", ['ngDraggable', function(){
 				if (dropToTarget.children.length == 0 && !clueIndexOfDraggedFromTarget) {
 					dropToTarget.appendChild(dragElement);
 					dragElement.classList.add("dropped");
+					dragElement.classList.remove("shadow");
 					scope.dropped[dropIndex] = optionIndexOfDraggedElement;
 				}
 				else if (dropToTarget.children.length == 0 && dropFromTarget.children.length > 0) {
