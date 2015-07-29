@@ -6,7 +6,7 @@ var db = require('../../database/db');
 router.route('/')
 	.get(function(req, res) {
 		var today = new Date().toISOString().substr(0,10);
-		var query =		'select name, userid, sum(points) as score ';
+		var query =		'select name, userid, ifnull(sum(points),0) as score ';
 			query +=	'from users as u, results as r, quizzes as q ';
 			query += 	'where r.userid=u.id and r.quizid=q.id and q.results<=? ';
 			query += 	'group by userid';
@@ -31,7 +31,7 @@ router.route('/since/:date')
 			return;
 		}
 
-		var query =		'select name, userid, sum(points) as score ';
+		var query =		'select name, userid, ifnull(sum(points),0) as score ';
 			query +=	'from users as u, results as r, quizzes as q ';
 			query += 	'where r.userid=u.id and r.quizid=q.id and q.results>=? and q.results<=? ';
 			query += 	'group by userid';
