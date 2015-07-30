@@ -14,6 +14,8 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 		},
 		templateUrl: '/maker/directives/templates/makerQuestion.html',
 		link: function(scope, elem, attrs){
+			var savedQuestionText = "", saved = false;
+
 			scope.tf = function(value){
 				scope.correctAnswer[0] = value;
 			};
@@ -39,6 +41,9 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 					scope.buildAnswers();
 				}
 				else if(scope.questionType == "pm"){
+					saved = true;
+					savedQuestionText = scope.questionText;
+					scope.questionText = "PM";
 					scope.points = 2;
 					if(scope.possibleAnswers.length < 4) {
 						scope.possibleAnswers.push("");
@@ -51,6 +56,12 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 						scope.buildAnswers();
 					});
 				}
+
+				if(scope.questionType != "pm" && saved){
+					scope.questionText = savedQuestionText;
+					saved = false;
+				}
+
 				scope.correctAnswer = [];
 			};
 
