@@ -85,7 +85,7 @@ app.directive("question", ['ngDraggable', function(){
 			scope.clues = [];
 			scope.options = [];
 			scope.dropped = [-1, -1, -1,-1];
-			if (scope.type == 'ma') {
+			if (scope.type == 'ma' || scope.type == 'pm') {
 				for (var i = 0; i < scope.answers.length; i++) {
 					var pair = scope.answers[i].split(':');
 					scope.clues[i] = pair[0];
