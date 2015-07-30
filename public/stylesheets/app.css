@@ -311,10 +311,6 @@ svg, img {
 
 .quiz_cont {
     padding:.5em;
-    left: 0;
-    right: 0;
-    top: 4em;
-    overflow: hidden;
 }
 
 #quiz_header {
