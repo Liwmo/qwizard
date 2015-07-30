@@ -1,1 +1,1 @@
-0 6 * * * NODE_ENV=production $(which node) /opt/qwizard/dailyCode/generateNotifications.js && NODE_ENV=production $(which node) /opt/qwizard/dailyCode/sendEmails.js
+0 6 * * * NODE_ENV=production $(which node) /opt/qwizard/dailyCode/generateNotifications.js && NODE_ENV=production $(which node) /opt/qwizard/dailyCode/sendEmails.js && NODE_ENV=production $(which node) /opt/qwizard/dailyCode/grabEmployees.js

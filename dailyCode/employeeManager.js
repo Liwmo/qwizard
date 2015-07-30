@@ -5,8 +5,19 @@ var isProduction = process.env.NODE_ENV == 'production';
 
 function grabEmployees() {
 	employeeRepository.getAllEmployees(function(data){
+		var count = 0;
+		var counter = function() {
+			count++; 
+			console.log(count, data.length);
+			if(count == data.length) {
+				process.exit();
+			}
+		}
+
 		data.forEach(function(employee, index) {
 			if(typeof employee.thumbnailPhoto !== 'object') {
+				console.log("User: " + employee.cn + " does not have an image.");
+				counter();
 				return;
 			}
 
@@ -18,22 +29,20 @@ function grabEmployees() {
 			// images aren't viewable.
 			var imageSize = Object.getOwnPropertyNames(employee.thumbnailPhoto).length;
 			if(imageSize < 1000 || imageSize > 10000) {
+				console.log("Image for user: " + employee.cn + " is not viewable.");
+				counter();
 				return;
 			}
 
 			var cn = employee.cn + '';
 			// function call to get employeeId, if it returns -1 then dont save image
-			
-			if(index == 100) {
-				var id = 'something';
-				id = insertEmployee('mike.johnson');
-				console.log(id)
-			}
-
-			
-			
-
-			imageWriter.writeImage(pathToFile(employee.cn), employee.thumbnailPhoto);
+            getEmployeeId(cn, function(id) {
+            	if(id != -1) {
+					imageWriter.writeImage(pathToFile(id), employee.thumbnailPhoto);
+					counter();
+            	}
+            });
+            // employee == data.employee.length;
 		});
 	});
 }
@@ -47,24 +56,24 @@ function pathToFile(filename) {
 function getEmployeeId(name, callback) {
 	db.query('SELECT id FROM users WHERE name=?', name, function(err, message) {
 		if(err) {
-			return -1;
+			callback(-1);
+		} else if(message.length) {
+			callback(message[0].id);
+		} else {
+			insertEmployee(name, function(id) {
+				callback(id);
+			});
 		}
-
-		if(message.length) {
-			return message[0].id;
-		}
-
-		return insertEmployee(name);
 	});
 }
 
-function insertEmployee(name) {
+function insertEmployee(name, callback) {
 	db.query('INSERT INTO users SET name=?', name, function(err, message) {
 		if(err) {
-			return -1;
-		}
-
-		return message.insertId;
+			callback(-1);
+		} else {
+			callback(message.insertId);	
+		} 
 	});
 }
 
