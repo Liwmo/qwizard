@@ -354,18 +354,16 @@ describe('create quiz', function() {
                 });
             });
 
-            it('should have 4 clue fields', function() {
+            it('should have 4 clue fields for both text and photo matching', function() {
                 element(by.cssContainingText("option","Matching")).click();
-                element.all(by.css('maker-question .clue')).then(function(elements) {
-                    expect(elements.length).toBe(4);
-                });
+                expect(element.all(by.css('[ng-show="questionType==\'ma\'"] .clue')).count()).toBe(4);
+                expect(element.all(by.css('[ng-show="questionType==\'pm\'"] .clue')).count()).toBe(4);
             });
 
             it('should have 4 answer fields', function() {
                 element(by.cssContainingText("option","Matching")).click();
-                element.all(by.css('maker-question .maAnswer')).then(function(elements) {
-                    expect(elements.length).toBe(4);
-                });
+                expect(element.all(by.css('[ng-show="questionType==\'ma\'"] .maAnswer')).count()).toBe(4);
+                expect(element.all(by.css('[ng-show="questionType==\'pm\'"] .maAnswer')).count()).toBe(4);
             });
             it('should popup error if clue field is empty', function() {
                 quizNameInput.sendKeys('IIII');
@@ -388,7 +386,7 @@ describe('create quiz', function() {
                 questionTextInput.sendKeys('IIIIText');
                 questionNameInput.sendKeys('IIIIName');
                 element(by.cssContainingText("option","Matching")).click();
-                element.all(by.css('maker-question .clue')).then(function(elements) {
+                element.all(by.css('[ng-show="questionType=\'ma\'"] .clue')).then(function(elements) {
                     for (var i = 0; i < elements.length; i++) {
                         elements[i].sendKeys('iiii');
                     }

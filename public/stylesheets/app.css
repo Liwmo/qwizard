@@ -5,6 +5,10 @@ html {
     font-size:100%;
 }
 
+body {
+    background: #f9f8f9;
+}
+
 /*Convenience Classes */
 .subtext {
     font-size:.7em;
@@ -101,6 +105,13 @@ html {
     padding:.5em 0;
     color: #fffff5;
     cursor: pointer;
+}
+
+.card {
+    background: white;
+    margin: 1em auto;
+    width:98%;
+    max-width:85rem;
 }
 
 /* Primary Teal */
@@ -300,10 +311,6 @@ svg, img {
 
 .quiz_cont {
     padding:.5em;
-    left: 0;
-    right: 0;
-    top: 4em;
-    overflow: hidden;
 }
 
 #quiz_header {
@@ -386,6 +393,7 @@ hr{
     -webkit-justify-content:space-between;
     justify-content:space-between;
     flex-wrap:wrap;
+    margin:.75rem 0;
 }
 .question .clue {
     width:48.5%;
@@ -397,31 +405,45 @@ hr{
     padding:.65em;
     overflow:hidden;
 }
-.question .drop {
+.question .drop, .question .pool {
     background:#EAE9EA;
     height:2.5rem;
     position:relative;
 }
-.question .optionContainer {
-    margin-top:1.5em;
+.question .drop.drag-enter {
+    box-shadow: 0 0 1.8em 0 rgba(73, 73, 73, .2) inset;
+    border:3px solid #ac7ea6;
+    transition: .2s;
 }
+.question .drop > .option {
+    box-shadow:none;
+    background:#A3709C;
+}
+
 .question .option {
-    width:48.5%;
-    text-align:center;
-    padding:.75em;
-    overflow:hidden;
-    margin:.25rem 0;
-    background:#5DC0AB;
-}
-.question .option.dropped {
-    position:absolute !important;
+    position:absolute;
     top:0;
     left:0;
     right:0;
     bottom:0;
-    margin:0;
-    width:100% !important;
+    padding:.75em;
+    overflow:hidden;
+    background:#5DC0AB;
+    text-align:center;
+    box-shadow: 0 0 .2rem 0 rgba(73,73,73,.4), .1rem .1rem .25rem 0 rgba(73, 73, 73, .2);
+    transition: box-shadow .1s, background .1s;
+    cursor:pointer;
+}
+.question .option.drag-over {
     background:#A3709C;
+}
+.question .option.dragging {
+    background:#5DC0AB;
+}
+
+.option-wrap {
+    width:48.5%;
+    margin:.5rem 0;
 }
 
 .stats {

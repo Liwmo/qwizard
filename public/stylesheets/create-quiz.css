@@ -35,6 +35,12 @@ input {
     border-bottom:solid 0.15rem rgba(255, 255, 245, 1);
 }
 
+#makerButtons {
+    position:absolute;
+    bottom:2em;
+    right:2em;
+}
+
 
 #add-question{
     font-family: "Signika";
@@ -43,9 +49,13 @@ input {
     text-align: center;
     width: 100%;
     padding: .5em;
-    margin-bottom: 2rem;
+    margin-bottom: 10rem;
     border-bottom: .15rem solid #f1eaf0;
     cursor:pointer;
+}
+
+#question {
+    padding:0 1.5rem;
 }
 
 .question-text {
@@ -59,8 +69,9 @@ input {
 
 maker-question {
     position:relative;
-    margin:1rem 2rem;
+    margin:1rem auto;
     padding:1.5rem;
+    max-width:85rem;
 }
 maker-question .icon.delete {
     position:absolute;
@@ -220,17 +231,17 @@ maker-question input[type=range]::-moz-range-thumb {
     border: 0.1em solid #fffff5;
 }
 
-.card {
+.popup > div:first-child {
     margin:auto;
     padding: 1em;
     background: #332532;
 }
-.card .button {
+.popup .button {
     padding:0.5em 0;
     margin:.1em;
 }
-.card .button:nth-child(odd) {margin-right:.5em}
-.card .button:nth-child(even) {margin-left: .5em}
+.popup .button:nth-child(odd) {margin-right:.5em}
+.popup .button:nth-child(even) {margin-left: .5em}
 
 .popup.visible {
     -webkit-transform: scale(1) translateY(0em);
@@ -247,7 +258,8 @@ maker-question input[type=range]::-moz-range-thumb {
     background: rgba(20,20,20,0.9);
     width: 100px;
     height: 100px;
-    margin-bottom: -1.5em;
+    margin-bottom: -22px;
+    margin-top: 1.25em;
 }
 
 .maAnswer {
@@ -262,6 +274,14 @@ maker-question input[type=range]::-moz-range-thumb {
     color: #fffff5;
     text-align: center;
     font-size: 1em;
+}
+
+.maAnswer span{
+    border-bottom: none !important;
+}
+
+.maAnswer input:focus, .maAnswer input:active {
+    border-bottom:1px solid rgba(255,255,245, 1);
 }
 
 .maAnswer input:-moz-placeholder{
@@ -351,7 +371,7 @@ maker-question .add-choice {
 
 .publish-overview {
     padding: 1em 3em 2em;
-    border-bottom:.15em solid #f1eaf0;
+    max-width:85rem;
 }
 
 .publish-review {

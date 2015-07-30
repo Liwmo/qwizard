@@ -28,22 +28,29 @@ app.directive("question", ['ngDraggable', function(){
 			};
 
 			scope.getType = function(){
-				return '/taker/directives/templates/' + scope.type + '.html';
+				var path;
+				if(!((scope.type==='ma') && scope.correct)) {
+					path = '/taker/directives/templates/' + scope.type + '.html';
+				} else {
+					path = '/taker/directives/templates/maResults.html';
+				}
+				return path;
 			}
+			
 			scope.onDropComplete = function(dropIndex, data, e) {
 				var dragElement = e.element[0];
 				var optionIndexOfDraggedElement = dragElement.id[dragElement.id.length-1];
 				var clueIndexOfDraggedFromTarget = dragElement.parentElement.id[dragElement.parentElement.id.length-1];
 
 				var dropToTarget = elem[0].querySelector("#drop" + dropIndex);
-				var dropFromTarget = elem[0].querySelector("#drop" + clueIndexOfDraggedFromTarget);
+				var dropFromTarget = dragElement.parentElement;
 
 				var swapElement = dropToTarget.children[0];
 				var optionIndexOfSwapElement = scope.dropped[dropIndex];
 				
 				if (dropToTarget.children.length == 0 && !clueIndexOfDraggedFromTarget) {
 					dropToTarget.appendChild(dragElement);
-					dragElement.classList.add("dropped");
+					// dragElement.classList.add("dropped");
 					dragElement.classList.remove("shadow");
 					scope.dropped[dropIndex] = optionIndexOfDraggedElement;
 				}

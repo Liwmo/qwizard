@@ -28,19 +28,19 @@ describe('Info page: ', function() {
     });
   });
 
-  it('the user should be navigated to /#/bug after clicking report bug button', function() {
-    browser.get('http://localhost:3000/taker/#/info');
-    element.all(by.css('#info-buttons a.button')).then(function(items) {
-      items[1].click();
-      expect(browser.getCurrentUrl()).toBe('http://localhost:3000/taker/#/bug');
-    });    
-  });
+  // it('the user should be navigated to /#/bug after clicking report bug button', function() {
+  //   browser.get('http://localhost:3000/taker/#/info');
+  //   element.all(by.css('#info-buttons a.button')).then(function(items) {
+  //     items[1].click();
+  //     expect(browser.getCurrentUrl()).toBe('http://localhost:3000/taker/#/bug');
+  //   });    
+  // });
 
-  it('the user should be navigated to /#/feature after clicking report bug button', function() {
-    browser.get('http://localhost:3000/taker/#/info');
-    element.all(by.css('#info-buttons a.button')).then(function(items) {
-      items[0].click();
-      expect(browser.getCurrentUrl()).toBe('http://localhost:3000/taker/#/feature');
-    });    
-  });
+  // it('the user should be navigated to /#/feature after clicking report bug button', function() {
+  //   browser.get('http://localhost:3000/taker/#/info');
+  //   element.all(by.css('#info-buttons a.button')).then(function(items) {
+  //     items[0].click();
+  //     expect(browser.getCurrentUrl()).toBe('http://localhost:3000/taker/#/feature');
+  //   });    
+  // });
 });

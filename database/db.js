@@ -1,7 +1,5 @@
 var mysql = require('mysql');
-console.log(process.env.NODE_ENV);
 var isProd = process.env.NODE_ENV == 'production';
-
 
 if (isProd) {
 	console.log("ALERT: Production environment, using qwizard")
