@@ -1,0 +1,38 @@
+{
+  "name": "Qwizard",
+  "icons": [
+    {
+      "src": "images/touch-icon-iphone.png",
+      "sizes": "60x60",
+      "type": "image/png",
+      "density": "1.0"
+    },
+    {
+      "src": "images/touch-icon-ipad",
+      "sizes": "76x76",
+      "type": "image/png",
+      "density": "1.5"
+    },
+    {
+      "src": "images/touch-icon-phone-retina.png",
+      "sizes": "120x120",
+      "type": "image/png",
+      "density": "2.0"
+    },
+    {
+      "src": "images/touch-icon-ipad-retina.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "density": "3.0"
+    },
+    {
+      "src": "images/app-icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "density": "4.0"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}
