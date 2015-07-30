@@ -70,7 +70,9 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
         if(!$scope.ready) {
             return;
         }
-            
+        if(question.selected.length <= 0) {
+            return "Not answered.";   
+        }
         if(question.correct.toString() === question.selected.toString()) {
             if(question.type === 'ma'){
                 totalPoints*=4;
