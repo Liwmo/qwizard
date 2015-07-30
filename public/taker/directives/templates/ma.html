@@ -4,7 +4,10 @@
 		<div id="drop{{$index}}" ng-drop="true" class="drop" ng-drop-success="onDropComplete($index, $data, $event)"></div>
 	</div>
 </div>
+<hr class="purple-light"/>
 <div class="optionContainer flex-container noselect">
-	<div id="option{{$index}}" ng-drag="true" class="option light-text shadow" ng-repeat="option in options track by $index">{{option}}</div>
+	<div class="pool option-wrap" ng-repeat="option in options track by $index">
+		<span id="option{{$index}}" ng-drag="true" class="option light-text">{{option}}</span>
+	</div>
 </div>
 

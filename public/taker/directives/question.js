@@ -43,14 +43,14 @@ app.directive("question", ['ngDraggable', function(){
 				var clueIndexOfDraggedFromTarget = dragElement.parentElement.id[dragElement.parentElement.id.length-1];
 
 				var dropToTarget = elem[0].querySelector("#drop" + dropIndex);
-				var dropFromTarget = elem[0].querySelector("#drop" + clueIndexOfDraggedFromTarget);
+				var dropFromTarget = dragElement.parentElement;
 
 				var swapElement = dropToTarget.children[0];
 				var optionIndexOfSwapElement = scope.dropped[dropIndex];
 				
 				if (dropToTarget.children.length == 0 && !clueIndexOfDraggedFromTarget) {
 					dropToTarget.appendChild(dragElement);
-					dragElement.classList.add("dropped");
+					// dragElement.classList.add("dropped");
 					dragElement.classList.remove("shadow");
 					scope.dropped[dropIndex] = optionIndexOfDraggedElement;
 				}
