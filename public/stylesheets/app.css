@@ -341,6 +341,7 @@ hr{
 
 [ng-bind-html] a{
     color: #17a587;
+    pointer-events: all;
 }
 
 [ng-bind-html] a:hover{

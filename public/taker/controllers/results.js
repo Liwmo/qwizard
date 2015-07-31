@@ -104,4 +104,20 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
         $location.path('/'); 
     };
 
+    var resultsView = document.getElementById('resultsView');
+    if(resultsView){
+        resultsView.addEventListener('click', function(e){
+            if(e.target.tagName == "A"){
+                window.open(e.target.href);
+                e.preventDefault();
+            }else if(e.target.matches("[ng-bind-html] a *")){
+                var a = e.target.parentElement;
+                while(a.tagName !== "A"){
+                    a = a.parentElement;
+                }
+                window.open(a.href);
+                e.preventDefault();
+            }
+        }, true);
+    }
 }]);
