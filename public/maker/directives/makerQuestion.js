@@ -22,6 +22,9 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 
 			scope.setQuestionDefaults = function() {
 				scope.possibleAnswers = ["", "", ""];
+				scope.matchingClues = ["", "", "", ""];
+				scope.matchingAnswers = ["", "", "", ""];
+
 				if(scope.questionType == 'tf') {
 					scope.points = 2;
 				}
@@ -48,9 +51,10 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 					if(scope.possibleAnswers.length < 4) {
 						scope.possibleAnswers.push("");
 					}
+
 					while (scope.possibleAnswers.length > 4)
 						scope.possibleAnswers.pop();
-					employeeFactory.getRandomEmployees(function(data){
+						employeeFactory.getRandomEmployees(function(data){
 						scope.matchingClues = data.matchingClues;
 						scope.matchingAnswers = data.matchingAnswers;
 						scope.buildAnswers();
@@ -89,7 +93,7 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 			scope.matchingAnswers = ["", "", "", ""];
 
 			// Unpacking matching answers if loading quiz from server
-			if(scope.questionType === 'ma' && scope.correctAnswer.length) {
+			if((scope.questionType === 'ma' || scope.questionType === 'pm')&& scope.correctAnswer.length) {
 				scope.correctAnswer.forEach(function(answer, index) {
 					var split = answer.split(':');
 					scope.matchingClues[index] = split[0];
