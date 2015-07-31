@@ -1,3 +1,6 @@
+var fs = require('fs');
+var path = require('path');
+
 module.exports = function(employees, size, excludeIds){
 	var data = {
 		matchingClues: [],
@@ -5,7 +8,9 @@ module.exports = function(employees, size, excludeIds){
 	};
 	for(var i = 0; i < size; i++){
 		var rand = Math.floor(Math.random() * employees.length);
-		while(data.matchingClues.indexOf(employees[rand].id) !== -1 || (excludeIds && excludeIds.indexOf(employees[rand].id) !== -1)){
+		var picPath = path.join(__dirname, '../public/images/employees/' + employees[rand].id + ".jpg");
+		while(data.matchingClues.indexOf(employees[rand].id) !== -1 || (excludeIds && excludeIds.indexOf(employees[rand].id) !== -1) || !(fs.existsSync(picPath))){
+			picPath = path.join(__dirname, '../public/images/employees/' + employees[rand].id + ".jpg");
 			rand = Math.floor(Math.random() * employees.length);
 		}
 

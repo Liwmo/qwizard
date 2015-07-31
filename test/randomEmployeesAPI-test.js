@@ -1,15 +1,20 @@
 var should = require('should');
 var assert = require('assert');
 var request = require('supertest');
+var db = require('../database/db');
+var fs = require('fs');
 var randomSet = require('../utilities/randomSet');
+var path = require('path');
 
 describe("myQuizzes API endpoint", function(done){
     var employees = [];
     for(var i = 0; i < 5; i++){
         employees.push({
-            id: i,
+            id: i - 20,
             name: 'first.last'
         });
+        var filepath = path.join(__dirname, '../public/images/employees/' + (i - 20) + '.jpg');
+        fs.closeSync(fs.openSync(filepath, 'w'));
     }
 
     it('should give back the desired number of employees', function(){
@@ -38,15 +43,22 @@ describe("myQuizzes API endpoint", function(done){
     });
 
     it('should return users not in badSet parameter', function(){
-        var badSet = [0,1,2,3];
+        var badSet = [-20,-19,-18,-17];
 
         var set = randomSet(employees, 1, badSet);
         assert.equal(set.matchingClues.length, 1);
-        assert.equal(set.matchingClues[0], 4);
+        assert.equal(set.matchingClues[0], -16);
     });
 
     it('should translate the cn to displayName', function(){
         var set = randomSet(employees, 1);
         assert.equal(set.matchingAnswers[0], "First Last");
+    });
+
+    it('should remove files', function(){
+        for(var i = 0; i < 5; i++){
+            var filepath = path.join(__dirname, '../public/images/employees/' + (i - 20) + '.jpg');
+            fs.unlinkSync(filepath);
+        }
     });
 });
