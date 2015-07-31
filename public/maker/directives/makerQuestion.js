@@ -83,7 +83,7 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 					scope.possibleAnswers.push("");
 				}
 				scope.maxedOut = scope.possibleAnswers.length >= scope.max;
-			}
+			};
 
 			scope.matchingClues = ["", "", "", ""];
 			scope.matchingAnswers = ["", "", "", ""];
@@ -113,7 +113,7 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 					scope.matchingClues[2] + ":" + randoms[2],
 					scope.matchingClues[3] + ":" + randoms[3]
 				];
-			}
+			};
 
 			scope.removeAnswer = function(index) {
 				var correctIndex = scope.correctAnswer.indexOf(index);//index in array of correct answers
@@ -122,11 +122,11 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 				}
 				scope.possibleAnswers.splice(index, 1);
 				scope.maxedOut = scope.possibleAnswers.length >= scope.max;
-			}
+			};
 
 			scope.remove = function() {
 				scope.$emit('removeQuestion', scope.index);
-			}
+			};
 
 			function shuffle(array) {
 				tmpArray = [];
@@ -141,7 +141,15 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 				tmpArray[i] = t;
 			  }
 			  return tmpArray;
-			}
+			};
+
+			scope.replace = function(index){
+				employeeFactory.getOneEmployee(scope.matchingClues, function(employee){
+					scope.matchingClues[index] = employee.matchingClues[0];
+					scope.matchingAnswers[index] = employee.matchingAnswers[0];
+					scope.buildAnswers();
+				});
+			};
 		}
 	};
 }]);

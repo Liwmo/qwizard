@@ -7,5 +7,12 @@ app.factory('employeeFactory', ["$http", function($http){
 		});
 	};
 
+	self.getOneEmployee = function(current, callback){
+		console.log(current);
+		$http.get('/api/maker/randomEmployees/one', {params: {current: current}}).success(function(data){
+			callback(data);
+		});
+	};
+
 	return self;
 }]);

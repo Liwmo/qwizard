@@ -54,8 +54,10 @@
 <span class="flex flex-container horizontal noselect" style="-webkit-justify-content: space-between; justify-content:space-between;" ng-show="questionType=='pm'">
 	<div style="width: 48%; min-width: 10em; max-width: 25em" class="flex-container horizontal answer-field" ng-repeat="answer in possibleAnswers track by $index">
 		<div class="flex">
-			<div class='clue'>
-				<img src="../images/employees/{{matchingClues[$index]}}.jpg"/>
+			<div class='clue' ng-click="replace($index)">
+				<div class='pic' style='background-image:url(../images/employees/{{matchingClues[$index]}}.jpg)'>
+					<div class="cover"></div>
+				</div>
 			</div>
 			<div class="maAnswer">
 				<span class="text-input">{{matchingAnswers[$index]}}</span>

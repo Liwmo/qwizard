@@ -254,12 +254,23 @@ maker-question input[type=range]::-moz-range-thumb {
     font-size: 1em;
 }
 
-.clue img{
-    background: rgba(20,20,20,0.9);
+.clue .pic{
     width: 100px;
     height: 100px;
-    margin-bottom: -22px;
-    margin-top: 1.25em;
+    overflow: hidden;
+    margin: 1.25em auto -8px auto;
+    background-size: cover;
+}
+
+.clue .pic:hover .cover{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    background-image: url(../images/refresh.svg);
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    background-position: 80px 4px;
+    opacity: 0.5;
 }
 
 .maAnswer {
