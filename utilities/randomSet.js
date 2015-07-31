@@ -10,8 +10,8 @@ module.exports = function(employees, size, excludeIds){
 		var rand = Math.floor(Math.random() * employees.length);
 		var picPath = path.join(__dirname, '../public/images/employees/' + employees[rand].id + ".jpg");
 		while(data.matchingClues.indexOf(employees[rand].id) !== -1 || (excludeIds && excludeIds.indexOf(employees[rand].id) !== -1) || !(fs.existsSync(picPath))){
-			picPath = path.join(__dirname, '../public/images/employees/' + employees[rand].id + ".jpg");
 			rand = Math.floor(Math.random() * employees.length);
+			picPath = path.join(__dirname, '../public/images/employees/' + employees[rand].id + ".jpg");
 		}
 
 		data.matchingClues.push(employees[rand].id);
