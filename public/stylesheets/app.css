@@ -433,14 +433,16 @@ hr{
     overflow:hidden;
     background:#5DC0AB;
     text-align:center;
-    box-shadow: 0 0 .2rem 0 rgba(73,73,73,.4), .1rem .1rem .25rem 0 rgba(73, 73, 73, .2);
     transition: box-shadow .1s, background .1s;
     cursor:pointer;
 }
 .question .option.drag-over {
     background:#A3709C;
 }
-.question .option.dragging {
+.question .option.dragging, .question .option:focus {
+    -webkit-transition-delay: .3s;
+    transition-delay:.3s;
+    box-shadow: 0 0 .5rem 0 rgba(73,73,73,.6), .1rem .1rem .2rem 0 rgba(73, 73, 73, .2);
     background:#5DC0AB;
 }
 
