@@ -254,18 +254,41 @@ maker-question input[type=range]::-moz-range-thumb {
     font-size: 1em;
 }
 
+.clue .pic{
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    margin: 1.25em auto -8px auto;
+    background-size: cover;
+}
+
+.clue .pic:hover .cover{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    background-image: url(../images/refresh.svg);
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    background-position: 80px 4px;
+    opacity: 0.5;
+}
+
 .maAnswer {
     background-color: #a3709c;
     padding: 0.3em;
     
 }
 
-.maAnswer input {
-    border-bottom:solid 1px rgba(255, 255, 245, 0.6);
+.maAnswer input, .maAnswer span {
+    border-bottom:solid .1em rgba(255, 255, 245, 0.6) !important;
     background-color: transparent;
     color: #fffff5;
     text-align: center;
     font-size: 1em;
+}
+
+.maAnswer span{
+    border-bottom: none !important;
 }
 
 .maAnswer input:focus, .maAnswer input:active {

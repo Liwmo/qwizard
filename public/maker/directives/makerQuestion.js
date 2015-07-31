@@ -1,4 +1,4 @@
-app.directive("makerQuestion", function(){
+app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 	return {
 		restrict: 'E',
 		scope: {
@@ -14,6 +14,8 @@ app.directive("makerQuestion", function(){
 		},
 		templateUrl: '/maker/directives/templates/makerQuestion.html',
 		link: function(scope, elem, attrs){
+			var savedQuestionText = "", saved = false;
+
 			scope.tf = function(value){
 				scope.correctAnswer[0] = value;
 			};
@@ -38,6 +40,27 @@ app.directive("makerQuestion", function(){
 						scope.possibleAnswers.pop();
 					scope.buildAnswers();
 				}
+				else if(scope.questionType == "pm"){
+					saved = true;
+					savedQuestionText = scope.questionText;
+					scope.questionText = "PM";
+					scope.points = 2;
+					if(scope.possibleAnswers.length < 4) {
+						scope.possibleAnswers.push("");
+					}
+					while (scope.possibleAnswers.length > 4)
+						scope.possibleAnswers.pop();
+					employeeFactory.getRandomEmployees(function(data){
+						scope.matchingClues = data.matchingClues;
+						scope.matchingAnswers = data.matchingAnswers;
+						scope.buildAnswers();
+					});
+				}
+
+				if(scope.questionType != "pm" && saved){
+					scope.questionText = savedQuestionText;
+					saved = false;
+				}
 
 				scope.correctAnswer = [];
 			};
@@ -60,7 +83,7 @@ app.directive("makerQuestion", function(){
 					scope.possibleAnswers.push("");
 				}
 				scope.maxedOut = scope.possibleAnswers.length >= scope.max;
-			}
+			};
 
 			scope.matchingClues = ["", "", "", ""];
 			scope.matchingAnswers = ["", "", "", ""];
@@ -90,7 +113,7 @@ app.directive("makerQuestion", function(){
 					scope.matchingClues[2] + ":" + randoms[2],
 					scope.matchingClues[3] + ":" + randoms[3]
 				];
-			}
+			};
 
 			scope.removeAnswer = function(index) {
 				var correctIndex = scope.correctAnswer.indexOf(index);//index in array of correct answers
@@ -99,11 +122,11 @@ app.directive("makerQuestion", function(){
 				}
 				scope.possibleAnswers.splice(index, 1);
 				scope.maxedOut = scope.possibleAnswers.length >= scope.max;
-			}
+			};
 
 			scope.remove = function() {
 				scope.$emit('removeQuestion', scope.index);
-			}
+			};
 
 			function shuffle(array) {
 				tmpArray = [];
@@ -118,7 +141,15 @@ app.directive("makerQuestion", function(){
 				tmpArray[i] = t;
 			  }
 			  return tmpArray;
-			}
+			};
+
+			scope.replace = function(index){
+				employeeFactory.getOneEmployee(scope.matchingClues, function(employee){
+					scope.matchingClues[index] = employee.matchingClues[0];
+					scope.matchingAnswers[index] = employee.matchingAnswers[0];
+					scope.buildAnswers();
+				});
+			};
 		}
 	};
-});
+}]);

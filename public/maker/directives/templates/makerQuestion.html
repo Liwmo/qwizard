@@ -6,9 +6,10 @@
 		<option value="mc">Multiple Choice</option>
 		<option value="ms">Multiple Select</option>
 		<option value="ma">Matching</option>
+		<option value="pm">Photo Matching</option>
 	</select>
-	<textarea ng-model="questionText" value="questionText" class="text-input question-text" maxlength="300" placeholder="Question Text"></textarea>
-	<span class="point-display">Points{{questionType=='ma' ? " per correct match" : ""}}: {{points}}</span>
+	<textarea ng-model="questionText" value="questionText" class="text-input question-text" maxlength="300" placeholder="Question Text" ng-hide="questionType=='pm'"></textarea>
+	<span class="point-display">Points{{questionType=='ma' || questionType=='pm' ? " per correct match" : ""}}: {{points}}</span>
 	<input type="range" ng-model="points" value="points" min="0" max="10"></slider>
 </span>
 <span class="flex noselect" ng-hide="questionType"></span>
@@ -46,6 +47,20 @@
 			<input placeholder="Clue" ng-model="matchingClues[$index]" ng-change='buildAnswers()' class="text-input clue" maxlength="25">
 			<div class="maAnswer">
 				<input placeholder="Answer" ng-model="matchingAnswers[$index]" ng-change='buildAnswers()' class="text-input" maxlength="25">
+			</div>
+		</div>
+	</div>	
+</span>
+<span class="flex flex-container horizontal noselect" style="-webkit-justify-content: space-between; justify-content:space-between;" ng-show="questionType=='pm'">
+	<div style="width: 48%; min-width: 10em; max-width: 25em" class="flex-container horizontal answer-field" ng-repeat="answer in possibleAnswers track by $index">
+		<div class="flex">
+			<div class='clue' ng-click="replace($index)">
+				<div class='pic' style='background-image:url(../images/employees/{{matchingClues[$index]}}.jpg)'>
+					<div class="cover"></div>
+				</div>
+			</div>
+			<div class="maAnswer">
+				<span class="text-input">{{matchingAnswers[$index]}}</span>
 			</div>
 		</div>
 	</div>	
