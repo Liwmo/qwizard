@@ -41,8 +41,8 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
                           $scope.questions[i].correct = answers[i];
                           $scope.questions[i].points = points[i];
 
-                          if($scope.questions[i].type === 'ma') {
-                            $scope.maxPoints += points[i]*4;
+                          if($scope.questions[i].type === 'ma' || $scope.questions[i].type === 'pm') {
+                            $scope.maxPoints += points[i]*answers[i].length;
                           } else {
                             $scope.maxPoints += points[i]; 
                           }
