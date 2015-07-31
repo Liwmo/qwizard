@@ -24,7 +24,8 @@ describe('quiz-test: ', function() {
                 quiz += '"answers":["","",""],"name":"photo question"},{"type":"mc","text":"How do you skin a cat?","answers":';
                 quiz += '["Very carefully","With the rage of a thousand suns","No."],';
                 quiz += '"name":"Multiple Choice"},{"type":"ms","text":"Which two rappers have been shot?","answers":["Biggie Smalls","50 Cent","Warren-G"],"name":"Multiple Select"},';
-                quiz += '{"type":"ma","text":"Match the intern with their last names","answers":["Schmidt:Mike","Isa:Nicole","Fanger:Eyad","Kiser:Devin"],"name":"Matching"}]';
+                quiz += '{"type":"ma","text":"Match the intern with their last names","answers":["Schmidt:Mike","Isa:Nicole","Fanger:Eyad","Kiser:Devin"],"name":"Matching"},'
+                quiz += '{"type":"pm","text":"Match the photos","answers":["1001402:FirstPerson","1001403:SecondPerson","1001404:FourthPerson","1001405:ThirdPerson"],"name":"Photo Matching"}]';
                 var meta = {
                     "answers": " [[[0],[1],[1],[0,1],[\"Schmidt:Nicole\",\"Isa:Eyad\",\"Fanger:Mike\",\"Kiser:Devin\"]] ",
                     "pointvalues" : "[10,10,10,10,10]"
@@ -52,7 +53,7 @@ describe('quiz-test: ', function() {
 
     it('Should make sure that a picture is displayed properly', function() {
         console.log('\n-----------Quiz Test Suite----------------');
-        element.all(by.css('question img')).then(function(images){
+        element.all(by.css('question > div > img')).then(function(images){
             expect(images.length).toBe(1);
         });
     });
@@ -154,6 +155,12 @@ describe('quiz-test: ', function() {
         expect(element.all(by.css("[ng-click='ms($index)']")).get(2).getAttribute('class')).toMatch('selected');
     });
 
+    it('Should render the correct template with images on the photo matching question', function() {
+        element.all(by.css('.clue img')).then(function(images){
+            expect(images.length).toBe(4);
+        });
+    });
+
     it('Should redirect to homepage after submit button is hit', function() {
         element.all(by.css("[ng-click='tf(0)']")).get(0).click();
         element.all(by.css("[ng-click='next()']")).get(0).click();
@@ -163,6 +170,7 @@ describe('quiz-test: ', function() {
         element.all(by.css("[ng-click='ms($index)']")).get(1).click();
         element.all(by.css("[ng-click='next()']")).get(0).click();
         dragDrop('[ng-drag="true"]', '[ng-drop="true"]');
+        element.all(by.css("[ng-click='next()']")).get(0).click();
         element.all(by.css("[ng-click='submit()']")).get(0).click();
         expect(browser.getCurrentUrl()).toBe('http://localhost:3000/taker/#/');
     });
