@@ -15,36 +15,32 @@ function grabEmployees() {
 		}
 
 		data.forEach(function(employee, index) {
-			if(typeof employee.thumbnailPhoto !== 'object') {
-				console.log("User: " + employee.cn + " does not have an image.");
-				counter();
-				return;
-			}
+            var name = employee.cn + '';
+            getEmployeeId(name, function(id) {
+            	counter();
 
-			//console.log(employee.cn + '');
-			// console.log(pathToFile(employee.cn).toString('utf-8'));
-			// console.log(typeof employee.cn);
-
-			// Filter out images that are less than 1KB or greater than 10KB, as these
-			// images aren't viewable.
-			var imageSize = Object.getOwnPropertyNames(employee.thumbnailPhoto).length;
-			if(imageSize < 1000 || imageSize > 10000) {
-				console.log("Image for user: " + employee.cn + " is not viewable.");
-				counter();
-				return;
-			}
-
-			var cn = employee.cn + '';
-			// function call to get employeeId, if it returns -1 then dont save image
-            getEmployeeId(cn, function(id) {
-            	if(id != -1) {
-					imageWriter.writeImage(pathToFile(id), employee.thumbnailPhoto);
-					counter();
+            	if(id == -1) {
+            		return;
             	}
+
+            	if(typeof employee.thumbnailPhoto !== 'object') {
+					console.log("User: " + name + " does not have an image.");
+					return;
+				}
+
+				if(!isValidImage(employee.thumbnailPhoto)) {
+					console.log("Image for user: " + name + "is not viewable");
+				}
+
+				imageWriter.writeImage(pathToFile(id), employee.thumbnailPhoto);
             });
-            // employee == data.employee.length;
 		});
 	});
+}
+
+function isValidImage(image) {
+	var imageSize = Object.getOwnPropertyNames(image).length;
+	return (imageSize > 1000 && imageSize <10000);
 }
 
 function pathToFile(filename) {
@@ -78,5 +74,6 @@ function insertEmployee(name, callback) {
 }
 
 module.exports = {
-	grabEmployees: grabEmployees
+	grabEmployees: grabEmployees,
+	getEmployeeId: getEmployeeId
 };

@@ -35,7 +35,7 @@ describe('ldapSearchWrapper - Search Test', function(){
                  scope: 'sub',
                  attributes: ['cn', 'thumbnailPhoto']
         };
-		ldapSearch('CN=warren.li,OU=Employees,OU=UsersAccounts,OU=StLouis,DC=schafer,DC=lan', opts, function(data){
+		ldapSearch('CN=steve.elfanbaum,OU=Employees,OU=UsersAccounts,OU=StLouis,DC=schafer,DC=lan', opts, function(data){
 			assert.notEqual(typeof data[0].thumbnailPhoto, 'string');
 			
 			done();
