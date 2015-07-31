@@ -10,11 +10,12 @@ describe('Results page test: ', function() {
         var httpBackendMock = function() {
             angular.module('httpBackendMock', ['ngMockE2E', 'app'])
               .run(function($httpBackend) {
-                var quiz = '{"title":"Test","questions":[{"name":"Benefits","type":"mc","text":"MC Question","answers":["A","B","C","D"]},{"name":"Benefits","type":"tf","text":"TF Question","answers":[]},{"name":"Benefits","type":"ms","text":"MS Question","answers":["A","B","C","D"]},{"name":"Benefits","type":"tf","text":"TF Question","answers":[]},{"name":"Benefits","type":"ms","text":"MS Question","answers":["A","B","C","D"]}]}';
+                var quiz = '{"title":"Test","questions":[{"name":"Benefits","type":"mc","text":"MC Question","answers":["A","B","C","D"]},{"name":"Benefits","type":"tf","text":"TF Question","answers":[]},{"name":"Benefits","type":"ms","text":"MS Question","answers":["A","B","C","D"]},{"name":"Benefits","type":"tf","text":"TF Question","answers":[]},{"name":"Benefits","type":"ms","text":"MS Question","answers":["A","B","C","D"]},{"name":"Benefits","type":"tf","text":"TF Question","answers":[]}]}';
                 var results = {
-                    "answers": "[[2], [0], [1, 2], [0], [0, 1]]",
-                    "selected": "[{\"answer\":[2]},{\"answer\":[0]},{\"answer\":[1, 2]},{\"answer\":[1]},{\"answer\":[0, 1, 2]}]",
-                    "pointvalues" : "[2, 3, 2, 2, 5]"
+                    "answers": "[[2], [0], [1, 2], [0], [0, 1], [0]]",
+                    //Correct, correct, correct, incorrect, incorrect, not answered
+                    "selected": "[{\"answer\":[2]},{\"answer\":[0]},{\"answer\":[1, 2]},{\"answer\":[1]},{\"answer\":[0, 1, 2]},{\"answer\":[]}]",
+                    "pointvalues" : "[2, 3, 2, 2, 5, 2]"
                 };
                 $httpBackend.whenGET('/api/quiz/99999').respond(function(method, url, data, headers) {
                     return [200, quiz, {}];
@@ -66,6 +67,11 @@ describe('Results page test: ', function() {
         expect(
             element(by.repeater('question in questions').row(4))
             .element(by.cssContainingText('.resultsHeader', 'Incorrect')).isPresent()
+        ).toBe(true);
+
+        expect(
+            element(by.repeater('question in questions').row(5))
+            .element(by.cssContainingText('.resultsHeader', 'Not answered')).isPresent()
         ).toBe(true);
     });
 
