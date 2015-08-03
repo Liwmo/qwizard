@@ -46,17 +46,17 @@ describe('Results page test: ', function() {
 
         expect(
             element(by.repeater('question in questions').row(0))
-            .element(by.cssContainingText('.resultsHeader', 'Congrats')).isPresent()
+            .element(by.cssContainingText('.resultsHeader', 'Perfect')).isPresent()
         ).toBe(true);
 
          expect(
             element(by.repeater('question in questions').row(1))
-            .element(by.cssContainingText('.resultsHeader', 'Congrats')).isPresent()
+            .element(by.cssContainingText('.resultsHeader', 'Perfect')).isPresent()
         ).toBe(true);
 
         expect(
             element(by.repeater('question in questions').row(2))
-            .element(by.cssContainingText('.resultsHeader', 'Congrats')).isPresent()
+            .element(by.cssContainingText('.resultsHeader', 'Perfect')).isPresent()
         ).toBe(true);
 
         expect(
@@ -115,10 +115,12 @@ describe('Results page test: ', function() {
             var httpBackendMock = function() {
                 angular.module('httpBackendMock', ['ngMockE2E', 'app'])
                   .run(function($httpBackend) {
-                    var quiz = '{"title":"Test","questions":[{"name":"Benefits","type":"ma","text":"TF Question","answers":["one:one", "two:two", "three:three", "four:four"]}]}';
+                    var quiz = '{"title":"Test","questions":[{"name":"Benefits","type":"ma","text":"Question1","answers":["one:one", "two:two", "three:three", "four:four"]},' + 
+                                                             '{"name":"Stuff", "type":"ma", "text":"Question2", "answers":["one:one", "two:two", "three:three", "four:four"]},' +
+                                                             '{"name":"More Stuff", "type":"ma", "text":"Question3", "answers":["one:one", "two:two", "three:three", "four:four"]}]}';
                     var results = {
-                        "answers": "[[\"one:one\", \"two:two\", \"three:three\", \"four:four\"]]",
-                        "selected": "[{\"answer\":[\"one:one\", \"two:three\", \"three:two\", \"four:four\"]}]",
+                        "answers": "[[\"one:one\", \"two:two\", \"three:three\", \"four:four\"], [\"one:one\", \"two:two\", \"three:three\", \"four:four\"], [\"one:one\", \"two:two\", \"three:three\", \"four:four\"]]",
+                        "selected": "[{\"answer\":[\"one:one\", \"two:three\", \"three:two\", \"four:four\"]}, {\"answer\":[]}, {\"answer\":[\"one:one\", \"two:two\", \"three:three\", \"four:four\"]}]",
                         "pointvalues" : "[2, 3, 2, 2, 5]"
                     };
 
@@ -151,6 +153,18 @@ describe('Results page test: ', function() {
         it('should display incorrect answers in teal', function() {
             var answers = element(by.repeater('question in questions').row(0)).element(by.repeater('answer in correct track by $index').row(1)).element(by.css('.button'));
             expect(answers.getAttribute("class")).not.toMatch("purple-medium");
+        });
+
+        it('should display correct message for partial points', function() {
+            expect(element(by.repeater('question in questions').row(0)).element(by.cssContainingText('.resultsHeader', 'Partial credit')).isPresent()).toBe(true);
+        });
+
+        it('should display correct message for unanswered matching question', function() {
+            expect(element(by.repeater('question in questions').row(1)).element(by.cssContainingText('.resultsHeader', 'Uh oh, ')).isPresent()).toBe(true);
+        });
+
+        it('should display correct message for correct answer', function() {
+            expect(element(by.repeater('question in questions').row(2)).element(by.cssContainingText('.resultsHeader', 'Perfect!')).isPresent()).toBe(true);
         });
 
         it('logout', function() {

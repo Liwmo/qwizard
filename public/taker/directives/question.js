@@ -29,10 +29,12 @@ app.directive("question", ['ngDraggable', function(){
 
 			scope.getType = function(){
 				var path;
-				if(!((scope.type==='ma') && scope.correct)) {
+				if(!((scope.type==='ma' || scope.type==='pm') && scope.correct)) {
 					path = '/taker/directives/templates/' + scope.type + '.html';
-				} else {
+				} else if(scope.type==='ma'){
 					path = '/taker/directives/templates/maResults.html';
+				} else {
+					path = '/taker/directives/templates/pmResults.html'
 				}
 				return path;
 			}
