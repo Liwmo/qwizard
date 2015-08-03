@@ -3,7 +3,7 @@
 describe('Quiz view', function() {
     var $scope;
     var routeParams = {id: 1456879};
-    var quizFactory = { postQuiz: function(){}, getQuiz: function() {} };
+    var quizFactory = { postQuiz: function(){}, getLiveQuiz: function() {} };
     var notificationFactory = { addNotification: function() {}, removeNotification: function() {} };
     var location = { path: function() {} };
 

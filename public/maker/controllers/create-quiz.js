@@ -150,7 +150,7 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
     };
 
     if ($routeParams.id) {
-        quizFactory.getQuiz($routeParams.id, function(data) {
+        quizFactory.getMyQuiz($routeParams.id, function(data) {
             if(data.error){
                 $location.path('/create');
             }else{

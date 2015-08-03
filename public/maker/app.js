@@ -18,5 +18,9 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
             controller: "publish-quiz",
             templateUrl: "views/publish-quiz.html"
         })
+        .when("/finished/:id", {
+            controller: "finished-quiz",
+            templateUrl: "views/finished-quiz.html"
+        })
         .otherwise("/");
 }]);

@@ -12,7 +12,7 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
     	document.getElementById("results-answers").classList.toggle("remove");
     }
     
-    quizFactory.getQuiz($scope.quizId, function(quizData){
+    quizFactory.getLiveQuiz($scope.quizId, function(quizData){
         console.log(JSON.stringify(quizData));
         if(quizData.error) {
             $scope.error = quizData.error;
