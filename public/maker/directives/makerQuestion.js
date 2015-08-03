@@ -21,7 +21,7 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 			};
 
 			scope.setQuestionDefaults = function() {
-				scope.questionName = "";
+				//scope.questionName = "";
 				scope.possibleAnswers = ["", "", ""];
 				scope.matchingClues = ["", "", "", ""];
 				scope.matchingAnswers = ["", "", "", ""];
@@ -156,6 +156,13 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 					scope.buildAnswers();
 				});
 			};
+
+			scope.getTypeTemplate = function() {
+				type = scope.questionType || "tf";
+				var qTypeUrl = '/maker/directives/templates/' + type + ".html";
+				console.log(qTypeUrl);
+				return qTypeUrl;
+			}
 		}
 	};
 }]);
