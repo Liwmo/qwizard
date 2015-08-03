@@ -2,5 +2,5 @@
 <hr class="purple-light">
 <div class="answer" style="color: #5c515b; margin-bottom: .5em" ng-bind-html="text" ng-show="{{type !== 'pm'}}"></div>
 <div name="msInst" style="color: #5c515b" ng-show="{{type == 'ms'}}">Please select all that apply: </div>
-<div name="maInst" style="color: #5c515b" ng-hide="true"></div>
+<div name="maInst" style="color: #5c515b" ng-show="{{type == 'ma' || type == 'pm'}}">Drag and drop: </div>
 <div class="flex-container" style="flex-direction:column" ng-include="getType()"></div>

@@ -80,8 +80,10 @@ describe('quiz-test: ', function() {
     });
 
     it('Should display instructions on multiple select questions', function() {
-        element.all(by.css("[ng-click='next()']")).get(0).click();
-        element.all(by.css("[ng-click='next()']")).get(0).click();
+        expect(element.all(by.name('msInst')).get(0).getAttribute('class')).toMatch('ng-hide');
+        expect(element.all(by.name('msInst')).get(1).getAttribute('class')).toMatch('ng-hide');
+        expect(element.all(by.name('msInst')).get(3).getAttribute('class')).toMatch('ng-hide');
+        expect(element.all(by.name('msInst')).get(4).getAttribute('class')).toMatch('ng-hide');
 
         expect(element.all(by.name('msInst')).get(2).getAttribute('class')).not.toMatch('ng-hide');
     });
@@ -99,14 +101,11 @@ describe('quiz-test: ', function() {
     });
 
     it('Should display instructions on matching and photo matching questions', function() {
-        element.all(by.css("[ng-click='next()']")).get(0).click();
-        element.all(by.css("[ng-click='next()']")).get(0).click();
-        element.all(by.css("[ng-click='next()']")).get(0).click();
+        expect(element.all(by.name('maInst')).get(0).getAttribute('class')).toMatch('ng-hide');
+        expect(element.all(by.name('maInst')).get(1).getAttribute('class')).toMatch('ng-hide');
+        expect(element.all(by.name('maInst')).get(2).getAttribute('class')).toMatch('ng-hide');
 
         expect(element.all(by.name('maInst')).get(3).getAttribute('class')).not.toMatch('ng-hide');
-
-        element.all(by.css("[ng-click='next()']")).get(0).click();
-
         expect(element.all(by.name('maInst')).get(4).getAttribute('class')).not.toMatch('ng-hide');
     });
 
