@@ -1,0 +1,22 @@
+<div class="clueContainer flex-container noselect">
+	<div class="clue" ng-repeat="answer in correct track by $index">
+		<img src="/images/employees/{{answer.split(':')[0]}}.jpg"/>
+		<div style="min-width:0" class="teal-medium noselect button selected correct" ng-class="{'purple-medium': selected.indexOf(answer) > -1}">{{answer.split(':')[1]}}</div>
+	</div>
+</div>
+
+
+<!-- <div class="clueContainer flex-container noselect">
+	<div class="clue" ng-repeat="clue in clues track by $index">
+		<img src="/images/employees/{{clue}}.jpg"/>
+		<div id="drop{{$index}}" ng-drop="true" class="drop" ng-drop-success="onDropComplete($index, $data, $event)"></div>
+	</div>
+</div>
+<hr class="purple-light"/>
+<div class="optionContainer flex-container noselect">
+	<div class="pool option-wrap" ng-repeat="option in options track by $index">
+		<span id="option{{$index}}" ng-drag="true" tabindex="0" class="option light-text">{{option}}</span>
+	</div>
+</div>
+
+ -->
