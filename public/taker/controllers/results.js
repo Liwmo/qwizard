@@ -71,21 +71,27 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
             return;
         }
         if(question.selected.length <= 0) {
+            if(question.type === 'ma' || question.type === 'pm'){
+                return "Uh oh, you didn't make any matches...";
+            }
             return "Not answered.";   
         }
         if(question.correct.toString() === question.selected.toString()) {
-            if(question.type === 'ma'){
+            if(question.type === 'ma' || question.type === 'pm'){
                 totalPoints*=4;
             }
-            return "Congrats! +" + totalPoints + " points!";
+            return "Perfect! +" + totalPoints + " points!";
         } else {
-            if(question.type === 'ma'){
+            if(question.type === 'ma' || question.type === 'pm'){
                 for(var i = 0; i < question.correct.length; i++){
                     if (question.correct[i] === question.selected[i]) {
                         partialPoints += question.points;
                     }
                 }
-                return "Incorrect. +" + partialPoints + " points.";
+                
+                if(partialPoints > 0) {
+                    return "Partial credit, +" + partialPoints + " points.";
+                }
             }    
             return "Incorrect.";
         }
