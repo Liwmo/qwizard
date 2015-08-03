@@ -79,6 +79,13 @@ describe('quiz-test: ', function() {
 
     });
 
+    it('Should display instructions on multiple select questions', function() {
+        element.all(by.css("[ng-click='next()']")).get(0).click();
+        element.all(by.css("[ng-click='next()']")).get(0).click();
+
+        expect(element.all(by.name('msInst')).get(2).getAttribute('class')).not.toMatch('ng-hide');
+    });
+
     it('Should be able to select more than one answer for a multiple select question', function() {
         element.all(by.css("[ng-click='next()']")).get(0).click();
         element.all(by.css("[ng-click='next()']")).get(0).click();
@@ -89,6 +96,18 @@ describe('quiz-test: ', function() {
         element.all(by.css("[ng-click='ms($index)']")).get(1).click();
         expect(element.all(by.css("[ng-click='ms($index)']")).get(0).getAttribute('class')).toMatch('selected');
         expect(element.all(by.css("[ng-click='ms($index)']")).get(1).getAttribute('class')).toMatch('selected');
+    });
+
+    it('Should display instructions on matching and photo matching questions', function() {
+        element.all(by.css("[ng-click='next()']")).get(0).click();
+        element.all(by.css("[ng-click='next()']")).get(0).click();
+        element.all(by.css("[ng-click='next()']")).get(0).click();
+
+        expect(element.all(by.name('maInst')).get(3).getAttribute('class')).not.toMatch('ng-hide');
+
+        element.all(by.css("[ng-click='next()']")).get(0).click();
+
+        expect(element.all(by.name('maInst')).get(4).getAttribute('class')).not.toMatch('ng-hide');
     });
 
     it('Should be able to put matching questions in drop areas', function() {
