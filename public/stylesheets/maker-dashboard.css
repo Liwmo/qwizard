@@ -12,18 +12,21 @@
 }
 
 #categoryBar {
-    color: #5c515b;
+    color: #fffff5;
+    padding-top:0.8em;
+    padding-bottom:0.8em;
     justify-content:space-around;
 }
 #categoryBar > span {
 	font-size:1.5em;
-	padding:.3em 2em;
+	padding-left: 3em;
+    padding-right: 3em;
+    padding-bottom: .4em;
 	cursor:pointer;
 }
 
 .selectedCategory {
-     color: #17a587;
-     border-bottom: 0.2em solid #17a587;
+     border-bottom: 0.2em solid #ac7ea6;
 }
 .categoryView {
 	overflow-y:auto;

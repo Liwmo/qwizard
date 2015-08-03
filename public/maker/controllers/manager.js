@@ -1,5 +1,5 @@
 app.controller('manager', ["$scope", function($scope){
-	$scope.selectedCategory = 1;
+	$scope.selectedCategory = "live";
 
 	$scope.selectCategory = function(id) {
 		$scope.selectedCategory = id;
