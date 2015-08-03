@@ -21,6 +21,7 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 			};
 
 			scope.setQuestionDefaults = function() {
+				scope.questionName = "";
 				scope.possibleAnswers = ["", "", ""];
 				scope.matchingClues = ["", "", "", ""];
 				scope.matchingAnswers = ["", "", "", ""];
@@ -47,6 +48,7 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 					saved = true;
 					savedQuestionText = scope.questionText;
 					scope.questionText = "PM";
+					scope.questionName = "Photo Match";
 					scope.points = 2;
 					if(scope.possibleAnswers.length < 4) {
 						scope.possibleAnswers.push("");
