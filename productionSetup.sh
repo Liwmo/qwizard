@@ -13,4 +13,4 @@ sudo mysql -u root < database/mysqlUser.mysql
 npm install --production
 npm run-script init-db
 
-crontab productionCrontab.txt
+sudo crontab productionCrontab.txt
