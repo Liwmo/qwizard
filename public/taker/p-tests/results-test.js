@@ -160,7 +160,7 @@ describe('Results page test: ', function() {
         });
 
         it('should display correct message for unanswered matching question', function() {
-            expect(element(by.repeater('question in questions').row(1)).element(by.cssContainingText('.resultsHeader', 'Not Answered, ')).isPresent()).toBe(true);
+            expect(element(by.repeater('question in questions').row(1)).element(by.cssContainingText('.resultsHeader', 'Not answered, ')).isPresent()).toBe(true);
         });
 
         it('should display correct message for correct answer', function() {
