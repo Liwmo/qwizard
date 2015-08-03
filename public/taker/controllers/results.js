@@ -71,9 +71,6 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
             return;
         }
         if(question.selected.length <= 0) {
-            if(question.type === 'ma' || question.type === 'pm'){
-                return "Uh oh, you didn't make any matches...";
-            }
             return "Not answered.";   
         }
         if(question.correct.toString() === question.selected.toString()) {
@@ -92,6 +89,10 @@ app.controller('results', ["$scope", "quizFactory", "userFactory", "$location", 
                 if(partialPoints > 0) {
                     return "Partial credit, +" + partialPoints + " points.";
                 }
+            }
+
+            if(question.type === 'ma' || question.type === 'pm'){
+                return "Uh oh, you didn't make any matches...";
             }    
             return "Incorrect.";
         }
