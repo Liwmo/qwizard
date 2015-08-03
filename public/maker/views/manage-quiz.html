@@ -10,7 +10,20 @@
 		<h3 style="text-align:center">Live Content</h3>
 	</div>
 	<div id="finished" ng-show="selectedCategory==='finished'" class="categoryView">
-		<h3 style="text-align:center">{{finished}}</h3>
+		<div style="max-height: 10rem" class="scroller">
+			<a ng-repeat="quiz in finished" href='#/manage/{{quiz.id}}'>
+				<div class="liveQuiz flex-container horizontal spacer">
+					<div class="info flex">
+						<div class="quizName">{{quiz.title}}</div>
+						<div class="subText">{{getDateRange(quiz.publish, quiz.results)}}</div>
+					</div>
+					<div class="purple-light point-container">
+						<div class="points">{{calcPercent(quiz.employees,totalEmployees)}}%</div>
+						<div>{{quiz.employees}}/{{totalEmployees}} employees</div>
+					</div>
+				</div>
+			</a>
+		</div>
 	</div>
 	<div id="scheduled" ng-show="selectedCategory==='scheduled'" class="categoryView">
 		<h3 style="text-align:center">Scheduled Content</h3>

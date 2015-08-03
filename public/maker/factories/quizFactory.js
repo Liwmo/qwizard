@@ -8,7 +8,12 @@ app.factory("quizFactory", ["$http", function($http){
 
 	self.getFinishedQuizzes = function(callback){
 		$http.get('/api/maker/manage/finished').success(function(data){
-			console.log(data);
+			callback(data);
+		});
+	};
+
+	self.getTotalEmployees = function(callback){
+		$http.get('/api/maker/manage/totalEmployees').success(function(data){
 			callback(data);
 		});
 	};
