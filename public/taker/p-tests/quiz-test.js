@@ -148,7 +148,7 @@ describe('quiz-test: ', function() {
         element.all(by.css("[ng-click='next()']")).get(0).click();
         element.all(by.css("[ng-click='next()']")).get(0).click();
         element.all(by.css("[ng-click='next()']")).get(0).click();
-        expect(element.all(by.css('.clueContainer [ng-drag="true"]')).get(0).getText()).toBe("Mike");
+        expect(element.all(by.css('.clueContainer [ng-drop="true"]')).get(0).getText()).toBe("Mike");
     });
 
     it('Should be able to change answers on any question and have those answers saved', function() {
