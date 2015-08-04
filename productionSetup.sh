@@ -14,6 +14,6 @@ NODE_PATH=$(which node)
 #sudo service mysqld start
 
 npm install --production
-mysql -u qwizard -p'iS#0&dZoT@&$Vi' --socket /var/run/mysql-qwizard/mysqld.sock < database/createEmptyDatabase.mysql
+#mysql -u qwizard -p'iS#0&dZoT@&$Vi' --socket /var/run/mysql-qwizard/mysqld.sock < database/createEmptyDatabase.mysql
 
 crontab productionCrontab.txt
