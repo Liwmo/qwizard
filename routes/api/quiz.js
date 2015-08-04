@@ -60,7 +60,8 @@ router.route('/:id')
 						quizid: quizId,
 						userid: userId,
 						points: points,
-						answers: JSON.stringify(selected)
+						answers: JSON.stringify(selected),
+						submitted: 1
 					},function(insertError, message) {
 						if(insertError) {
 							console.log("ERROR: " + insertError);
