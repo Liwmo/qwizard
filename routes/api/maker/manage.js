@@ -29,5 +29,9 @@ router.get('/totalEmployees', function(req, res) {
 	});
 });
 
+router.get('/drafts', function(req, res){
+	res.send({id:1, title:2, questions:3});
+});
+
 module.exports = router;
 
