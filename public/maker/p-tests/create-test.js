@@ -25,33 +25,36 @@ describe('create quiz', function() {
     });
 
     it('should have one question by default', function() {
-        element.all(by.css("maker-question")).then(function(els){0
+        element.all(by.css("maker-question")).then(function(els){
             expect(els.length).toBe(1);
         });
     });
 
     it('should show true-false span when tf selected', function() {
-        expect(element(by.css("[ng-show=\"questionType=='tf'\"]")).getAttribute('class')).toMatch('ng-hide');
         element(by.cssContainingText("option","True/False")).click();
-        expect(element(by.css("[ng-show=\"questionType=='tf'\"]")).getAttribute('class')).toNotMatch('ng-hide');
+        element.all(by.css(".tf")).then(function(els) {
+            expect(els.length).toBe(1);
+        });
     });
 
     it('should show multiple-choice span when mc selected', function() {
-        expect(element(by.css("[ng-show=\"questionType=='mc'\"]")).getAttribute('class')).toMatch('ng-hide');
         element(by.cssContainingText("option","Multiple Choice")).click();
-        expect(element(by.css("[ng-show=\"questionType=='mc'\"]")).getAttribute('class')).toNotMatch('ng-hide');
+        element.all(by.css(".mc")).then(function(els) {
+            expect(els.length).toBe(3);
+        });
     });
 
     it('should show multiple-select span when ms selected', function() {
-        expect(element(by.css("[ng-show=\"questionType=='ms'\"]")).getAttribute('class')).toMatch('ng-hide');
         element(by.cssContainingText("option","Multiple Select")).click();
-        expect(element(by.css("[ng-show=\"questionType=='ms'\"]")).getAttribute('class')).toNotMatch('ng-hide');
+        element.all(by.css(".ms")).then(function(els) {
+            expect(els.length).toBe(3);
+        });
     });
 
     it('should not default to a correct answer when TF', function() {
         element(by.cssContainingText("option","True/False")).click();
-        expect(element.all(by.css('.radio[ng-click="mc($index)"]')).get(0).getAttribute('class')).toNotMatch('checked');
-        expect(element.all(by.css('.radio[ng-click="mc($index)"]')).get(1).getAttribute('class')).toNotMatch('checked');
+        expect(element.all(by.css('.radio[ng-click="tf(0)"]')).get(0).getAttribute('class')).toNotMatch('checked');
+        expect(element.all(by.css('.radio[ng-click="tf(1)"]')).get(0).getAttribute('class')).toNotMatch('checked');
     });
 
     it('should default to 2 points when tf selected', function() {
@@ -215,7 +218,9 @@ describe('create quiz', function() {
 
         it('should have the ability to select a type Multiple-select', function() {
             element(by.cssContainingText("option","Multiple Select")).click();
-            expect(element(by.css("[ng-show=\"questionType=='ms'\"]")).getAttribute('class')).toNotMatch('ng-hide');
+            element.all(by.css(".ms")).then(function(elements) {
+                expect(elements.length).toBe(3);
+            });
         });
 
         it('should check second option when option 2 is clicked', function() {
@@ -270,7 +275,7 @@ describe('create quiz', function() {
             element(by.cssContainingText("option","Multiple Select")).click();
             element.all(by.css('.msText')).then(function(msOptions) {
                 beforeClickLength = msOptions.length;
-                element.all(by.css('[ng-click="addOption()"]')).get(1).click();
+                element(by.css('[ng-click="addOption()"]')).click();
                 element.all(by.css('.msText')).then(function(elements) {
                     expect(elements.length).toBe(beforeClickLength+1);
                 }); 
@@ -279,10 +284,10 @@ describe('create quiz', function() {
         
         it('should not be able to add more than 6 options (max)', function() {
             element(by.cssContainingText("option","Multiple Select")).click();
-            element.all(by.css('[ng-click="addOption()"]')).get(1).click();
-            element.all(by.css('[ng-click="addOption()"]')).get(1).click();
-            element.all(by.css('[ng-click="addOption()"]')).get(1).click();
-            expect(element.all(by.css('[ng-click="addOption()"]')).get(1).getAttribute('class')).toMatch("ng-hide");
+            element(by.css('[ng-click="addOption()"]')).click();
+            element(by.css('[ng-click="addOption()"]')).click();
+            element(by.css('[ng-click="addOption()"]')).click();
+            expect(element(by.css('[ng-click="addOption()"]')).getAttribute('class')).toMatch("ng-hide");
         });
     });
     it("Run MA", function() {
@@ -356,14 +361,18 @@ describe('create quiz', function() {
 
             it('should have 4 clue fields for both text and photo matching', function() {
                 element(by.cssContainingText("option","Matching")).click();
-                expect(element.all(by.css('[ng-show="questionType==\'ma\'"] .clue')).count()).toBe(4);
-                expect(element.all(by.css('[ng-show="questionType==\'pm\'"] .clue')).count()).toBe(4);
+                expect(element.all(by.css('.ma .clue')).count()).toBe(4);
             });
 
             it('should have 4 answer fields', function() {
                 element(by.cssContainingText("option","Matching")).click();
-                expect(element.all(by.css('[ng-show="questionType==\'ma\'"] .maAnswer')).count()).toBe(4);
-                expect(element.all(by.css('[ng-show="questionType==\'pm\'"] .maAnswer')).count()).toBe(4);
+                expect(element.all(by.css('.ma .maAnswer')).count()).toBe(4);
+            });
+
+            it('should have 4 answer and 4 clue fields for photo macthing', function() {
+                element(by.cssContainingText("option","Photo Matching")).click();
+                expect(element.all(by.css('.pm .clue')).count()).toBe(4);
+                expect(element.all(by.css('.pm .maAnswer')).count()).toBe(4);
             });
             it('should popup error if clue field is empty', function() {
                 quizNameInput.sendKeys('IIII');
@@ -489,13 +498,13 @@ describe('create quiz', function() {
     it('should remove the answer as "correct" when the answer is deleted', function() {
         browser.refresh();
         element(by.cssContainingText("option","Multiple Select")).click();
-        element(by.css('[ng-show="questionType==\'ms\'"] [ng-click="addOption()"]')).click();
+        element(by.css('[ng-click="addOption()"]')).click();
         element.all(by.css('[ng-click="ms($index)"]')).then(function(elements){
             elements[elements.length-1].click();
             expect(elements[elements.length-1].getAttribute("class")).toMatch("checked");
             element.all(by.css('[ng-click="removeAnswer($index)"]')).then(function(elements) {
                 elements[elements.length - 1].click();
-                element(by.css('[ng-show="questionType==\'ms\'"] [ng-click="addOption()"]')).click();
+                element(by.css('[ng-click="addOption()"]')).click();
                 element.all(by.css('[ng-click="ms($index)"]')).then(function(elements){
                     expect(elements[elements.length-1].getAttribute("class")).not.toMatch("checked");
                 });

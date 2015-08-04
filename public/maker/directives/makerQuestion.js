@@ -161,9 +161,6 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 			};
 
 			scope.getTypeTemplate = function() {
-				//hijacking this function
-				console.log(scope.index, scope.matchingClues, scope.matchingAnswers);
-
 				type = scope.questionType || "tf";
 				var qTypeUrl = '/maker/directives/templates/' + type + ".html";
 				return qTypeUrl;

@@ -26,7 +26,6 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
     };
 
     $scope.$on('removeQuestion', function(event, index) {
-        console.log("Removing at index: " + index);
         $scope.questions.splice(index, 1);
         $scope.matchingArrays.splice(index, 1);
     });
