@@ -3,9 +3,9 @@ var router = express.Router();
 var db = require('../../../database/db.js');
 
 router.get('/finished', function(req, res) {
-	var query =  'SELECT q.publish, q.results, q.title, q.id, ifnull(sum(r.submitted),0) as employees ';
-		query += 'FROM quizzes as q, results as r ';
-		query += 'WHERE q.results<=? and r.quizid=q.id ';
+	var query =  'SELECT q.publish, q.results, q.title, q.id, sum(r.submitted) AS employees ';
+		query += 'FROM quizzes AS q, results AS r ';
+		query += 'WHERE q.results<=? AND r.quizid=q.id ';
 		query += 'GROUP BY q.id ' ;
 		query += 'ORDER BY q.results DESC';
 

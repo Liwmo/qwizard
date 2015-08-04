@@ -1,46 +1,26 @@
-#liveQuiz {
+#finishedQuizzes {
 	position:relative;
 	z-index:3;
 }
-#liveQuiz .header, #results .header {
-	text-transform: uppercase;
-	font-size:1.5em;
-	padding:.75rem .5rem;
-	font-family: Signika;
-	font-weight:600;
-}
-#liveQuiz .liveQuiz {
-	padding:.5rem 1.5rem;
-	border-top:1px solid rgba(255, 255, 245, 0.7);
-}
-#liveQuiz .liveQuiz .quizName {
-	font-family:dosis;
-	font-size:1.5em;
-	line-height:.8em;
-}
-#liveQuiz .liveQuiz .time {
-	font-size:2.5em;
-	font-weight:200;
+
+#categoryBar {
+	z-index: 1;
 }
 
 #finished {
 	color: #332532;
-	height: 4.5em;
 	font-family:Dosis;
 	overflow-y: auto;
 }
-#finished .header {
-	z-index:2;
-}
+
 #finished .quizName {
-	color: #332532;
 	font-size:1.2em;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
-#finished .result{
+#finished .finished{
 	position:relative;
 	border-bottom: 0.1em solid #f1eaf0;
 	color: black;
@@ -48,18 +28,9 @@
 	align-items:center;
 	height:4rem;
 }
-#finished .dot{
-	margin: 0 .9rem;
-	border-radius: 50%;
-	height: .5em;
-	width: .5em;
-}
-
-#finished .dot.viewed {
-	visibility: hidden;
-}
 
 #finished .info {
+	margin-left: 3.5em;
 	overflow:hidden;
 }
 
@@ -68,20 +39,20 @@
 	font-size: .8em;
 }
 
-#finished .points{
+#finished .percent {
 	font-weight: 200;
 	font-size:2em;
 	line-height:1.4;
 }
 
-#finished .point-container {
+#finished .percent-container {
 	text-align: center;
-	width:4rem;
+	width: 18rem;
 	height:100%;
 	box-shadow: 0 -.1rem 0 0 white;
 }
 
-#finished .point-container > div:nth-child(2) {
+#finished .percent-container > div:nth-child(2) {
 	font-family:Signika;
 	font-weight:300;
 	font-size:.9em;

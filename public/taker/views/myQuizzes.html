@@ -17,7 +17,7 @@
 <div id="results" class="flex flex-container vertical">
 	<div class="header teal-medium light-text shadow">Results</div>
 	<div class="flex scroller">
-		<a ng-repeat="quiz in taken" class="flex-container horizontal result" href='#/finished/{{quiz.id}}'>
+		<a ng-repeat="quiz in taken" class="flex-container horizontal result" href='#/results/{{quiz.id}}'>
 			<div class="dot teal-medium" ng-class="{viewed: quiz.viewed}"></div>
 			<div class="info flex">
 				<div class="quizName">{{quiz.title}}</div>

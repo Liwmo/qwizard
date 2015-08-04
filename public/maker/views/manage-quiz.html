@@ -6,24 +6,20 @@
     <span id="draftsTab" class="noselect" ng-click="selectCategory('drafts')" ng-class="{'selectedCategory':selectedCategory==='drafts'}">DRAFTS</span>
 </div>
 <div id="categoryContainer" class="flex">
-<div id="live" ng-show="selectedCategory==='live'" class="categoryView">
+	<div id="live" ng-show="selectedCategory==='live'" class="categoryView">
 		<h3 style="text-align:center">Live Content</h3>
 	</div>
 	<div id="finished" ng-show="selectedCategory==='finished'" class="categoryView">
-		<div style="max-height: 10rem" class="scroller">
-			<a ng-repeat="quiz in finished" href='#/manage/{{quiz.id}}'>
-				<div class="liveQuiz flex-container horizontal spacer">
-					<div class="info flex">
-						<div class="quizName">{{quiz.title}}</div>
-						<div class="subText">{{getDateRange(quiz.publish, quiz.results)}}</div>
-					</div>
-					<div class="purple-light point-container">
-						<div class="points">{{calcPercent(quiz.employees,totalEmployees)}}%</div>
-						<div>{{quiz.employees}}/{{totalEmployees}} employees</div>
-					</div>
-				</div>
-			</a>
-		</div>
+		<a ng-repeat="quiz in finished" class="finished flex-container horizontal" href='#/manage/finished/{{quiz.id}}'>
+			<div class="info flex">
+				<div class="quizName">{{quiz.title}}</div>
+				<div class="subText">{{getDateRange(quiz.publish, quiz.results)}}</div>
+			</div>
+			<div class="purple-light percent-container">
+				<div class="percent">{{calcPercent(quiz.employees,totalEmployees)}}%</div>
+				<div>{{quiz.employees}}/{{totalEmployees}} employees</div>
+			</div>
+		</a>
 	</div>
 	<div id="scheduled" ng-show="selectedCategory==='scheduled'" class="categoryView">
 		<h3 style="text-align:center">Scheduled Content</h3>
