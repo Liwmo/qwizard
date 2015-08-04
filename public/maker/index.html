@@ -22,6 +22,7 @@
   <link rel="stylesheet" type="text/css" href="../stylesheets/app.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/maker-dashboard.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/create-quiz.css">
+  <link rel="stylesheet" type="text/css" href="../stylesheets/finished-quiz.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/iconPack.css">
 
   <title>Qwizard Maker</title>
@@ -36,6 +37,7 @@
   <script src="../angular/angular.min.js"></script>
   <script src="../angular/angular-route.min.js"></script>
   <script src="../angular/angular-mocks/angular-mocks.js"></script>
+  <script src="../angular/angular-sanitize.min.js"></script>
 
   <!--Modules-->
   <script src="/maker/app.js"></script>
@@ -116,6 +118,7 @@
   <div class="shadow teal-dark flex-container toolbar">
     <a href="/taker" class="logo"><div class="icon logo-horizontal"></div></a>
     <span class="flex toasties"></span>
+    <!-- <span class="username">Devin.Kiser</span>  To be used in a later story when we can get usernames -->
     <div ng-click="toggleMenu()" class="button noselect"><div class="icon menu"></div></div>
   </div>
 
