@@ -33,6 +33,7 @@ CREATE TABLE results (
 	quizid INT NOT NULL,
 	userid INT NOT NULL,
     points INT,
+    submitted TINYINT(1) DEFAULT 0,
     answers LONGTEXT NOT NULL,
     viewed INT NOT NULL DEFAULT 0,
     FOREIGN KEY (quizid) REFERENCES quizzes(id),

@@ -52,6 +52,18 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 
 	//maker
 
+	self.getFinishedQuizzes = function(callback){
+		$http.get('/api/maker/manage/finished').success(function(data){
+			callback(data);
+		});
+	};
+
+	self.getTotalEmployees = function(callback){
+		$http.get('/api/maker/manage/totalEmployees').success(function(data){
+			callback(data);
+		});
+	};
+
 	self.getMyQuiz = function(id, callback){
 		$http.get('/api/maker/quiz/' + id).success(function(data){
 			if(data.error){
@@ -137,6 +149,6 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 			}
 		});
 	};
-
+	
 	return self;
 }]);

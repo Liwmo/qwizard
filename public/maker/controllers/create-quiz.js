@@ -4,6 +4,7 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
     $scope.validName = true;
     $scope.quizName = "";
     $scope.questions = [];
+    $scope.matchingArrays = [];
 
     $scope.leftAction = $scope.popupToggle;
     $scope.rightAction = $scope.popupToggle;
@@ -18,10 +19,15 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
             correctAnswer: [],
             max: 6
         });
+        $scope.matchingArrays.push({
+            clues: ['','','',''],
+            answers: ['','','','']
+        })
     };
 
     $scope.$on('removeQuestion', function(event, index) {
         $scope.questions.splice(index, 1);
+        $scope.matchingArrays.splice(index, 1);
     });
 
     $scope.popupToggle = function() {
@@ -157,6 +163,10 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
                 quizId = data.id;
                 $scope.questions = data.questions;
                 $scope.quizName = data.title;
+                $scope.matchingArrays.push({
+                    clues: [],
+                    answers: []
+                });
             }
         });
     }

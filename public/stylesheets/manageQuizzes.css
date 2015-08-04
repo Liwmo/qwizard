@@ -1,0 +1,63 @@
+#finishedQuizzes {
+	position:relative;
+	z-index:3;
+}
+
+#categoryBar {
+	z-index: 1;
+}
+
+#finished {
+	color: #332532;
+	font-family:Dosis;
+	overflow-y: auto;
+}
+
+#finished .quizName {
+	font-size:1.2em;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#finished .finished{
+	position:relative;
+	border-bottom: 0.1em solid #f1eaf0;
+	color: black;
+	-webkit-align-items:center;
+	align-items:center;
+	height:4rem;
+}
+
+#finished .info {
+	margin-left: 3.5em;
+	overflow:hidden;
+}
+
+#finished .info .subText {
+	color: rgba(51,37,50,.8);
+	font-size: .8em;
+}
+
+#finished .percent {
+	font-weight: 200;
+	font-size:2em;
+	line-height:1.4;
+}
+
+#finished .percent-container {
+	text-align: center;
+	width: 18rem;
+	height:100%;
+	box-shadow: 0 -.1rem 0 0 white;
+}
+
+#finished .percent-container > div:nth-child(2) {
+	font-family:Signika;
+	font-weight:300;
+	font-size:.9em;
+	line-height:.4;
+}
+.scroller {
+	overflow-y:auto;
+}

@@ -13,6 +13,16 @@ describe('quiz factory tests', function(){
 		mockHttp = $httpBackend;
 	}));
 
+	it('getFinishedQuizzes - should get all quizzes with results released', function(done) {
+		var str = Math.random().toString();
+		mockHttp.expectGET('/api/maker/manage/finished').respond(str);
+		factory.getFinishedQuizzes(function(data){
+			expect(data).toBe(str);
+			done();
+		});
+		mockHttp.flush();
+	});
+
 	it('getMyQuiz - should pass error to controller to be handled', function(done){
 		var id = 123456789;
 		var error = {
