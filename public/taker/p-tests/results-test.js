@@ -121,7 +121,7 @@ describe('Results page test: ', function() {
                     var results = {
                         "answers": "[[\"one:one\", \"two:two\", \"three:three\", \"four:four\"], [\"one:one\", \"two:two\", \"three:three\", \"four:four\"], [\"one:one\", \"two:two\", \"three:three\", \"four:four\"]]",
                         "selected": "[{\"answer\":[\"one:one\", \"two:three\", \"three:two\", \"four:four\"]}, {\"answer\":[]}, {\"answer\":[\"one:one\", \"two:two\", \"three:three\", \"four:four\"]}]",
-                        "pointvalues" : "[2, 3, 2, 2, 5]"
+                        "pointvalues" : "[2, 3, 5]"
                     };
 
                     $httpBackend.whenGET('/api/quiz/99999').respond(function(method, url, data, headers) {
@@ -159,12 +159,20 @@ describe('Results page test: ', function() {
             expect(element(by.repeater('question in questions').row(0)).element(by.cssContainingText('.resultsHeader', 'Partial credit')).isPresent()).toBe(true);
         });
 
+        it('should show the correct point value for partial points', function() {
+            expect(element(by.repeater('question in questions').row(0)).element(by.cssContainingText('.resultsHeader', '4')).isPresent()).toBe(true);
+        });
+
         it('should display correct message for unanswered matching question', function() {
             expect(element(by.repeater('question in questions').row(1)).element(by.cssContainingText('.resultsHeader', 'Not answered')).isPresent()).toBe(true);
         });
 
         it('should display correct message for correct answer', function() {
             expect(element(by.repeater('question in questions').row(2)).element(by.cssContainingText('.resultsHeader', 'Perfect!')).isPresent()).toBe(true);
+        });
+
+        it('should show the correct point value for partial points', function() {
+            expect(element(by.repeater('question in questions').row(2)).element(by.cssContainingText('.resultsHeader', '20')).isPresent()).toBe(true);
         });
 
         it('logout', function() {
