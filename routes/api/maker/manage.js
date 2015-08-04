@@ -30,7 +30,14 @@ router.get('/totalEmployees', function(req, res) {
 });
 
 router.get('/drafts', function(req, res){
-	res.send({id:1, title:2, questions:3});
+	var query = 'SELECT id, title, questions from quizzes';
+	db.query(query, function(err, message) {
+		if(err) {
+			res.send({error: 'Failed with draft query'});
+		} else {
+			res.send(message);
+		}
+	});
 });
 
 module.exports = router;

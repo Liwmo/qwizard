@@ -11,9 +11,6 @@ describe("Manage API endpoint", function(done){
         url: "http://localhost:3000/maker/",
         headers: {
             'cookie': "login=a"
-        },
-        form: {
-            'title': 'BLAHBLAH' 
         }
     }
 
@@ -32,7 +29,7 @@ describe("Manage API endpoint", function(done){
             var quiz = {
                 id: 999999,
                 title: "My Draft",
-                questions: ''
+                questions: 'Some Collection'
             };
 
             db.query("Insert into quizzes SET ?", quiz, function(err, message) {
@@ -47,14 +44,15 @@ describe("Manage API endpoint", function(done){
         it('Should grab our draft from the database', function(done) {
             options.url = "http://localhost:3000/api/maker/manage/drafts"
             request.get(options, function(err, response, body) {
-                if (err) {
+                if (err || !body.length) {
                     console.log(err);
                     done();
                 } else {
+                    console.log(body);
                     body = JSON.parse(body);
-                    assert.ok(body.id);
-                    assert.ok(body.title);
-                    assert.ok(body.questions);
+                    assert.ok(body[0].id == 999999);
+                    assert.ok(body[0].title == "My Draft");
+                    assert.ok(body[0].questions == "Some Collection");
                     done();
                 }
             });
@@ -69,6 +67,5 @@ describe("Manage API endpoint", function(done){
                 done();
             });
         });
-
     });
 });
