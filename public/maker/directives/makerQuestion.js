@@ -10,7 +10,9 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 			correctAnswer: '=',
 			index: '=',
 			max: '=',
-			maxedOut: '='
+			maxedOut: '=',
+			matchingClues: '=',
+			matchingAnswers: '='
 		},
 		templateUrl: '/maker/directives/templates/makerQuestion.html',
 		link: function(scope, elem, attrs){
@@ -21,7 +23,7 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 			};
 
 			scope.setQuestionDefaults = function() {
-				scope.questionName = "";
+				//scope.questionName = "";
 				scope.possibleAnswers = ["", "", ""];
 				scope.matchingClues = ["", "", "", ""];
 				scope.matchingAnswers = ["", "", "", ""];
@@ -56,7 +58,8 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 
 					while (scope.possibleAnswers.length > 4)
 						scope.possibleAnswers.pop();
-						employeeFactory.getRandomEmployees(function(data){
+
+					employeeFactory.getRandomEmployees(function(data){
 						scope.matchingClues = data.matchingClues;
 						scope.matchingAnswers = data.matchingAnswers;
 						scope.buildAnswers();
@@ -95,7 +98,7 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 			scope.matchingAnswers = ["", "", "", ""];
 
 			// Unpacking matching answers if loading quiz from server
-			if((scope.questionType === 'ma' || scope.questionType === 'pm')&& scope.correctAnswer.length) {
+			if((scope.questionType === 'ma' || scope.questionType === 'pm') && scope.correctAnswer.length) {
 				scope.correctAnswer.forEach(function(answer, index) {
 					var split = answer.split(':');
 					scope.matchingClues[index] = split[0];
@@ -156,6 +159,12 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 					scope.buildAnswers();
 				});
 			};
+
+			scope.getTypeTemplate = function() {
+				type = scope.questionType || "tf";
+				var qTypeUrl = '/maker/directives/templates/' + type + ".html";
+				return qTypeUrl;
+			}
 		}
 	};
 }]);
