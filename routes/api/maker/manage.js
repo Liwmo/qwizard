@@ -21,6 +21,25 @@ router.get('/finished', function(req, res) {
 
 });
 
+router.get('/scheduled', function(req, res) {
+	var query =  'SELECT q.publish, q.results, q.title, q.id, q.pointvalues, q.questions ';
+		query += 'FROM quizzes AS q ';
+		query += 'WHERE q.publish > ? ';
+		query += 'GROUP BY q.id ' ;
+		query += 'ORDER BY q.publish DESC';
+
+	var today = (new Date()).toISOString().substr(0,10);
+
+	db.query(query, [today], function(err, message) {
+		if(err) {
+			res.send({error: 'Scheduled quiz query failed'});
+		} else {
+			res.send(message);
+		}
+	});
+
+});
+
 router.get('/totalEmployees', function(req, res) {
 	var query = 'SELECT COUNT(*) AS num FROM users';
 	db.query(query, function(err, message) {
