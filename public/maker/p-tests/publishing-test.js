@@ -48,6 +48,13 @@ describe('Manage quiz - Publish: ', function() {
         });
     });
 
+    it('Back button should go to the create quiz page', function() {
+        browser.sleep(20000);
+        element(by.cssContainingText("nope", "back")).click();
+        expect(element(by.css("add-question")).isDisplayed()).toBeTruthy();
+        element(by.cssContainingText("nope", "continue")).click();
+    });
+
     //  TODO: waiting for API endpoint to implement 
     // it('Should display quiz name at the top', function() {
     //     expect(element(by.name('quiz-name')).getText()).toBe('Test Quiz Name');
