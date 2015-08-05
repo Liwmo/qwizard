@@ -34,7 +34,15 @@
 		</a>
 	</div>
 	<div id="drafts" ng-show="selectedCategory==='drafts'" class="categoryView">
-		<h3 style="text-align:center">Drafts Content</h3>
+		<a ng-repeat="quiz in drafts" class="finished flex-container horizontal" href='#/create/{{quiz.id}}'>
+			<div class="info flex">
+				<div class="quizName">{{quiz.title}}</div>
+			</div>
+			<div class="purple-light percent-container">
+				<div class="percent">{{quiz.questions.length}}</div>
+				<div class="employee-count">questions</div>
+			</div>
+		</a>
 	</div>
 </div>
 
