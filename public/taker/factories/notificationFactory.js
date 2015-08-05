@@ -30,7 +30,7 @@ app.factory("notificationFactory", ["$http", function($http){
             // Dont delete notifications that thank you for taking a quiz, as they aren't stored in the DB
             notifications.forEach(function(notification) {
                 if(notification.link === "#/") {
-                    notifications.push(notification);
+                    tempNotifications.push(notification);
                 }
             });
 
