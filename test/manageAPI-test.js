@@ -6,7 +6,7 @@ var request = require('request');
 var db = require('../database/db');
 
 
-describe.only("Manage API endpoint", function(done){
+describe("Manage API endpoint", function(done){
     var options = {
         url: "http://localhost:3000/maker/",
         headers: {
