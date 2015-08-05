@@ -1,1 +1,0 @@
-ALTER TABLE qwizard_dev.results ADD submitted TINYINT(1) DEFAULT 0;

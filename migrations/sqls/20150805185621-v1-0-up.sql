@@ -1,7 +1,9 @@
-DROP DATABASE IF EXISTS qwizard;
-
-CREATE DATABASE qwizard;
-use qwizard;
+DROP TABLE IF EXISTS emailTokens;
+DROP TABLE IF EXISTS notifications;
+DROP TABLE IF EXISTS results;
+DROP TABLE IF EXISTS quizzes;
+DROP TABLE IF EXISTS tokens;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
 	id INT NOT NULL AUTO_INCREMENT,
@@ -33,7 +35,6 @@ CREATE TABLE results (
 	quizid INT NOT NULL,
 	userid INT NOT NULL,
     points INT,
-    submitted TINYINT(1) DEFAULT 0,
     answers LONGTEXT NOT NULL,
     viewed INT NOT NULL DEFAULT 0,
     FOREIGN KEY (quizid) REFERENCES quizzes(id),
@@ -41,14 +42,14 @@ CREATE TABLE results (
     PRIMARY KEY (quizid, userid)
 );
 
-create table notifications(
+CREATE TABLE notifications(
 	quizId INT NOT NULL,
 	userID INT NOT NULL,
 	typeID INT NOT NULL,
 	PRIMARY KEY (quizId, userID)
 );
 
-create table emailTokens (
+CREATE TABLE emailTokens (
 	id int,
 	token varchar(50),
 	PRIMARY KEY (token)

@@ -1,0 +1,11 @@
+{
+	"dev": {
+		"host": "localhost",
+	    "user": "root",
+	    "password" : "",
+	    "database": "qwizard_dev",
+	    "driver": "mysql",
+	    "multipleStatements": true
+	},
+	"sql-file": true
+}

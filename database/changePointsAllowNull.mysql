@@ -1,1 +1,0 @@
-ALTER TABLE results MODIFY COLUMN points INT;
