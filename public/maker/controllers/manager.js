@@ -2,6 +2,7 @@ app.controller('manager', ["$scope", "quizFactory", function($scope, quizFactory
 	$scope.selectedCategory = "live";
 	$scope.finished = [];
     $scope.scheduled = [];
+    $scope.drafts = [];
 
 	quizFactory.getFinishedQuizzes(function(data){
         $scope.finished = data;
@@ -9,11 +10,18 @@ app.controller('manager', ["$scope", "quizFactory", function($scope, quizFactory
 
     quizFactory.getScheduledQuizzes(function(data){
         $scope.scheduled = data;
-        console.log($scope.scheduled);
     });
 
     quizFactory.getTotalEmployees(function(data) {
     	$scope.totalEmployees = data[0].num;
+    });
+
+    quizFactory.getDraftQuizzes(function(data) {
+        for (var i = 0; i < data.length; i++) {
+            data[i].questions = JSON.parse(data[i].questions);
+        }
+        $scope.drafts = data;
+
     });
 
     $scope.calcPercent = function(num, den){
@@ -23,7 +31,6 @@ app.controller('manager', ["$scope", "quizFactory", function($scope, quizFactory
 
 	$scope.selectCategory = function(id) {
 		$scope.selectedCategory = id;
-		console.log("Clicked Category: " + id);
 	};
 
 	$scope.getTimeLeft = function(date){

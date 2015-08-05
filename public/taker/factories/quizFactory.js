@@ -5,14 +5,12 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 
 	self.getLiveQuizzes = function(callback){
 		$http.get('/api/quiz/').success(function(data){
-			console.log(data);
 			callback(data);
 		});
 	};
 
 	self.getTakenQuizzes = function(callback){
 		$http.get('/api/userscore/').success(function(data){
-			console.log(data);
 			callback(data);
 		});
 	};
@@ -55,6 +53,12 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
             	parsedData[i].pointSum = parsedData[i].pointvalues.reduce(function(a, b) {return a + b}, 0);
         	}
 			callback(parsedData);
+		});
+	};
+
+	self.getDraftQuizzes = function(callback){
+		$http.get('/api/maker/manage/drafts').success(function(data){
+			callback(data);
 		});
 	};
 
@@ -151,7 +155,6 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 	};
 
 	self.saveQuiz = function(quiz, callback){
-		console.log(quiz);
 		var endpoint = '/api/maker/quiz';
 		if(quiz.id) {
 			endpoint += '/' + quiz.id;
