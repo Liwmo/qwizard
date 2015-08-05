@@ -17,7 +17,7 @@ NODE_PATH=$(which node)
 npm install --production
 
 #Upgrade Database
-$NODE_PATH node_modules/db-migrate/bin/db-migrate up -e prod
+$NODE_PATH node_modules/db-migrate/bin/db-migrate up --config database.json -e prod
 
 #Setup DailyJobs
 crontab productionCrontab.txt

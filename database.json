@@ -7,10 +7,11 @@
 	    "driver": "mysql",
 	    "multipleStatements": true
 	},
-	"prod": {
+	"production": {
 		"host": "localhost",
 		"user": "qwizard",
 		"password": "iS#0&dZoT@&$Vi",
+		"database": "qwizard",
 		"driver": "mysql",
 		"multipleStatements": true
 	},
