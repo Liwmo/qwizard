@@ -39,15 +39,15 @@ describe('manage quiz', function() {
         browser.get('http://localhost:3000/maker');
         element(by.id("finishedTab")).click();
 
-        expect(element(by.css('.quizName')).getText()).toEqual("Mock Quiz");
-        expect(element(by.css('.subText')).getText()).toEqual("January 1 - February 1");
-        expect(element(by.css('.percent')).getText()).toEqual("80%");
-        expect(element(by.css('.employee-count')).getText()).toEqual("80/100 employees");
+        expect(element(by.css('#finished .quizName')).getText()).toEqual("Mock Quiz");
+        expect(element(by.css('#finished .subText')).getText()).toEqual("January 1 - February 1");
+        expect(element(by.css('#finished .percent')).getText()).toEqual("80%");
+        expect(element(by.css('#finished .employee-count')).getText()).toEqual("80/100 employees");
 
         browser.removeMockModule('httpBackendMock');
     });
 
-    it('Should display closed quizzes with title, date, completion percentage, number of participants and total employees', function() {
+    it('Should display draft quizzes with title, date, completion percentage, number of participants and total employees', function() {
         var httpBackendMock = function(){
             angular.module('httpBackendMock', ['ngMockE2E', 'app'])
                 .run(function($httpBackend) {
@@ -66,9 +66,9 @@ describe('manage quiz', function() {
         browser.get('http://localhost:3000/maker');
         element(by.id("draftsTab")).click();
 
-        expect(element(by.css('.quizName')).getText()).toEqual("Draft Quiz");
-        expect(element(by.css('.question-count')).getText()).toEqual("2");
-        expect(element(by.css('.question-count-label')).getText()).toEqual("questions");
+        expect(element(by.css('#drafts .quizName')).getText()).toEqual("Draft Quiz");
+        expect(element(by.css('#drafts .percent')).getText()).toEqual("2");
+        expect(element(by.css('#drafts .employee-count')).getText()).toEqual("questions");
 
         browser.removeMockModule('httpBackendMock');
     });
