@@ -22,7 +22,16 @@
 		</a>
 	</div>
 	<div id="scheduled" ng-show="selectedCategory==='scheduled'" class="categoryView">
-		<h3 style="text-align:center">Scheduled Content</h3>
+		<a ng-repeat="quiz in scheduled" class="finished flex-container horizontal" href='#/create/{{quiz.id}}'>
+			<div class="info flex">
+				<div class="quizName">{{quiz.title}}</div>
+				<div class="subText">{{getDateRange(quiz.publish, quiz.results)}}</div>
+			</div>
+			<div class="purple-light percent-container">
+				<div class="percent">{{quiz.pointSum}}</div>
+				<div class="employee-count">points</div>
+			</div>
+		</a>
 	</div>
 	<div id="drafts" ng-show="selectedCategory==='drafts'" class="categoryView">
 		<h3 style="text-align:center">Drafts Content</h3>
