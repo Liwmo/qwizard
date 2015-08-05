@@ -26,7 +26,7 @@ describe('manage quiz', function() {
                 });
 
                 $httpBackend.whenGET('/api/maker/manage/totalEmployees').respond(function(method, url, data, headers) {
-                    return [200, [{num: 100}], {}];
+                    return [200, [{totalEmployees: 100}], {}];
                 });
 
                 $httpBackend.whenGET(/.*/).passThrough();

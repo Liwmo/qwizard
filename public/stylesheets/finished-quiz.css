@@ -1,5 +1,5 @@
 #finishedQuizStats #overallStats {
-	margin: 1em auto;
+	margin: 1em 2.5em;
     width:96%;
     max-width:85rem;
 }
@@ -9,18 +9,32 @@
 	font-weight:600;
 }
 
+#finishedQuizStats .time {
+	text-align: left;
+
+}
+
 #finishedQuizStats .vertical {
 	justify-content: space-between;
 }
-#finishedQuizStats .HUGETEXT {
+
+#finishedQuizStats .largetext {
 	font-size:5em;
 	text-align:center;
 	font-weight:200;
 	line-height:.8;
 }
+
+#finishedQuizStats .subtext {
+	font-family: Signika;
+	font-size: 1em;
+	margin-top: .5em;
+}
+
 #finishedQuizStats #overallStats > div {
 	margin-left:4em;
 }
+
 #finishedQuizStats #overallStats > div:first-child {
 	margin:0;
 }

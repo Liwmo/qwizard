@@ -92,6 +92,28 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 		});
 	};
 
+	self.getQuizResultDetail = function(id, callback){
+		var message = {};
+		message.quiz = {};
+		$http.get('/api/maker/manage/quizResultDetail/' + id).success(function(data) {
+			console.log(data);
+			message.quiz.pointvalues = JSON.parse(data[0].pointvalues);
+			message.quiz.questions = JSON.parse(data[0].questions);
+			message.quiz.answers = JSON.parse(data[0].answers);
+			message.closeDate = data[0].closeDate;
+			message.openDate = data[0].openDate;
+			message.title = data[0].title;
+			message.employees = data[0].employees;
+			message.maxPoints = 0;
+			message.avgPoints = data[0].avgPoints;
+			for(var i=0; i<message.quiz.pointvalues.length; i++) {
+				message.maxPoints += message.quiz.pointvalues[i];
+			}
+			callback(message);
+		});
+		// $http.get('/api/maker/manage/allSubmittedAnswers/' + id)	//TODO
+	};
+
 	self.getMyQuiz = function(id, callback){
 		$http.get('/api/maker/quiz/' + id).success(function(data){
 			if(data.error){

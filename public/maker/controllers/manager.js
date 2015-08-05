@@ -13,7 +13,7 @@ app.controller('manager', ["$scope", "quizFactory", function($scope, quizFactory
     });
 
     quizFactory.getTotalEmployees(function(data) {
-    	$scope.totalEmployees = data[0].num;
+    	$scope.totalEmployees = data[0].totalEmployees;
     });
 
     quizFactory.getDraftQuizzes(function(data) {
