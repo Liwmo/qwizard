@@ -23,6 +23,38 @@ describe('quiz factory tests', function(){
 		mockHttp.flush();
 	});
 
+	it('getQuizResultDetail - builds quiz information onto quiz object', function(done) {
+		var mock = [{
+			title: "Mock Title",
+			openDate: "2015-07-15",
+			closeDate: "2015-07-18",
+			questions: '[{"type":"tf","text":"TestQuestionText","answers":["","",""],"name":"TestQuestion"},{"type":"tf","text":"TestQuestionText","answers":["","",""],"name":"TestQuestion"}]',
+			answers: "[[0], [0]]",
+			pointvalues: [4],
+			avgPoints: 4,
+			employees: 1
+		}];
+
+		var quiz = {
+			pointvalues: 4,
+			questions: [{"type":"tf","text":"TestQuestionText","answers":["","",""],"name":"TestQuestion"},{"type":"tf","text":"TestQuestionText","answers":["","",""],"name":"TestQuestion"}],
+			answers: [[0], [0]],	
+		};
+
+		var maxPoints = 4;
+
+		mockHttp.expectGET('/api/maker/manage/quizResultDetail/1').respond(mock);
+		factory.getQuizResultDetail(1, function(data) {
+			expect(JSON.stringify(data.quiz)).toBe(JSON.stringify(quiz));
+			expect(data.maxPoints).toBe(maxPoints);
+			expect(data.openDate).toBe(mock[0].openDate);
+			expect(data.closeDate).toBe(mock[0].closeDate);
+			expect(data.title).toBe(mock[0].title);
+			done();
+		});
+		mockHttp.flush();
+	});
+
 	it('getMyQuiz - should pass error to controller to be handled', function(done){
 		var id = 123456789;
 		var error = {

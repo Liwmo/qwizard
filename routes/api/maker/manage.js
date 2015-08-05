@@ -29,7 +29,7 @@ router.get('/totalEmployees', function(req, res) {
 });
 
 router.get('/quizResultDetail/:id', function(req, res) {
-	var query =  'SELECT q.publish, q.results, q.title, q.pointvalues, avg(r.points) AS avgPoints, sum(r.submitted) AS employees ';
+	var query =  'SELECT q.publish as openDate, q.results as closeDate, q.title, q.pointvalues, q.questions, q.answers, avg(r.points) AS avgPoints, sum(r.submitted) AS employees ';
 		query += 'FROM quizzes AS q, results AS r ';
 		query += 'WHERE r.submitted=1 and r.quizid=q.id and q.id=? ';
 		query += 'GROUP BY q.id ' ;
