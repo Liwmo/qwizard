@@ -5,14 +5,12 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 
 	self.getLiveQuizzes = function(callback){
 		$http.get('/api/quiz/').success(function(data){
-			console.log(data);
 			callback(data);
 		});
 	};
 
 	self.getTakenQuizzes = function(callback){
 		$http.get('/api/userscore/').success(function(data){
-			console.log(data);
 			callback(data);
 		});
 	};
@@ -32,6 +30,36 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 				callback(data);
 			});
 		}
+	};
+
+	self.getScheduledQuizzes = function(callback){
+		$http.get('/api/maker/manage/scheduled').success(function(data){
+			var parsedData = data;
+			for(var i = 0; i < data.length; i++) {
+				parsedData[i].questions = JSON.parse(data[i].questions);
+				parsedData[i].pointvalues = JSON.parse(data[i].pointvalues);
+			}
+			for (var i = 0; i < parsedData.length; i++) {
+				var questions = parsedData[i].questions;
+				for (var j = 0; j < questions.length; j++) {
+					var qType = questions[j].type;
+					if (qType == "ma" || qType == "pm") {
+						parsedData[i].pointvalues[j] = parsedData[i].pointvalues[j] * 4;
+					}
+				}
+			}
+
+			for (var i = 0; i < parsedData.length; i++) {
+            	parsedData[i].pointSum = parsedData[i].pointvalues.reduce(function(a, b) {return a + b}, 0);
+        	}
+			callback(parsedData);
+		});
+	};
+
+	self.getDraftQuizzes = function(callback){
+		$http.get('/api/maker/manage/drafts').success(function(data){
+			callback(data);
+		});
 	};
 
 	self.postQuiz = function(id, callback){
@@ -148,7 +176,6 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 	};
 
 	self.saveQuiz = function(quiz, callback){
-		console.log(quiz);
 		var endpoint = '/api/maker/quiz';
 		if(quiz.id) {
 			endpoint += '/' + quiz.id;
