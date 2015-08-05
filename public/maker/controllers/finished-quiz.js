@@ -13,7 +13,7 @@ app.controller('finished-quiz', ['$scope', 'quizFactory', '$routeParams',  funct
     /*   */$scope.participation;
     // $scope.participation = $scope.activeEmployees/($scope.totalEmployees || 1);
     
-    quizFactory.getLiveQuiz($scope.quizId, function(data) {
+    quizFactory.getQuizResultDetail($scope.quizId, function(data) {
     	$scope.quiz = data;
     	$scope.quizTitle = $scope.quiz.title;
     	console.log(data);

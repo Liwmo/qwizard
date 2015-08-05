@@ -2,7 +2,7 @@ app.controller('myQuizzes', ['$scope', 'quizFactory', function($scope, quizFacto
 	$scope.live = [];
     $scope.taken = [];
 
-    quizFactory.getLiveQuizzes(function(data){
+    quizFactory.getAvailableQuizzes(function(data){
     	$scope.live = data;
     });
 
