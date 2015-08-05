@@ -7,5 +7,12 @@
 	    "driver": "mysql",
 	    "multipleStatements": true
 	},
+	"prod": {
+		"host": "localhost",
+		"user": "qwizard",
+		"password": "iS#0&dZoT@&$Vi",
+		"driver": "mysql",
+		"multipleStatements": true
+	},
 	"sql-file": true
 }
