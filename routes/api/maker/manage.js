@@ -26,7 +26,7 @@ router.get('/scheduled', function(req, res) {
 		query += 'FROM quizzes AS q ';
 		query += 'WHERE q.publish > ? ';
 		query += 'GROUP BY q.id ' ;
-		query += 'ORDER BY q.publish DESC';
+		query += 'ORDER BY q.publish ASC';
 
 	var today = (new Date()).toISOString().substr(0,10);
 
