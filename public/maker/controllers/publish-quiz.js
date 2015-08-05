@@ -2,7 +2,7 @@ app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFact
  function($scope, $routeParams, $location, quizFactory) {
 
   var quiz;
-  quizFactory.getQuiz($routeParams.id, function(data) {
+  quizFactory.getMyQuiz($routeParams.id, function(data) {
     quiz = data;
     $scope.quizId = quiz.id;
     $scope.quizName = quiz.title;

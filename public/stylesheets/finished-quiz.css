@@ -1,0 +1,26 @@
+#finishedQuizStats #overallStats {
+	margin: 1em auto;
+    width:96%;
+    max-width:85rem;
+}
+#finishedQuizStats .toolbar > span {
+	margin-left: 2%;
+	font-size:1.5rem;
+	font-weight:600;
+}
+
+#finishedQuizStats .vertical {
+	justify-content: space-between;
+}
+#finishedQuizStats .HUGETEXT {
+	font-size:5em;
+	text-align:center;
+	font-weight:200;
+	line-height:.8;
+}
+#finishedQuizStats #overallStats > div {
+	margin-left:4em;
+}
+#finishedQuizStats #overallStats > div:first-child {
+	margin:0;
+}

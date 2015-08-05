@@ -14,7 +14,7 @@ describe('publish quiz tests', function(){
 	var quizPassedToSaveQuiz = {};
 
 	var mockQuizFactory = {
-		getQuiz: function(id, callback) {
+		getMyQuiz: function(id, callback) {
 			callback({title:  "Publish Quiz Test", id: 999999});
 		},
 		saveQuiz: function(quiz, callback) {

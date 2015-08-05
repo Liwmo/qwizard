@@ -22,6 +22,7 @@
   <link rel="stylesheet" type="text/css" href="../stylesheets/app.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/maker-dashboard.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/create-quiz.css">
+  <link rel="stylesheet" type="text/css" href="../stylesheets/finished-quiz.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/iconPack.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/manageQuizzes.css">
 
@@ -46,14 +47,15 @@
   <script src="/maker/controllers/manager.js"></script>
   <script src="/maker/controllers/create-quiz.js"></script>
   <script src="/maker/controllers/publish-quiz.js"></script>
+  <script src="/maker/controllers/finished-quiz.js"></script>
 
   <!--Directives-->
   <script src="/maker/directives/makerQuestion.js"></script>
 
   <!--Factories-->
   <script src="/taker/factories/userFactory.js"></script>
-  <script src="/maker/factories/quizFactory.js"></script>
   <script src='/maker/factories/employeeFactory.js'></script>
+  <script src='/taker/factories/quizFactory.js'></script>
 </head>
 <body ng-controller="dashboard" class="flex-container horizontal" ng-app="app">
 <!--[if lt IE 7]>
@@ -116,6 +118,7 @@
   <div class="shadow teal-dark flex-container toolbar">
     <a href="/taker" class="logo"><div class="icon logo-horizontal"></div></a>
     <span class="flex toasties"></span>
+    <!-- <span class="username">Devin.Kiser</span>  To be used in a later story when we can get usernames -->
     <div ng-click="toggleMenu()" class="button noselect"><div class="icon menu"></div></div>
   </div>
 

@@ -24,7 +24,7 @@ app.controller('quiz', ["$scope", "quizFactory", "notificationFactory", "$locati
         });
     };
 
-    quizFactory.getQuiz($scope.quizId, function(data){
+    quizFactory.getLiveQuiz($scope.quizId, function(data){
         var today = new Date();
         console.log(data.closeDate);
         if(new Date(data.closeDate) < today){

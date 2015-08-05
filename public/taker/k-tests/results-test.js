@@ -11,7 +11,7 @@ describe('Results Controller Tests', function(){
 	};
 
 	var mockQuizFactory = {
-		getQuiz: function(id, callback){
+		getLiveQuiz: function(id, callback){
 			callback(mockQuiz);
 		},
 		getQuizResults: function(id, callback){

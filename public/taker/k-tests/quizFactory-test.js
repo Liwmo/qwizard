@@ -13,16 +13,6 @@ describe('quiz factory tests', function(){
 		mockHttp = $httpBackend;
 	}));
 
-	it('getQuizzes - should hit the endpoint for all quizzes associated with the author', function(done){
-		var str = Math.random().toString();
-		mockHttp.expectGET('/api/maker/quiz').respond(str);
-		factory.getQuizzes(function(data){
-			expect(data).toBe(str);
-			done();
-		});
-		mockHttp.flush();
-	});
-
 	it('getFinishedQuizzes - should get all quizzes with results released', function(done) {
 		var str = Math.random().toString();
 		mockHttp.expectGET('/api/maker/manage/finished').respond(str);
@@ -33,21 +23,21 @@ describe('quiz factory tests', function(){
 		mockHttp.flush();
 	});
 
-	it('getQuiz - should pass error to controller to be handled', function(done){
+	it('getMyQuiz - should pass error to controller to be handled', function(done){
 		var id = 123456789;
 		var error = {
 			error: "This is an error."
 		};
 
 		mockHttp.expectGET('/api/maker/quiz/' + id).respond(error);
-		factory.getQuiz(id, function(data){
+		factory.getMyQuiz(id, function(data){
 			expect(data).toEqual(error);
 			done();
 		});
 		mockHttp.flush();
 	});
 
-	it('getQuiz - should pass data to unformatQuiz and pass result to callback', function(done){
+	it('getMyQuiz - should pass data to unformatQuiz and pass result to callback', function(done){
 		var id = 123456789;
 		var quiz = {
 			title: "original data"
@@ -63,7 +53,7 @@ describe('quiz factory tests', function(){
 		};
 
 		mockHttp.expectGET('/api/maker/quiz/' + id).respond(quiz);
-		factory.getQuiz(id, function(data){
+		factory.getMyQuiz(id, function(data){
 			expect(data).toBe(unformattedQuiz);
 			done();
 		});

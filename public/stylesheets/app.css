@@ -215,6 +215,13 @@ svg, img {
     z-index:5;
 }
 
+.toolbar .username {
+    font-family:dosis;
+    font-weight:300;
+    font-size:1rem;
+    margin-right:2rem;
+}
+
 .toolbar .button {
     height: 1em;
     width: 1em;

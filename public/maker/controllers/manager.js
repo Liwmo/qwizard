@@ -1,9 +1,15 @@
 app.controller('manager', ["$scope", "quizFactory", function($scope, quizFactory){
 	$scope.selectedCategory = "live";
 	$scope.finished = [];
+    $scope.scheduled = [];
 
 	quizFactory.getFinishedQuizzes(function(data){
         $scope.finished = data;
+    });
+
+    quizFactory.getScheduledQuizzes(function(data){
+        $scope.scheduled = data;
+        console.log($scope.scheduled);
     });
 
     quizFactory.getTotalEmployees(function(data) {
