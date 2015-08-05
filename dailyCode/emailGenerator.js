@@ -1,8 +1,11 @@
 var db = require('../database/db');
 var fs = require('fs');
 var nodemailer = require('nodemailer');
-var email = nodemailer.createTransport();
+var smtpTransport = require('nodemailer-smtp-transport');
 var os = require('os');
+var config = require('../config');
+
+var transporter = nodemailer.createTransport(smtpTransport(config.smtp));
 
 //task -- returns array of users with an id, a name, and a token
 var generateTokens = function(next, users){
@@ -173,7 +176,7 @@ var emails = new (function(){
 
 	this.sendQuiz = function(next, opts){
 		console.log("sending email to " + opts.user + " for quiz " + opts.quizName);
-		email.sendMail({
+		transporter.sendMail({
     		from: "Qwizard <qwizard@asynchrony.com>",
     		to: opts.user + "@asynchrony.com",
     		subject: opts.quizName + " Quiz is Ready", // Subject line
@@ -199,5 +202,5 @@ module.exports = {
 	getQuizzes: getQuizzes,
 	getUsers: getUsers,
 	emails: emails,
-	nodemailerTransport: email
+	nodemailerTransport: transporter
 };
