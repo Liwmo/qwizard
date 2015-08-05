@@ -30,13 +30,13 @@ describe('quiz factory tests', function(){
 			closeDate: "2015-07-18",
 			questions: '[{"type":"tf","text":"TestQuestionText","answers":["","",""],"name":"TestQuestion"},{"type":"tf","text":"TestQuestionText","answers":["","",""],"name":"TestQuestion"}]',
 			answers: "[[0], [0]]",
-			pointvalues: [4],
+			pointvalues: "[4]",
 			avgPoints: 4,
 			employees: 1
 		}];
 
 		var quiz = {
-			pointvalues: 4,
+			pointvalues: [4],
 			questions: [{"type":"tf","text":"TestQuestionText","answers":["","",""],"name":"TestQuestion"},{"type":"tf","text":"TestQuestionText","answers":["","",""],"name":"TestQuestion"}],
 			answers: [[0], [0]],	
 		};
@@ -50,6 +50,8 @@ describe('quiz factory tests', function(){
 			expect(data.openDate).toBe(mock[0].openDate);
 			expect(data.closeDate).toBe(mock[0].closeDate);
 			expect(data.title).toBe(mock[0].title);
+			expect(data.employees).toBe(mock[0].employees);
+			expect(data.avgPoints).toBe(mock[0].avgPoints);
 			done();
 		});
 		mockHttp.flush();

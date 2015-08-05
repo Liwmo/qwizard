@@ -103,10 +103,11 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 			message.closeDate = data[0].closeDate;
 			message.openDate = data[0].openDate;
 			message.title = data[0].title;
-
+			message.employees = data[0].employees;
 			message.maxPoints = 0;
-			for(var i=0; i<data[0].pointvalues.length; i++) {
-				message.maxPoints += data[0].pointvalues[i];
+			message.avgPoints = data[0].avgPoints;
+			for(var i=0; i<message.quiz.pointvalues.length; i++) {
+				message.maxPoints += message.quiz.pointvalues[i];
 			}
 			callback(message);
 		});

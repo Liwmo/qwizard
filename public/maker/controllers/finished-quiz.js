@@ -1,7 +1,7 @@
 app.controller('finished-quiz', ['$scope', 'quizFactory', '$routeParams',  function($scope, quizFactory, $routeParams) {
 
-    /*   */$scope.average;
-    /* X */$scope.max;
+    /*   */$scope.avgPoints;
+    /* X */$scope.maxPoints;
     /* X */$scope.quizId = $routeParams.id;
     /* X */$scope.quiz;
     /* X */$scope.closeDate;
@@ -10,7 +10,7 @@ app.controller('finished-quiz', ['$scope', 'quizFactory', '$routeParams',  funct
     /* X */$scope.quizTitle;
     /* X */$scope.totalEmployees;
     /*   */$scope.activeEmployees;
-    /*   */$scope.participation;
+           $scope.percent; 
     // $scope.participation = $scope.activeEmployees/($scope.totalEmployees || 1);
 
     //This should not be using getLiveQuiz OR getQuizResults. Create and use new APIs for this to work right.
@@ -20,24 +20,25 @@ app.controller('finished-quiz', ['$scope', 'quizFactory', '$routeParams',  funct
             var flippedDate = date.substr(8, 2) + date.substr(4, 4).replace(/-/g, '/') + date.substr(0, 4);
             return flippedDate;
         }
-    	$scope.quiz = data;
-    	$scope.quizTitle = $scope.quiz.title;
-    	console.log(data);
-        
-        $scope.closeDate = flipDate($scope.quiz.closeDate);
-        $scope.openDate = flipDate($scope.quiz.openDate);
+        console.log(data);
+    	$scope.quiz = data.quiz;
+    	$scope.quizTitle = data.title;
+        $scope.maxPoints = data.maxPoints;
+        $scope.closeDate = flipDate(data.closeDate);
+        $scope.openDate = flipDate(data.openDate);
     	$scope.numQuestions = $scope.quiz.questions.length;
+        $scope.activeEmployees = data.employees;
+        $scope.avgPoints = Math.round(data.avgPoints);
+        if($scope.totalEmployees) {
+            $scope.percent = Math.round(($scope.activeEmployees / $scope.totalEmployees)*100);
+        }
     });
 
-    quizFactory.getQuizResults($scope.quizId, function(data) {
-    	$scope.max = JSON.parse(data.pointvalues)
-    							.reduce(function(a, b) {
-    								return a + b;
-    							}, 0);
-    });
 
     quizFactory.getTotalEmployees(function(data) {
         $scope.totalEmployees = data[0].totalEmployees;
+        if($scope.activeEmployees) {
+            $scope.percent = Math.round(($scope.activeEmployees / $scope.totalEmployees)*100);
+        }
     });
-
 }]);

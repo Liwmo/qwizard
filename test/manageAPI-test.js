@@ -39,8 +39,6 @@ describe("Manage quizzes endpoint", function(done){
     	name: "qwizardtestuser.3"
     }
 
-    
-
     beforeEach("Login", function(done) {
         convert.nameToId("proj-1189-bind", function(id) {
             bindId = id;
@@ -96,7 +94,7 @@ describe("Manage quizzes endpoint", function(done){
 
     afterEach("Logout", function(done) {
         db.query("delete from results where quizid=" + quizId, function(err, message) {
-            db.query("delete from quizzes where id=" + quizId, function(err, message) {
+            db.query("delete from quizzes", function(err, message) {
                 db.query("delete from tokens where cookie='a'", function(err, message) {
                     db.query("alter table quizzes auto_increment=" + quizId, function(err, message){
                     	db.query("delete from users where name in ('qwizardtestuser.1', 'qwizardtestuser.2', 'qwizardtestuser.3')", function(err, message) {
@@ -230,16 +228,6 @@ describe("Manage quizzes endpoint", function(done){
                     assert.ok(body.length == 1);
                     done();
                 }
-            });
-        });
-
-        afterEach(function(done) {
-            db.query("delete from quizzes", function(err, message) {
-                if(err) {
-                    console.log(err);
-                }
-
-                done();
             });
         });
     });
