@@ -6,7 +6,7 @@ var request = require('request');
 var db = require('../database/db');
 
 
-describe("Manage API endpoint", function(done){
+describe.only("Manage API endpoint", function(done){
     var options = {
         url: "http://localhost:3000/maker/",
         headers: {
@@ -32,12 +32,21 @@ describe("Manage API endpoint", function(done){
                 questions: 'Some Collection'
             };
 
+            var publishedQuiz = {
+                id: 999998,
+                title: "Published Quiz",
+                questions: 'Published Collection',
+                publish: "2015-07-08",
+                results: "2015-07-09"
+            };
+
             db.query("Insert into quizzes SET ?", quiz, function(err, message) {
                 if(err) {
                     console.log(err);
                 }
-
-                done();
+                db.query("Insert into quizzes SET ?", publishedQuiz, function(err, message) {
+                    done();
+                });
             });
         });
 
@@ -48,11 +57,24 @@ describe("Manage API endpoint", function(done){
                     console.log(err);
                     done();
                 } else {
-                    console.log(body);
                     body = JSON.parse(body);
                     assert.ok(body[0].id == 999999);
                     assert.ok(body[0].title == "My Draft");
                     assert.ok(body[0].questions == "Some Collection");
+                    done();
+                }
+            });
+        });
+
+        it('Should not grab only non-published quizzes', function(done) {
+            options.url = "http://localhost:3000/api/maker/manage/drafts"
+            request.get(options, function(err, response, body) {
+                if (err || !body.length) {
+                    console.log(err);
+                    done();
+                } else {
+                    body = JSON.parse(body);
+                    assert.ok(body.length == 1);
                     done();
                 }
             });

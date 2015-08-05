@@ -30,9 +30,11 @@ router.get('/totalEmployees', function(req, res) {
 });
 
 router.get('/drafts', function(req, res){
-	var query = 'SELECT id, title, questions from quizzes';
+	var query = 'SELECT id, title, questions, publish from quizzes ' +
+				'WHERE publish IS NULL AND results IS NULL';
 	db.query(query, function(err, message) {
 		if(err) {
+			console.log("ERROR: Invalid query for quiz drafts", err);
 			res.send({error: 'Failed with draft query'});
 		} else {
 			res.send(message);
