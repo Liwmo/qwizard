@@ -49,8 +49,8 @@ describe('Manage quiz - Publish: ', function() {
     });
 
     it('Back button should go to the create quiz page', function() {
-        browser.sleep(20000);
-        element(by.cssContainingText("nope", "back")).click();
+        browser.sleep(25000);
+        element(by.cssContainingText(".nope", "back")).click();
         expect(element(by.css("add-question")).isDisplayed()).toBeTruthy();
         element(by.cssContainingText("nope", "continue")).click();
     });
