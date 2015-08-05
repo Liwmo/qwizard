@@ -1,6 +1,5 @@
 var should = require('should');
 var assert = require('assert');
-<<<<<<< HEAD
 var request = require('request');
 var convert = require('../routes/userConversion');
 var db = require('../database/db');
@@ -91,33 +90,10 @@ describe("Manage quizzes endpoint", function(done){
 					    });
 		    		});
 		    	});
-=======
-var request = require('supertest');
-var convert = require('../routes/userConversion');
-var request = require('request');
-var db = require('../database/db');
-
-
-describe("Manage API endpoint", function(done){
-    var options = {
-        url: "http://localhost:3000/maker/",
-        headers: {
-            'cookie': "login=a"
-        }
-    }
-
-    var returnedID;
-
-    it("Login", function(done) {
-        convert.nameToId("proj-1189-bind", function(id) {
-            db.query("INSERT INTO tokens values ('a', ?)", id, function() {
-                done();
->>>>>>> master
-            });
+            })
         });
     });
 
-<<<<<<< HEAD
     afterEach("Logout", function(done) {
         db.query("delete from results where quizid=" + quizId, function(err, message) {
             db.query("delete from quizzes where id=" + quizId, function(err, message) {
@@ -201,7 +177,6 @@ describe("Manage API endpoint", function(done){
 	// it('/allSubmittedAnswers should return submitted answers for a specific quiz', function(done){
 
 	// });
-=======
     describe("Drafts API Call", function(done) {
         beforeEach(function(done) {
             var quiz = {
@@ -268,5 +243,4 @@ describe("Manage API endpoint", function(done){
             });
         });
     });
->>>>>>> master
 });
