@@ -13,6 +13,6 @@ sudo cp database/my.cnf /etc/my.cnf
 sudo service mysqld start
 
 npm install --production
-mysql -u qwizard -p'iS#0&dZoT@&$Vi' --socket /var/run/mysql-qwizard/mysqld.sock < database/createEmptyDatabase.mysql
-
+#mysql -u qwizard -p'iS#0&dZoT@&$Vi' --socket /var/run/mysql-qwizard/mysqld.sock < database/createEmptyDatabase.mysql
+$NODE_PATH node_modules/db-migrate/bin/db-migrate up
 crontab productionCrontab.txt

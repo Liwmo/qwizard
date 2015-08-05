@@ -1,8 +1,16 @@
 #!/bin/bash
 
-#Git latest code
-git checkout production
-git pull
+
+case "$1" in
+    production)
+		echo "Using production Git branch"
+        git checkout production
+		git pull
+        ;;
+    *)
+        echo "Not pulling latest Git on current branch"
+        ;;
+esac
 
 #Install Dependencies
 NODE_PATH=$(which node)
