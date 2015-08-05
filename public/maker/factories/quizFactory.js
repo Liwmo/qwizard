@@ -14,23 +14,26 @@ app.factory("quizFactory", ["$http", function($http){
 
 	self.getScheduledQuizzes = function(callback){
 		$http.get('/api/maker/manage/scheduled').success(function(data){
-			for (var i = 0; i < data.length; i++) {
-				var questions = JSON.parse(data[i].questions);
+			console.log(data);
+			var parsedData = data;
+			for(var i = 0; i < data.length; i++) {
+				parsedData[i].questions = JSON.parse(data[i].questions);
+				parsedData[i].pointvalues = JSON.parse(data[i].pointvalues);
+			}
+			for (var i = 0; i < parsedData.length; i++) {
+				var questions = parsedData[i].questions;
 				for (var j = 0; j < questions.length; j++) {
 					var qType = questions[j].type;
 					if (qType == "ma" || qType == "pm") {
-						data[i].pointvalues = JSON.parse(data[i].pointvalues);
-						data[i].pointvalues[j] = data[i].pointvalues[j] * 4;
+						parsedData[i].pointvalues[j] = parsedData[i].pointvalues[j] * 4;
 					}
 				}
 			}
 
-			for (var i = 0; i < data.length; i++) {
-				console.log(typeof(JSON.parse(data[i].pointvalues)));
-            	data[i].pointSum = data[i].pointvalues.reduce(function(a, b) {return a + b}, 0);
-            	console.log(data[i].pointSum);
+			for (var i = 0; i < parsedData.length; i++) {
+            	parsedData[i].pointSum = parsedData[i].pointvalues.reduce(function(a, b) {return a + b}, 0);
         	}
-			callback(data);
+			callback(parsedData);
 		});
 	};
 
