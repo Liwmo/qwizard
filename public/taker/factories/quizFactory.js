@@ -112,7 +112,11 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 			message.maxPoints = 0;
 			message.avgPoints = data[0].avgPoints;
 			for(var i=0; i<message.quiz.pointvalues.length; i++) {
-				message.maxPoints += message.quiz.pointvalues[i];
+				if(message.quiz.questions[i].type == 'pm' || message.quiz.questions[i].type == 'ma') {
+					message.maxPoints += message.quiz.pointvalues[i] * 4;
+				} else {
+					message.maxPoints += message.quiz.pointvalues[i];
+				}
 			}
 			callback(message);
 		});
