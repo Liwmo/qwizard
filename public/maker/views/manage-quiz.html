@@ -7,7 +7,7 @@
 </div>
 <div id="categoryContainer" class="flex">
 	<div id="live" ng-show="selectedCategory==='live'" class="categoryView">
-		<a ng-repeat="quiz in live" class="finished flex-container horizontal" href='#/create/{{quiz.id}}'>
+		<a ng-repeat="quiz in live" class="finished flex-container horizontal" href='#/live_edit/{{quiz.id}}'>
 			<div class="info live-info">
 				<div class="quizName">{{quiz.title}}</div>
 				<div class="subText">{{getDateRange(quiz.publish, quiz.results)}}</div>
