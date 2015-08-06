@@ -3,8 +3,13 @@ app.controller('manager', ["$scope", "quizFactory", function($scope, quizFactory
 	$scope.finished = [];
     $scope.scheduled = [];
     $scope.drafts = [];
+    $scope.live = [];
+    
+    quizFactory.getLiveQuizzes(function(data) {
+        $scope.live = data;
+    });
 
-	quizFactory.getFinishedQuizzes(function(data){
+    quizFactory.getFinishedQuizzes(function(data){
         $scope.finished = data;
     });
 
@@ -21,8 +26,8 @@ app.controller('manager', ["$scope", "quizFactory", function($scope, quizFactory
             data[i].questions = JSON.parse(data[i].questions);
         }
         $scope.drafts = data;
-
     });
+
 
     $scope.calcPercent = function(num, den){
     	var data = Math.round((num/den)*100);
