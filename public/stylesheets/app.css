@@ -385,6 +385,10 @@ hr{
     background-color: #332532 !important;
 }*/
 
+.question .answer {
+    word-wrap:break-word;
+}
+
 .question .button {
     font-family: "Dosis";
     text-align: center;
