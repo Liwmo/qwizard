@@ -438,13 +438,13 @@ describe('create quiz', function() {
         expect(element(by.css('[ng-model="quizName"]')).getAttribute('value')).toBe("iiiiiiiiiiiiiiiiiiii");
     });
 
-    it('should not allow one to type more than 50 characters into the answer text field', function() {
+    it('should not allow one to type more than 100 characters into the answer text field', function() {
         element(by.cssContainingText("option","Multiple Choice")).click();
         element(by.css('[ng-model="possibleAnswers[$index]"]')).clear();
-        var tooMuchText = new Array(600).join('i');
+        var tooMuchText = new Array(30).join('aeiou');
 
         element(by.css('[ng-model="possibleAnswers[$index]"]')).sendKeys(tooMuchText);
-        expect(element(by.css('[ng-model="possibleAnswers[$index]"]')).getAttribute('value')).toBe(new Array(51).join('i'));
+        expect(element(by.css('[ng-model="possibleAnswers[$index]"]')).getAttribute('value')).toBe(new Array(21).join('aeiou'));
     });
 
     it('should not show "delete answer" buttons when only 3 answers are showing', function() {
