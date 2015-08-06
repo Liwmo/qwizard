@@ -172,6 +172,29 @@ describe("Manage quizzes endpoint", function(done){
         });
 	});
 
+    it('/quizResultDetail should return information even if no users took the quiz', function(done) {
+        db.query("delete from results where quizid=" + quizId, function(err, message) {
+            options.url = "http://localhost:3000/api/maker/manage/quizResultDetail/" + quizId;
+            request.get(options, function(err, response, body) {
+                if (err) {
+                    console.log(err);
+                    done();
+                } else {
+                    body = JSON.parse(body);
+                    assert.equal(body[0].openDate, '2014-12-04T06:00:00.000Z');
+                    assert.equal(body[0].closeDate, '2014-12-08T06:00:00.000Z');
+                    assert.equal(body[0].title, "Title");
+                    assert.equal(body[0].pointvalues, '[5, 4]');
+                    assert.equal(body[0].questions, '[{\"type\":\"tf\",\"text\":\"TestQuestionText\",\"answers\":\"[\"\",\"\",\"\"]\",\"name\":\"TestQuestion\"},{\"type\":\"tf\",\"text\":\"TestQuestionText\",\"answers\":\"[\"\",\"\",\"\"]\",\"name\":\"TestQuestion\"}]');
+                    assert.equal(body[0].answers, '[[0], [0]]');
+                    assert.equal(body[0].avgPoints, 0);
+                    assert.equal(body[0].employees, 0);
+                    done();
+                }
+            });
+        });
+    });
+
 	// it('/allSubmittedAnswers should return submitted answers for a specific quiz', function(done){
 
 	// });
