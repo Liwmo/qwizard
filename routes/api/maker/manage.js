@@ -67,11 +67,12 @@ router.get('/totalEmployees', function(req, res) {
 });
 
 router.get('/quizResultDetail/:id', function(req, res) {
-	var query =  'SELECT q.publish as openDate, q.results as closeDate, q.title, q.pointvalues, q.questions, q.answers, avg(r.points) AS avgPoints, sum(r.submitted) AS employees ';
-		query += 'FROM quizzes AS q, results AS r ';
-		query += 'WHERE r.submitted=1 and r.quizid=q.id and q.id=? ';
-		query += 'GROUP BY q.id ' ;
-		query += 'ORDER BY q.results DESC';
+	var query =  'SELECT publish as openDate, results as closeDate, title, pointvalues, ';
+		query += 'questions, quizzes.answers, (ifnull(ifnull(sum(points),0)/ifnull(sum(submitted),0),0)) AS avgPoints, ifnull(sum(submitted),0) AS employees ';
+		query += 'FROM quizzes ';
+		query += 'LEFT JOIN results ON quizzes.id=results.quizid ';
+		query += 'WHERE id=? ';
+		query += 'GROUP BY id';
 
 	db.query(query, req.params.id, function(err, message) {
 		if(err) {
