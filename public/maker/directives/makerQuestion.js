@@ -15,7 +15,8 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 			matchingAnswers: '='
 		},
 		templateUrl: '/maker/directives/templates/makerQuestion.html',
-		link: function(scope, elem, attrs){
+		link: function(scope, elem, attrs) {
+			scope.disabled = attrs.liveEdit;
 			var savedQuestionText = "", saved = false;
 
 			scope.tf = function(value){

@@ -15,4 +15,4 @@
 <span class="flex noselect" ng-hide="questionType"></span>
 <span class="flex noselect" ng-show="questionType" ng-include="getTypeTemplate()"></span>
 
-<div class="icon delete" ng-click="remove()"></div>
+<div ng-hide="disabled" class="icon delete" ng-click="remove()"></div>

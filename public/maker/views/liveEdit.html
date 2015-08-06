@@ -1,1 +1,37 @@
-liveEdit view
+<div id="create_header" class="shadow">
+    <input ng-model="quizName" ng-change="verifyName()" id="quiz_name" type="text" class="teal-medium text-input large" placeholder="Quiz Name" maxlength="20">
+    <span style="font-family:Dosis" ng-hide="validName">Quiz name is required! No special characters!</span>
+</div>
+
+<div class="flex " style="overflow-y:auto;">
+    <div id="question" ng-repeat="question in questions track by $index">
+        <maker-question points="question.points" 
+                        question-name="question.name" 
+                        question-type="question.type"
+                        question-text="question.text"
+                        possible-answers="question.answers"
+                        correct-answer="question.correctAnswer"
+                        index="$index"
+                        max="question.max"
+                        matching-clues="matchingArrays[$index].clues"
+                        matching-answers="matchingArrays[$index].answers"
+                        class="flex-container horizontal shadow card"
+                        live-edit="true"></maker-question>
+    </div>
+    <div id="makerButtons" class="noselect">
+        <span ng-click="publishQuiz()" class="nope button teal-dark shadow noselect">publish</span>
+        <span ng-click="saveDraft()" class="nope button teal-dark shadow noselect">save draft</span>
+        <span ng-click="cancelConfirm()" class="nope button teal-dark shadow noselect">cancel</span>
+    </div>
+</div>
+
+<div class="popup light-text flex-container">
+    <div style="width: 25em;">
+        <div class="noselect">{{popupText}}</div>
+        <hr/>
+        <div class="flex-container horizontal">
+          <span class="button flex teal-dark shadow noselect" ng-click="leftAction()">{{leftButton}}</span>
+          <span class="button flex teal-dark shadow noselect" ng-click="rightAction()" ng-show="rightButton">{{rightButton}}</span>
+        </div>
+    </div>
+</div>
