@@ -3,18 +3,11 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 	var quizzes = {};
 	var cache = {};
 
-	self.getLiveQuizzes = function(callback){
+	self.getAvailableQuizzes = function(callback){
 		$http.get('/api/quiz/').success(function(data){
 			callback(data);
 		});
 	};
-
-	self.getTakenQuizzes = function(callback){
-		$http.get('/api/userscore/').success(function(data){
-			callback(data);
-		});
-	};
-
 	self.getLiveQuiz = function(id, callback){
 		if(quizzes[id.toString()]){
 			callback(quizzes[id.toString()]);
@@ -30,6 +23,42 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 				callback(data);
 			});
 		}
+	};
+	
+	self.getTakenQuizzes = function(callback){
+		$http.get('/api/userscore/').success(function(data){
+			callback(data);
+		});
+	};
+
+	self.postQuiz = function(id, callback){
+		var selected = [];
+        for(var i = 0; i < quizzes[id.toString()].questions.length; i++){
+            selected.push({
+                answer: quizzes[id.toString()].questions[i].selected,
+                // type: quizzes[id.toString()].questions[i].type
+            });
+        }
+		$http.post("/api/quiz/" + id, selected).success(callback);
+	};
+
+	self.getQuizResults = function(id, callback) {
+		$http.get("/api/quiz/" + id + "/results").success(callback);
+	}
+
+
+	//maker
+
+	self.getLiveQuizzes = function(callback){
+		$http.get('/api/maker/manage/live').success(function(data){
+			callback(data);
+		});
+	};
+
+	self.getFinishedQuizzes = function(callback){
+		$http.get('/api/maker/manage/finished').success(function(data){
+			callback(data);
+		});
 	};
 
 	self.getScheduledQuizzes = function(callback){
@@ -61,31 +90,7 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 			callback(data);
 		});
 	};
-
-	self.postQuiz = function(id, callback){
-		var selected = [];
-        for(var i = 0; i < quizzes[id.toString()].questions.length; i++){
-            selected.push({
-                answer: quizzes[id.toString()].questions[i].selected,
-                // type: quizzes[id.toString()].questions[i].type
-            });
-        }
-		$http.post("/api/quiz/" + id, selected).success(callback);
-	};
-
-	self.getQuizResults = function(id, callback) {
-		$http.get("/api/quiz/" + id + "/results").success(callback);
-	}
-
-
-	//maker
-
-	self.getFinishedQuizzes = function(callback){
-		$http.get('/api/maker/manage/finished').success(function(data){
-			callback(data);
-		});
-	};
-
+	
 	self.getTotalEmployees = function(callback){
 		$http.get('/api/maker/manage/totalEmployees').success(function(data){
 			callback(data);

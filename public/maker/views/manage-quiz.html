@@ -7,7 +7,20 @@
 </div>
 <div id="categoryContainer" class="flex">
 	<div id="live" ng-show="selectedCategory==='live'" class="categoryView">
-		<h3 style="text-align:center">Live Content</h3>
+		<a ng-repeat="quiz in live" class="finished flex-container horizontal" href='#/create/{{quiz.id}}'>
+			<div class="info live-info">
+				<div class="quizName">{{quiz.title}}</div>
+				<div class="subText">{{getDateRange(quiz.publish, quiz.results)}}</div>
+			</div>
+			<div class="flex time">
+				<div class="percent">{{getTimeLeft(quiz.results)}}</div>
+				<div class="employee-count">until quiz close</div>
+			</div>
+			<div class="purple-light percent-container">
+				<div class="percent">{{calcPercent(quiz.employees,totalEmployees)}}%</div>
+				<div class="employee-count">{{quiz.employees}}/{{totalEmployees}} employees</div>
+			</div>
+		</a>
 	</div>
 	<div id="finished" ng-show="selectedCategory==='finished'" class="categoryView">
 		<a ng-repeat="quiz in finished" class="finished flex-container horizontal" href='#/finished/{{quiz.id}}'>

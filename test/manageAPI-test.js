@@ -202,7 +202,7 @@ describe("Manage quizzes endpoint", function(done){
         });
 
         it('Should grab our draft from the database', function(done) {
-            options.url = "http://localhost:3000/api/maker/manage/drafts"
+            options.url = "http://localhost:3000/api/maker/manage/drafts";
             request.get(options, function(err, response, body) {
                 if (err || !body.length) {
                     console.log(err);
@@ -218,7 +218,7 @@ describe("Manage quizzes endpoint", function(done){
         });
 
         it('Should not grab only non-published quizzes', function(done) {
-            options.url = "http://localhost:3000/api/maker/manage/drafts"
+            options.url = "http://localhost:3000/api/maker/manage/drafts";
             request.get(options, function(err, response, body) {
                 if (err || !body.length) {
                     console.log(err);
