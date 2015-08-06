@@ -64,7 +64,7 @@ describe("Manage quizzes endpoint", function(done){
 								    var results2 = {
 								    	quizid: quizId,
 								    	userid: userId2,
-								    	points: 8,
+								    	points: 0,
 								    	answers: "[]",
 								    	submitted: 0
 								    }
