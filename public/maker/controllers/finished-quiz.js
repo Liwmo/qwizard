@@ -1,23 +1,20 @@
 app.controller('finished-quiz', ['$scope', 'quizFactory', '$routeParams',  function($scope, quizFactory, $routeParams) {
 
-    /*   */$scope.avgPoints;
-    /* X */$scope.maxPoints;
-    /* X */$scope.quizId = $routeParams.id;
-    /* X */$scope.quiz;
-    /* X */$scope.closeDate;
-    /*   */$scope.openDate;
-    /* X */$scope.numQuestions;
-    /* X */$scope.quizTitle;
-    /* X */$scope.totalEmployees;
-    /*   */$scope.activeEmployees;
-           $scope.percent; 
-    // $scope.participation = $scope.activeEmployees/($scope.totalEmployees || 1);
+    $scope.avgPoints;
+    $scope.maxPoints;
+    $scope.quizId = $routeParams.id;
+    $scope.quiz;
+    $scope.closeDate;
+    $scope.openDate;
+    $scope.numQuestions;
+    $scope.quizTitle;
+    $scope.totalEmployees;
+    $scope.activeEmployees;
+    $scope.percent; 
 
-    //This should not be using getLiveQuiz OR getQuizResults. Create and use new APIs for this to work right.
-    
     quizFactory.getQuizResultDetail($scope.quizId, function(data) {
         function flipDate(date) {
-            var flippedDate = date.substr(8, 2) + date.substr(4, 4).replace(/-/g, '/') + date.substr(0, 4);
+            var flippedDate = date.substr(5, 2) + "/" + date.substr(8, 2) + "/" + date.substr(0, 4);
             return flippedDate;
         }
         console.log(data);
