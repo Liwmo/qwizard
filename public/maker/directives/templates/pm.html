@@ -1,9 +1,9 @@
 <span class="flex flex-container horizontal noselect pm" style="-webkit-justify-content: space-between; justify-content:space-between;">
 	<div style="width: 48%; min-width: 10em; max-width: 25em" class="flex-container horizontal answer-field" ng-repeat="answer in possibleAnswers track by $index">
 		<div class="flex">
-			<div class='clue' ng-click="replace($index)">
+			<div class='clue' ng-class="{disabled: disabled}" ng-click="replace($index)">
 				<div class='pic' style='background-image:url(../images/employees/{{matchingClues[$index]}}.jpg)'>
-					<div class="cover"></div>
+					<div ng-hide="disabled" class="cover"></div>
 				</div>
 			</div>
 			<div class="maAnswer">

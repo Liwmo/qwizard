@@ -17,41 +17,13 @@ app.controller('liveEdit', ['$scope', '$location', 'quizFactory', '$routeParams'
         }
     };
 
-    $scope.toDashboard = function() {
-    	$location.path('/');
-    };
-
     $scope.verifyName = function() {
     	var pattern = new RegExp("^[A-Za-z0-9_]*[A-Za-z0-9][A-Za-z0-9 _'-]*$");
     	$scope.validName = pattern.test($scope.quizName);
     	return pattern.test($scope.quizName);
     };
 
-    $scope.saveDraft = function() {
-    	if (!$scope.verifyName()) {
-    		console.log("I can't save this name");
-    	}else{
-            quizFactory.saveQuiz({
-                title: $scope.quizName,
-                questions: $scope.questions,
-                id: quizId
-            }, function(data){
-                if(data.error){
-                    setPopup("There was an error saving your draft.");
-                }else{
-                    quizId = data;
-                    setPopup("Your draft is saved.  Would you like to continue?", {
-                        text: "No, return to dashboard",
-                        action: $scope.toDashboard
-                    }, {
-                        text: "Yes, I'm still working"
-                    });
-                }
-            });
-    	}
-    };
-
-    $scope.publishQuiz = function() {
+    $scope.saveChanges = function() {
     	if (!$scope.verifyName()) {
     		setPopup("Cannot publish with this quiz name.");
             return;
@@ -108,7 +80,7 @@ app.controller('liveEdit', ['$scope', '$location', 'quizFactory', '$routeParams'
                 if(data.error){
                     setPopup("There was an error publishing your quiz.");
                 }else{
-                    $location.path('/publish/' + data);
+                    $location.path('/');
                 }
             });
     	}

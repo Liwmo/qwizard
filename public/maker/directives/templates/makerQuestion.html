@@ -1,7 +1,14 @@
 <span class="flex noselect">
 	<input ng-model="questionName" class="text-input large" type="text" placeholder="Category" maxlength="20"/>
-	<select ng-model="questionType" class="text-input" ng-change="setQuestionDefaults()">
-		<option disabled selected value="">Select a question type</option>
+	<div ng-show="disabled">
+	{{questionType=="tf" ? "True/False" : ""}}
+	{{questionType=="mc" ? "Multiple Choice" : ""}}
+	{{questionType=="ms" ? "Multiple Select" : ""}}
+	{{questionType=="ma" ? "Matching" : ""}}
+	{{questionType=="pm" ? "Photo Matching" : ""}}
+	</div>
+	<select ng-hide="disabled" ng-model="questionType" class="text-input" ng-change="setQuestionDefaults()">
+		<option selected value="">Select a question type</option>
 		<option value="tf">True/False</option>
 		<option value="mc">Multiple Choice</option>
 		<option value="ms">Multiple Select</option>
@@ -10,7 +17,8 @@
 	</select>
 	<textarea ng-model="questionText" value="questionText" class="text-input question-text" maxlength="300" placeholder="Question Text" ng-hide="questionType=='pm'"></textarea>
 	<span class="point-display">Points{{questionType=='ma' || questionType=='pm' ? " per correct match" : ""}}: {{points}}</span>
-	<input type="range" ng-model="points" value="points" min="0" max="10"></slider>
+	<input type="range" ng-hide="disabled" ng-model="points" value="points" min="0" max="10"></input>
+	<input type="range" ng-show="disabled" disabled ng-model="points" value="points" min="0" max="10"></input> 
 </span>
 <span class="flex noselect" ng-hide="questionType"></span>
 <span class="flex noselect" ng-show="questionType" ng-include="getTypeTemplate()"></span>

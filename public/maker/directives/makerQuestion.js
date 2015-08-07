@@ -154,11 +154,13 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 			};
 
 			scope.replace = function(index){
-				employeeFactory.getOneEmployee(scope.matchingClues, function(employee){
-					scope.matchingClues[index] = employee.matchingClues[0];
-					scope.matchingAnswers[index] = employee.matchingAnswers[0];
-					scope.buildAnswers();
-				});
+				if(!scope.disabled) {
+					employeeFactory.getOneEmployee(scope.matchingClues, function(employee){
+						scope.matchingClues[index] = employee.matchingClues[0];
+						scope.matchingAnswers[index] = employee.matchingAnswers[0];
+						scope.buildAnswers();
+					});
+				}
 			};
 
 			scope.getTypeTemplate = function() {
