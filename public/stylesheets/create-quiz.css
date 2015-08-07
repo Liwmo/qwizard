@@ -9,6 +9,9 @@ input {
 [ng-click] {
     cursor:pointer;
 }
+.disabled {
+    cursor: default !important;
+}
 
 #create_header {
     font-family:"Signika";
@@ -146,6 +149,9 @@ maker-question input[type=range]::-webkit-slider-runnable-track {
     border: none;
     border-radius: 5em;
 }
+maker-question input[type=range][disabled]::-webkit-slider-runnable-track {
+    background: #C2BEC1;
+}
 
 maker-question input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -156,6 +162,9 @@ maker-question input[type=range]::-webkit-slider-thumb {
     background: #A3709C;
     margin-top: -.3em;
 }
+maker-question input[type=range][disabled]::-webkit-slider-thumb {
+    background: #C2BEC1;
+}
 
 maker-question input[type=range]::-moz-range-track {
     width: 100%;
@@ -163,6 +172,9 @@ maker-question input[type=range]::-moz-range-track {
     background: #BF9BBA;
     border: none;
     border-radius: 5em;
+}
+maker-question input[type=range][disabled]::-moz-range-track {
+    background: #C2BEC1;
 }
 
 maker-question input[type=range]::-moz-range-thumb {
@@ -173,6 +185,9 @@ maker-question input[type=range]::-moz-range-thumb {
     border-radius: 50%;
     background: #A3709C;
     margin-top: -.3em;
+}
+maker-question input[type=range][disabled]::-moz-range-thumb {
+    background: #ADA8AD;
 }
 
 [placeholder]:focus::-webkit-input-placeholder {

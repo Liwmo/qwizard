@@ -22,5 +22,9 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
             controller: "finished-quiz",
             templateUrl: "views/finished-quiz.html"
         })
+        .when ("/live_edit/:id", {
+            controller: "liveEdit",
+            templateUrl: "views/liveEdit.html"
+        })
         .otherwise("/");
 }]);

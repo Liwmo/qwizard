@@ -34,13 +34,16 @@ router.get('/addNotification', function(req, res){
 
 router.get('/addEmailToken/:token', function(req, res){
 	var query = 'INSERT INTO emailTokens SET ?';
-	db.query(query, {id: 1, token: req.params.token}, function(err, results) {
-		if(err) {
-			res.send({error: err});
-		}else{
-			res.send(200);
-		}
+	convert.cookieToId(req.cookies.login, function(userId) {
+		db.query(query, {id: userId, token: req.params.token}, function(err, results) {
+			if(err) {
+				res.send({error: err});
+			}else{
+				res.send(200);
+			}
+		});
 	});
+
 });
 
 module.exports = router;

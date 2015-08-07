@@ -74,7 +74,7 @@ router.put('/:id', function(req, res){
 		return;
 	}
 
-	var query = 'update quizzes SET ? where id=? and author=? and (publish>? or ISNULL(publish))';
+	var query = 'update quizzes SET ? where id=? and author=?';
 	convert.cookieToId(req.cookies.login, function(userId){
 		var update = {};
 		if(quiz.title) {
@@ -111,7 +111,7 @@ router.put('/:id', function(req, res){
 			}else{
 				console.log("NOTE: UserId " + userId + " saved quiz " + req.params.id + ". Rows affected after updating: ", message.affectedRows);
 				if(message.affectedRows == 0) {
-					res.send({error: "Either this is not your quiz, or it has already been published."})
+					res.send({error: "You are not the author of this quiz."});
 				}
 				else {
 					res.send({id: req.params.id});
