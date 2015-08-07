@@ -107,28 +107,34 @@ describe('create quiz', function() {
         });
     });    
 
-    it('should show error when quiz name is invalid or blank on publish', function(){
-        var field = element(by.id('quiz_name'));
+    it('should show error when quiz name is blank on publish', function(){
         var publish = element(by.css('[ng-click="publishQuiz()"]'));
-        var popup = element(by.css('.popup'));
+        var popup = element(by.css('.pop-over'));
         publish.click();
-        expect(popup.getAttribute('class')).toMatch('visible');
-        browser.sleep(500);
-        element(by.css('[ng-click="leftAction()"]')).click();
+        expect(popup.getAttribute('class')).toMatch('open');
+        // popup.element.all(by.css('button')).get(0).click();
+        // field.sendKeys('$$$$');
+        // publish.click();
+        // expect(popup.getAttribute('class')).toMatch('open');
+        // browser.sleep(500);
+        // popup.element.all(by.css('button')).get(0).click();
+        // browser.sleep(500);
+        // field.clear().then(function(){
+        //     field.sendKeys('Quiz Name');
+        // });
+    });  
+    it('should show error when quiz name is invalid', function() {
+        var field = element(by.id('quiz_name'));
+        popup.element.all(by.css('button')).get(0).click();
         field.sendKeys('$$$$');
         publish.click();
-        expect(popup.getAttribute('class')).toMatch('visible');
-        browser.sleep(500);
-        element(by.css('[ng-click="leftAction()"]')).click();
-        field.clear().then(function(){
-            field.sendKeys('Quiz Name');
-        });
-    });  
+        expect(popup.getAttribute('class')).toMatch('open');
+    });
 
     // it('should show error when question list is empty on publish', function(){
     //     element(by.css('[ng-click="removeQuestion(index)"]')).click();
     //     var publish = element(by.css('[ng-click="publishQuiz()"]'));
-    //     var popup = element(by.css('.popup'));
+    //     var popup = element(by.css('.pop-over'));
     //     publish.click();
     //     expect(popup.getAttribute('class')).toMatch('visible');
     //     browser.sleep(500);
@@ -140,7 +146,7 @@ describe('create quiz', function() {
         element(by.css('#add-question')).click();
         element(by.css('[ng-model="questionName"]')).sendKeys("$$$$");
         var publish = element(by.css('[ng-click="publishQuiz()"]'));
-        var popup = element(by.css('.popup'));
+        var popup = element(by.css('.pop-over'));
         publish.click();
         expect(popup.getAttribute('class')).toMatch('visible');
         browser.sleep(500);
@@ -158,7 +164,7 @@ describe('create quiz', function() {
         var publish = element(by.css('[ng-click="publishQuiz()"]'));
         element(by.css('[ng-model="questionName"]')).sendKeys("$$$$");
         publish.click();
-        expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
+        expect(element(by.css('.pop-over')).getAttribute('class')).toMatch('visible');
         browser.sleep(500);
         element(by.css('[ng-click="leftAction()"]')).click();
     });
@@ -207,8 +213,8 @@ describe('create quiz', function() {
         var quizNameInput = element(by.id('quiz_name'));
         var questionNameInput = element(by.css('[ng-model="questionName"]'));
         var questionTextInput = element(by.css('[ng-model="questionText"]'));
-        var popup = element(by.css('.popup'));
-        var popupText = element(by.css('.popup .noselect'));
+        var popup = element(by.css('.pop-over'));
+        var popupText = element(by.css('.pop-over .noselect'));
         var publish = element(by.css('[ng-click="publishQuiz()"]'));
         var dismiss = element(by.css('[ng-click="leftAction()"]'));
 
@@ -295,8 +301,8 @@ describe('create quiz', function() {
             var quizNameInput = element(by.id('quiz_name'));
             var questionNameInput = element(by.css('[ng-model="questionName"]'));
             var questionTextInput = element(by.css('[ng-model="questionText"]'));
-            var popup = element(by.css('.popup'));
-            var popupText = element(by.css('.popup .noselect'));
+            var popup = element(by.css('.pop-over'));
+            var popupText = element(by.css('.pop-over .noselect'));
             var publish = element(by.css('[ng-click="publishQuiz()"]'));
             var dismiss = element(by.css('[ng-click="leftAction()"]'));
          
