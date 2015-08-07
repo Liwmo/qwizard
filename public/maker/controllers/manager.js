@@ -58,4 +58,14 @@ app.controller('manager', ["$scope", "quizFactory", function($scope, quizFactory
         return months[start.getMonth()] + " " + start.getDate() + " - " + 
                months[end.getMonth()] + " " + end.getDate();
     };
+
+    $scope.showPopOver = function(quizId) {
+        document.querySelector(".overlay").classList.add("open");
+        document.querySelector(".pop-over").classList.add("open");
+        document.querySelector(".pop-over a").href = '#/live_edit/' + quizId;
+    }
+    $scope.hidePopOver = function() {
+        document.querySelector(".overlay").classList.remove("open");
+        document.querySelector(".pop-over").classList.remove("open");
+    }
 }]);

@@ -1,3 +1,88 @@
+.scroller {
+	overflow-y:auto;
+}
+.popover-wrapper {
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	pointer-events: none;
+}
+.overlay {
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	transition:.0s;
+	opacity:0;
+}
+.overlay.open {
+	opacity:.35;
+	transition:.5s;
+	pointer-events:auto;
+}
+
+
+.pop-over {
+	position:relative;
+	margin:auto;
+	padding:1.5rem;
+	width:40%;
+	height:33%;
+	min-width:35rem;
+	max-height:15rem;
+	background:white;
+	color: #332532;
+	-webkit-transform: scale(0) translateY(-80em);
+	transform:scale(0) translateY(-80em);
+	-webkit-transform-origin:bottom center;
+	transform-origin:bottom center;
+	transition:0s;
+	pointer-events:auto;
+}
+
+.pop-over.open {
+	-webkit-transform: scale(1) translateY(0em);
+    transform:scale(1) translateY(0em);
+    transition:.5s;
+}
+
+.pop-over .header {
+	font-size:1.2em;
+	font-family:dosis;
+	font-weight:400;
+}
+
+.pop-over .divider {
+	margin: .5em 0;
+	height:2px;
+}
+
+.pop-over .sub-text {
+	color: #5c515b;
+	opacity: .8;
+}
+
+.pop-over .button-container {
+	position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.2em;
+}
+
+.pop-over .button {
+	text-transform: uppercase;
+	color:#17a587;
+	padding:.5em 1em;
+	margin-left:.5em;
+}
+.pop-over .button:hover {
+	background-color: #f1eaf0;
+}
+
 #finishedQuizzes {
 	position:relative;
 	z-index:3;
@@ -74,7 +159,4 @@
 	font-weight:300;
 	font-size:.8em;
 	line-height:.4;
-}
-.scroller {
-	overflow-y:auto;
 }
