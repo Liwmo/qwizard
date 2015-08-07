@@ -136,9 +136,12 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 	};
 	//when receiving from server
 	self.unformatQuiz = function(data){
+		console.log('unformatquiz data: ', data);
 		var quiz = {};
 		quiz.id = data.id;
 		quiz.title = data.title;
+		quiz.publish = data.publish;
+		quiz.results = data.results;
 		quiz.questions = [];
 		data.questions = JSON.parse(data.questions);
 		data.answers = JSON.parse(data.answers);
@@ -176,12 +179,8 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 				data.pointValues.push(parseInt(quiz.questions[i].points));
 			}
 		}
-		if(quiz.publish) {
-			data.publish = quiz.publish;
-		}
-		if(quiz.results) { 
-			data.results = quiz.results;
-		}
+		data.publish = quiz.publish;
+		data.results = quiz.results;
 		return data;
 	};
 

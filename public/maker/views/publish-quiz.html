@@ -26,10 +26,10 @@
 	<div class="publish-header">Review Questions</div>
 </div>
 
-<div class="noselect">
-    <span name="publish" ng-click="publish()" class="nope button teal-dark shadow noselect">publish</span>
-	<a href="#/create/{{quizId}}" name="edit" class="nope button teal-dark shadow noselect">edit questions</a>
-	<a href="#/" name="edit" class="nope button teal-dark shadow noselect">save & exit</a>
+<div id="makerButtons" class="noselect">
+    <span name="publish" ng-click="publish()" class="nope button teal-dark shadow noselect">{{published ? "update" : "publish"}}</span>
+	<span name="edit" ng-click="draft()" class="nope button teal-dark shadow noselect">{{published ? "revert to draft" : "save draft"}}</span>
+	<a href="#/create/{{quizId}}" name="edit" class="nope button teal-dark shadow noselect">back</a>
 </div>
 
 <div class="popup light-text flex-container">

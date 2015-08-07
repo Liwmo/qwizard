@@ -86,6 +86,7 @@ router.put('/:id', function(req, res){
 		if(quiz.answers) {
 			update.answers = JSON.stringify(quiz.answers);
 		}
+		update.publish = null;
 		if(quiz.publish) {
 			update.publish = quiz.publish;
 			if(!verifyDate(update.publish) || !isNotInPast(update.publish)){
@@ -93,6 +94,7 @@ router.put('/:id', function(req, res){
 				return;
 			}
 		}
+		update.results = null;
 		if(quiz.results) {
 			update.results = quiz.results;
 			if(!verifyDate(update.results) || !correctTimeOrder(update.publish, update.results)){

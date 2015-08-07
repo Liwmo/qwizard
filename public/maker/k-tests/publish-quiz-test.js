@@ -57,4 +57,14 @@ describe('publish quiz tests', function(){
 		expect(quizPassedToSaveQuiz.publish).toBe(start);
 		expect(quizPassedToSaveQuiz.results).toBe(end);
 	}));
+
+	it('calls quizFactory.saveQuiz() and nullifies the start and end dates when draft() is called', inject(function($controller) {
+		$scope.draft();
+
+		expect(mockQuizFactory.saveQuiz).toHaveBeenCalled();
+
+		expect(quizPassedToSaveQuiz.id).toBe(999999);
+		expect(quizPassedToSaveQuiz.publish).toBe(null);
+		expect(quizPassedToSaveQuiz.results).toBe(null);
+	}));
 });

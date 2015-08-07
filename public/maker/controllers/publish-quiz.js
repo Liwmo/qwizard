@@ -3,11 +3,16 @@ app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFact
 
   var quiz;
   quizFactory.getMyQuiz($routeParams.id, function(data) {
+    if(data.error) {
+      console.log('you got an error: ', data.error);
+    }
+
     quiz = data;
     $scope.quizId = quiz.id;
     $scope.quizName = quiz.title;
+    $scope.published = quiz.publish != undefined;
   });
-  // $scope.quizId = $routeParams.id;
+  $scope.quizId = $routeParams.id;
   $scope.leftAction = $scope.popupToggle;
   $scope.rightAction = $scope.popupToggle;
 
@@ -29,6 +34,16 @@ app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFact
       id: $scope.quizId,
       publish: $scope.startDate,
       results: $scope.endDate
+    }, function() {
+        $scope.redirectToManagementPage();
+    });
+  };
+
+  $scope.draft = function() {
+    quizFactory.saveQuiz({
+      id: $scope.quizId,
+      publish: null,
+      results: null
     }, function() {
         $scope.redirectToManagementPage();
     });

@@ -62,6 +62,7 @@ describe("Publish API endpoint", function(done){
             done();
         });
     });
+
     it("PUT to quiz/:id will update the quiz", function(done) {
         options.url = "http://localhost:3000/api/maker/quiz/" + returnedID;
         options.form['title'] = "BLAH";
@@ -73,7 +74,7 @@ describe("Publish API endpoint", function(done){
             });
         });
     });
-
+    
     it("PUT to quiz/:id of quiz I'm not the author will expect error", function(done) {
         excessivelyLargeNumber = 9000000;
         options.url = "http://localhost:3000/api/maker/quiz/" + excessivelyLargeNumber;
@@ -108,6 +109,42 @@ describe("Publish API endpoint", function(done){
                 }
             });
         }, 500);
+    });
+
+    it("PUT to quiz/:id of published quiz with null publish and results dates will update database ", function(done) {
+        options.url = "http://localhost:3000/api/maker/quiz/";
+        options.form['publish'] = "9999-01-01";
+        options.form['results'] = "9999-01-02";
+        request.post(options, function(error, response, body) {
+            assert.ok(JSON.parse(body).id);
+            var newId = JSON.parse(body).id;
+            db.query("select publish, results from quizzes where id=" + newId, function(err, message) {
+                if (err) {
+                    console.log(err);
+                    done();
+                }
+                assert.ok(message.length == 1);
+                assert.ok(message[0].publish.valueOf() == new Date("9999-01-01 (CST)").valueOf());
+                assert.ok(message[0].results.valueOf() == new Date("9999-01-02 (CST)").valueOf());
+                console.log("lame");
+                options.form['publish'] = null;
+                options.form['results'] = null;
+                options.url = "http://localhost:3000/api/maker/quiz/" + newId;
+                request.put(options, function(error, response, body) {
+                    assert.ok(response.statusCode == 200);
+                    db.query("select publish, results from quizzes where id=" + newId, function(err, message) {
+                        if (err) {
+                            console.log(err);
+                            done();
+                        }
+                        assert.ok(message.length == 1);
+                        assert.ok(message[0].publish === null);
+                        assert.ok(message[0].results === null);
+                        done();                
+                    });
+                });
+            });
+        });
     });
 
     it('GET to quiz/:id returns quiz if author-quiz pair exists', function(done){
