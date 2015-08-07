@@ -22,13 +22,10 @@ describe('liveEdit page: ', function() {
                 $httpBackend.whenGET('/api/maker/manage/live').respond(function(method, url, data, headers) {
                     return [200, liveQuizData, {}];
                 });
-                $httpBackend.whenGET('/api/quiz/99999/results').respond(function(method, url, data, headers) {
-                    return [200, results, {}];
+                $httpBackend.whenGET('/api/maker/quiz/901002').respond(function(method, url, data, headers) {
+                    return [200, quiz, {}];
                 });
-                $httpBackend.whenGET('/api/quiz/99999/points').respond(function(method, url, data, headers) {
-                    return [200, points, {}];
-                });
-                $httpBackend.whenGET('/api/userscore/99999').respond(JSON.stringify({points: 7}));
+                
 
                 $httpBackend.whenGET(/.*/).passThrough();
                 $httpBackend.whenPOST(/.*/).passThrough();
