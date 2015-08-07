@@ -3,15 +3,47 @@ describe('Manage quiz - Publish: ', function() {
         angular.module('httpBackendMock', ['ngMockE2E', 'app'])
             .run(function($httpBackend) {
 
-            $httpBackend.whenPOST('/api/maker/quiz').respond(function(method, url, data, headers) {
-                return [200, {id: 9000003}, {}];
-            });
-            $httpBackend.whenGET('/api/maker/quiz/9000003').respond(function(method, url, data, headers) {
-                return [200, {id: 9000003, title: "Mock Title"}, {}];
-            });
-            $httpBackend.whenPUT('/api/maker/quiz/9000003').respond(function(method, url, data, headers) {
-                return [200, {id: 9000003}, {}];
-            });
+
+             var questions = [
+                {
+                    type:"mc",
+                    text:"This is a MC question",
+                    answers:["A", "B", "C", "D"],
+                    name:"Question Category"
+                }
+            ];
+            var pointvalues = [5];
+            var answers = [1];
+            var quiz = {
+                id: 9000003,
+                title: "Mock Title",
+                questions: JSON.stringify(questions),
+                pointvalues: JSON.stringify(pointvalues),
+                answers: JSON.stringify(answers)
+            };
+
+
+
+
+            // $httpBackend.whenPOST('/api/maker/quiz').respond(function(method, url, data, headers) {
+            //     return [200, {id: 9000003}, {}];
+            // });
+            // $httpBackend.whenGET('/api/maker/quiz/9000003').respond(function(method, url, data, headers) {
+            //     return [200, quiz, {}];
+            // });
+            // $httpBackend.whenPUT('/api/maker/quiz/9000003').respond(function(method, url, data, headers) {
+            //     return [200, {id: 9000003}, {}];
+            // });
+                
+                $httpBackend.whenGET('/api/maker/quiz/9000003').respond(function(method, url, data, headers) {
+                    return [200, quiz, {}];
+                });
+                $httpBackend.whenPOST('/api/maker/quiz').respond(function(method, url, data, headers) {
+                    return [200, {id: 9000003}, {}];
+                });
+                $httpBackend.whenPUT('/api/maker/quiz/9000003').respond(function(method, url, data, headers) {
+                    return [200, {id: 9000003}, {}];
+                });
 
             $httpBackend.whenGET(/.*/).passThrough();
             $httpBackend.whenPUT(/.*/).passThrough();
@@ -41,7 +73,6 @@ describe('Manage quiz - Publish: ', function() {
         element(by.cssContainingText("option","True/False")).click()
         element(by.css('[ng-model="questionText"]')).sendKeys('Test question text');
         element(by.css('.radio[ng-click="tf(1)"]')).click();
-
         element(by.css('[ng-click="publishQuiz()"]')).click();
         browser.getLocationAbsUrl().then(function(url){
             expect(url.indexOf('/publish')).toNotBe(-1);
@@ -49,10 +80,12 @@ describe('Manage quiz - Publish: ', function() {
     });
 
     it('Back button should go to the create quiz page', function() {
-        browser.sleep(25000);
+        browser.sleep(10000);
         element(by.cssContainingText(".nope", "back")).click();
-        expect(element(by.css("add-question")).isDisplayed()).toBeTruthy();
-        element(by.cssContainingText("nope", "continue")).click();
+        browser.sleep(10000);
+        console.log()
+        expect(element(by.css("#add-question")).isDisplayed()).toBeTruthy();
+        element(by.cssContainingText(".nope", "continue")).click();
     });
 
     //  TODO: waiting for API endpoint to implement 
@@ -64,7 +97,8 @@ describe('Manage quiz - Publish: ', function() {
       //   you cannot "sendKeys" to a datepicker field
 
     it('Should error on publish if there is no start or end date set', function() {
-        element(by.name('publish')).click();
+        browser.sleep(10000);
+        element(by.name("publish")).click();
         expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
         browser.sleep(500);
         element(by.css('[ng-click="leftAction()"]')).click();

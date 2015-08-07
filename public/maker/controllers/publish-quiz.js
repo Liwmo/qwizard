@@ -3,11 +3,16 @@ app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFact
 
   var quiz;
   quizFactory.getMyQuiz($routeParams.id, function(data) {
+    if(data.error) {
+      console.log('you got an error: ', data.error);
+    }
+
     quiz = data;
     $scope.quizId = quiz.id;
+    console.log('set $scope.quizid to: ', $scope.quizId);
     $scope.quizName = quiz.title;
   });
-  // $scope.quizId = $routeParams.id;
+  $scope.quizId = $routeParams.id;
   $scope.leftAction = $scope.popupToggle;
   $scope.rightAction = $scope.popupToggle;
 

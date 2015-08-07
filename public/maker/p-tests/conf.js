@@ -1,6 +1,6 @@
 exports.config = {
   seleniumAddress: 'http://localhost:4444/wd/hub',
-  specs: ['*-test.js'],
+  specs: ['publishing-test.js'],
   capabilities: {
   	'browserName': 'firefox'
   }
