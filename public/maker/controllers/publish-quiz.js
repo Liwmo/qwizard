@@ -9,8 +9,8 @@ app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFact
 
     quiz = data;
     $scope.quizId = quiz.id;
-    console.log('set $scope.quizid to: ', $scope.quizId);
     $scope.quizName = quiz.title;
+    $scope.published = quiz.publish != undefined;
   });
   $scope.quizId = $routeParams.id;
   $scope.leftAction = $scope.popupToggle;
@@ -34,6 +34,16 @@ app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFact
       id: $scope.quizId,
       publish: $scope.startDate,
       results: $scope.endDate
+    }, function() {
+        $scope.redirectToManagementPage();
+    });
+  };
+
+  $scope.draft = function() {
+    quizFactory.saveQuiz({
+      id: $scope.quizId,
+      publish: null,
+      results: null
     }, function() {
         $scope.redirectToManagementPage();
     });

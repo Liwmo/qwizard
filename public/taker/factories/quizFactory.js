@@ -109,6 +109,8 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 		var quiz = {};
 		quiz.id = data.id;
 		quiz.title = data.title;
+		quiz.publish = data.publish;
+		quiz.results = data.results;
 		quiz.questions = [];
 		data.questions = JSON.parse(data.questions);
 		data.answers = JSON.parse(data.answers);

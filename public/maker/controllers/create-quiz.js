@@ -162,6 +162,7 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
             }else{
                 quizId = data.id;
                 $scope.questions = data.questions;
+                $scope.published = data.publish != undefined;
                 $scope.quizName = data.title;
                 $scope.matchingArrays.push({
                     clues: [],

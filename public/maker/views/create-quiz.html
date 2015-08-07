@@ -19,7 +19,7 @@
     <div id="add-question" ng-click="addQuestion()">Add Another Question +</div>
     <div id="makerButtons" class="noselect">
         <span ng-click="publishQuiz()" class="nope button teal-dark shadow noselect">continue</span>
-        <span ng-click="saveDraft()" class="nope button teal-dark shadow noselect">save draft</span>
+        <span ng-click="saveDraft()" class="nope button teal-dark shadow noselect">{{published ? "save changes" : "save draft"}}</span>
         <span ng-click="cancelConfirm()" class="nope button teal-dark shadow noselect">cancel</span>
     </div>
 </div>
