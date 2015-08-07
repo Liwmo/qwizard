@@ -32,7 +32,7 @@
         <span class="sub-text">{{popupText}}</span>
         <div class="flex-container button-container">
             <span class="flex"></span>
-            <div class="button" ng-click="leftAction()">{{leftButton}}</div>
+            <div class="button" ng-class='{remove: leftButton == ""}' ng-click="leftAction()">{{leftButton}}</div>
             <div class="button" ng-click="rightAction()">{{rightButton}}</div>
         <div>
     </div>

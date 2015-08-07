@@ -142,8 +142,8 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
         $scope.leftAction = left.action || $scope.hidePopOver;
         $scope.rightAction = right.action || $scope.hidePopOver;
         $scope.popupText = text;
-        $scope.leftButton = left.text || "ok";
-        $scope.rightButton = right.text || "";
+        $scope.leftButton = left.text || "";
+        $scope.rightButton = right.text || "ok";
         $scope.showPopOver();
     };
 
