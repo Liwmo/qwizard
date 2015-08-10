@@ -6,7 +6,7 @@ if (isProd) {
 	var pool = mysql.createPool({
 	    host: 'localhost',
 	    user: 'qwizard',
-	    password: 'iS#0&dZoT@&$Vi',
+	    password: 'iS@01dZoT@25Vi',
 	    database: 'qwizard'
 	});
 } else {

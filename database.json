@@ -10,7 +10,7 @@
 	"production": {
 		"host": "localhost",
 		"user": "qwizard",
-		"password": "iS#0&dZoT@&$Vi",
+		"password": "iS@01dZoT@25Vi",
 		"database": "qwizard",
 		"driver": "mysql",
 		"multipleStatements": true
