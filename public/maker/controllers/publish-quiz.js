@@ -43,13 +43,22 @@ app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFact
     });
   };
 
+  $scope.toDashboard = function() {
+      $location.path('/');
+    };
+
   $scope.draft = function() {
     quizFactory.saveQuiz({
       id: $scope.quizId,
       publish: null,
       results: null
     }, function() {
-        $scope.redirectToManagementPage();
+      setPopup("Your quiz has been saved.  Would you like to continue?", {
+          text: "No, return to dashboard",
+          action: $scope.toDashboard
+      }, {
+          text: "Yes, I'm still working"
+      });
     });
   };
 

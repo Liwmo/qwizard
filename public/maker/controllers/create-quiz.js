@@ -31,12 +31,22 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
     });
 
     $scope.showPopOver = function(quizId) {
-        document.querySelector(".overlay").classList.add("open");
-        document.querySelector(".pop-over").classList.add("open");
+        var overlay =  document.querySelector(".overlay");
+        var popOver =  document.querySelector(".pop-over");
+        if (!overlay || !popOver) {
+            return;
+        }
+        overlay.classList.add("open");
+        popOver.classList.add("open");
     }
     $scope.hidePopOver = function() {
-        document.querySelector(".overlay").classList.remove("open");
-        document.querySelector(".pop-over").classList.remove("open");
+        var overlay =  document.querySelector(".overlay");
+        var popOver =  document.querySelector(".pop-over");
+        if (!overlay || !popOver) {
+            return;
+        }
+        overlay.classList.remove("open");
+        popOver.classList.remove("open");
     }
 
     $scope.toDashboard = function() {
@@ -62,7 +72,7 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
                     setPopup("There was an error saving your draft.");
                 }else{
                     quizId = data;
-                    setPopup("Your draft is saved.  Would you like to continue?", {
+                    setPopup("Your quiz has been saved.  Would you like to continue?", {
                         text: "No, return to dashboard",
                         action: $scope.toDashboard
                     }, {

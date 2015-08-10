@@ -29,7 +29,7 @@ describe('create quiz', function() {
         element.all(by.css('#makerButtons span')).then(function(items) {
             expect(items.length).toBe(3);
             expect(items[0].getText()).toBe('continue');
-            expect(items[1].getText()).toBe('save draft');
+            expect(items[1].getText()).toBe('save as draft');
             expect(items[2].getText()).toBe('cancel');
         });
     });
