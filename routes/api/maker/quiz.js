@@ -86,18 +86,24 @@ router.put('/:id', function(req, res){
 		if(quiz.answers) {
 			update.answers = JSON.stringify(quiz.answers);
 		}
-		if(quiz.publish) {
-			update.publish = quiz.publish;
-			if(!verifyDate(update.publish) || !isNotInPast(update.publish)){
-				res.send({error: "Publishing date is invalid"});
-				return;
+		if(quiz.publish !== undefined){
+			update.publish = null;
+			if(quiz.publish) {
+				update.publish = quiz.publish;
+				if(!verifyDate(update.publish) || !isNotInPast(update.publish)){
+					res.send({error: "Publishing date is invalid"});
+					return;
+				}
 			}
 		}
-		if(quiz.results) {
-			update.results = quiz.results;
-			if(!verifyDate(update.results) || !correctTimeOrder(update.publish, update.results)){
-				res.send({error: "Result release date is invalid"});
-				return;
+		if(quiz.results !== undefined){
+			update.results = null;
+			if(quiz.results) {
+				update.results = quiz.results;
+				if(!verifyDate(update.results) || !correctTimeOrder(update.publish, update.results)){
+					res.send({error: "Result release date is invalid"});
+					return;
+				}
 			}
 		}
 		if(quiz.pointValues) {

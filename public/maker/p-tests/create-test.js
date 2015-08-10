@@ -24,6 +24,16 @@ describe('create quiz', function() {
         browser.get('http://localhost:3000/maker/#/create');
     });
 
+
+    it('Create page button text are correct for quizzes that have not been published', function() {
+        element.all(by.css('#makerButtons span')).then(function(items) {
+            expect(items.length).toBe(3);
+            expect(items[0].getText()).toBe('continue');
+            expect(items[1].getText()).toBe('save draft');
+            expect(items[2].getText()).toBe('cancel');
+        });
+    });
+
     it('should have one question by default', function() {
         element.all(by.css("maker-question")).then(function(els){
             expect(els.length).toBe(1);
