@@ -1,0 +1,14 @@
+<div class="shadow card">
+       <div class="category">{{question.category}}</div>
+       <div class="point-value">{{type[question.type]}} - Points {{question.points}}</div>
+       <div class="question-text">{{question.text}}</div>
+       <div class="answers flex-container">
+       		<div ng-repeat="answer in question.answers" 
+       			 class="flex horizontal answer" 
+       			 ng-class="{correct: question.correct.indexOf($index) !== -1}">
+       			<div>{{answer}}</div>
+       			<div class="points">{{question.responses[$index]}}</div>
+       			<div>response{{(question.responses[$index] != 1) ? "s" : ""}}</div>
+       		</div>
+       </div>
+</div>

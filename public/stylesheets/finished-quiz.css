@@ -38,3 +38,36 @@
 #finishedQuizStats #overallStats > div:first-child {
 	margin:0;
 }
+
+#finishedQuizStats .card {
+	color: #332532;
+	padding: .8em;
+	font-family: Dosis;
+}
+
+#finishedQuizStats .card .answers{
+	text-align: center;
+}
+
+#finishedQuizStats .card .category {
+	font-family: Signika;
+	font-size:1.2rem;
+	font-weight:600;
+}
+
+#finishedQuizStats .card .answers .answer{
+	max-width: 25%;
+	color: #999298;
+}
+
+#finishedQuizStats .card .answers .correct{
+	color: #17a587;
+	font-weight: 500;
+}
+
+#finishedQuizStats .card .answers .points{
+	font-size:4em;
+	text-align:center;
+	font-weight:200;
+	line-height:.8;
+}

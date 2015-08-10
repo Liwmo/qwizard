@@ -159,14 +159,14 @@ describe("Manage quizzes endpoint", function(done){
                 done();
             } else {
                 body = JSON.parse(body);
-                assert.equal(body[0].openDate, '2014-12-04T06:00:00.000Z');
-                assert.equal(body[0].closeDate, '2014-12-08T06:00:00.000Z');
-                assert.equal(body[0].title, "Title");
-                assert.equal(body[0].pointvalues, '[5, 4]');
-                assert.equal(body[0].questions, '[{\"type\":\"tf\",\"text\":\"TestQuestionText\",\"answers\":\"[\"\",\"\",\"\"]\",\"name\":\"TestQuestion\"},{\"type\":\"tf\",\"text\":\"TestQuestionText\",\"answers\":\"[\"\",\"\",\"\"]\",\"name\":\"TestQuestion\"}]');
-                assert.equal(body[0].answers, '[[0], [0]]');
-                assert.equal(body[0].avgPoints, 6);
-                assert.equal(body[0].employees, 2);
+                assert.equal(body.openDate, '2014-12-04T06:00:00.000Z');
+                assert.equal(body.closeDate, '2014-12-08T06:00:00.000Z');
+                assert.equal(body.title, "Title");
+                assert.equal(body.pointvalues, '[5, 4]');
+                assert.equal(body.questions, '[{\"type\":\"tf\",\"text\":\"TestQuestionText\",\"answers\":\"[\"\",\"\",\"\"]\",\"name\":\"TestQuestion\"},{\"type\":\"tf\",\"text\":\"TestQuestionText\",\"answers\":\"[\"\",\"\",\"\"]\",\"name\":\"TestQuestion\"}]');
+                assert.equal(body.answers, '[[0], [0]]');
+                assert.equal(body.avgPoints, 6);
+                assert.equal(body.employees, 2);
                 done();
             }
         });
@@ -181,14 +181,14 @@ describe("Manage quizzes endpoint", function(done){
                     done();
                 } else {
                     body = JSON.parse(body);
-                    assert.equal(body[0].openDate, '2014-12-04T06:00:00.000Z');
-                    assert.equal(body[0].closeDate, '2014-12-08T06:00:00.000Z');
-                    assert.equal(body[0].title, "Title");
-                    assert.equal(body[0].pointvalues, '[5, 4]');
-                    assert.equal(body[0].questions, '[{\"type\":\"tf\",\"text\":\"TestQuestionText\",\"answers\":\"[\"\",\"\",\"\"]\",\"name\":\"TestQuestion\"},{\"type\":\"tf\",\"text\":\"TestQuestionText\",\"answers\":\"[\"\",\"\",\"\"]\",\"name\":\"TestQuestion\"}]');
-                    assert.equal(body[0].answers, '[[0], [0]]');
-                    assert.equal(body[0].avgPoints, 0);
-                    assert.equal(body[0].employees, 0);
+                    assert.equal(body.openDate, '2014-12-04T06:00:00.000Z');
+                    assert.equal(body.closeDate, '2014-12-08T06:00:00.000Z');
+                    assert.equal(body.title, "Title");
+                    assert.equal(body.pointvalues, '[5, 4]');
+                    assert.equal(body.questions, '[{\"type\":\"tf\",\"text\":\"TestQuestionText\",\"answers\":\"[\"\",\"\",\"\"]\",\"name\":\"TestQuestion\"},{\"type\":\"tf\",\"text\":\"TestQuestionText\",\"answers\":\"[\"\",\"\",\"\"]\",\"name\":\"TestQuestion\"}]');
+                    assert.equal(body.answers, '[[0], [0]]');
+                    assert.equal(body.avgPoints, 0);
+                    assert.equal(body.employees, 0);
                     done();
                 }
             });
@@ -252,6 +252,141 @@ describe("Manage quizzes endpoint", function(done){
                     done();
                 }
             });
+        });
+    });
+
+    describe("allAnswersForAQuiz/:id API Call", function(done) {
+        var quiz = {
+            id: 999999,
+            answers: "[[0], [0]]",
+            results: "2014-12-08",
+            publish: "2014-12-04",
+            pointvalues: "[5, 4]",
+            title: "Title",
+            questions: "[{\"type\":\"tf\",\"text\":\"TestQuestionText\",\"answers\":\"[\"\",\"\",\"\"]\",\"name\":\"TestQuestion\"},{\"type\":\"tf\",\"text\":\"TestQuestionText\",\"answers\":\"[\"\",\"\",\"\"]\",\"name\":\"TestQuestion\"}]"
+        };
+
+        var user1 = {
+            id: 999999,
+            name: "testuser.1"
+        };
+
+        var user2 = {
+            id: 999998,
+            name: "testuser.2"
+        };
+        var user3 = {
+            id: 999997,
+            name: "testuser.3"
+        };
+
+        var results1 = {
+            quizid: 999999,
+            userid: 999999,
+            points: 4,
+            answers: "[[0], [0]]",
+            submitted: 1
+        };
+
+        var results2 = {
+            quizid: 999999,
+            userid: 999998,
+            points: 4,
+            answers: "[[1], [0]]",
+            submitted: 1
+        };
+
+        var results3 = {
+            quizid: 999999,
+            userid: 999997,
+            points: 4,
+            answers: "[[1], [1]]",
+            submitted: 1
+        };
+
+        beforeEach(function(done){
+
+            db.query("Insert into quizzes SET ?", quiz, function(err, message) {
+                if(err) {
+                    console.log(err);
+                }
+                db.query("Insert into users SET ?", user1, function(err, message) {
+                    if(err) {
+                        console.log(err)
+                    }
+                    db.query("Insert into users SET ?", user2, function(err, message) {
+                        if(err) {
+                            console.log(err)
+                        }
+                        db.query("Insert into users SET ?", user3, function(err, message) {
+                            if(err) {
+                                console.log(err)
+                            }
+                            db.query("Insert into results SET ?", results1, function(err, message) {
+                                if(err) {
+                                    console.log(err)
+                                }
+                                db.query("Insert into results SET ?", results2, function(err, message) {
+                                    if(err) {
+                                        console.log(err)
+                                    }
+                                    db.query("Insert into results SET ?", results3, function(err, message) {
+                                        if(err) {
+                                            console.log(err)
+                                        }
+                                        done();
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        })
+
+        it('should grab all three sets of results from the database', function(done) {
+            options.url = "http://localhost:3000/api/maker/manage/allAnswersForAQuiz/999999";
+            request.get(options, function(err, response, body) {
+                if (err || !body.length) {
+                    done();
+                } else {
+                    body = JSON.parse(body);
+                    assert.ok(body[0].answers == '[[1], [1]]');
+                    assert.ok(body[1].answers == '[[1], [0]]');
+                    assert.ok(body[2].answers == '[[0], [0]]');
+                    done();
+                }
+            });
+        });
+
+        afterEach(function(done) {
+            db.query("DELETE FROM results WHERE quizid=?", quiz.id, function(err, message){
+                if(err){
+                    console.log(err);
+                }
+            });
+            db.query("DELETE FROM users WHERE id=?", user1.id, function(err, message){
+                if(err){
+                    console.log(err);
+                }
+            });
+            db.query("DELETE FROM users WHERE id=?", user2.id, function(err, message){
+                if(err){
+                    console.log(err);
+                }
+            });
+            db.query("DELETE FROM users WHERE id=?", user3.id, function(err, message){
+                if(err){
+                    console.log(err);
+                }
+            });
+            db.query("DELETE FROM quizzes WHERE id=?", quiz.id, function(err, message){
+                if(err){
+                    console.log(err);
+                }
+            });
+
+            done();
         });
     });
 });

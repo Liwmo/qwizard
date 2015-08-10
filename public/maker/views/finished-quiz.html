@@ -1,4 +1,4 @@
-<div id="finishedQuizStats">
+<div style="overflow-y:auto" id="finishedQuizStats">
 	<div class="flex-container horizontal toolbar teal-medium shadow">
 		<span>{{quizTitle}}</span>
 	</div>
@@ -21,6 +21,12 @@
 		<div>
 			<div class="largetext">{{percent}}%</div>
 			<div class="subtext">{{activeEmployees}}/{{totalEmployees}} employees</div>
+		</div>
+	</div>
+
+	<div>
+		<div class="summary-cards" ng-repeat="question in quiz">
+			<summary-card question="question"></summary-card>
 		</div>
 	</div>
 </div>
