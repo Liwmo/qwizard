@@ -1,22 +1,37 @@
-describe('Manage quiz - Publish: ', function() {
+describe('Manage quiz - Publishing a quiz: ', function() {
     var httpBackendMock = function(){
         angular.module('httpBackendMock', ['ngMockE2E', 'app'])
             .run(function($httpBackend) {
+                var questions = [
+                    {
+                        type:"mc",
+                        text:"This is a MC question",
+                        answers:["A", "B", "C", "D"],
+                        name:"Question Category"
+                    }
+                ];
+                var quiz = {
+                    id: 9000003,
+                    title: "Mock Title",
+                    questions: JSON.stringify(questions),
+                    pointvalues: JSON.stringify([5]),
+                    answers: JSON.stringify([1])
+                };
+               
+                $httpBackend.whenGET('/api/maker/quiz/9000003').respond(function(method, url, data, headers) {
+                    return [200, quiz, {}];
+                });
+                $httpBackend.whenPOST('/api/maker/quiz').respond(function(method, url, data, headers) {
+                    return [200, {id: 9000003}, {}];
+                });
+                $httpBackend.whenPUT('/api/maker/quiz/9000003').respond(function(method, url, data, headers) {
+                    return [200, {id: 9000003}, {}];
+                });
 
-            $httpBackend.whenPOST('/api/maker/quiz').respond(function(method, url, data, headers) {
-                return [200, {id: 9000003}, {}];
+                $httpBackend.whenGET(/.*/).passThrough();
+                $httpBackend.whenPUT(/.*/).passThrough();
+                $httpBackend.whenPOST(/.*/).passThrough();
             });
-            $httpBackend.whenGET('/api/maker/quiz/9000003').respond(function(method, url, data, headers) {
-                return [200, {id: 9000003, title: "Mock Title"}, {}];
-            });
-            $httpBackend.whenPUT('/api/maker/quiz/9000003').respond(function(method, url, data, headers) {
-                return [200, {id: 9000003}, {}];
-            });
-
-            $httpBackend.whenGET(/.*/).passThrough();
-            $httpBackend.whenPUT(/.*/).passThrough();
-            $httpBackend.whenPOST(/.*/).passThrough();
-         });
     };
 
     it('login', function() {
@@ -48,6 +63,21 @@ describe('Manage quiz - Publish: ', function() {
         });
     });
 
+    it('Publish page button text are correct for quizzes that have not been published', function() {
+        element.all(by.css('#makerButtons > .nope')).then(function(items) {
+            expect(items.length).toBe(3);
+            expect(items[0].getText()).toBe('publish');
+            expect(items[1].getText()).toBe('save as draft');
+            expect(items[2].getText()).toBe('back');
+        });
+    });
+
+    it('Back button should go to the create quiz page', function() {
+        element(by.cssContainingText(".nope", "back")).click();
+        expect(element(by.css("#add-question")).isDisplayed()).toBeTruthy();
+        element(by.cssContainingText(".nope", "continue")).click();
+    });
+
     //  TODO: waiting for API endpoint to implement 
     // it('Should display quiz name at the top', function() {
     //     expect(element(by.name('quiz-name')).getText()).toBe('Test Quiz Name');
@@ -57,52 +87,42 @@ describe('Manage quiz - Publish: ', function() {
       //   you cannot "sendKeys" to a datepicker field
 
     it('Should error on publish if there is no start or end date set', function() {
-        element(by.name('publish')).click();
-        expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
-        browser.sleep(500);
-        element(by.css('[ng-click="leftAction()"]')).click();
+        browser.refresh();
+        element(by.name("publish")).click();
+        expect(element(by.css('.pop-over')).getAttribute('class')).toMatch('open');
     });
 
     it('Should error on publish if start date is a past date', function() {
+        browser.refresh();
         element(by.name('start-date')).sendKeys('2015-07-01');
         element(by.name('end-date')).sendKeys('2015-07-02');
         element(by.name('publish')).click();
-        expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
-        browser.sleep(500);
-        element(by.css('[ng-click="leftAction()"]')).click();
-        element(by.name('start-date')).clear();
-        element(by.name('end-date')).clear();
+        expect(element(by.css('.pop-over')).getAttribute('class')).toMatch('open');
     });
 
     it('Should error on publish if end date is earlier than start date', function() {
+        browser.refresh();
         element(by.name('start-date')).sendKeys('2025-07-02');
         element(by.name('end-date')).sendKeys('2020-07-02');
         element(by.name('publish')).click();
-        expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
-        browser.sleep(500);
-        element(by.css('[ng-click="leftAction()"]')).click();
-        element(by.name('start-date')).clear();
-        element(by.name('end-date')).clear();
+        expect(element(by.css('.pop-over')).getAttribute('class')).toMatch('open');
     });
 
     it('Should keep start date as is when entering end date', function() {
+        browser.refresh();
         element(by.name('start-date')).sendKeys('2050-01-01');
         element(by.name('end-date')).sendKeys('2050-02-02');
         browser.sleep(500);
         expect(element(by.name('start-date')).getAttribute('value')).toMatch('2050-01-01');
-        element(by.name('start-date')).clear();
-        element(by.name('end-date')).clear();
     });
 
     it('Should redirect to manage quizzes on successful publish', function() {
+        browser.refresh();
         element(by.name('start-date')).sendKeys('2050-01-01');
         element(by.name('end-date')).sendKeys('2050-01-02');
         element(by.name('publish')).click();
-        browser.sleep(2000);
         expect(browser.getCurrentUrl()).toBe('http://localhost:3000/maker/#/');
-        browser.sleep(2000);
     });
- 
 
     it('logout', function() {
         browser.removeMockModule('httpBackendMock');

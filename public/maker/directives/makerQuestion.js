@@ -15,7 +15,8 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 			matchingAnswers: '='
 		},
 		templateUrl: '/maker/directives/templates/makerQuestion.html',
-		link: function(scope, elem, attrs){
+		link: function(scope, elem, attrs) {
+			scope.disabled = attrs.liveEdit;
 			var savedQuestionText = "", saved = false;
 
 			scope.tf = function(value){
@@ -153,11 +154,13 @@ app.directive("makerQuestion", ["employeeFactory", function(employeeFactory){
 			};
 
 			scope.replace = function(index){
-				employeeFactory.getOneEmployee(scope.matchingClues, function(employee){
-					scope.matchingClues[index] = employee.matchingClues[0];
-					scope.matchingAnswers[index] = employee.matchingAnswers[0];
-					scope.buildAnswers();
-				});
+				if(!scope.disabled) {
+					employeeFactory.getOneEmployee(scope.matchingClues, function(employee){
+						scope.matchingClues[index] = employee.matchingClues[0];
+						scope.matchingAnswers[index] = employee.matchingAnswers[0];
+						scope.buildAnswers();
+					});
+				}
 			};
 
 			scope.getTypeTemplate = function() {

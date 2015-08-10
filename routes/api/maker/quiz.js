@@ -74,7 +74,7 @@ router.put('/:id', function(req, res){
 		return;
 	}
 
-	var query = 'update quizzes SET ? where id=? and author=? and (publish>? or ISNULL(publish))';
+	var query = 'update quizzes SET ? where id=? and author=?';
 	convert.cookieToId(req.cookies.login, function(userId){
 		var update = {};
 		if(quiz.title) {
@@ -86,18 +86,24 @@ router.put('/:id', function(req, res){
 		if(quiz.answers) {
 			update.answers = JSON.stringify(quiz.answers);
 		}
-		if(quiz.publish) {
-			update.publish = quiz.publish;
-			if(!verifyDate(update.publish) || !isNotInPast(update.publish)){
-				res.send({error: "Publishing date is invalid"});
-				return;
+		if(quiz.publish !== undefined){
+			update.publish = null;
+			if(quiz.publish) {
+				update.publish = quiz.publish;
+				if(!verifyDate(update.publish) || !isNotInPast(update.publish)){
+					res.send({error: "Publishing date is invalid"});
+					return;
+				}
 			}
 		}
-		if(quiz.results) {
-			update.results = quiz.results;
-			if(!verifyDate(update.results) || !correctTimeOrder(update.publish, update.results)){
-				res.send({error: "Result release date is invalid"});
-				return;
+		if(quiz.results !== undefined){
+			update.results = null;
+			if(quiz.results) {
+				update.results = quiz.results;
+				if(!verifyDate(update.results) || !correctTimeOrder(update.publish, update.results)){
+					res.send({error: "Result release date is invalid"});
+					return;
+				}
 			}
 		}
 		if(quiz.pointValues) {
@@ -111,7 +117,7 @@ router.put('/:id', function(req, res){
 			}else{
 				console.log("NOTE: UserId " + userId + " saved quiz " + req.params.id + ". Rows affected after updating: ", message.affectedRows);
 				if(message.affectedRows == 0) {
-					res.send({error: "Either this is not your quiz, or it has already been published."})
+					res.send({error: "You are not the author of this quiz."});
 				}
 				else {
 					res.send({id: req.params.id});

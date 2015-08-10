@@ -7,7 +7,7 @@
 </div>
 <div id="categoryContainer" class="flex">
 	<div id="live" ng-show="selectedCategory==='live'" class="categoryView">
-		<a ng-repeat="quiz in live" class="finished flex-container horizontal" href='#/create/{{quiz.id}}'>
+		<a ng-repeat="quiz in live" class="finished flex-container horizontal" ng-click="showPopOver(quiz.id)">
 			<div class="info live-info">
 				<div class="quizName">{{quiz.title}}</div>
 				<div class="subText">{{getDateRange(quiz.publish, quiz.results)}}</div>
@@ -57,5 +57,20 @@
 			</div>
 		</a>
 	</div>
+
 </div>
 
+
+<div class="flex-container popover-wrapper">
+	<div class="overlay plum-dark noselect flex-container" ng-click="hidePopOver()"></div>
+	<div class="pop-over shadow noselect">
+		<div class="header">Edit Question</div>
+		<div class="divider purple-light"></div>
+		<span class="sub-text">You are about to edit a live quiz. Changes you make will not affect those who have already taken the quiz.</span>
+		<div class="flex-container button-container">
+			<span class="flex"></span>
+			<div class="button" ng-click="hidePopOver()">cancel</div>
+			<a class="button" href=''>confirm</a>
+		<div>
+	</div>
+</div>

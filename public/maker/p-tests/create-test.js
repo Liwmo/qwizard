@@ -24,6 +24,16 @@ describe('create quiz', function() {
         browser.get('http://localhost:3000/maker/#/create');
     });
 
+
+    it('Create page button text are correct for quizzes that have not been published', function() {
+        element.all(by.css('#makerButtons span')).then(function(items) {
+            expect(items.length).toBe(3);
+            expect(items[0].getText()).toBe('continue');
+            expect(items[1].getText()).toBe('save as draft');
+            expect(items[2].getText()).toBe('cancel');
+        });
+    });
+
     it('should have one question by default', function() {
         element.all(by.css("maker-question")).then(function(els){
             expect(els.length).toBe(1);
@@ -94,73 +104,55 @@ describe('create quiz', function() {
         expect(element.all(by.css('.radio[ng-click="mc($index)"]')).get(2).getAttribute('class')).toNotMatch('checked');
     });
 
-    it('should show error when quiz name is invalid or blank', function(){
-        var field = element(by.id('quiz_name'));
-        var error = element(by.css('[ng-hide="validName"]'));
-        field.sendKeys('$$$$');
-        expect(error.getAttribute('class')).toNotMatch('ng-hide');
-        field.clear().then(function(){
-            expect(error.getAttribute('class')).toNotMatch('ng-hide');
-            field.sendKeys('Name');
-            expect(error.getAttribute('class')).toMatch('ng-hide');
-            field.clear();
-        });
-    });    
-
-    it('should show error when quiz name is invalid or blank on publish', function(){
-        var field = element(by.id('quiz_name'));
+    describe("Popup error messages", function() {
+        var quizNameInput = element(by.id('quiz_name'));
+        var nameError = element(by.css('[ng-hide="validName"]'));
         var publish = element(by.css('[ng-click="publishQuiz()"]'));
-        var popup = element(by.css('.popup'));
-        publish.click();
-        expect(popup.getAttribute('class')).toMatch('visible');
-        browser.sleep(500);
-        element(by.css('[ng-click="leftAction()"]')).click();
-        field.sendKeys('$$$$');
-        publish.click();
-        expect(popup.getAttribute('class')).toMatch('visible');
-        browser.sleep(500);
-        element(by.css('[ng-click="leftAction()"]')).click();
-        field.clear().then(function(){
-            field.sendKeys('Quiz Name');
+        var popup = element(by.css('.pop-over'));
+        var addQuestion = element(by.css('#add-question'));
+        var firstQuestionCategory = element.all(by.css('[ng-model="questionName"]')).get(0);
+        var firstQuestionText = element.all(by.css('.question-text'));
+        var z = 0;
+
+        beforeEach(function(){
+            browser.get('http://localhost:3000/maker/#/create');
         });
-    });  
 
-    // it('should show error when question list is empty on publish', function(){
-    //     element(by.css('[ng-click="removeQuestion(index)"]')).click();
-    //     var publish = element(by.css('[ng-click="publishQuiz()"]'));
-    //     var popup = element(by.css('.popup'));
-    //     publish.click();
-    //     expect(popup.getAttribute('class')).toMatch('visible');
-    //     browser.sleep(500);
-    //     element(by.css('[ng-click="leftAction()"]')).click();
+        it('should show error when quiz name is invalid or blank', function(){       
+            quizNameInput.sendKeys('$$$$');
+            expect(nameError.getAttribute('class')).toNotMatch('ng-hide');
+            quizNameInput.clear().then(function(){
+                expect(nameError.getAttribute('class')).toNotMatch('ng-hide');
+                quizNameInput.sendKeys('Name');
+                expect(nameError.getAttribute('class')).toMatch('ng-hide');
+                quizNameInput.clear();
+            });
+        });    
 
-    // });
-
-    it('should show error when question name or text is empty on publish', function(){
-        element(by.css('#add-question')).click();
-        element(by.css('[ng-model="questionName"]')).sendKeys("$$$$");
-        var publish = element(by.css('[ng-click="publishQuiz()"]'));
-        var popup = element(by.css('.popup'));
-        publish.click();
-        expect(popup.getAttribute('class')).toMatch('visible');
-        browser.sleep(500);
-        element(by.css('[ng-click="leftAction()"]')).click();
-        element(by.css('[ng-model="questionName"]')).clear().then(function() {
-            element(by.css('.question-text')).sendKeys('$$$$');
+        it('should show popup error when quiz name is blank on publish', function(){  
             publish.click();
-            expect(popup.getAttribute('class')).toMatch('visible');
-            browser.sleep(500);
-            element(by.css('[ng-click="leftAction()"]')).click();
-        });
-    });
+            expect(popup.getAttribute('class')).toMatch('open');
+        });  
 
-    it('should show error when question type is not defined on publish', function(){
-        var publish = element(by.css('[ng-click="publishQuiz()"]'));
-        element(by.css('[ng-model="questionName"]')).sendKeys("$$$$");
-        publish.click();
-        expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
-        browser.sleep(500);
-        element(by.css('[ng-click="leftAction()"]')).click();
+        it('should show popup error when quiz name is invalid', function() {
+            quizNameInput.sendKeys('$$$$');
+            publish.click();
+            expect(popup.getAttribute('class')).toMatch('open');
+        });
+
+        it('should popup error when question text is empty on publish', function() {
+            quizNameInput.sendKeys("Quiz Name");
+            publish.click();
+            expect(popup.getAttribute('class')).toMatch('open');
+        });
+
+        it('should show popup error when question type is undefined', function() {
+            quizNameInput.sendKeys("Quiz Name");
+            firstQuestionText.sendKeys("Question 1 Text");
+            publish.click();
+            expect(popup.getAttribute('class')).toMatch('open');
+        });
+
     });
 
     it('should remove question when delete button is clicked', function(){
@@ -205,10 +197,10 @@ describe('create quiz', function() {
 
     describe('MS Testing', function() {
         var quizNameInput = element(by.id('quiz_name'));
-        var questionNameInput = element(by.css('[ng-model="questionName"]'));
-        var questionTextInput = element(by.css('[ng-model="questionText"]'));
-        var popup = element(by.css('.popup'));
-        var popupText = element(by.css('.popup .noselect'));
+        var questionNameInput = element.all(by.css('[ng-model="questionName"]')).get(0);
+        var questionTextInput = element.all(by.css('[ng-model="questionText"]')).get(0);
+        var popup = element(by.css('.pop-over'));
+        var popupText = element(by.css('.pop-over .noselect'));
         var publish = element(by.css('[ng-click="publishQuiz()"]'));
         var dismiss = element(by.css('[ng-click="leftAction()"]'));
 
@@ -236,10 +228,7 @@ describe('create quiz', function() {
             questionTextInput.sendKeys("TestQuestionText");
             element.all(by.css('.check-box[ng-click="ms($index)"]')).get(1).click();
             publish.click();
-            browser.sleep(500);
-            expect(popup.getAttribute('class')).toMatch('visible');
-            expect(popupText.getText()).toBe("On Question 1, an answer does not have any text.");
-            dismiss.click();
+            expect(popup.getAttribute('class')).toMatch('open');
         });
 
         it('should error if a correct answer is not selected', function() {
@@ -248,10 +237,7 @@ describe('create quiz', function() {
             questionNameInput.sendKeys("TestQuestion");
             questionTextInput.sendKeys("TestQuestionText");;
             publish.click();
-            browser.sleep(500);
-            expect(popup.getAttribute('class')).toMatch('visible');
-            expect(popupText.getText()).toBe("Question 1 does not have an answer selected.");
-            dismiss.click();
+            expect(popup.getAttribute('class')).toMatch('open');
         });
 
         it('should allow multiple answers to be selected and published', function() {
@@ -295,8 +281,8 @@ describe('create quiz', function() {
             var quizNameInput = element(by.id('quiz_name'));
             var questionNameInput = element(by.css('[ng-model="questionName"]'));
             var questionTextInput = element(by.css('[ng-model="questionText"]'));
-            var popup = element(by.css('.popup'));
-            var popupText = element(by.css('.popup .noselect'));
+            var popup = element(by.css('.pop-over'));
+            var popupText = element(by.css('.pop-over .noselect'));
             var publish = element(by.css('[ng-click="publishQuiz()"]'));
             var dismiss = element(by.css('[ng-click="leftAction()"]'));
          
@@ -389,10 +375,7 @@ describe('create quiz', function() {
                         elements[i].sendKeys('iiii');
                     }
                     publish.click();
-                    browser.sleep(500);
-                    expect(popup.getAttribute('class')).toMatch('visible');
-                    dismiss.click();
-                    browser.sleep(5000);
+                    expect(popup.getAttribute('class')).toMatch('open');
                 });
             });
             it('should popup error if answer field is empty', function() {
@@ -405,9 +388,7 @@ describe('create quiz', function() {
                         elements[i].sendKeys('iiii');
                     }
                     publish.click();
-                    browser.sleep(500);
-                    expect(popup.getAttribute('class')).toMatch('visible');
-                    dismiss.click();
+                    expect(popup.getAttribute('class')).toMatch('open');
                 });
             });
 

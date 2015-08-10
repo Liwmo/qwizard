@@ -2,6 +2,7 @@
     <input ng-model="quizName" ng-change="verifyName()" id="quiz_name" type="text" class="teal-medium text-input large" placeholder="Quiz Name" maxlength="20">
     <span style="font-family:Dosis" ng-hide="validName">Quiz name is required! No special characters!</span>
 </div>
+
 <div class="flex " style="overflow-y:auto;">
     <div id="question" ng-repeat="question in questions track by $index">
         <maker-question points="question.points" 
@@ -14,26 +15,22 @@
                         max="question.max"
                         matching-clues="matchingArrays[$index].clues"
                         matching-answers="matchingArrays[$index].answers"
-                        class="flex-container horizontal shadow card"></maker-question>
+                        class="flex-container horizontal shadow card"
+                        live-edit="true"></maker-question>
     </div>
-    <div id="add-question" ng-click="addQuestion()">Add Another Question +</div>
     <div id="makerButtons" class="noselect">
-        <span ng-click="publishQuiz()" class="nope button teal-dark shadow noselect">continue</span>
-        <span ng-click="saveDraft()" class="nope button teal-dark shadow noselect">{{published ? "save changes" : "save as draft"}}</span>
+        <span ng-click="saveChanges()" class="nope button teal-dark shadow noselect">confirm changes</span>
         <span ng-click="cancelConfirm()" class="nope button teal-dark shadow noselect">cancel</span>
     </div>
 </div>
 
-<div class="flex-container popover-wrapper">
-    <div class="overlay plum-dark noselect flex-container" ng-click="hidePopOver()"></div>
-    <div class="pop-over shadow noselect">
-        <div class="header">Warning</div>
-        <div class="divider purple-light"></div>
-        <span class="sub-text">{{popupText}}</span>
-        <div class="flex-container button-container">
-            <span class="flex"></span>
-            <div class="button" ng-class='{remove: leftButton == ""}' ng-click="leftAction()">{{leftButton}}</div>
-            <div class="button" ng-click="rightAction()">{{rightButton}}</div>
-        <div>
+<div class="popup light-text flex-container">
+    <div style="width: 25em;">
+        <div class="noselect">{{popupText}}</div>
+        <hr/>
+        <div class="flex-container horizontal">
+          <span class="button flex teal-dark shadow noselect" ng-click="leftAction()">{{leftButton}}</span>
+          <span class="button flex teal-dark shadow noselect" ng-click="rightAction()" ng-show="rightButton">{{rightButton}}</span>
+        </div>
     </div>
 </div>

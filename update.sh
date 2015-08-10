@@ -11,4 +11,4 @@ $NODE_PATH node_modules/db-migrate/bin/db-migrate up --config database.json -e p
 crontab productionCrontab.txt
 
 #Restart the web server
-sudo /etc/init.d/qwizard/server.sh restart
+sudo /etc/init.d/qwizard restart

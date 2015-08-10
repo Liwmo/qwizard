@@ -1,4 +1,4 @@
-app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routeParams', function($scope, $location, quizFactory, $routeParams) {
+app.controller('liveEdit', ['$scope', '$location', 'quizFactory', '$routeParams', function($scope, $location, quizFactory, $routeParams) {
     var quizId;//should be overwritten
 
     $scope.validName = true;
@@ -6,51 +6,15 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
     $scope.questions = [];
     $scope.matchingArrays = [];
 
-    $scope.leftAction = $scope.hidePopOver;
-    $scope.rightAction = $scope.hidePopOver;
+    $scope.leftAction = $scope.popupToggle;
+    $scope.rightAction = $scope.popupToggle;
 
-    $scope.addQuestion = function(){
-        $scope.questions.push({
-            points: 1,
-            name: "",
-            type: "",
-            text: "",
-            answers: ["", "", ""],
-            correctAnswer: [],
-            max: 6
-        });
-        $scope.matchingArrays.push({
-            clues: ['','','',''],
-            answers: ['','','','']
-        });
-    };
-
-    $scope.$on('removeQuestion', function(event, index) {
-        $scope.questions.splice(index, 1);
-        $scope.matchingArrays.splice(index, 1);
-    });
-
-    $scope.showPopOver = function(quizId) {
-        var overlay =  document.querySelector(".overlay");
-        var popOver =  document.querySelector(".pop-over");
-        if (!overlay || !popOver) {
-            return;
+    $scope.popupToggle = function() {
+        try{
+            document.querySelector('.popup').classList.toggle('visible');
+        }catch(e){
+            console.log('no popup to show: ' + $scope.popupText);
         }
-        overlay.classList.add("open");
-        popOver.classList.add("open");
-    }
-    $scope.hidePopOver = function() {
-        var overlay =  document.querySelector(".overlay");
-        var popOver =  document.querySelector(".pop-over");
-        if (!overlay || !popOver) {
-            return;
-        }
-        overlay.classList.remove("open");
-        popOver.classList.remove("open");
-    }
-
-    $scope.toDashboard = function() {
-    	$location.path('/');
     };
 
     $scope.verifyName = function() {
@@ -59,31 +23,7 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
     	return pattern.test($scope.quizName);
     };
 
-    $scope.saveDraft = function() {
-    	if (!$scope.verifyName()) {
-    		console.log("I can't save this name");
-    	}else{
-            quizFactory.saveQuiz({
-                title: $scope.quizName,
-                questions: $scope.questions,
-                id: quizId
-            }, function(data){
-                if(data.error){
-                    setPopup("There was an error saving your draft.");
-                }else{
-                    quizId = data;
-                    setPopup("Your quiz has been saved.  Would you like to continue?", {
-                        text: "No, return to dashboard",
-                        action: $scope.toDashboard
-                    }, {
-                        text: "Yes, I'm still working"
-                    });
-                }
-            });
-    	}
-    };
-
-    $scope.publishQuiz = function() {
+    $scope.saveChanges = function() {
     	if (!$scope.verifyName()) {
     		setPopup("Cannot publish with this quiz name.");
             return;
@@ -140,7 +80,7 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
                 if(data.error){
                     setPopup("There was an error publishing your quiz.");
                 }else{
-                    $location.path('/publish/' + data);
+                    $location.path('/');
                 }
             });
     	}
@@ -149,12 +89,12 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
     var setPopup = function(text, left, right){
         if(!left) left = {};
         if(!right) right = {};
-        $scope.leftAction = left.action || $scope.hidePopOver;
-        $scope.rightAction = right.action || $scope.hidePopOver;
+        $scope.leftAction = left.action || $scope.popupToggle;
+        $scope.rightAction = right.action || $scope.popupToggle;
         $scope.popupText = text;
-        $scope.leftButton = left.text || "";
-        $scope.rightButton = right.text || "ok";
-        $scope.showPopOver();
+        $scope.leftButton = left.text || "ok";
+        $scope.rightButton = right.text || "";
+        $scope.popupToggle();
     };
 
     $scope.cancelConfirm = function() {
@@ -173,7 +113,6 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
             }else{
                 quizId = data.id;
                 $scope.questions = data.questions;
-                $scope.published = data.publish != undefined;
                 $scope.quizName = data.title;
                 $scope.matchingArrays.push({
                     clues: [],
@@ -182,8 +121,4 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
             }
         });
     }
-    else {
-        $scope.addQuestion();    
-    }
-
 }]);
