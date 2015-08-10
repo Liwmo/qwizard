@@ -8,8 +8,11 @@ app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFact
     $scope.quizName = quiz.title;
   });
   // $scope.quizId = $routeParams.id;
-  $scope.leftAction = $scope.popupToggle;
-  $scope.rightAction = $scope.popupToggle;
+  $scope.leftAction = $scope.hidePopOver;
+  $scope.rightAction = $scope.hidePopOver;
+  $scope.popupText = '';
+  $scope.leftButton = '';
+  $scope.rightButton = '';
 
   $scope.publish = function() {
     console.log($scope.startDate, $scope.endDate);
@@ -37,21 +40,23 @@ app.controller('publish-quiz', ['$scope', '$routeParams', '$location', 'quizFact
  	var setPopup = function(text, left, right){
     if(!left) left = {};
     if(!right) right = {};
-    $scope.leftAction = left.action || $scope.popupToggle;
-    $scope.rightAction = right.action || $scope.popupToggle;
+    $scope.leftAction = left.action || $scope.hidePopOver;
+    $scope.rightAction = right.action || $scope.hidePopOver;
     $scope.popupText = text;
-    $scope.leftButton = left.text || "OK";
-    $scope.rightButton = right.text || "";
-    $scope.popupToggle();
+    $scope.leftButton = left.text || "";
+    $scope.rightButton = right.text || "ok";
+    $scope.showPopOver();
   };
 
-  $scope.popupToggle = function() {
-    try{
-        document.querySelector('.popup').classList.toggle('visible');
-    }catch(e){
-        console.log('no popup to show: ' + $scope.popupText);
-    }
-  };  
+  $scope.showPopOver = function(quizId) {
+      document.querySelector(".overlay").classList.add("open");
+      document.querySelector(".pop-over").classList.add("open");
+  }
+
+  $scope.hidePopOver = function() {
+      document.querySelector(".overlay").classList.remove("open");
+      document.querySelector(".pop-over").classList.remove("open");
+  }
 
 	$scope.verifyDateExistance = function() {
 		if(!$scope.startDate) {

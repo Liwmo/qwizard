@@ -32,13 +32,16 @@
 	<a href="#/" name="edit" class="nope button teal-dark shadow noselect">save & exit</a>
 </div>
 
-<div class="popup light-text flex-container">
-    <div>
-        <div class="noselect">{{popupText}}</div>
-        <hr/>
-        <div class="flex-container horizontal">
-          <span class="button flex teal-dark shadow noselect" ng-click="leftAction()">{{leftButton}}</span>
-          <span class="button flex teal-dark shadow noselect" ng-click="rightAction()" ng-show="rightButton">{{rightButton}}</span>
-        </div>
+<div class="flex-container popover-wrapper">
+    <div class="overlay plum-dark noselect flex-container" ng-click="hidePopOver()"></div>
+    <div class="pop-over shadow noselect">
+        <div class="header">Warning</div>
+        <div class="divider purple-light"></div>
+        <span class="sub-text">{{popupText}}</span>
+        <div class="flex-container button-container">
+            <span class="flex"></span>
+            <div class="button" ng-class='{remove: leftButton == ""}' ng-click="leftAction()">{{leftButton}}</div>
+            <div class="button" ng-click="rightAction()">{{rightButton}}</div>
+        <div>
     </div>
 </div>

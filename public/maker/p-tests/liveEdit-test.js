@@ -33,15 +33,24 @@ describe('liveEdit page: ', function() {
         };
         browser.addMockModule('httpBackendMock', httpBackendMock);
 
-        // browser.get('http://localhost:3000/taker/#/results/99999');
     });
 
-    it('Clicking a live quiz link will redirect to liveEdit page', function() {
+    it('Clicking a live quiz link will popup the confirmation', function(){
         browser.get('http://localhost:3000/maker/');
         element(by.css('#liveTab')).click();
-        element(by.css('[href="#/live_edit/901002"]')).click();
-        browser.sleep(500);
-        expect(browser.getCurrentUrl()).toBe("http://localhost:3000/maker/#/live_edit/901002");
+        var popup = element(by.css('.pop-over'));
+        var liveQuiz = element(by.repeater('quiz in live').row(0));
+        liveQuiz.click();
+        expect(popup.getAttribute('class')).toMatch('open');
+    });
+
+    it('pop right action will link to quiz edit page', function(){
+        browser.get('http://localhost:3000/maker/');
+        element(by.css('#liveTab')).click();
+        var popup = element(by.css('.pop-over'));
+        var liveQuiz = element(by.repeater('quiz in live').row(0));
+        liveQuiz.click();
+        expect(popup.element(by.css("a.button")).getAttribute('href')).toMatch('#/live_edit/901002');
     });
 
     it('logout', function() {
