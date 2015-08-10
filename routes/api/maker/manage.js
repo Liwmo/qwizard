@@ -75,9 +75,21 @@ router.get('/quizResultDetail/:id', function(req, res) {
 		query += 'GROUP BY id';
 
 	db.query(query, req.params.id, function(err, message) {
-		if(err) {
+		if(err || !message.length) {
 			res.send({error: 'quizResultDetail query failed'});
 			} 
+		else {
+			res.send(message[0]);
+		}
+	});
+});
+
+router.get('/allAnswersForAQuiz/:id', function(req, res) {
+	var query =  'SELECT answers from results where submitted=1 and quizid=?';
+	db.query(query, req.params.id, function(err, message) {
+		if(err || !message.length) {
+			res.send({error: 'quizResultDetail query failed'});
+		}
 		else {
 			res.send(message);
 		}

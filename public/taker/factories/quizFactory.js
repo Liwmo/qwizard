@@ -61,6 +61,26 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 		});
 	};
 
+	self.getAllAnswersForAQuiz = function(id, callback) {
+		$http.get('/api/maker/manage/allAnswersForAQuiz/' + id).success(function(data){
+			console.log(data);
+			var responses = []
+			for(var i=0; i < data.length; i++) {
+				data[i] = JSON.parse(data[i].answers);
+				for(var j=0; j < data[i].length; j++) {
+					if(j == responses.length){
+						responses.push([0,0,0,0,0,0]);
+					}
+					for(var x=0; x < data[i][j].answer.length; x++) {
+						responses[j][data[i][j].answer[x]]++;
+					}
+				}
+			}
+			console.log(responses);
+			callback(responses);
+		});
+	};
+
 	self.getScheduledQuizzes = function(callback){
 		$http.get('/api/maker/manage/scheduled').success(function(data){
 			var parsedData = data;
@@ -102,20 +122,31 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 		message.quiz = {};
 		$http.get('/api/maker/manage/quizResultDetail/' + id).success(function(data) {
 			console.log(data);
-			message.quiz.pointvalues = JSON.parse(data[0].pointvalues);
-			message.quiz.questions = JSON.parse(data[0].questions);
-			message.quiz.answers = JSON.parse(data[0].answers);
-			message.closeDate = data[0].closeDate;
-			message.openDate = data[0].openDate;
-			message.title = data[0].title;
-			message.employees = data[0].employees;
+			data.pointvalues = JSON.parse(data.pointvalues);
+			data.questions = JSON.parse(data.questions);
+			data.answers = JSON.parse(data.answers);
+			message.quiz = [];
+			for(var i = 0; i < data.pointvalues.length; i++){
+				message.quiz.push({
+					points: data.pointvalues[i],
+					text: data.questions[i].text,
+					type: data.questions[i].type,
+					category: data.questions[i].name,
+					answers: data.questions[i].answers,
+					correct: data.answers[i]
+				});
+			}
+			message.closeDate = data.closeDate;
+			message.openDate = data.openDate;
+			message.title = data.title;
+			message.employees = data.employees;
 			message.maxPoints = 0;
-			message.avgPoints = data[0].avgPoints;
-			for(var i=0; i<message.quiz.pointvalues.length; i++) {
-				if(message.quiz.questions[i].type == 'pm' || message.quiz.questions[i].type == 'ma') {
-					message.maxPoints += message.quiz.pointvalues[i] * 4;
+			message.avgPoints = data.avgPoints;
+			for(var i=0; i < data.pointvalues.length; i++) {
+				if(data.questions[i].type == 'pm' || data.questions[i].type == 'ma') {
+					message.maxPoints += data.pointvalues[i] * 4;
 				} else {
-					message.maxPoints += message.quiz.pointvalues[i];
+					message.maxPoints += data.pointvalues[i];
 				}
 			}
 			callback(message);
