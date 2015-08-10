@@ -1,6 +1,6 @@
 DROP USER Qwizard@localhost;
 FLUSH PRIVILEGES;
 
-CREATE USER 'qwizard'@'localhost' IDENTIFIED BY 'iS#0&dZoT@&$Vi';
+CREATE USER 'qwizard'@'localhost' IDENTIFIED BY 'iS@01dZoT@25Vi';
 GRANT ALL PRIVILEGES ON *.* TO 'qwizard'@'localhost';
 FLUSH PRIVILEGES;
