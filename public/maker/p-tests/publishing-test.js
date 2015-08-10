@@ -67,7 +67,7 @@ describe('Manage quiz - Publishing a quiz: ', function() {
         element.all(by.css('#makerButtons > .nope')).then(function(items) {
             expect(items.length).toBe(3);
             expect(items[0].getText()).toBe('publish');
-            expect(items[1].getText()).toBe('save draft');
+            expect(items[1].getText()).toBe('save as draft');
             expect(items[2].getText()).toBe('back');
         });
     });
@@ -87,50 +87,41 @@ describe('Manage quiz - Publishing a quiz: ', function() {
       //   you cannot "sendKeys" to a datepicker field
 
     it('Should error on publish if there is no start or end date set', function() {
+        browser.refresh();
         element(by.name("publish")).click();
-        expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
-        browser.sleep(500);
-        element(by.css('[ng-click="leftAction()"]')).click();
+        expect(element(by.css('.pop-over')).getAttribute('class')).toMatch('open');
     });
 
     it('Should error on publish if start date is a past date', function() {
+        browser.refresh();
         element(by.name('start-date')).sendKeys('2015-07-01');
         element(by.name('end-date')).sendKeys('2015-07-02');
         element(by.name('publish')).click();
-        expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
-        browser.sleep(500);
-        element(by.css('[ng-click="leftAction()"]')).click();
-        element(by.name('start-date')).clear();
-        element(by.name('end-date')).clear();
+        expect(element(by.css('.pop-over')).getAttribute('class')).toMatch('open');
     });
 
     it('Should error on publish if end date is earlier than start date', function() {
+        browser.refresh();
         element(by.name('start-date')).sendKeys('2025-07-02');
         element(by.name('end-date')).sendKeys('2020-07-02');
         element(by.name('publish')).click();
-        expect(element(by.css('.popup')).getAttribute('class')).toMatch('visible');
-        browser.sleep(500);
-        element(by.css('[ng-click="leftAction()"]')).click();
-        element(by.name('start-date')).clear();
-        element(by.name('end-date')).clear();
+        expect(element(by.css('.pop-over')).getAttribute('class')).toMatch('open');
     });
 
     it('Should keep start date as is when entering end date', function() {
+        browser.refresh();
         element(by.name('start-date')).sendKeys('2050-01-01');
         element(by.name('end-date')).sendKeys('2050-02-02');
         browser.sleep(500);
         expect(element(by.name('start-date')).getAttribute('value')).toMatch('2050-01-01');
-        element(by.name('start-date')).clear();
-        element(by.name('end-date')).clear();
     });
 
     it('Should redirect to manage quizzes on successful publish', function() {
+        browser.refresh();
         element(by.name('start-date')).sendKeys('2050-01-01');
         element(by.name('end-date')).sendKeys('2050-01-02');
         element(by.name('publish')).click();
-        browser.sleep(2000);
         expect(browser.getCurrentUrl()).toBe('http://localhost:3000/maker/#/');
-        browser.sleep(2000);
     });
 
     it('logout', function() {

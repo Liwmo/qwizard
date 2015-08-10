@@ -6,8 +6,8 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
     $scope.questions = [];
     $scope.matchingArrays = [];
 
-    $scope.leftAction = $scope.popupToggle;
-    $scope.rightAction = $scope.popupToggle;
+    $scope.leftAction = $scope.hidePopOver;
+    $scope.rightAction = $scope.hidePopOver;
 
     $scope.addQuestion = function(){
         $scope.questions.push({
@@ -22,7 +22,7 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
         $scope.matchingArrays.push({
             clues: ['','','',''],
             answers: ['','','','']
-        })
+        });
     };
 
     $scope.$on('removeQuestion', function(event, index) {
@@ -30,13 +30,24 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
         $scope.matchingArrays.splice(index, 1);
     });
 
-    $scope.popupToggle = function() {
-        try{
-            document.querySelector('.popup').classList.toggle('visible');
-        }catch(e){
-            console.log('no popup to show: ' + $scope.popupText);
+    $scope.showPopOver = function(quizId) {
+        var overlay =  document.querySelector(".overlay");
+        var popOver =  document.querySelector(".pop-over");
+        if (!overlay || !popOver) {
+            return;
         }
-    };
+        overlay.classList.add("open");
+        popOver.classList.add("open");
+    }
+    $scope.hidePopOver = function() {
+        var overlay =  document.querySelector(".overlay");
+        var popOver =  document.querySelector(".pop-over");
+        if (!overlay || !popOver) {
+            return;
+        }
+        overlay.classList.remove("open");
+        popOver.classList.remove("open");
+    }
 
     $scope.toDashboard = function() {
     	$location.path('/');
@@ -61,7 +72,7 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
                     setPopup("There was an error saving your draft.");
                 }else{
                     quizId = data;
-                    setPopup("Your draft is saved.  Would you like to continue?", {
+                    setPopup("Your quiz has been saved.  Would you like to continue?", {
                         text: "No, return to dashboard",
                         action: $scope.toDashboard
                     }, {
@@ -138,12 +149,12 @@ app.controller('create-quiz', ['$scope', '$location', 'quizFactory', '$routePara
     var setPopup = function(text, left, right){
         if(!left) left = {};
         if(!right) right = {};
-        $scope.leftAction = left.action || $scope.popupToggle;
-        $scope.rightAction = right.action || $scope.popupToggle;
+        $scope.leftAction = left.action || $scope.hidePopOver;
+        $scope.rightAction = right.action || $scope.hidePopOver;
         $scope.popupText = text;
-        $scope.leftButton = left.text || "ok";
-        $scope.rightButton = right.text || "";
-        $scope.popupToggle();
+        $scope.leftButton = left.text || "";
+        $scope.rightButton = right.text || "ok";
+        $scope.showPopOver();
     };
 
     $scope.cancelConfirm = function() {

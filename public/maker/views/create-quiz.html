@@ -19,19 +19,21 @@
     <div id="add-question" ng-click="addQuestion()">Add Another Question +</div>
     <div id="makerButtons" class="noselect">
         <span ng-click="publishQuiz()" class="nope button teal-dark shadow noselect">continue</span>
-        <span ng-click="saveDraft()" class="nope button teal-dark shadow noselect">{{published ? "save changes" : "save draft"}}</span>
+        <span ng-click="saveDraft()" class="nope button teal-dark shadow noselect">{{published ? "save changes" : "save as draft"}}</span>
         <span ng-click="cancelConfirm()" class="nope button teal-dark shadow noselect">cancel</span>
     </div>
 </div>
 
-
-<div class="popup light-text flex-container">
-    <div style="width: 25em;">
-        <div class="noselect">{{popupText}}</div>
-        <hr/>
-        <div class="flex-container horizontal">
-          <span class="button flex teal-dark shadow noselect" ng-click="leftAction()">{{leftButton}}</span>
-          <span class="button flex teal-dark shadow noselect" ng-click="rightAction()" ng-show="rightButton">{{rightButton}}</span>
-        </div>
+<div class="flex-container popover-wrapper">
+    <div class="overlay plum-dark noselect flex-container" ng-click="hidePopOver()"></div>
+    <div class="pop-over shadow noselect">
+        <div class="header">Warning</div>
+        <div class="divider purple-light"></div>
+        <span class="sub-text">{{popupText}}</span>
+        <div class="flex-container button-container">
+            <span class="flex"></span>
+            <div class="button" ng-class='{remove: leftButton == ""}' ng-click="leftAction()">{{leftButton}}</div>
+            <div class="button" ng-click="rightAction()">{{rightButton}}</div>
+        <div>
     </div>
 </div>
