@@ -1,0 +1,25 @@
+#statsContainer {
+	padding:1rem;
+	padding-bottom:2rem;
+}
+#statsContainer #username {
+	font-family:Signika;
+	font-weight:600;
+	font-size:2em;
+	margin-bottom:1rem;
+}
+
+#userStats {
+}
+#userStats > div {
+	padding:1em;
+	text-align:center;
+	border-right:1px solid #fffff5;
+}
+#userStats > div:last-child {
+	border:none;
+}
+#userStats .largeText {
+	font-size:4rem;
+	font-weight:200;
+}
