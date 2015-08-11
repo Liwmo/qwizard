@@ -43,6 +43,21 @@ router.post('/', function(req, res){
 			}
 		}
 	}
+	var totalPoints;
+	if (quiz.pointValues) {
+		totalPoints = quiz.questions
+						.map(function(question, index){
+							if (question.type == "ma" || question.type == "pm") {
+								return quiz.pointValues[index] * 4;
+							}
+							else {
+								return quiz.pointValues[index];
+							}
+						})
+						.reduce(function(a, b) {
+							return a + b;
+						}, 0);
+	}
 	var query = 'insert into quizzes SET ?';
 	convert.cookieToId(req.cookies.login, function(userId){
 		db.query(query, {
@@ -52,7 +67,8 @@ router.post('/', function(req, res){
 			pointvalues: JSON.stringify(quiz.pointValues || []),
 			publish: publish,
 			results: results,
-			author: userId
+			author: userId,
+			totalPoints: totalPoints || 0
 		}, function(err, message){
 			if(err){
 				res.send({error: "Unable to create quiz."});
@@ -106,7 +122,20 @@ router.put('/:id', function(req, res){
 				}
 			}
 		}
-		if(quiz.pointValues) {
+		if(quiz.pointValues && quiz.questions) {
+			update.totalPoints = quiz.questions
+									.map(function(question, index){
+										if (question.type == "ma" || question.type == "pm") {
+											console.log(quiz.pointValues[index] * 4);
+											return quiz.pointValues[index] * 4;
+										}
+										else {
+											return quiz.pointValues[index];
+										}
+									})
+									.reduce(function(a, b) {
+										return a + b;
+									}, 0);
 			update.pointvalues = JSON.stringify(quiz.pointValues);
 		}
 			
@@ -115,6 +144,7 @@ router.put('/:id', function(req, res){
 				console.log('ERROR: '+ err)
 				res.send(err);
 			}else{
+
 				console.log("NOTE: UserId " + userId + " saved quiz " + req.params.id + ". Rows affected after updating: ", message.affectedRows);
 				if(message.affectedRows == 0) {
 					res.send({error: "You are not the author of this quiz."});

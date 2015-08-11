@@ -1,5 +1,0 @@
-DROP DATABASE IF EXISTS qwizard_dev;
-DROP DATABASE IF EXISTS qwizard;
-
-DROP USER Qwizard@localhost;
-FLUSH PRIVILEGES;

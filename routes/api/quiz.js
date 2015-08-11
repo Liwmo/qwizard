@@ -41,10 +41,11 @@ router.route('/:id')
 	.post(function(req, res){
 		var today = (new Date()).toISOString().substr(0,10);
 		var quizId = parseInt(req.params.id) || -1;
-		db.query('Select answers, pointvalues from quizzes where id=? and results>?', [quizId, today], function(err, message){
+		db.query('Select answers, pointvalues, questions from quizzes where id=? and results>?', [quizId, today], function(err, message){
 			if(!err && message.length) {
 				var answers = JSON.parse(message[0].answers);
 				var pointValues = JSON.parse(message[0].pointvalues);
+				var questions = JSON.parse(message[0].questions);
 
 				var selected = req.body;
 				if(selected.length !== answers.length){
@@ -54,21 +55,27 @@ router.route('/:id')
 				}
 
 				var points = utils.calculateQuizScore(selected, answers, pointValues);
+				var newMatches = utils.calculatePhotoMatches(selected, answers, questions);
 
 				convert.cookieToId(req.cookies.login, function(userId){
-					db.query('Insert into results SET ?', {
-						quizid: quizId,
-						userid: userId,
-						points: points,
-						answers: JSON.stringify(selected),
-						submitted: 1
-					},function(insertError, message) {
-						if(insertError) {
-							console.log("ERROR: " + insertError);
-							res.send(insertError);
-						}else{
-							res.send("success");
+					db.query("update photoMatchStats SET matches = matches + ? where userid = ?", [newMatches ,userId], function(err, message) {
+						if(err) {
+							console.log("ERROR: Couldn't update user's matches", err);
 						}
+						db.query('Insert into results SET ?', {
+							quizid: quizId,
+							userid: userId,
+							points: points,
+							answers: JSON.stringify(selected),
+							submitted: 1
+						},function(insertError, message) {
+							if(insertError) {
+								console.log("ERROR: " + insertError);
+								res.send(insertError);
+							}else{
+								res.send("success");
+							}
+						});
 					});
 				});
 			}else{

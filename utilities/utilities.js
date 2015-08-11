@@ -31,3 +31,21 @@ module.exports.calculateQuizScore = function(selectedAnswers, correctAnswers, po
 
 	return points;
 }
+
+module.exports.calculatePhotoMatches = function(selected, answers, questions) {
+	var numMatches = 0;
+	for (var i = 0; i < questions.length; i++) {
+
+		if(questions[i].type !== 'pm') {
+			continue;
+		}
+
+		for(var j = 0; j < answers[i].length; j++) {
+			if(selected[i].answer[j] === answers[i][j]) {
+				numMatches++;
+			}
+		}
+	}
+
+	return numMatches;
+}

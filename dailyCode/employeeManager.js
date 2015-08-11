@@ -52,6 +52,7 @@ function pathToFile(filename) {
 function getEmployeeId(name, callback) {
 	db.query('SELECT id FROM users WHERE name=?', name, function(err, message) {
 		if(err) {
+			console.log("ERROR: Unable to query for user id", err);
 			callback(-1);
 		} else if(message.length) {
 			callback(message[0].id);
@@ -66,6 +67,7 @@ function getEmployeeId(name, callback) {
 function insertEmployee(name, callback) {
 	db.query('INSERT INTO users SET name=?', name, function(err, message) {
 		if(err) {
+			console.log("ERROR: Unable to insert the user into the db", err);
 			callback(-1);
 		} else {
 			db.query('INSERT INTO photoMatchStats SET userId=?', message.insertId, function(err, message){
@@ -74,7 +76,6 @@ function insertEmployee(name, callback) {
 					callback(-1);
 				}
 				else {
-					console.log("Created photoMatchStats for ", message.insertId);
 					callback(message.insertId);
 				}
 			});	

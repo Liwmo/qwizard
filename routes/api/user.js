@@ -37,9 +37,21 @@ router.route('/id')
 router.route('/stats')
     .get(function(req, res) {
         convert.cookieToId(req.cookies.login, function(userId) {
+            var apiResult = {};
             if(userId){
-                db.query('');
-                //res.send({id: userId});
+                var statsQuery = 'select sum(r.points) as userPoints, count(r.quizid) as totalQuizzes, p.matches, sum(q.totalPoints) as totalPoints ' +
+                                'from results r, photoMatchStats p, quizzes q ' +
+                                'where p.userId=? and r.userid=p.userId and r.quizid=q.id';
+                db.query(statsQuery, userId, function(err, statResult) {
+                    if (err) {
+                        console.log("ERROR: unable to get stats" + err);
+                    }
+                    //Set the values so far
+                    apiResult.avgScore = statResult[0].userPoints/statResult[0].totalPoints || null;
+                    apiResult.totalQuizzes = statResult[0].totalQuizzes || 0;
+                    apiResult.matches = statResult[0].matches || 0;
+                    res.send(apiResult);
+                });
             }else{
                 var errMsg = 'no associated userId';
                 console.log(errMsg);
