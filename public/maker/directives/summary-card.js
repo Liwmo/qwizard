@@ -15,6 +15,9 @@ app.directive("summaryCard", [function() {
 			if(scope.question.type == 'tf'){
 				scope.question.answers = ['True', 'False'];
 			}
+			if(scope.question.type == 'ma') {
+				scope.isMatching = true;
+			}
 		}
 	};
 }]);

@@ -4,11 +4,11 @@
        <div class="question-text">{{question.text}}</div>
        <div class="answer-pad">
               <div class="answers flex-container">
-              		<div ng-repeat="answer in question.answers" 
+              		<div ng-repeat="correct in question.correct" 
               			 class="flex horizontal answer" 
               			 ng-class="{correct: question.correct.indexOf($index) !== -1}">
-              			<div class="answer-text">{{answer.split(":")[0]}}</div>
-                                   <div class="matching-text" ng-hide="question.type !== 'ma' && question.type !== 'pm'">{{answer.split(":")[1]}}</div>
+              			<div class="answer-text">{{correct.split(":")[0]}}</div>
+                                   <div class="matching-text" ng-show="isMatching">{{correct.split(":")[1]}}</div>
               		</div>
               </div>
               <div class="answers flex-container">

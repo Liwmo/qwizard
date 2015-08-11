@@ -64,7 +64,7 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 	self.getAllAnswersForAQuiz = function(id, callback) {
 		$http.get('/api/maker/manage/allAnswersForAQuiz/' + id).success(function(data){
 			console.log(data);
-			var responses = []
+			var responses = [];
 			for(var i=0; i < data.length; i++) {
 				data[i] = JSON.parse(data[i].answers);
 				for(var j=0; j < data[i].length; j++) {
@@ -72,6 +72,10 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 						responses.push([0,0,0,0,0,0]);
 					}
 					for(var x=0; x < data[i][j].answer.length; x++) {
+						if(responses[j][data[i][j].answer[x]] == undefined)
+						{
+							responses[j][data[i][j].answer[x]] = 0;
+						}
 						responses[j][data[i][j].answer[x]]++;
 					}
 				}
@@ -119,15 +123,15 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 
 	self.getQuizResultDetail = function(id, callback){
 		var message = {};
-		message.quiz = {};
+		message.questions = {};
 		$http.get('/api/maker/manage/quizResultDetail/' + id).success(function(data) {
 			console.log(data);
 			data.pointvalues = JSON.parse(data.pointvalues);
 			data.questions = JSON.parse(data.questions);
 			data.answers = JSON.parse(data.answers);
-			message.quiz = [];
+			message.questions = [];
 			for(var i = 0; i < data.pointvalues.length; i++){
-				message.quiz.push({
+				message.questions.push({
 					points: data.pointvalues[i],
 					text: data.questions[i].text,
 					type: data.questions[i].type,
