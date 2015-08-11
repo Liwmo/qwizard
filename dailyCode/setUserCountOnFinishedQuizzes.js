@@ -1,4 +1,4 @@
-var setter = require('quizUserCountSetter');
+var setter = require('./quizUserCountSetter');
 
 setter.updateUserCount(function(err, message) {
 	if(err)
@@ -6,6 +6,6 @@ setter.updateUserCount(function(err, message) {
 		console.log(err);
 		process.exit(1);
 	}
-	console.log(message);
+	console.log(message.message);
 	process.exit();
 });

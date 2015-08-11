@@ -142,6 +142,7 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 			message.employees = data.employees;
 			message.maxPoints = 0;
 			message.avgPoints = data.avgPoints;
+			message.possibleTakerCount = data.possibleTakerCount;
 			for(var i=0; i < data.pointvalues.length; i++) {
 				if(data.questions[i].type == 'pm' || data.questions[i].type == 'ma') {
 					message.maxPoints += data.pointvalues[i] * 4;
