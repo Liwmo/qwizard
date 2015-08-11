@@ -29,8 +29,8 @@
 				<div class="subText">{{getDateRange(quiz.publish, quiz.results)}}</div>
 			</div>
 			<div class="purple-light percent-container">
-				<div class="percent">{{calcPercent(quiz.employees,totalEmployees)}}%</div>
-				<div class="employee-count">{{quiz.employees}}/{{totalEmployees}} employees</div>
+				<div class="percent">{{calcPercent(quiz.employees,quiz.possibleTakerCount)}}%</div>
+				<div class="employee-count">{{quiz.employees}}/{{quiz.possibleTakerCount}} employees</div>
 			</div>
 		</a>
 	</div>

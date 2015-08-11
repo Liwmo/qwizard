@@ -8,7 +8,7 @@ app.controller('finished-quiz', ['$scope', 'quizFactory', '$routeParams',  funct
     $scope.openDate;
     $scope.numQuestions;
     $scope.quizTitle;
-    $scope.totalEmployees;
+    $scope.possibleTakerCount;
     $scope.activeEmployees;
     $scope.percent; 
 
@@ -32,9 +32,8 @@ app.controller('finished-quiz', ['$scope', 'quizFactory', '$routeParams',  funct
     	$scope.numQuestions = $scope.quiz.length;
         $scope.activeEmployees = data.employees;
         $scope.avgPoints = Math.round(data.avgPoints);
-        if($scope.totalEmployees) {
-            $scope.percent = Math.round(($scope.activeEmployees / $scope.totalEmployees)*100);
-        }
+        $scope.possibleTakerCount = data.possibleTakerCount;
+        $scope.percent = Math.round(($scope.activeEmployees / $scope.possibleTakerCount)*100);
 
         quizFactory.getAllAnswersForAQuiz($scope.quizId, function(data){
             for(var i = 0; i < $scope.quiz.length; i++){
@@ -43,14 +42,5 @@ app.controller('finished-quiz', ['$scope', 'quizFactory', '$routeParams',  funct
             console.log(data);
             console.log($scope.quiz);
         });
-    });
-
-
-    quizFactory.getTotalEmployees(function(data) {
-        $scope.percent = 0;
-        $scope.totalEmployees = data[0].totalEmployees;
-        if($scope.activeEmployees) {
-            $scope.percent = Math.round(($scope.activeEmployees / $scope.totalEmployees)*100);
-        }
     });
 }]);

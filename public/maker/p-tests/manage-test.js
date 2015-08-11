@@ -22,11 +22,7 @@ describe('manage quiz', function() {
                 .run(function($httpBackend) {
 
                 $httpBackend.whenGET('/api/maker/manage/finished').respond(function(method, url, data, headers) {
-                    return [200, [{publish: '2015-01-01T06:00:00.000Z', results: '2015-02-01T06:00:00.000Z', title: 'Mock Quiz', id: 1, employees: 80}], {}];
-                });
-
-                $httpBackend.whenGET('/api/maker/manage/totalEmployees').respond(function(method, url, data, headers) {
-                    return [200, [{totalEmployees: 100}], {}];
+                    return [200, [{publish: '2015-01-01T06:00:00.000Z', possibleTakerCount: 100, results: '2015-02-01T06:00:00.000Z', title: 'Mock Quiz', id: 1, employees: 80}], {}];
                 });
 
                 $httpBackend.whenGET(/.*/).passThrough();
