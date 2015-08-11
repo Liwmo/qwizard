@@ -68,7 +68,16 @@ function insertEmployee(name, callback) {
 		if(err) {
 			callback(-1);
 		} else {
-			callback(message.insertId);	
+			db.query('INSERT INTO photoMatchStats SET userId=?', message.insertId, function(err, message){
+				if (err) {
+					console.log("ERROR: Failed to add photoMatchStats", err);
+					callback(-1);
+				}
+				else {
+					console.log("Created photoMatchStats for ", message.insertId);
+					callback(message.insertId);
+				}
+			});	
 		} 
 	});
 }

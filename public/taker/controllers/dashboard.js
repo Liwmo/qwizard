@@ -55,6 +55,4 @@ app.controller('dashboard', ['$scope', 'notificationFactory', 'leaderboardFactor
       console.log('toggleMenu called');
       document.querySelector('#drawer').classList.toggle('visible');
     }
-
-
 }]);
