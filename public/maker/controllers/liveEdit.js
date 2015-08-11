@@ -105,6 +105,10 @@ app.controller('liveEdit', ['$scope', '$location', 'quizFactory', '$routeParams'
             text: "no",
         });
     };
+    
+    $scope.toDashboard = function() {
+        $location.path('/');
+    };
 
     if ($routeParams.id) {
         quizFactory.getMyQuiz($routeParams.id, function(data) {
