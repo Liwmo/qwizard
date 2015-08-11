@@ -36,13 +36,15 @@ router.route('/id')
 
 router.route('/stats')
     .get(function(req, res) {
+        var today = new Date();
+        today = today.toISOString().substr(0, 10);
         convert.cookieToId(req.cookies.login, function(userId) {
             var apiResult = {};
             if(userId){
                 var statsQuery = 'select sum(r.points) as userPoints, count(r.quizid) as totalQuizzes, p.matches, sum(q.totalPoints) as totalPoints ' +
                                 'from results r, photoMatchStats p, quizzes q ' +
-                                'where p.userId=? and r.userid=p.userId and r.quizid=q.id';
-                db.query(statsQuery, userId, function(err, statResult) {
+                                'where p.userId=? and r.userid=p.userId and r.quizid=q.id and q.results<= ?';
+                db.query(statsQuery, [userId, today], function(err, statResult) {
                     if (err) {
                         console.log("ERROR: unable to get stats" + err);
                     }
@@ -56,6 +58,18 @@ router.route('/stats')
                 var errMsg = 'no associated userId';
                 console.log(errMsg);
                 res.send({error: errMsg});
+            }
+        });
+    });
+
+router.route('/name')
+    .get(function(req, res) {
+        convert.cookieToName(req.cookies.login, function(username) {
+            if(!username) {
+                console.log("ERROR: unable to get username");
+                res.send({error: "unable to get username"});
+            } else {
+                res.send(username);
             }
         });
     });

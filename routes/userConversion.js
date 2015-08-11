@@ -32,4 +32,14 @@ convert.cookieToId = function(cookie, callback){
     });
 };
 
+convert.cookieToName = function(cookie, callback) {
+    db.query("SELECT name FROM users WHERE id in (SELECT userid FROM tokens WHERE cookie=?)", cookie, function(err, message) {
+        if(err || message.length == 0){
+            callback(false);
+        }else{
+            callback(message[0].name);
+        }
+    });
+};
+
 module.exports = convert;

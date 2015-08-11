@@ -1,18 +1,18 @@
 <quiz-notification ng-repeat="notification in notifications" is-even="$even" notification="notification"></quiz-notification>
 
 <div id="statsContainer" class="teal-medium  light-text shadow">
-	<div id="username">devin.kiser</div>
+	<div id="username">{{username}}</div>
 	<div id="userStats" class="flex-container horizontal">
 		<div class="flex" >
-			<div class="largeText">15</div>
+			<div class="largeText">{{totalQuizzes}}</div>
 			<div>quizzes complete</div>
 		</div>
 		<div class="flex">
-			<div class="largeText">100%</div>
+			<div class="largeText">{{avgScore}}%</div>
 			<div>average score</div>
 		</div>
 		<div class="flex" >
-			<div class="largeText">38</div>
+			<div class="largeText">{{matches}}</div>
 			<div>photo matches</div>
 		</div>
 	</div>

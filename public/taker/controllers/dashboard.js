@@ -2,6 +2,10 @@ app.controller('dashboard', ['$scope', 'notificationFactory', 'leaderboardFactor
     $scope.greeting = "Hello World";
     $scope.isMaker = false;
     $scope.currentUser = -1;
+    $scope.matches;
+    $scope.avgScore;
+    $scope.totalQuizzes;
+    $scope.username;
 
     notificationFactory.refreshNotifications(function(data){
         $scope.notifications = data;
@@ -50,6 +54,26 @@ app.controller('dashboard', ['$scope', 'notificationFactory', 'leaderboardFactor
 
         console.log('users role: ', data.role, $scope.isMaker);
     });
+
+    userFactory.getUserStats(function(data) {
+      if(!data.avgScore) {
+        $scope.avgScore = "--";
+      }
+      else {
+        $scope.avgScore = data.avgScore;;
+      }
+      $scope.matches = data.matches;
+      $scope.totalQuizzes = data.totalQuizzes;
+    });
+
+    userFactory.getUserName(function(data) {
+      if (data.error) {
+        $scope.username = data.error;
+      }
+      else {
+        $scope.username = data;
+      }
+    })
 
     $scope.toggleMenu = function() {
       console.log('toggleMenu called');

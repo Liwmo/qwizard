@@ -14,9 +14,14 @@ app.factory("userFactory", ["$http", function($http){
 	};
 
 	self.getUserRole = function(callback) {
-		$http.get("/api/user/role").success(function(role){
-			callback(role);
-		});
+		if (!user.role) {
+			$http.get("/api/user/role").success(function(role){
+				user.role = role;
+				callback(role);
+			});
+		}
+		else
+			callback(user.role);
 	};
 
 	self.getUserId = function(callback){
@@ -34,14 +39,26 @@ app.factory("userFactory", ["$http", function($http){
 	self.getUserStats = function(callback){
 		if (!user.stats) {
 			$http.get("/api/user/stats").success(function(data){
-				user.stats = data.stats;
-				callback(data.stats);
+				user.stats = data;
+				user.stats.avgScore = Math.round(user.stats.avgScore * 100);
+				callback(user.stats);
 			});
 		}
 		else {
 			callback(user.stats);
 		}
 	};
+
+	self.getUserName = function(callback) {
+		if (!user.name) {
+			$http.get("/api/user/name").success(function(data) {
+				user.name = data;
+				callback(user.name);
+			});
+		}
+		else
+			callback(user.name);
+	}
 
 	return self;
 }]);
