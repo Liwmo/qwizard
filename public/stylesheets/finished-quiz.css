@@ -1,8 +1,3 @@
-#finishedQuizStats #overallStats {
-	margin: 1em 2.5em;
-    width:96%;
-    max-width:85rem;
-}
 #finishedQuizStats .toolbar > span {
 	margin-left: 2%;
 	font-size:1.5rem;
@@ -12,10 +7,6 @@
 #finishedQuizStats .time {
 	text-align: left;
 
-}
-
-#finishedQuizStats .vertical {
-	justify-content: space-between;
 }
 
 #finishedQuizStats .largetext {
@@ -29,20 +20,21 @@
 	font-family: Signika;
 	font-size: 1em;
 	margin-top: .5em;
-}
-
-#finishedQuizStats #overallStats > div {
-	margin-left:4em;
-}
-
-#finishedQuizStats #overallStats > div:first-child {
-	margin:0;
+	text-align: center;
 }
 
 #finishedQuizStats .card {
 	color: #332532;
 	padding: .8em;
 	font-family: Dosis;
+}
+
+#finishedQuizStats .point-value{
+	opacity: 0.7;
+}
+
+#finishedQuizStats .answer-pad{
+	padding: 1.5em 0;
 }
 
 #finishedQuizStats .card .answers{
@@ -60,9 +52,16 @@
 	color: #999298;
 }
 
+#finishedQuizStats .card .answers .answer-text{
+	word-wrap: break-word;
+}
+
 #finishedQuizStats .card .answers .correct{
 	color: #17a587;
-	font-weight: 500;
+}
+
+#finishedQuizStats .card .answers .correct .answer-text{
+	font-weight: 600;
 }
 
 #finishedQuizStats .card .answers .points{

@@ -37,14 +37,17 @@ app.controller('finished-quiz', ['$scope', 'quizFactory', '$routeParams',  funct
         }
 
         quizFactory.getAllAnswersForAQuiz($scope.quizId, function(data){
-            for(var i = 0; i < data.length; i++){
-                $scope.quiz[i].responses = data[i];
+            for(var i = 0; i < $scope.quiz.length; i++){
+                $scope.quiz[i].responses = data[i] || [0,0,0,0,0,0];
             }
+            console.log(data);
+            console.log($scope.quiz);
         });
     });
 
 
     quizFactory.getTotalEmployees(function(data) {
+        $scope.percent = 0;
         $scope.totalEmployees = data[0].totalEmployees;
         if($scope.activeEmployees) {
             $scope.percent = Math.round(($scope.activeEmployees / $scope.totalEmployees)*100);
