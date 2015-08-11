@@ -12,9 +12,10 @@
               </div>
               <div class="answers flex-container">
                             <div ng-repeat="answer in question.answers" 
-                                    class="flex horizontal answer" 
-                                    ng-class="{correct: question.correct.indexOf($index) !== -1}">
-                                   <div class="points">{{question.responses[$index]}}</div>
+                                    class="flex horizontal answer">
+                                   <div class="points"
+                                        ng-class="{correct: question.correct.indexOf($index) !== -1}">
+                                   {{question.responses[$index]}}</div>
                                    <div>response{{(question.responses[$index] != 1) ? "s" : ""}}</div>
                             </div>
               </div>
