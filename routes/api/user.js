@@ -34,4 +34,18 @@ router.route('/id')
         });
     });
 
+router.route('/stats')
+    .get(function(req, res) {
+        convert.cookieToId(req.cookies.login, function(userId) {
+            if(userId){
+                db.query('');
+                //res.send({id: userId});
+            }else{
+                var errMsg = 'no associated userId';
+                console.log(errMsg);
+                res.send({error: errMsg});
+            }
+        });
+    });
+
 module.exports = router;

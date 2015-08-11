@@ -518,12 +518,12 @@ hr{
     padding: .5em 0;
     width: 5em;
     text-align:center;
-    border-bottom:.1em solid #F0EAEF;
+    border-bottom:1px solid #F0EAEF;
 }
 #leader-list .row.highlight {
     position:relative !important;
     color:#fffff5 !important;
-    background-color: #17a587 !important;
+    background-color: #ac7ea6 !important;
     border:none !important;
     box-shadow: 1px 1px 2px rgba(73,73,73,.4) !important;
 

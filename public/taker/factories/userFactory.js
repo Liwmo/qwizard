@@ -1,6 +1,7 @@
 app.factory("userFactory", ["$http", function($http){
 	var self = this;
 	var quizzes = {};
+	var user;
 
 	self.getScoreOnQuiz = function(quizId, callback){
 		if(quizzes[quizId.toString()]){
@@ -19,9 +20,27 @@ app.factory("userFactory", ["$http", function($http){
 	};
 
 	self.getUserId = function(callback){
-		$http.get("/api/user/id").success(function(data){
-			callback(data.id);
-		});
+		if (!user.id) {
+			$http.get("/api/user/id").success(function(data){
+				user.id = data.id;
+				callback(data.id);
+			});
+		}
+		else {
+			callback(user.id);
+		}
+	};
+
+	self.getUserStats = function(callback){
+		if (!user.stats) {
+			$http.get("/api/user/stats").success(function(data){
+				user.stats = data.stats;
+				callback(data.stats);
+			});
+		}
+		else {
+			callback(user.stats);
+		}
 	};
 
 	return self;
