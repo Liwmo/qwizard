@@ -49,11 +49,15 @@
 
 #finishedQuizStats .card .answers .answer{
 	max-width: 25%;
+}
+
+#finishedQuizStats .card .answers .points{
 	color: #999298;
 }
 
 #finishedQuizStats .card .answers .answer-text{
 	word-wrap: break-word;
+	color: #999298;
 }
 
 #finishedQuizStats .card .answers .correct{
@@ -62,6 +66,7 @@
 
 #finishedQuizStats .card .answers .correct .answer-text{
 	font-weight: 600;
+	color: #17a587;
 }
 
 #finishedQuizStats .card .answers .points{
