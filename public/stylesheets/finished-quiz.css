@@ -70,3 +70,12 @@
 	font-weight:200;
 	line-height:.8;
 }
+
+#finishedQuizStats .card .answers .matching-text{
+	word-wrap: break-word;
+	color: #fffff5;
+	margin: auto;
+	background-color: #a3709c;
+	display: inline-block;
+	padding: 0.2em 1em 0.2em 1em;
+}
