@@ -8,7 +8,9 @@ app.directive("summaryCard", [function() {
 		link: function(scope, elem, attrs) {
 			scope.type = {
 				'tf': 'True/False',
-				'mc': 'Multiple Choice'
+				'mc': 'Multiple Choice',
+				'ms': 'Multiple Select',
+				'ma': 'Matching'
 			};
 			if(scope.question.type == 'tf'){
 				scope.question.answers = ['True', 'False'];
