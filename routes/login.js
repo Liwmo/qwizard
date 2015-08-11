@@ -84,8 +84,10 @@ router.post('/', function(req, res, next) {
                                 if(err){
                                     res.redirect('/');
                                 }else{
-                                    res.cookie('login', cookie, {path: '/', maxAge: 365 * 24 * 60 * 60 * 1000});
-                                    res.redirect('/taker');
+                                    db.query("INSERT INTO photoMatchStats SET userId=?", result, function(err, message) {
+                                        res.cookie('login', cookie, {path: '/', maxAge: 365 * 24 * 60 * 60 * 1000});
+                                        res.redirect('/taker');
+                                    });
                                 }
                             });
                         });

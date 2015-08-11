@@ -1,7 +1,7 @@
 app.factory("userFactory", ["$http", function($http){
 	var self = this;
 	var quizzes = {};
-	var user;
+	var user = {};
 
 	self.getScoreOnQuiz = function(quizId, callback){
 		if(quizzes[quizId.toString()]){
