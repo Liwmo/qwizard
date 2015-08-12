@@ -21,12 +21,13 @@ describe('Update User Table Tests', function(){
 			callback(databaseUsers);
 		});
 
-		sinon.stub(helpers, 'deleteUser', function(name){
+		sinon.stub(helpers, 'deleteUser', function(name, callback){
 			if(name == 'first.last3'){
 				deletedThree = true;
 			}else if(name == 'first.last5'){
 				deletedFive = true;
 			}
+			callback();
 		});		
 	});
 

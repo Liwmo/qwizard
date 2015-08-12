@@ -15,9 +15,13 @@ function deleteNonEmployees(callback) {
 
 			for(var i = 0; i < users.length; i++){
 				if(employees.indexOf(users[i]) == -1){
+					total++;
+				}
+			}
+			for(var i = 0; i < users.length; i++){
+				if(employees.indexOf(users[i]) == -1){
 					console.log("Deleting: " + users[i]);
 					helper.deleteUser(users[i], tryDone);
-					total++;
 				}
 			}
 			if (total == 0) {
