@@ -29,9 +29,15 @@
 <body ng-app>
     <div id="center">
         <img src="images/logo-square-12.svg" width="180">
-        {{#if showBadCredentialsError}}
+        {{#if badCredentials}}
             <div id="error">
                 ERROR: Username and/or Password is incorrect. <br><a href="https://pwchng.asynchrony.com/username/new">Forgot password?</a>
+            </div>
+        {{/if}}
+
+        {{#if invalidToken}}
+            <div id="error">
+                ERROR: Your email token was invalid. Email links may only be used one time.
             </div>
         {{/if}}
         <form name="login" action="/" method="post">
