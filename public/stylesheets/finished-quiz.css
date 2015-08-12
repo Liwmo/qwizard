@@ -72,10 +72,10 @@
 }
 
 #finishedQuizStats .card .answers .matching-text{
-	word-wrap: break-word;
+	overflow: hidden;
 	color: #fffff5;
 	margin: auto;
 	background-color: #a3709c;
-	display: inline-block;
 	padding: 0.2em 1em 0.2em 1em;
+	width: 200px;
 }

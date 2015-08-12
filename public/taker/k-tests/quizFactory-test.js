@@ -58,7 +58,7 @@ describe('quiz factory tests', function(){
 
 		mockHttp.expectGET('/api/maker/manage/quizResultDetail/1').respond(mock);
 		factory.getQuizResultDetail(1, function(data) {
-			expect(JSON.stringify(data.quiz)).toBe(JSON.stringify(quiz));
+			expect(JSON.stringify(data.questions)).toBe(JSON.stringify(quiz));
 			expect(data.maxPoints).toBe(maxPoints);
 			expect(data.openDate).toBe(mock.openDate);
 			expect(data.closeDate).toBe(mock.closeDate);
@@ -77,7 +77,7 @@ describe('quiz factory tests', function(){
 			{answers: JSON.stringify([{answer: [0]},{answer: [1]},{answer: [0,1,2]}])}
 		];
 		mockHttp.expectGET('/api/maker/manage/allAnswersForAQuiz/1').respond(mock);
-		factory.getAllAnswersForAQuiz(1, function(data) {
+		factory.getAllAnswersForAQuiz(1, [], function(data) {
 			console.log(data);
 			expect(JSON.stringify(data)).toBe(JSON.stringify([[2, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0], [2, 2, 2, 1, 0, 0]]));
 			done();
