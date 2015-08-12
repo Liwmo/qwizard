@@ -10,13 +10,18 @@ app.directive("summaryCard", [function() {
 				'tf': 'True/False',
 				'mc': 'Multiple Choice',
 				'ms': 'Multiple Select',
-				'ma': 'Matching'
+				'ma': 'Matching',
+				'pm': 'Photo Matching'
 			};
 			if(scope.question.type == 'tf'){
 				scope.question.answers = ['True', 'False'];
 			}
 			if(scope.question.type == 'ma') {
 				scope.isMatching = true;
+				scope.question.answers = scope.question.correct;
+			}
+			if(scope.question.type == 'pm') {
+				scope.isPhoto = true;
 				scope.question.answers = scope.question.correct;
 			}
 		}

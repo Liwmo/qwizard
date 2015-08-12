@@ -7,9 +7,12 @@
               		<div ng-repeat="answer in question.answers" 
               			class="flex horizontal answer" 
                                    ng-class="{correct: question.correct.indexOf($index) !== -1}">
-                                   <div ng-hide="isMatching" class="answer-text">{{answer}}</div>
+                                   <div ng-hide="isMatching || isPhoto" class="answer-text">{{answer}}</div>
+                                   <img ng-show="isPhoto" 
+                                        class="answer-text" 
+                                        src="../images/employees/{{answer.split(':')[0]}}.jpg">
               			<div ng-show="isMatching" class="answer-text">{{answer.split(":")[0]}}</div>
-                                   <div ng-show="isMatching" class="matching-text">{{answer.split(":")[1]}}</div>
+                                   <div ng-show="isMatching || isPhoto" class="matching-text">{{answer.split(":")[1]}}</div>
               		</div>
               </div>
               <div class="answers flex-container">
