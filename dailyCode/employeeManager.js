@@ -30,7 +30,10 @@ function grabEmployees() {
 
 				if(!isValidImage(employee.thumbnailPhoto)) {
 					console.log("Image for user: " + name + "is not viewable");
+					return;
 				}
+
+				console.log("ID: " + id);
 
 				imageWriter.writeImage(pathToFile(id), employee.thumbnailPhoto);
             });
@@ -70,13 +73,14 @@ function insertEmployee(name, callback) {
 			console.log("ERROR: Unable to insert the user into the db", err);
 			callback(-1);
 		} else {
-			db.query('INSERT INTO photoMatchStats SET userId=?', message.insertId, function(err, message){
+			var newUserId = message.insertId;
+			db.query('INSERT INTO photoMatchStats SET userId=?', newUserId, function(err, message){
 				if (err) {
 					console.log("ERROR: Failed to add photoMatchStats", err);
 					callback(-1);
 				}
 				else {
-					callback(message.insertId);
+					callback(newUserId);
 				}
 			});	
 		} 
