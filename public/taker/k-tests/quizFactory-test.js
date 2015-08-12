@@ -24,34 +24,62 @@ describe('quiz factory tests', function(){
 	});
 
 	it('getQuizResultDetail - builds quiz information onto quiz object', function(done) {
-		var mock = [{
+		var mock = {
 			title: "Mock Title",
 			openDate: "2015-07-15",
 			closeDate: "2015-07-18",
 			questions: '[{"type":"tf","text":"TestQuestionText","answers":["","",""],"name":"TestQuestion"},{"type":"tf","text":"TestQuestionText","answers":["","",""],"name":"TestQuestion"}]',
 			answers: "[[0], [0]]",
-			pointvalues: "[4]",
+			pointvalues: "[2,2]",
 			avgPoints: 4,
 			employees: 1
-		}];
-
-		var quiz = {
-			pointvalues: [4],
-			questions: [{"type":"tf","text":"TestQuestionText","answers":["","",""],"name":"TestQuestion"},{"type":"tf","text":"TestQuestionText","answers":["","",""],"name":"TestQuestion"}],
-			answers: [[0], [0]],	
 		};
+
+		var quiz = [
+			{
+				points: 2,
+				text: 'TestQuestionText',
+				type: 'tf',
+				category: 'TestQuestion',
+				answers: ["","",""],
+				correct: [0]
+			},
+			{
+				points: 2,
+				text: 'TestQuestionText',
+				type: 'tf',
+				category: 'TestQuestion',
+				answers: ["","",""],
+				correct: [0]
+			}
+		];
 
 		var maxPoints = 4;
 
 		mockHttp.expectGET('/api/maker/manage/quizResultDetail/1').respond(mock);
 		factory.getQuizResultDetail(1, function(data) {
-			expect(JSON.stringify(data.quiz)).toBe(JSON.stringify(quiz));
+			expect(JSON.stringify(data.questions)).toBe(JSON.stringify(quiz));
 			expect(data.maxPoints).toBe(maxPoints);
-			expect(data.openDate).toBe(mock[0].openDate);
-			expect(data.closeDate).toBe(mock[0].closeDate);
-			expect(data.title).toBe(mock[0].title);
-			expect(data.employees).toBe(mock[0].employees);
-			expect(data.avgPoints).toBe(mock[0].avgPoints);
+			expect(data.openDate).toBe(mock.openDate);
+			expect(data.closeDate).toBe(mock.closeDate);
+			expect(data.title).toBe(mock.title);
+			expect(data.employees).toBe(mock.employees);
+			expect(data.avgPoints).toBe(mock.avgPoints);
+			done();
+		});
+		mockHttp.flush();
+	});
+
+	it('getAllAnswersForAQuiz - calculates number of answers for each option', function(done) {
+		var mock = [
+			{answers: JSON.stringify([{answer: [0]},{answer: [1]},{answer: [1,2]}])},
+			{answers: JSON.stringify([{answer: [1]},{answer: [1]},{answer: [0,3]}])},
+			{answers: JSON.stringify([{answer: [0]},{answer: [1]},{answer: [0,1,2]}])}
+		];
+		mockHttp.expectGET('/api/maker/manage/allAnswersForAQuiz/1').respond(mock);
+		factory.getAllAnswersForAQuiz(1, [], function(data) {
+			console.log(data);
+			expect(JSON.stringify(data)).toBe(JSON.stringify([[2, 1, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0], [2, 2, 2, 1, 0, 0]]));
 			done();
 		});
 		mockHttp.flush();

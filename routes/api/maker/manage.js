@@ -22,7 +22,7 @@ router.get('/live', function(req, res) {
 });
 
 router.get('/finished', function(req, res) {
-	var query =  'SELECT publish, results, title, id, ifnull(sum(submitted),0) AS employees ';
+	var query =  'SELECT publish, results, possibleTakerCount, title, id, ifnull(sum(submitted),0) AS employees ';
 		query += 'FROM quizzes '
 		query += 'LEFT JOIN results ON quizzes.id=results.quizid ';
 		query += 'WHERE results <= ? GROUP BY id ' ;
@@ -67,7 +67,7 @@ router.get('/totalEmployees', function(req, res) {
 });
 
 router.get('/quizResultDetail/:id', function(req, res) {
-	var query =  'SELECT publish as openDate, results as closeDate, title, pointvalues, ';
+	var query =  'SELECT publish as openDate, results as closeDate, title, pointvalues, possibleTakerCount, ';
 		query += 'questions, quizzes.answers, (ifnull(ifnull(sum(points),0)/ifnull(sum(submitted),0),0)) AS avgPoints, ifnull(sum(submitted),0) AS employees ';
 		query += 'FROM quizzes ';
 		query += 'LEFT JOIN results ON quizzes.id=results.quizid ';
@@ -75,9 +75,21 @@ router.get('/quizResultDetail/:id', function(req, res) {
 		query += 'GROUP BY id';
 
 	db.query(query, req.params.id, function(err, message) {
-		if(err) {
+		if(err || !message.length) {
 			res.send({error: 'quizResultDetail query failed'});
 			} 
+		else {
+			res.send(message[0]);
+		}
+	});
+});
+
+router.get('/allAnswersForAQuiz/:id', function(req, res) {
+	var query =  'SELECT answers from results where submitted=1 and quizid=?';
+	db.query(query, req.params.id, function(err, message) {
+		if(err || !message.length) {
+			res.send({error: 'quizResultDetail query failed'});
+		}
 		else {
 			res.send(message);
 		}

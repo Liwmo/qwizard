@@ -307,12 +307,16 @@ describe('create quiz', function() {
                         questions:JSON.stringify([{type:"ma", text:"Match", answers:["clue1:answer1", "clue2:answer4", "clue3:answer3", "clue4:answer2"], name:"Quiz category"}])
                     };
 
+                    var employees = ["clue1:answer1", "clue2:answer4", "clue3:answer3", "clue4:answer2"];
+
 
                     $httpBackend.whenGET('/api/maker/quiz/1').respond(function(method, url, data, headers) {
                         return [200, quizObject, {}];
                     });
 
-                    
+                    $httpBackend.whenGET('/api/maker/randomEmployees').respond(function(method, url, data, headers) {
+                        return [200, employees, {}];
+                    });
 
                     // $httpBackend.whenPUT('/api/maker/quiz/9000003').respond(function(method, url, data, headers) {
                     //     return [200, {id: 1}, {}];
@@ -353,6 +357,7 @@ describe('create quiz', function() {
             it('should have 4 answer fields', function() {
                 element(by.cssContainingText("option","Matching")).click();
                 expect(element.all(by.css('.ma .maAnswer')).count()).toBe(4);
+                browser.sleep(5000);
             });
 
             it('should have 4 answer and 4 clue fields for photo macthing', function() {

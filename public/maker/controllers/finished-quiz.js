@@ -3,39 +3,44 @@ app.controller('finished-quiz', ['$scope', 'quizFactory', '$routeParams',  funct
     $scope.avgPoints;
     $scope.maxPoints;
     $scope.quizId = $routeParams.id;
-    $scope.quiz;
+    $scope.questions;
     $scope.closeDate;
     $scope.openDate;
     $scope.numQuestions;
     $scope.quizTitle;
-    $scope.totalEmployees;
+    $scope.possibleTakerCount;
     $scope.activeEmployees;
     $scope.percent; 
+
+    $scope.questions = [{
+        category: 'MC',
+        quizType: 'Multiple Choice',
+        questionText: 'Who are you?',
+        points: 2,
+    }];
 
     quizFactory.getQuizResultDetail($scope.quizId, function(data) {
         function flipDate(date) {
             var flippedDate = date.substr(5, 2) + "/" + date.substr(8, 2) + "/" + date.substr(0, 4);
             return flippedDate;
         }
-        console.log(data);
-    	$scope.quiz = data.quiz;
+    	$scope.questions = data.questions;
     	$scope.quizTitle = data.title;
         $scope.maxPoints = data.maxPoints;
         $scope.closeDate = flipDate(data.closeDate);
         $scope.openDate = flipDate(data.openDate);
-    	$scope.numQuestions = $scope.quiz.questions.length;
+    	$scope.numQuestions = $scope.questions.length;
         $scope.activeEmployees = data.employees;
         $scope.avgPoints = Math.round(data.avgPoints);
-        if($scope.totalEmployees) {
-            $scope.percent = Math.round(($scope.activeEmployees / $scope.totalEmployees)*100);
-        }
-    });
+        $scope.possibleTakerCount = data.possibleTakerCount;
+        $scope.percent = Math.round(($scope.activeEmployees / $scope.possibleTakerCount)*100);
 
-
-    quizFactory.getTotalEmployees(function(data) {
-        $scope.totalEmployees = data[0].totalEmployees;
-        if($scope.activeEmployees) {
-            $scope.percent = Math.round(($scope.activeEmployees / $scope.totalEmployees)*100);
-        }
+        quizFactory.getAllAnswersForAQuiz($scope.quizId, $scope.questions, function(data){
+            for(var i = 0; i < $scope.questions.length; i++){
+                $scope.questions[i].responses = data[i] || [0,0,0,0,0,0];
+            }
+            console.log(data);
+            console.log($scope.questions);
+        });
     });
 }]);

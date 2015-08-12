@@ -1,26 +1,36 @@
-<div id="finishedQuizStats">
+<div style="overflow-y:auto" id="finishedQuizStats">
 	<div class="flex-container horizontal toolbar teal-medium shadow">
 		<span>{{quizTitle}}</span>
 	</div>
-	<div id="overallStats" class="flex-container horizontal">
-		<div class="time flex flex-container vertical">
-			<span>Available: {{openDate}} - {{closeDate}}</span>
+	<div id="overallStats" class="shadow card">
+		<div class="time question-text">
+			<span>Available: <span style="font-family: Signika">{{openDate}} - {{closeDate}}</span></span>
 		</div>
-		<div>
-			<div class="largetext">{{numQuestions}}</div>
-			<div class="subtext">questions</div>
+		<div class="answer-pad">
+			<div  class="flex-container horizontal">
+				<div class="flex horizontal answer">
+					<div class="largetext">{{numQuestions}}</div>
+					<div class="subtext">questions</div>
+				</div>
+				<div class="flex horizontal answer">
+					<div class="largetext">{{maxPoints}}</div>
+					<div class="subtext">max score</div>
+				</div>
+				<div class="flex horizontal answer">
+					<div class="largetext">{{avgPoints}}</div>
+					<div class="subtext">average score</div>
+				</div>
+				<div class="flex horizontal answer">
+					<div class="largetext">{{percent}}%</div>
+					<div class="subtext">{{activeEmployees}}/{{possibleTakerCount}} employees</div>
+				</div>
+			</div>
 		</div>
-		<div>
-			<div class="largetext">{{maxPoints}}</div>
-			<div class="subtext">max score</div>
-		</div>
-		<div>
-			<div class="largetext">{{avgPoints}}</div>
-			<div class="subtext">average score</div>
-		</div>
-		<div>
-			<div class="largetext">{{percent}}%</div>
-			<div class="subtext">{{activeEmployees}}/{{totalEmployees}} employees</div>
+	</div>
+
+	<div>
+		<div class="summary-cards" ng-repeat="question in questions">
+			<summary-card question="question"></summary-card>
 		</div>
 	</div>
 </div>
