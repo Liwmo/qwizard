@@ -227,6 +227,13 @@ svg, img {
     padding: .15em !important;
 }
 
+#header-username {
+        font-family: "Dosis";
+        font-size: .5em;
+        font-weight: 300;
+        margin-right: 2.5em;
+    }
+
 .notification {
     position:relative;
     padding:.65em;
@@ -641,6 +648,7 @@ and (max-device-width : 1024px) {
         background-color: #332532 !important;
     }
 }
+
 /* Mobile Landscape */
 @media only screen 
   and (orientation: landscape)
@@ -654,6 +662,14 @@ and (max-device-width : 1024px) {
         align-items:center !important;
         -webkit-align-content:center !important;
         align-content:center !important;
+    }
+}
+
+@media only screen 
+and (min-width : 320px) 
+and (max-width : 1024px) {
+    #header-username {
+        display:none !important;
     }
 }
 

@@ -73,7 +73,7 @@ app.controller('dashboard', ['$scope', 'notificationFactory', 'leaderboardFactor
       else {
         $scope.username = data;
       }
-    })
+    });
 
     $scope.toggleMenu = function() {
       console.log('toggleMenu called');
