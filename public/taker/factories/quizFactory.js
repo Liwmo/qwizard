@@ -61,7 +61,7 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 		});
 	};
 
-	self.getAllAnswersForAQuiz = function(id, callback) {
+	self.getAllAnswersForAQuiz = function(id, questions, callback) {
 		$http.get('/api/maker/manage/allAnswersForAQuiz/' + id).success(function(data){
 			console.log(data);
 			var responses = [];
@@ -71,12 +71,16 @@ app.factory("quizFactory", ["$http", "$sce", function($http, $sce){
 					if(j == responses.length){
 						responses.push([0,0,0,0,0,0]);
 					}
-					for(var x=0; x < data[i][j].answer.length; x++) {
-						if(responses[j][data[i][j].answer[x]] == undefined)
-						{
-							responses[j][data[i][j].answer[x]] = 0;
+					if(typeof data[i][j].answer[0] == "string"){
+						for(var x=0; x < data[i][j].answer.length; x++){
+							if(data[i][j].answer[x] == questions[j].correct[x]){
+								responses[j][x]++;
+							}
 						}
-						responses[j][data[i][j].answer[x]]++;
+					}else{
+						for(var x=0; x < data[i][j].answer.length; x++) {
+							responses[j][data[i][j].answer[x]]++;
+						}
 					}
 				}
 			}

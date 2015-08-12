@@ -36,7 +36,7 @@ app.controller('finished-quiz', ['$scope', 'quizFactory', '$routeParams',  funct
             $scope.percent = Math.round(($scope.activeEmployees / $scope.totalEmployees)*100);
         }
 
-        quizFactory.getAllAnswersForAQuiz($scope.quizId, function(data){
+        quizFactory.getAllAnswersForAQuiz($scope.quizId, $scope.questions, function(data){
             for(var i = 0; i < $scope.questions.length; i++){
                 $scope.questions[i].responses = data[i] || [0,0,0,0,0,0];
             }

@@ -17,6 +17,7 @@ app.directive("summaryCard", [function() {
 			}
 			if(scope.question.type == 'ma') {
 				scope.isMatching = true;
+				scope.question.answers = scope.question.correct;
 			}
 		}
 	};
