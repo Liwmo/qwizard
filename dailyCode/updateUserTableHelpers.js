@@ -6,14 +6,15 @@ function ldapEmployees(callback){
 	var options = {
 		filter: '(objectClass=user)',
 		scope: 'sub',
-		attributes: ['cn',]
+		attributes: ['cn']
 	};
 
 	ldapSearch(searchScope, options, function(employees){
-		employees.forEach(function(e, i, a){
-			a[i] = e.cn;
+		var temp = [];
+		employees.forEach(function(e){
+			temp.push(e.cn + '');
 		});
-		callback(employees);
+		callback(temp);
 	});
 }
 
@@ -31,12 +32,13 @@ function databaseUsers(callback){
 	});
 }
 
-function deleteUser(name){
+function deleteUser(name, callback){
 	db.query('delete from users where name=?', name, function(err, message){
 		if(err){
 			console.log('query error!');
 			process.exit(1);
 		}
+		callback();
 	});
 }
 
