@@ -16,14 +16,21 @@ function guid() {
 }
 
 router.get('/logout', function(req, res) {
-    console.log('logging out');
+    var destination;
+    if(req.query.error) {
+        destination = '/?error=' + req.query.error;
+    } else {
+        destination = '/';
+    }
+
+
     if(req.cookies.login){
         db.query('DELETE FROM tokens WHERE cookie=?', req.cookies.login, function(err, message){
             res.clearCookie('login');
-            res.redirect('/');
+            res.redirect(destination);
         });
-    }else{
-        res.redirect('/');
+    } else {
+        res.redirect(destination);
     }
 });
 
@@ -31,13 +38,17 @@ router.get('/', function(req, res, next) {
     if(req.cookies.login){
         res.redirect('/taker');
     }else{
-        var bad = decodeURIComponent(req.query.badCredentials);
-        var showBadCredentialsError = false;
-        if(bad=='true') {
-            showBadCredentialsError = true;
-        }
+        if(req.query.error) {
+            var errorType = decodeURIComponent(req.query.error);
 
-        res.render('index', { showBadCredentialsError: showBadCredentialsError });
+            if(errorType === 'invalidToken') {
+                res.render('index', {invalidToken: true});
+            } else if (errorType === 'badCredentials') {
+                res.render('index', {badCredentials: true});
+            }
+        } else {
+            res.render('index');
+        }
     }
 });
 
@@ -45,8 +56,8 @@ router.post('/', function(req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
     if(!username || !password){
-        var badCredentials = encodeURIComponent('true');
-        res.redirect('/?badCredentials=' + badCredentials);
+        var errorType = encodeURIComponent('badCredentials');
+        res.redirect('/?error=' + errorType);
         return;
     }
 
@@ -72,8 +83,8 @@ router.post('/', function(req, res, next) {
     client.bind(bindPath, password, function(err, ldapRes) {
         if(err){
             console.log(err.message);
-            var badCredentials = encodeURIComponent('true');
-            res.redirect('/?badCredentials=' + badCredentials);
+            var errorType = encodeURIComponent('badCredentials');
+            res.redirect('/?error=' + errorType);
         }else{
             var cookie = guid();
             convert.nameToId(username, function(result){

@@ -21,7 +21,8 @@ router.get('/:token', function(req, res, next) {
 	db.query('Select id from emailTokens where token=?', req.params.token, function(err, message){
 		var cookie = guid();
 		if(err || !message.length){
-			res.send({error: "Invalid email token"});
+      var errorType = encodeURIComponent('invalidToken');
+      res.redirect('/logout?error=' + errorType);
 		}else{
 			console.log(message);
 			db.query("DELETE FROM emailTokens where token=?", req.params.token);
