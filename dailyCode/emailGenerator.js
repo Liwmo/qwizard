@@ -34,7 +34,7 @@ var insertTokens = function(next, users) {
 	var count = 0;
 	for(var i = 0; i < users.length; i++){
 		for(var j = 0; j < users[i].tokens.length; j++){
-			db.query('insert into emailTokens VALUES(?, ?)', [users[i].id, users[i].tokens[j]], function(err, message){
+			db.query('insert into emailTokens SET id=?, token=?', [users[i].id, users[i].tokens[j]], function(err, message){
 				if(err){
 					console.log(err);
 				}

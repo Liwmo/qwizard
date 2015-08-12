@@ -280,14 +280,25 @@ describe('Send Email Tests', function() {
 	describe('insertTokens Test', function() {
 		var users;
 
-		beforeEach(function() {
+		beforeEach(function(done) {
 			users = [];
 			for(var i=0; i<10; i++) {
 				users.push({
-					id: i + 900000,
+					id: i + 9000000,
 					tokens: ["ABCDEFG" + i.toString()]
 				});
 			}
+			var count = 0;
+			var tryDone = function(){
+				count++;
+				if(count == users.length){
+					done();
+				}
+			};
+
+			users.forEach(function(e){
+				db.query('insert into users SET id=?, name=?', [e.id, 'qwizard.' + e.id], tryDone);
+			});
 		});
 
 		it("Should insert the tokens into the database", function(done) {
@@ -300,10 +311,12 @@ describe('Send Email Tests', function() {
 			};
 			tasks.insertTokens(function() {
 				users.forEach(function(user) {
-					db.query("select id, token from emailTokens where id=?", user.id, function(err, message) {
+					var id = user.id;
+					var token = user.tokens[0];
+					db.query("select id, token from emailTokens where id=?", id, function(err, message) {
 						if(!err) {
-							assert.equal(user.id, message[0].id);
-							assert.equal(user.tokens[0], message[0].token);
+							assert.equal(id, message[0].id);
+							assert.equal(token, message[0].token);
 						} else {
 							console.log(err);
 						}
@@ -315,7 +328,7 @@ describe('Send Email Tests', function() {
 
 		afterEach(function(done) {
 			users.forEach(function(user) {
-				db.query("delete from emailTokens where id=?", user.id, function(err, message) {
+				db.query("delete from users where id=?", user.id, function(err, message) {
 					if(err) {
 						console.log(err);
 					}
