@@ -2,6 +2,7 @@ app.controller('dashboard',  ['$scope', 'userFactory', function($scope, userFact
     
 	$scope.isMaker = false;
 	$scope.currentUser = -1;
+  $scope.username = "";
 
     $scope.toggleMenu = function() {
       console.log('toggleMenu called');
@@ -18,6 +19,15 @@ app.controller('dashboard',  ['$scope', 'userFactory', function($scope, userFact
         }
 
         console.log('users role: ', data.role, $scope.isMaker);
+    });
+
+    userFactory.getUserName(function(data) {
+      if (data.error) {
+        $scope.username = data.error;
+      }
+      else {
+        $scope.username = data;
+      }
     });
 
 }]);
