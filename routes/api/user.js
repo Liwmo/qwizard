@@ -41,7 +41,7 @@ router.route('/stats')
         convert.cookieToId(req.cookies.login, function(userId) {
             var apiResult = {};
             if(userId){
-                var statsQuery = 'select sum(r.points) as userPoints, count(r.quizid) as totalQuizzes, p.matches, sum(q.totalPoints) as totalPoints ' +
+                var statsQuery = 'select sum(r.points) as userPoints, sum(r.submitted) as totalQuizzes, p.matches, sum(q.totalPoints) as totalPoints ' +
                                 'from results r, photoMatchStats p, quizzes q ' +
                                 'where p.userId=? and r.userid=p.userId and r.quizid=q.id and q.results<= ?';
                 db.query(statsQuery, [userId, today], function(err, statResult) {

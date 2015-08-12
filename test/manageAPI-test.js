@@ -25,7 +25,8 @@ describe("Manage quizzes endpoint", function(done){
         publish: "2014-12-04",
         pointvalues: "[5, 4]",
         title: "Title",
-        questions: "[{\"type\":\"tf\",\"text\":\"TestQuestionText\",\"answers\":\"[\"\",\"\",\"\"]\",\"name\":\"TestQuestion\"},{\"type\":\"tf\",\"text\":\"TestQuestionText\",\"answers\":\"[\"\",\"\",\"\"]\",\"name\":\"TestQuestion\"}]"
+        questions: "[{\"type\":\"tf\",\"text\":\"TestQuestionText\",\"answers\":\"[\"\",\"\",\"\"]\",\"name\":\"TestQuestion\"},{\"type\":\"tf\",\"text\":\"TestQuestionText\",\"answers\":\"[\"\",\"\",\"\"]\",\"name\":\"TestQuestion\"}]",
+        totalPoints: "9"
     }
 
     var user1 = {
@@ -39,6 +40,7 @@ describe("Manage quizzes endpoint", function(done){
     	name: "qwizardtestuser.3"
     }
 
+
     beforeEach("Login", function(done) {
         convert.nameToId("proj-1189-bind", function(id) {
             bindId = id;
@@ -46,6 +48,7 @@ describe("Manage quizzes endpoint", function(done){
             	db.query("insert into quizzes SET ?", quiz, function(err, message) {
             		quizId = message.insertId;
             		db.query("insert into users SET ?", user1, function(err, message) {
+                        console.log(err);
             			userId1 = message.insertId;
 					    db.query("insert into users SET ?", user2, function(err, message) {
 			            	userId2 = message.insertId;
@@ -117,6 +120,7 @@ describe("Manage quizzes endpoint", function(done){
 				console.log(err);
 				done();
 			} else {
+                console.log(body);
 				body = JSON.parse(body);
                 assert.equal(body[0].publish, '2014-12-04T06:00:00.000Z');
                 assert.equal(body[0].results, '2014-12-08T06:00:00.000Z');
