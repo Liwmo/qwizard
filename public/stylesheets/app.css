@@ -271,39 +271,44 @@ svg, img {
      border-bottom: 0.1em solid #17a587;
 }
 
-.menu {
-    align-items:center;
-    align-content:center;
-    justify-content:center;
+#drawer .menu {
+    -ms-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items:flex-start;
+    -webkit-align-content:flex-start;
+    -webkit-justify-content:space-around;
+    align-items:flex-start;
+    align-content:flex-start;
+    justify-content:space-around;
+    flex-wrap:wrap;
 }
 
-.menu .item span{
+#drawer .menu .item span{
     margin: auto;
     text-align: center;
     font-family: Dosis;
     font-weight: 500;
 }
-.menu .item span > * {
+#drawer .menu .item span > * {
     margin:0 auto;
 }
-
-.menu .item svg{
-    fill: #fffff5;
-    height: 100%;
-    width:100%;
-}
-.menu .item > span :first-child {
-    width:2em;
+#drawer .menu .item > span :first-child {
     height:2em;
+    width:2em;
 }
 
-.menu .item {
-    width: 100%;
+#drawer .menu .item {
+    max-height:5em;
+    max-width:6em;
+    min-height:5em;
+    min-width:6em;
     opacity:.4;
 }
-.menu .item:hover, .menu .item:active {
+#drawer .menu .item:hover, .menu .item:active {
     opacity:1;
     background-color:#70666f;
+    box-shadow: 0 0 .5rem 0 rgba(0,0,0,.6), .1rem .1rem .2rem 0 rgba(0, 0, 0, .2)
 }
 
 /*Area for content Note: this will only scroll up+down, never left+right */
@@ -379,10 +384,6 @@ hr{
 .quiz-navigation .button:nth-child(even) {
     margin-left: .25em;
 }
-
-/*.quiz-navigation .button:hover {
-    background-color: #332532 !important;
-}*/
 
 .question .answer {
     word-wrap:break-word;
@@ -640,6 +641,22 @@ and (max-device-width : 1024px) {
         background-color: #332532 !important;
     }
 }
+/* Mobile Landscape */
+@media only screen 
+  and (orientation: landscape)
+  and (max-device-width:1024px)
+  and (min-device-width: 320px) {
+    #drawer .menu {
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        -webkit-align-items:center !important;
+        align-items:center !important;
+        -webkit-align-content:center !important;
+        align-content:center !important;
+    }
+}
+
 /*Styles for everyone else*/
 @media only screen 
 and (min-width : 1024px) {
@@ -662,6 +679,44 @@ and (min-width : 1024px) {
     .toolbar .button {
         display:none;
     }
+
+    #drawer .menu {
+        -webkit-justify-content:flex-start;
+        justify-content:flex-start;
+    }
+
+    #drawer .menu .item{
+        min-width:100%;
+        max-height:4rem;
+        min-height:4rem;
+    }
+
+    #drawer .menu .item > span {
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+    }
+
+    #drawer .menu .item .icon {
+        width:1.3em !important;
+        margin-left:2.5em;
+        margin-right:1em;
+    }
+    /*The stats svg is a different size*/
+    #drawer .menu .item:first-child .icon {
+        margin-left:34px;
+    }
+
+    #drawer .menu .item > span > span {
+        margin:auto;
+        text-align:left;
+        -ms-flex: 1 1 0.000000001px;
+        -webkit-flex: 1;
+        flex: 1;
+        -webkit-flex-basis: 0.000000001px;
+        flex-basis: 0.000000001px;
+        }
+
 }
 
 /*Styles for everyone else*/
