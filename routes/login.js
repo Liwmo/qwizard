@@ -68,7 +68,7 @@ router.post('/', function(req, res, next) {
 
     var tlsOptions = { 'rejectUnauthorized': false }
     var client = ldap.createClient({
-        url: 'ldaps://dc3-stl.schafer.lan:636',
+        url: 'ldap://127.0.0.1:389',
         tlsOptions: tlsOptions
     });
 
@@ -77,7 +77,7 @@ router.post('/', function(req, res, next) {
         var bindPath = 'CN='+ username +',OU=ServiceAccounts,OU=UsersAccounts,OU=StLouis,DC=schafer,DC=lan';
     }
     else {
-        var bindPath = 'CN=' + username + ',OU=Employees,OU=UsersAccounts,OU=StLouis,DC=schafer,DC=lan';
+        var bindPath = 'CN=' + username + ',CN=users,OU=group,DC=test,DC=com';
     }
 
     client.bind(bindPath, password, function(err, ldapRes) {
@@ -90,6 +90,7 @@ router.post('/', function(req, res, next) {
             convert.nameToId(username, function(result){
                 if(!result){
                     db.query("INSERT INTO users (name) VALUES(?)", username, function(err, message){
+                        console.log(err);
                         convert.nameToId(username, function(result){
                             db.query("INSERT INTO tokens SET ?", {cookie: cookie, userid: result}, function(err, message){
                                 if(err){
